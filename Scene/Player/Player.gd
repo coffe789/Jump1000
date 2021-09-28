@@ -34,6 +34,8 @@ func get_input():
 	if Input.is_action_pressed("jump") && is_on_floor():
 		acceleration.y -= JUMP_ACCELERATION
 		print("jampu")
+	if Input.is_action_just_released("jump") && acceleration.y < 0: #release jump when going up
+		acceleration.y /= 2;
 	
 func apply_drag():
 	if is_on_floor():
