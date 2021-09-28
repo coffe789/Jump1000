@@ -31,7 +31,7 @@ func get_input():
 		pass
 	if Input.is_action_pressed("up"):
 		pass
-	if Input.is_action_pressed("jump") && is_on_floor():
+	if Input.is_action_just_pressed("jump") && is_on_floor():
 		acceleration.y -= JUMP_ACCELERATION
 		print("jampu")
 	if Input.is_action_just_released("jump") && acceleration.y < 0: #release jump when going up
