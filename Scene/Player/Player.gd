@@ -1,5 +1,6 @@
 extends KinematicBody2D
 
+onready var JumpAudio = get_node("JumpAudio")
 const GRAVITY = 20
 export var velocity = Vector2(0,0);
 export var acceleration = Vector2(0,0)
@@ -10,11 +11,16 @@ const MAX_X_SPEED = 400
 const JUMP_ACCELERATION = 600
 const MAX_FALL_SPEED = 600
 const UP_DIRECTION = Vector2(0,-1)
-const JUMP_BUFFER_DURATION = 0.2
+const JUMP_BUFFER_DURATION = 0.15
+var rng = RandomNumberGenerator.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
+	rng.randomize()
+
+func play_jump_audio():
+	#JumpAudio.pitch_scale = rng.randf_range(1.2, 0.9)
+	JumpAudio.play(0.001)
 
 var isJumpBuffered = false # Needs to be global so that it persists with timer.
 # Sets buffer jump flag, and initiates buffer jump if conditions are set
@@ -24,6 +30,7 @@ func doBufferJump() -> bool:
 		justJumpBuffered = true
 		isJumpBuffered = false
 		acceleration.y -= JUMP_ACCELERATION
+		play_jump_audio()
 	elif Input.is_action_just_pressed("jump") && !is_on_floor() \
 	and !isJumpBuffered:
 		isJumpBuffered = true;
@@ -50,6 +57,8 @@ func get_movement_input() -> void:
 		pass
 	if (Input.is_action_just_pressed("jump") && is_on_floor()):
 		acceleration.y -= JUMP_ACCELERATION
+		play_jump_audio()
+
 
 # Decelerates the player accordingly
 func apply_drag() -> void:
