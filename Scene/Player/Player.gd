@@ -12,7 +12,9 @@ const JUMP_ACCELERATION = 600
 const MAX_FALL_SPEED = 600
 const UP_DIRECTION = Vector2(0,-1)
 const JUMP_BUFFER_DURATION = 0.15
+const COYOTE_TIME = 0.12
 var rng = RandomNumberGenerator.new()
+var grounded = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -26,12 +28,12 @@ var isJumpBuffered = false # Needs to be global so that it persists with timer.
 # Sets buffer jump flag, and initiates buffer jump if conditions are set
 func doBufferJump() -> bool:
 	var justJumpBuffered = false
-	if isJumpBuffered && is_on_floor():
+	if isJumpBuffered && grounded && acceleration.y >= 0:
 		justJumpBuffered = true
 		isJumpBuffered = false
 		acceleration.y -= JUMP_ACCELERATION
 		play_jump_audio()
-	elif Input.is_action_just_pressed("jump") && !is_on_floor() \
+	elif Input.is_action_just_pressed("jump") && !grounded \
 	and !isJumpBuffered:
 		isJumpBuffered = true;
 		yield(get_tree().create_timer(JUMP_BUFFER_DURATION),"timeout")
@@ -55,7 +57,7 @@ func get_movement_input() -> void:
 		pass
 	if Input.is_action_pressed("up"):
 		pass
-	if (Input.is_action_just_pressed("jump") && is_on_floor()):
+	if (Input.is_action_just_pressed("jump") && grounded && acceleration.y >= 0):
 		acceleration.y -= JUMP_ACCELERATION
 		play_jump_audio()
 
@@ -78,6 +80,8 @@ func clamp_movement() -> void:
 func _physics_process(delta) -> void:
 	if is_on_floor():
 		acceleration.y=0
+		grounded=true
+		$CoyoteTimer.start(COYOTE_TIME)
 	get_movement_input()
 	var justJumpBuffered = doBufferJump()
 	check_if_finish_jump(justJumpBuffered)
@@ -86,3 +90,8 @@ func _physics_process(delta) -> void:
 	clamp_movement()
 	velocity += acceleration
 	velocity = move_and_slide(velocity,UP_DIRECTION)
+
+
+func _on_coyote_timeout():
+	if !is_on_floor():
+		grounded = false
