@@ -1,8 +1,15 @@
 # Defines global functions for all player states to use
 extends Node
 class_name PlayerState
+
+#Nodes of global interest
+#==================================================#
 onready var Player = get_parent().get_parent()
 onready var Audio = Player.get_node("Audio")
+
+#Required variables
+#==================================================#
+var next_state
 
 #All constants are stored here for convenient access
 #====================================================#
@@ -16,26 +23,40 @@ const MAX_FALL_SPEED = 600
 const UP_DIRECTION = Vector2(0,-1)
 const JUMP_BUFFER_DURATION = 0.15
 const COYOTE_TIME = 0.12
-var rng = RandomNumberGenerator.new()
-var grounded = false
+var rng = RandomNumberGenerator.new() #Should do something about this later
+var grounded = false #should get rid of this
 
 
-# Called when state is entered. Can be given list of string arguments
-func enter(_argv):
-	print(self)
+# Called when state is entered. Can be given list of strings
+func enter(init_arg):
+	print(self.name)
 
-# Called when state is exited. Can be given list of string arguments
-func exit(_argv):
+# Called when state is exited. May return a list of strings
+func exit():
 	pass
 
 func _ready():
 	rng.randomize()
 
-func _physics_process(_delta):
+# Called every physics frame a state is active
+func do_state_logic(delta):
 	pass
 
-func get_inputs():
+func check_for_new_state():
 	pass
+
+func get_inputs() -> String:
+	if Input.is_action_pressed("right"):
+		return "right"
+	if Input.is_action_pressed("left"):
+		return "left"
+	if Input.is_action_pressed("down"):
+		return "down"
+	if Input.is_action_pressed("up"):
+		return "up"
+	if Input.is_action_pressed("jump"):
+		return "jump"
+	return "no input"
 
 func play_jump_audio():
 	#JumpAudio.pitch_scale = rng.randf_range(1.2, 0.9)
@@ -64,7 +85,7 @@ func check_if_finish_jump(justJumpBuffered) -> void:
 		Player.acceleration.y /= 2;
 
 # Get movement inputs and set acceleration accordingly
-func get_movement_input() -> void:
+func apply_movement_input() -> void:
 	Player.velocity = Vector2()
 	if Input.is_action_pressed("right"):
 		Player.acceleration.x += ACCELERATE_WALK
@@ -82,8 +103,10 @@ func get_movement_input() -> void:
 # Decelerates the player accordingly
 func apply_drag() -> void:
 	if Player.is_on_floor():
+		Player.velocity.x *= FLOOR_DRAG
 		Player.acceleration.x *= FLOOR_DRAG
 	else:
+		Player.velocity.x *= AIR_DRAG
 		Player.acceleration.x *= AIR_DRAG
 
 # Keeps velocity and acceleration within defined range

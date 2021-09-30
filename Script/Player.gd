@@ -29,7 +29,7 @@ func _physics_process(delta) -> void:
 #		$CoyoteTimer.start(COYOTE_TIME)
 #	elif is_on_ceiling():
 #		acceleration.y=0
-#	get_movement_input()
+#	apply_movement_input() #may have changed the name since
 #	var justJumpBuffered = doBufferJump()
 #	check_if_finish_jump(justJumpBuffered)
 #	apply_drag()
@@ -41,8 +41,13 @@ func _physics_process(delta) -> void:
 
 
 
-func state_transition():
-	pass
+func state_transition(next_state):
+	var init_arg = state_list[current_state].exit()
+	state_list[next_state].enter(init_arg)
+	current_state = next_state
 
 func do_state_logic(state, delta):
-	state_list[state]._physics_process(delta)
+	state_list[state].do_state_logic(delta)
+	var next_state = state_list[state].check_for_new_state()
+	if next_state != current_state && next_state != null:
+		state_transition(next_state)
