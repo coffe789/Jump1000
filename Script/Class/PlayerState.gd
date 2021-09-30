@@ -103,10 +103,8 @@ func apply_movement_input() -> void:
 # Decelerates the player accordingly
 func apply_drag() -> void:
 	if Player.is_on_floor():
-		Player.velocity.x *= FLOOR_DRAG
 		Player.acceleration.x *= FLOOR_DRAG
 	else:
-		Player.velocity.x *= AIR_DRAG
 		Player.acceleration.x *= AIR_DRAG
 
 # Keeps velocity and acceleration within defined range
