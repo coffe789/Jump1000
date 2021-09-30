@@ -82,6 +82,8 @@ func _physics_process(delta) -> void:
 		acceleration.y=0
 		grounded=true
 		$CoyoteTimer.start(COYOTE_TIME)
+	elif is_on_ceiling():
+		acceleration.y=0
 	get_movement_input()
 	var justJumpBuffered = doBufferJump()
 	check_if_finish_jump(justJumpBuffered)
