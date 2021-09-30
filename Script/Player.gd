@@ -22,7 +22,8 @@ func _ready() -> void:
 
 # Controls every aspect of player physics
 func _physics_process(delta) -> void:
-	do_state_logic(current_state, delta)
+	state_list[current_state].do_state_logic(delta)
+	try_state_transition()
 #	if is_on_floor():
 #		acceleration.y=0
 #		grounded=true
@@ -41,13 +42,10 @@ func _physics_process(delta) -> void:
 
 
 
-func state_transition(next_state):
-	var init_arg = state_list[current_state].exit()
-	state_list[next_state].enter(init_arg)
-	current_state = next_state
-
-func do_state_logic(state, delta):
-	state_list[state].do_state_logic(delta)
-	var next_state = state_list[state].check_for_new_state()
+func try_state_transition():
+	var next_state = state_list[current_state].check_for_new_state()
 	if next_state != current_state && next_state != null:
-		state_transition(next_state)
+		var init_arg = state_list[current_state].exit()
+		state_list[next_state].enter(init_arg)
+		current_state = next_state
+

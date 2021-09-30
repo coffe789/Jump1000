@@ -28,7 +28,7 @@ var grounded = false #should get rid of this
 
 
 # Called when state is entered. Can be given list of strings
-func enter(init_arg):
+func enter(_init_arg):
 	print(self.name)
 
 # Called when state is exited. May return a list of strings
@@ -39,24 +39,16 @@ func _ready():
 	rng.randomize()
 
 # Called every physics frame a state is active
-func do_state_logic(delta):
+func do_state_logic(_delta):
 	pass
 
 func check_for_new_state():
 	pass
 
-func get_inputs() -> String:
-	if Input.is_action_pressed("right"):
-		return "right"
-	if Input.is_action_pressed("left"):
-		return "left"
-	if Input.is_action_pressed("down"):
-		return "down"
-	if Input.is_action_pressed("up"):
-		return "up"
-	if Input.is_action_pressed("jump"):
-		return "jump"
-	return "no input"
+
+
+
+
 
 func play_jump_audio():
 	#JumpAudio.pitch_scale = rng.randf_range(1.2, 0.9)
@@ -86,7 +78,6 @@ func check_if_finish_jump(justJumpBuffered) -> void:
 
 # Get movement inputs and set acceleration accordingly
 func apply_movement_input() -> void:
-	Player.velocity = Vector2()
 	if Input.is_action_pressed("right"):
 		Player.acceleration.x += ACCELERATE_WALK
 	if Input.is_action_pressed("left"):
@@ -102,6 +93,7 @@ func apply_movement_input() -> void:
 
 # Decelerates the player accordingly
 func apply_drag() -> void:
+	Player.velocity = Vector2()
 	if Player.is_on_floor():
 		Player.acceleration.x *= FLOOR_DRAG
 	else:

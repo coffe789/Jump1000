@@ -11,11 +11,10 @@ func _ready():
 	pass # Replace with function body.
 
 
-func _physics_process(delta):
-	pass
 
-func do_state_logic(delta):
+func do_state_logic(_delta):
 	apply_drag()
+	Player.acceleration.y = GRAVITY
 	clamp_movement()
 	Player.velocity += Player.acceleration
 	Player.velocity = Player.move_and_slide(Player.velocity,UP_DIRECTION)
@@ -23,8 +22,8 @@ func do_state_logic(delta):
 func check_for_new_state() -> String:
 	if (!Player.is_on_floor()):
 		return "falling"
-	if (get_inputs()=="left" || get_inputs()=="right"):
+	if (Input.is_action_pressed("left") || Input.is_action_pressed("right")):
 		return "running"
-	if (get_inputs()=="jump"):
+	if (Input.is_action_just_pressed("jump")):
 		return "jumping"
 	return "idle"

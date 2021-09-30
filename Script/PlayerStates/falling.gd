@@ -10,7 +10,8 @@ func _ready():
 	pass # Replace with function body.
 
 
-func do_state_logic(delta):
+
+func do_state_logic(_delta):
 	apply_movement_input()
 	Player.acceleration.y += GRAVITY
 	apply_drag()
@@ -20,10 +21,10 @@ func do_state_logic(delta):
 
 func check_for_new_state() -> String:
 	if (Player.is_on_floor()):
-		if (get_inputs()=="left" || get_inputs()=="right"):
+		if (Input.is_action_pressed("left") || Input.is_action_pressed("right")):
 			return "running"
 		else:
 			return "idle"
-	if (get_inputs()=="jump" && false): # false -> canCoyoteJump
+	if (Input.is_action_just_pressed("jump") && false): # false -> canCoyoteJump
 		return "jumping"
 	return "falling"
