@@ -27,7 +27,8 @@ const AFTER_JUMP_DECELERATION_FACTOR = 2
 var rng = RandomNumberGenerator.new() #Should do something about this later
 var grounded = false #should get rid of this
 
-
+#Base class functions
+#================================================#
 # Called when state is entered. Can be given list of strings
 func enter(_init_arg):
 	print(self.name)
@@ -36,9 +37,6 @@ func enter(_init_arg):
 func exit():
 	pass
 
-func _ready():
-	rng.randomize() #this probably shouldn't be in this class
-
 # Called every physics frame a state is active
 func do_state_logic(_delta):
 	pass
@@ -46,7 +44,8 @@ func do_state_logic(_delta):
 func check_for_new_state() -> String:
 	return "Error: State transitions are not defined"
 
-
+#Shared utility functions
+#===============================================#
 func check_buffered_jump_input():
 	if Input.is_action_just_pressed("jump"):
 		Player.isJumpBuffered = true;
