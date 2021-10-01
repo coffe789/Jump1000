@@ -3,11 +3,11 @@ extends PlayerState
 func do_state_logic(_delta):
 	start_coyote_time()
 	Player.velocity.y = 0
-	apply_directional_input()
-	Player.acceleration.y = GRAVITY
+	Player.input_acceleration.x = get_input_direction() * ACCELERATE_WALK
+	Player.external_acceleration.y = GRAVITY
 	apply_drag()
 	clamp_movement()
-	Player.velocity += Player.acceleration
+	Player.velocity += get_total_acceleration()
 	Player.velocity = Player.move_and_slide(Player.velocity,UP_DIRECTION)
 
 func check_for_new_state() -> String:

@@ -21,7 +21,6 @@ const UP_DIRECTION = Vector2(0,-1)
 const JUMP_BUFFER_DURATION = 0.1
 const COYOTE_TIME = 0.12
 const AFTER_JUMP_SLOWDOWN_FACTOR = 2
-var rng = RandomNumberGenerator.new() #Should do something about this later
 var grounded = false #should get rid of this
 
 #Base class functions
@@ -50,17 +49,13 @@ func check_buffered_jump_input():
 
 # Get movement inputs and set acceleration accordingly
 # Maybe have the acceleration as a parameter
-func apply_directional_input() -> void:
-	var acceleration_to_add = 0
+func get_input_direction() -> Vector2:
+	var x = 0;
 	if Input.is_action_pressed("right"):
-		acceleration_to_add += ACCELERATE_WALK
+		x += 1
 	if Input.is_action_pressed("left"):
-		acceleration_to_add -=ACCELERATE_WALK
-	if Input.is_action_pressed("down"):
-		pass
-	if Input.is_action_pressed("up"):
-		pass
-	Player.acceleration.x = acceleration_to_add
+		x -= 1
+	return x
 
 # Decelerates the player accordingly
 # Should split this so the state decides the drag factor
@@ -73,10 +68,13 @@ func apply_drag() -> void:
 # Keeps velocity and acceleration within defined range
 # TODO: instead only clamp movement added directly from inputs
 func clamp_movement() -> void:
-	Player.acceleration.y= clamp(Player.acceleration.y, -INF,MAX_FALL_SPEED)
+	Player.velocity.y= clamp(Player.velocity.y, -INF,MAX_FALL_SPEED)
 	Player.velocity.x = clamp(Player.velocity.x, -MAX_X_SPEED,MAX_X_SPEED)
-	Player.acceleration.x = clamp(Player.acceleration.x, -MAX_X_SPEED,MAX_X_SPEED)
 
 func start_coyote_time():
 	Player.canCoyoteJump = true
 	Timers.get_node("CoyoteTimer").start(COYOTE_TIME)
+
+func get_total_acceleration():
+	return (Player.external_acceleration + Player.input_acceleration)
+

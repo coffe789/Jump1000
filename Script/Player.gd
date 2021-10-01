@@ -1,7 +1,8 @@
 extends KinematicBody2D
 
 export var velocity = Vector2(0,0);
-export var acceleration = Vector2(0,0)
+var external_acceleration = Vector2(0,0)
+var input_acceleration = Vector2(0,0) #These two accelerations sum to total acceleration
 var isJumpBuffered = false;
 var canCoyoteJump = false;
 
