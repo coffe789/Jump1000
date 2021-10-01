@@ -8,6 +8,16 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Node",
+"class": "PlayerState",
+"language": "GDScript",
+"path": "res://Script/Class/PlayerState.gd"
+} ]
+_global_script_class_icons={
+"PlayerState": ""
+}
+
 [application]
 
 config/name="jump1000"
