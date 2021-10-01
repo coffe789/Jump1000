@@ -10,8 +10,8 @@ onready var Timers = Player.get_node("Timers")
 
 #All constants are stored here for convenient access
 #====================================================#
-const GRAVITY = 25
-const ACCELERATE_WALK = 100
+const GRAVITY = 1500
+const ACCELERATE_WALK = 6000
 const FLOOR_DRAG = 0.8
 const AIR_DRAG = 0.9
 const MAX_X_SPEED = 200
@@ -49,7 +49,7 @@ func check_buffered_jump_input():
 
 # Get movement inputs and set acceleration accordingly
 # Maybe have the acceleration as a parameter
-func get_input_direction() -> Vector2:
+func get_input_direction():
 	var x = 0;
 	if Input.is_action_pressed("right"):
 		x += 1
@@ -65,11 +65,31 @@ func apply_drag() -> void:
 	else:
 		Player.velocity.x *= AIR_DRAG
 
+func do_normal_x_movement(delta, friction_constant):
+	var new_acceleration = Vector2(0,0)
+	if (abs(Player.velocity.x)>MAX_X_SPEED && Player.directionX == get_input_direction()): #too fast
+		Player.velocity.x = approach(Player.velocity.x, Player.directionX * MAX_X_SPEED, delta * friction_constant * -get_input_direction())
+	else:
+		Player.velocity.x = approach(Player.velocity.x, Player.directionX * MAX_X_SPEED, delta * ACCELERATE_WALK * get_input_direction())
+
+# Have an integer approach another with a defined increment
+func approach(to_change, maximum, change_by):
+	print (to_change)
+	to_change += change_by;
+	if (sign(maximum) < 0 && to_change < maximum):
+		to_change = maximum
+	elif (sign(maximum) > 0 && to_change > maximum):
+		to_change = maximum
+	print (change_by)
+	return to_change
+
 # Keeps velocity and acceleration within defined range
 # TODO: instead only clamp movement added directly from inputs
 func clamp_movement() -> void:
 	Player.velocity.y= clamp(Player.velocity.y, -INF,MAX_FALL_SPEED)
-	Player.velocity.x = clamp(Player.velocity.x, -MAX_X_SPEED,MAX_X_SPEED)
+	if (abs(Player.velocity.x)>MAX_X_SPEED):
+		Player.velocity.x -= Player.directionX * 2
+	#Player.velocity.x = clamp(Player.velocity.x, -MAX_X_SPEED,MAX_X_SPEED)
 
 func start_coyote_time():
 	Player.canCoyoteJump = true

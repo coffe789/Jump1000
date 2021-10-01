@@ -10,7 +10,7 @@ func enter(_init_arg):
 	Player.velocity.y = -JUMP_SPEED
 	play_jump_audio()
 
-func do_state_logic(_delta):
+func do_state_logic(delta):
 	check_buffered_jump_input()
 	if (Player.is_on_ceiling()):
 		Player.external_acceleration.y = 0
@@ -19,7 +19,7 @@ func do_state_logic(_delta):
 	apply_drag()
 	check_if_finish_jump()
 	clamp_movement()
-	Player.velocity += get_total_acceleration()
+	Player.velocity += get_total_acceleration() * delta
 	Player.velocity = Player.move_and_slide(Player.velocity,UP_DIRECTION)
 
 func check_for_new_state() -> String:

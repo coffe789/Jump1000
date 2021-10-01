@@ -3,8 +3,11 @@ extends KinematicBody2D
 export var velocity = Vector2(0,0);
 var external_acceleration = Vector2(0,0)
 var input_acceleration = Vector2(0,0) #These two accelerations sum to total acceleration
+var acceleration = Vector2(0,0)
 var isJumpBuffered = false;
 var canCoyoteJump = false;
+var directionX = 0;
+var directionY = 0;
 
 var current_state = "idle";
 
@@ -22,6 +25,8 @@ func _ready() -> void:
 
 # Controls every aspect of player physics
 func _physics_process(delta) -> void:
+	directionX = sign(velocity.x)
+	directionY = -sign(velocity.y)
 	state_list[current_state].do_state_logic(delta)
 	try_state_transition()
 

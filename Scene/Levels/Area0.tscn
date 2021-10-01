@@ -4,7 +4,7 @@
 [ext_resource path="res://Scene/Player/Player.tscn" type="PackedScene" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 103.98, 10 )
+extents = Vector2( 552.6, 10 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 25.9691, 10 )
@@ -20,8 +20,8 @@ position = Vector2( 7.41858, 41.9188 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="RigidBody2D"]
-position = Vector2( 4.55115, 41.4188 )
-scale = Vector2( 3.35938, 0.328125 )
+position = Vector2( 5.88751, 40.5279 )
+scale = Vector2( 17.2379, 0.328125 )
 texture = ExtResource( 1 )
 
 [node name="RigidBody2D2" type="StaticBody2D" parent="."]
