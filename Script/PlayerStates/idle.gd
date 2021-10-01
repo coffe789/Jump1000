@@ -13,6 +13,7 @@ func _ready():
 
 
 func do_state_logic(_delta):
+	check_buffered_jump_input()
 	apply_drag()
 	Player.acceleration.y = GRAVITY
 	clamp_movement()
@@ -24,6 +25,6 @@ func check_for_new_state() -> String:
 		return "falling"
 	if (Input.is_action_pressed("left") || Input.is_action_pressed("right")):
 		return "running"
-	if (Input.is_action_just_pressed("jump")):
+	if (Input.is_action_just_pressed("jump") || Player.isJumpBuffered):
 		return "jumping"
 	return "idle"

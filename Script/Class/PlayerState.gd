@@ -21,7 +21,7 @@ const MAX_X_SPEED = 300
 const JUMP_ACCELERATION = 500
 const MAX_FALL_SPEED = 600
 const UP_DIRECTION = Vector2(0,-1)
-const JUMP_BUFFER_DURATION = 0.15
+const JUMP_BUFFER_DURATION = 0.07
 const COYOTE_TIME = 0.12
 const AFTER_JUMP_DECELERATION_FACTOR = 2
 var rng = RandomNumberGenerator.new() #Should do something about this later
@@ -47,23 +47,10 @@ func check_for_new_state() -> String:
 	return "Error: State transitions are not defined"
 
 
-var isJumpBuffered = false # Needs to be global so that it persists with timer.
-# Sets buffer jump flag, and initiates buffer jump if conditions are set
-func doBufferJump() -> bool:
-	var justJumpBuffered = false
-	if isJumpBuffered && grounded && Player.acceleration.y >= 0:
-		justJumpBuffered = true
-		isJumpBuffered = false
-		Player.acceleration.y -= JUMP_ACCELERATION
-		#play_jump_audio()
-	elif Input.is_action_just_pressed("jump") && !grounded \
-	and !isJumpBuffered:
-		isJumpBuffered = true;
-		yield(get_tree().create_timer(JUMP_BUFFER_DURATION),"timeout")
-		isJumpBuffered = false
-	return justJumpBuffered
-
-
+func check_buffered_jump_input():
+	if Input.is_action_just_pressed("jump"):
+		Player.isJumpBuffered = true;
+		Player.get_node("Timers/BufferedJumpTimer").start(JUMP_BUFFER_DURATION)
 
 # Get movement inputs and set acceleration accordingly
 # Maybe have the acceleration as a parameter

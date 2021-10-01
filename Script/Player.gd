@@ -5,7 +5,7 @@ extends KinematicBody2D
 
 export var velocity = Vector2(0,0);
 export var acceleration = Vector2(0,0)
-
+var isJumpBuffered = false;
 
 var current_state = "idle";
 
@@ -33,7 +33,7 @@ func _physics_process(delta) -> void:
 #		$CoyoteTimer.start(COYOTE_TIME)
 #	elif is_on_ceiling():
 #		acceleration.y=0
-#	apply_movement_input() #may have changed the name since
+#	apply_movement_input() #have changed the name since
 #	var justJumpBuffered = doBufferJump()
 #	check_if_finish_jump(justJumpBuffered)
 #	apply_drag()
@@ -52,3 +52,7 @@ func try_state_transition():
 		state_list[next_state].enter(init_arg)
 		current_state = next_state
 
+
+
+func _on_BufferedJumpTimer_timeout():
+	isJumpBuffered = false;

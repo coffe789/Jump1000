@@ -21,8 +21,6 @@ shape = SubResource( 1 )
 position = Vector2( 1.5874, -11.1118 )
 texture = ExtResource( 1 )
 
-[node name="CoyoteTimer" type="Timer" parent="."]
-
 [node name="StateMachine" type="Node" parent="."]
 
 [node name="jumping" type="Node" parent="StateMachine"]
@@ -43,4 +41,11 @@ script = ExtResource( 5 )
 stream = ExtResource( 3 )
 volume_db = -3.0
 
-[connection signal="timeout" from="CoyoteTimer" to="." method="_on_coyote_timeout"]
+[node name="Timers" type="Node" parent="."]
+
+[node name="CoyoteTimer" type="Timer" parent="Timers"]
+
+[node name="BufferedJumpTimer" type="Timer" parent="Timers"]
+
+[connection signal="timeout" from="Timers/CoyoteTimer" to="." method="_on_coyote_timeout"]
+[connection signal="timeout" from="Timers/BufferedJumpTimer" to="." method="_on_BufferedJumpTimer_timeout"]

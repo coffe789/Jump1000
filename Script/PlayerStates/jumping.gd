@@ -1,18 +1,22 @@
 extends PlayerState
-
+var stop_rising = false
 
 func enter(_init_arg):
+	stop_rising = false
+	Player.isJumpBuffered = false
 	print(self.name)
 	Player.acceleration.y -= JUMP_ACCELERATION
 	play_jump_audio()
 
 # If you let go of jump, stop going up. Also handles buffered case.
 func check_if_finish_jump() -> void:
-	if ((Input.is_action_just_released("jump") && Player.acceleration.y < 0)):
+	if ((!Input.is_action_pressed("jump") && !stop_rising)):
 	#or (justJumpBuffered && !Input.is_action_pressed("jump")):
 		Player.acceleration.y /= AFTER_JUMP_DECELERATION_FACTOR;
+		stop_rising = true;
 
 func do_state_logic(_delta):
+	check_buffered_jump_input()
 	if (Player.is_on_ceiling()):
 		Player.acceleration.y = 0
 	apply_directional_input()
