@@ -47,5 +47,5 @@ volume_db = -3.0
 
 [node name="BufferedJumpTimer" type="Timer" parent="Timers"]
 
-[connection signal="timeout" from="Timers/CoyoteTimer" to="." method="_on_coyote_timeout"]
+[connection signal="timeout" from="Timers/CoyoteTimer" to="." method="_on_CoyoteTimer_timeout"]
 [connection signal="timeout" from="Timers/BufferedJumpTimer" to="." method="_on_BufferedJumpTimer_timeout"]

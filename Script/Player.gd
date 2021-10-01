@@ -3,6 +3,7 @@ extends KinematicBody2D
 export var velocity = Vector2(0,0);
 export var acceleration = Vector2(0,0)
 var isJumpBuffered = false;
+var canCoyoteJump = false;
 
 var current_state = "idle";
 
@@ -32,4 +33,8 @@ func try_state_transition():
 		current_state = next_state
 
 func _on_BufferedJumpTimer_timeout():
-	isJumpBuffered = false;
+	isJumpBuffered = false
+
+
+func _on_CoyoteTimer_timeout():
+	canCoyoteJump = false

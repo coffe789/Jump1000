@@ -6,10 +6,7 @@ class_name PlayerState
 #==================================================#
 onready var Player = get_parent().get_parent()
 onready var Audio = Player.get_node("Audio")
-
-#Required variables
-#==================================================#
-var next_state
+onready var Timers = Player.get_node("Timers")
 
 #All constants are stored here for convenient access
 #====================================================#
@@ -21,7 +18,7 @@ const MAX_X_SPEED = 300
 const JUMP_ACCELERATION = 500
 const MAX_FALL_SPEED = 600
 const UP_DIRECTION = Vector2(0,-1)
-const JUMP_BUFFER_DURATION = 0.07
+const JUMP_BUFFER_DURATION = 0.1
 const COYOTE_TIME = 0.12
 const AFTER_JUMP_DECELERATION_FACTOR = 2
 var rng = RandomNumberGenerator.new() #Should do something about this later
@@ -49,7 +46,7 @@ func check_for_new_state() -> String:
 func check_buffered_jump_input():
 	if Input.is_action_just_pressed("jump"):
 		Player.isJumpBuffered = true;
-		Player.get_node("Timers/BufferedJumpTimer").start(JUMP_BUFFER_DURATION)
+		Timers.get_node("BufferedJumpTimer").start(JUMP_BUFFER_DURATION)
 
 # Get movement inputs and set acceleration accordingly
 # Maybe have the acceleration as a parameter
@@ -79,3 +76,7 @@ func clamp_movement() -> void:
 	Player.acceleration.y= clamp(Player.acceleration.y, -INF,MAX_FALL_SPEED)
 	Player.velocity.x = clamp(Player.velocity.x, -MAX_X_SPEED,MAX_X_SPEED)
 	Player.acceleration.x = clamp(Player.acceleration.x, -MAX_X_SPEED,MAX_X_SPEED)
+
+func start_coyote_time():
+	Player.canCoyoteJump = true
+	Timers.get_node("CoyoteTimer").start(COYOTE_TIME)

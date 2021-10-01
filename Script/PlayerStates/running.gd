@@ -1,6 +1,7 @@
 extends PlayerState
 
 func do_state_logic(_delta):
+	start_coyote_time()
 	Player.velocity.y = 0
 	apply_directional_input()
 	Player.acceleration.y = GRAVITY

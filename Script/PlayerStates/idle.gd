@@ -2,6 +2,7 @@
 extends PlayerState
 
 func do_state_logic(_delta):
+	start_coyote_time()
 	apply_drag()
 	Player.acceleration.y = GRAVITY
 	clamp_movement()

@@ -1,16 +1,5 @@
 extends PlayerState
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-
 func do_state_logic(_delta):
 	check_buffered_jump_input()
 	apply_directional_input()
@@ -26,6 +15,6 @@ func check_for_new_state() -> String:
 			return "running"
 		else:
 			return "idle"
-	if (Input.is_action_just_pressed("jump") && false): # false -> canCoyoteJump
+	if (Input.is_action_just_pressed("jump") && Player.canCoyoteJump):
 		return "jumping"
 	return "falling"
