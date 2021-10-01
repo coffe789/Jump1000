@@ -12,7 +12,7 @@ func _ready():
 
 
 func do_state_logic(_delta):
-	apply_movement_input()
+	apply_directional_input()
 	Player.acceleration.y += GRAVITY
 	apply_drag()
 	clamp_movement()

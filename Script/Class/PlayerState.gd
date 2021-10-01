@@ -14,15 +14,16 @@ var next_state
 #All constants are stored here for convenient access
 #====================================================#
 const GRAVITY = 20
-const ACCELERATE_WALK = 85
+const ACCELERATE_WALK = 65
 const FLOOR_DRAG = 0.8
 const AIR_DRAG = 0.9
-const MAX_X_SPEED = 400
-const JUMP_ACCELERATION = 600
+const MAX_X_SPEED = 300
+const JUMP_ACCELERATION = 500
 const MAX_FALL_SPEED = 600
 const UP_DIRECTION = Vector2(0,-1)
 const JUMP_BUFFER_DURATION = 0.15
 const COYOTE_TIME = 0.12
+const AFTER_JUMP_DECELERATION_FACTOR = 2
 var rng = RandomNumberGenerator.new() #Should do something about this later
 var grounded = false #should get rid of this
 
@@ -42,17 +43,9 @@ func _ready():
 func do_state_logic(_delta):
 	pass
 
-func check_for_new_state():
-	pass
+func check_for_new_state() -> String:
+	return "Error: State transitions are not defined"
 
-
-
-
-
-
-func play_jump_audio():
-	Audio.get_node("JumpAudio").pitch_scale = rng.randf_range(1.2, 0.9)
-	Audio.get_node("JumpAudio").play(0.001)
 
 var isJumpBuffered = false # Needs to be global so that it persists with timer.
 # Sets buffer jump flag, and initiates buffer jump if conditions are set
@@ -62,7 +55,7 @@ func doBufferJump() -> bool:
 		justJumpBuffered = true
 		isJumpBuffered = false
 		Player.acceleration.y -= JUMP_ACCELERATION
-		play_jump_audio()
+		#play_jump_audio()
 	elif Input.is_action_just_pressed("jump") && !grounded \
 	and !isJumpBuffered:
 		isJumpBuffered = true;
@@ -70,14 +63,11 @@ func doBufferJump() -> bool:
 		isJumpBuffered = false
 	return justJumpBuffered
 
-# If you let go of jump, stop going up. Also handles buffered case.
-func check_if_finish_jump(justJumpBuffered) -> void:
-	if ((Input.is_action_just_released("jump") && Player.acceleration.y < 0)) \
-	or (justJumpBuffered && !Input.is_action_pressed("jump")):
-		Player.acceleration.y /= 2;
+
 
 # Get movement inputs and set acceleration accordingly
-func apply_movement_input() -> void:
+# Maybe have the acceleration as a parameter
+func apply_directional_input() -> void:
 	if Input.is_action_pressed("right"):
 		Player.acceleration.x += ACCELERATE_WALK
 	if Input.is_action_pressed("left"):
@@ -86,12 +76,10 @@ func apply_movement_input() -> void:
 		pass
 	if Input.is_action_pressed("up"):
 		pass
-	if (Input.is_action_just_pressed("jump") && grounded && Player.acceleration.y >= 0):
-		Player.acceleration.y -= JUMP_ACCELERATION
-		play_jump_audio()
 
 
 # Decelerates the player accordingly
+# Should split this so the state decides the drag factor
 func apply_drag() -> void:
 	Player.velocity = Vector2()
 	if Player.is_on_floor():

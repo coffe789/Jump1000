@@ -11,7 +11,7 @@ extends PlayerState
 
 func do_state_logic(_delta):
 	Player.velocity.y = 0
-	apply_movement_input()
+	apply_directional_input()
 	Player.acceleration.y = GRAVITY
 	apply_drag()
 	clamp_movement()
