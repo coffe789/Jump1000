@@ -1,5 +1,8 @@
 extends KinematicBody2D
 
+# Holds player variables
+# Executes and switches states appropriately
+
 export var velocity = Vector2(0,0);
 export var acceleration = Vector2(0,0)
 
@@ -44,7 +47,7 @@ func _physics_process(delta) -> void:
 
 func try_state_transition():
 	var next_state = state_list[current_state].check_for_new_state()
-	if next_state != current_state && next_state != null:
+	if next_state != current_state:
 		var init_arg = state_list[current_state].exit()
 		state_list[next_state].enter(init_arg)
 		current_state = next_state

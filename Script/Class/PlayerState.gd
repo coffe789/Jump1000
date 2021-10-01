@@ -36,7 +36,7 @@ func exit():
 	pass
 
 func _ready():
-	rng.randomize()
+	rng.randomize() #this probably shouldn't be in this class
 
 # Called every physics frame a state is active
 func do_state_logic(_delta):
@@ -51,7 +51,7 @@ func check_for_new_state():
 
 
 func play_jump_audio():
-	#JumpAudio.pitch_scale = rng.randf_range(1.2, 0.9)
+	Audio.get_node("JumpAudio").pitch_scale = rng.randf_range(1.2, 0.9)
 	Audio.get_node("JumpAudio").play(0.001)
 
 var isJumpBuffered = false # Needs to be global so that it persists with timer.

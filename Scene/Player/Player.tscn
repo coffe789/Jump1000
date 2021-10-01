@@ -39,7 +39,7 @@ script = ExtResource( 5 )
 
 [node name="Audio" type="Node" parent="."]
 
-[node name="JumpAudio" type="AudioStreamPlayer2D" parent="Audio"]
+[node name="JumpAudio" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource( 3 )
 volume_db = -3.0
 
