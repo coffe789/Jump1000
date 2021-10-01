@@ -6,7 +6,7 @@ func enter(_init_arg):
 	Player.isJumpBuffered = false
 	Player.canCoyoteJump = false
 	print(self.name)
-	Player.acceleration.y -= JUMP_ACCELERATION
+	Player.velocity.y = -JUMP_SPEED
 	play_jump_audio()
 
 func do_state_logic(_delta):
@@ -14,7 +14,7 @@ func do_state_logic(_delta):
 	if (Player.is_on_ceiling()):
 		Player.acceleration.y = 0
 	apply_directional_input()
-	Player.acceleration.y += GRAVITY
+	Player.acceleration.y = GRAVITY
 	apply_drag()
 	check_if_finish_jump()
 	clamp_movement()
@@ -32,7 +32,7 @@ func check_for_new_state() -> String:
 func check_if_finish_jump() -> void:
 	if ((!Input.is_action_pressed("jump") && !stop_rising)):
 	#or (justJumpBuffered && !Input.is_action_pressed("jump")):
-		Player.acceleration.y /= AFTER_JUMP_DECELERATION_FACTOR;
+		Player.velocity.y /= AFTER_JUMP_SLOWDOWN_FACTOR;
 		stop_rising = true;
 
 func play_jump_audio():

@@ -1,4 +1,4 @@
-# Defines global functions for all player states to use
+# Defines functions and parameters for all player states to use
 extends Node
 class_name PlayerState
 
@@ -10,17 +10,17 @@ onready var Timers = Player.get_node("Timers")
 
 #All constants are stored here for convenient access
 #====================================================#
-const GRAVITY = 20
-const ACCELERATE_WALK = 65
+const GRAVITY = 25
+const ACCELERATE_WALK = 100
 const FLOOR_DRAG = 0.8
 const AIR_DRAG = 0.9
-const MAX_X_SPEED = 300
-const JUMP_ACCELERATION = 500
+const MAX_X_SPEED = 200
+const JUMP_SPEED = 500
 const MAX_FALL_SPEED = 600
 const UP_DIRECTION = Vector2(0,-1)
 const JUMP_BUFFER_DURATION = 0.1
 const COYOTE_TIME = 0.12
-const AFTER_JUMP_DECELERATION_FACTOR = 2
+const AFTER_JUMP_SLOWDOWN_FACTOR = 2
 var rng = RandomNumberGenerator.new() #Should do something about this later
 var grounded = false #should get rid of this
 
@@ -51,24 +51,24 @@ func check_buffered_jump_input():
 # Get movement inputs and set acceleration accordingly
 # Maybe have the acceleration as a parameter
 func apply_directional_input() -> void:
+	var acceleration_to_add = 0
 	if Input.is_action_pressed("right"):
-		Player.acceleration.x += ACCELERATE_WALK
+		acceleration_to_add += ACCELERATE_WALK
 	if Input.is_action_pressed("left"):
-		Player.acceleration.x -= ACCELERATE_WALK
+		acceleration_to_add -=ACCELERATE_WALK
 	if Input.is_action_pressed("down"):
 		pass
 	if Input.is_action_pressed("up"):
 		pass
-
+	Player.acceleration.x = acceleration_to_add
 
 # Decelerates the player accordingly
 # Should split this so the state decides the drag factor
 func apply_drag() -> void:
-	Player.velocity = Vector2()
 	if Player.is_on_floor():
-		Player.acceleration.x *= FLOOR_DRAG
+		Player.velocity.x *= FLOOR_DRAG
 	else:
-		Player.acceleration.x *= AIR_DRAG
+		Player.velocity.x *= AIR_DRAG
 
 # Keeps velocity and acceleration within defined range
 # TODO: instead only clamp movement added directly from inputs

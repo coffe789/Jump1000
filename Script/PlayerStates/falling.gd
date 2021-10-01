@@ -3,7 +3,7 @@ extends PlayerState
 func do_state_logic(_delta):
 	check_buffered_jump_input()
 	apply_directional_input()
-	Player.acceleration.y += GRAVITY
+	Player.acceleration.y = GRAVITY
 	apply_drag()
 	clamp_movement()
 	Player.velocity += Player.acceleration
