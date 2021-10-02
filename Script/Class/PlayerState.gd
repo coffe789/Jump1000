@@ -47,8 +47,7 @@ func check_buffered_jump_input():
 		Player.isJumpBuffered = true;
 		Timers.get_node("BufferedJumpTimer").start(JUMP_BUFFER_DURATION)
 
-# Get movement inputs and set acceleration accordingly
-# Maybe have the acceleration as a parameter
+# Get intended x movement direction
 func get_input_direction():
 	var x = 0;
 	if Input.is_action_pressed("right"):
@@ -90,18 +89,7 @@ func approach(to_change, maximum, change_by):
 		to_change = maximum
 	return to_change
 
-# Keeps velocity and acceleration within defined range
-# TODO: instead only clamp movement added directly from inputs
-func clamp_movement() -> void:
-	Player.velocity.y= clamp(Player.velocity.y, -INF,MAX_FALL_SPEED)
-	if (abs(Player.velocity.x)>MAX_X_SPEED):
-		Player.velocity.x -= Player.directionX * 2
-	#Player.velocity.x = clamp(Player.velocity.x, -MAX_X_SPEED,MAX_X_SPEED)
-
 func start_coyote_time():
 	Player.canCoyoteJump = true
 	Timers.get_node("CoyoteTimer").start(COYOTE_TIME)
-
-func get_total_acceleration():
-	return (Player.external_acceleration + Player.input_acceleration)
 

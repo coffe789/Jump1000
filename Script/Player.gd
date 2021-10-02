@@ -1,12 +1,9 @@
 extends KinematicBody2D
 
 export var velocity = Vector2(0,0);
-var external_acceleration = Vector2(0,0)
-var input_acceleration = Vector2(0,0) #These two accelerations sum to total acceleration
-var acceleration = Vector2(0,0)
 var isJumpBuffered = false;
 var canCoyoteJump = false;
-var directionX = 0;
+var directionX = 0; #Direction player is currently moving
 var directionY = 0;
 
 var current_state = "idle";
@@ -18,10 +15,6 @@ onready var state_list = \
 	"running" : $StateMachine/running,
 	"falling" : $StateMachine/falling
 }
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass
 
 # Controls every aspect of player physics
 func _physics_process(delta) -> void:
@@ -38,9 +31,10 @@ func try_state_transition():
 		state_list[next_state].enter(init_arg)
 		current_state = next_state
 
+# Signals
+#=================================#
 func _on_BufferedJumpTimer_timeout():
 	isJumpBuffered = false
-
 
 func _on_CoyoteTimer_timeout():
 	canCoyoteJump = false
