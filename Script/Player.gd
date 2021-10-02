@@ -5,7 +5,6 @@ var isJumpBuffered = false;
 var canCoyoteJump = false;
 var directionX = 0; #Direction player is currently moving
 var directionY = 0;
-
 var current_state = "idle";
 
 onready var state_list = \

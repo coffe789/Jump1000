@@ -2,13 +2,13 @@
 extends Node
 class_name PlayerState
 
-#Nodes of global interest
+# Nodes of global interest
 #==================================================#
 onready var Player = get_parent().get_parent()
 onready var Audio = Player.get_node("Audio")
 onready var Timers = Player.get_node("Timers")
 
-#All constants are stored here for convenient access
+# Constants
 #====================================================#
 const GRAVITY = 3500
 const ACCELERATE_WALK = 1500
@@ -21,7 +21,6 @@ const UP_DIRECTION = Vector2(0,-1)
 const JUMP_BUFFER_DURATION = 0.15
 const COYOTE_TIME = 0.12
 const AFTER_JUMP_SLOWDOWN_FACTOR = 2
-var grounded = false #should get rid of this
 
 #Base class functions
 #================================================#
@@ -56,14 +55,6 @@ func get_input_direction():
 		x -= 1
 	return x
 
-# Decelerates the player accordingly
-# Should split this so the state decides the drag factor
-func apply_drag() -> void:
-	if Player.is_on_floor():
-		Player.velocity.x *= FLOOR_DRAG
-	else:
-		Player.velocity.x *= AIR_DRAG
-
 func do_normal_x_movement(delta, friction_constant):
 	if (abs(Player.velocity.x)>MAX_X_SPEED && Player.directionX == get_input_direction()): #going too fast
 		Player.velocity.x = approach(Player.velocity.x, get_input_direction() * MAX_X_SPEED, delta * friction_constant)
@@ -75,8 +66,9 @@ func do_normal_x_movement(delta, friction_constant):
 func do_gravity(delta, fall_acceleration, max_fall_speed):
 	Player.velocity.y = approach(Player.velocity.y, max_fall_speed, delta * fall_acceleration)
 
-# Have an integer approach another with a defined increment
+# Have an number approach another with a defined increment
 func approach(to_change, maximum, change_by):
+	assert(change_by>=0)
 	var approach_direction = 0;
 	if (maximum > to_change):
 		approach_direction = 1
