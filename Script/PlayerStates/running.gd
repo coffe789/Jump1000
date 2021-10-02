@@ -7,7 +7,7 @@ func do_state_logic(delta):
 	#Player.external_acceleration.y = GRAVITY
 	#apply_drag()
 	#clamp_movement()
-	do_normal_x_movement(delta,0.9)
+	do_normal_x_movement(delta,FLOOR_DRAG)
 	Player.velocity.y = 10
 	Player.velocity = Player.move_and_slide(Player.velocity,UP_DIRECTION)
 

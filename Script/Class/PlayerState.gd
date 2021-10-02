@@ -10,15 +10,15 @@ onready var Timers = Player.get_node("Timers")
 
 #All constants are stored here for convenient access
 #====================================================#
-const GRAVITY = 1500
-const ACCELERATE_WALK = 6000
-const FLOOR_DRAG = 0.8
-const AIR_DRAG = 0.9
+const GRAVITY = 3500
+const ACCELERATE_WALK = 1500
+const FLOOR_DRAG = 1
+const AIR_DRAG = 0.65
 const MAX_X_SPEED = 200
-const JUMP_SPEED = 500
-const MAX_FALL_SPEED = 600
+const JUMP_SPEED = 400
+const MAX_FALL_SPEED = 1000
 const UP_DIRECTION = Vector2(0,-1)
-const JUMP_BUFFER_DURATION = 0.1
+const JUMP_BUFFER_DURATION = 0.15
 const COYOTE_TIME = 0.12
 const AFTER_JUMP_SLOWDOWN_FACTOR = 2
 var grounded = false #should get rid of this
@@ -66,21 +66,28 @@ func apply_drag() -> void:
 		Player.velocity.x *= AIR_DRAG
 
 func do_normal_x_movement(delta, friction_constant):
-	var new_acceleration = Vector2(0,0)
 	if (abs(Player.velocity.x)>MAX_X_SPEED && Player.directionX == get_input_direction()): #too fast
-		Player.velocity.x = approach(Player.velocity.x, Player.directionX * MAX_X_SPEED, delta * friction_constant * -get_input_direction())
+		Player.velocity.x = approach(Player.velocity.x, get_input_direction() * MAX_X_SPEED, delta * friction_constant)
+	elif (get_input_direction()!=0):
+		Player.velocity.x = approach(Player.velocity.x, get_input_direction() * MAX_X_SPEED, delta * ACCELERATE_WALK)
 	else:
-		Player.velocity.x = approach(Player.velocity.x, Player.directionX * MAX_X_SPEED, delta * ACCELERATE_WALK * get_input_direction())
+		Player.velocity.x = approach(Player.velocity.x, 0, delta * friction_constant * 600 * friction_constant)
+
+func do_gravity(delta, fall_acceleration, max_fall_speed):
+	Player.velocity.y = approach(Player.velocity.y, max_fall_speed, delta * fall_acceleration)
 
 # Have an integer approach another with a defined increment
 func approach(to_change, maximum, change_by):
-	print (to_change)
-	to_change += change_by;
-	if (sign(maximum) < 0 && to_change < maximum):
+	var approach_direction = 0;
+	if (maximum > to_change):
+		approach_direction = 1
+	elif (maximum < to_change):
+		approach_direction = -1
+	to_change += change_by * approach_direction;
+	if (approach_direction == -1 && to_change < maximum):
 		to_change = maximum
-	elif (sign(maximum) > 0 && to_change > maximum):
+	elif (approach_direction == 1 && to_change > maximum):
 		to_change = maximum
-	print (change_by)
 	return to_change
 
 # Keeps velocity and acceleration within defined range
