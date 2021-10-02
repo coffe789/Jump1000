@@ -66,7 +66,7 @@ func do_normal_x_movement(delta, friction_constant):
 func do_gravity(delta, fall_acceleration, max_fall_speed):
 	Player.velocity.y = approach(Player.velocity.y, max_fall_speed, delta * fall_acceleration)
 
-# Have an number approach another with a defined increment
+# Have a number approach another with a defined increment
 func approach(to_change, maximum, change_by):
 	assert(change_by>=0)
 	var approach_direction = 0;

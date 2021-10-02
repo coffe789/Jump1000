@@ -32,4 +32,4 @@ func check_if_finish_jump() -> void:
 
 func play_jump_audio():
 	Audio.get_node("JumpAudio").pitch_scale = rng.randf_range(1.2, 0.9)
-	Audio.get_node("JumpAudio").play(0.001)
+	Audio.get_node("JumpAudio").play(0.001) # Hide stupid audio artifact
