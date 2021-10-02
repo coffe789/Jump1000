@@ -13,7 +13,7 @@ onready var Timers = Player.get_node("Timers")
 const GRAVITY = 3500
 const ACCELERATE_WALK = 1500
 const FLOOR_DRAG = 1
-const AIR_DRAG = 0.5
+const AIR_DRAG = 0.25
 const MAX_X_SPEED = 200
 const JUMP_SPEED = 400
 const MAX_FALL_SPEED = 1000
@@ -71,7 +71,7 @@ func do_normal_x_movement(delta, friction_constant):
 	elif (get_input_direction()!=0): # move player
 		Player.velocity.x = approach(Player.velocity.x, get_input_direction() * MAX_X_SPEED, delta * ACCELERATE_WALK)
 	else:	#normal friction
-		Player.velocity.x = approach(Player.velocity.x, 0, delta * friction_constant * 1000 * friction_constant)
+		Player.velocity.x = approach(Player.velocity.x, 0, delta * friction_constant * 1000)
 
 func do_gravity(delta, fall_acceleration, max_fall_speed):
 	Player.velocity.y = approach(Player.velocity.y, max_fall_speed, delta * fall_acceleration)
