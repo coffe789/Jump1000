@@ -13,7 +13,7 @@ extents = Vector2( 25.9691, 10 )
 position = Vector2( 479, 520 )
 
 [node name="RigidBody2D" type="StaticBody2D" parent="."]
-position = Vector2( 2, -5 )
+position = Vector2( -193.308, -387.76 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
 position = Vector2( 7.41858, 41.9188 )
@@ -25,7 +25,7 @@ scale = Vector2( 17.2379, 0.328124 )
 texture = ExtResource( 1 )
 
 [node name="RigidBody2D2" type="StaticBody2D" parent="."]
-position = Vector2( 13.2246, -44.8452 )
+position = Vector2( -243.819, -399.543 )
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="RigidBody2D2"]
 position = Vector2( 1.24503, 8.24493 )
@@ -37,4 +37,4 @@ scale = Vector2( 0.895227, 0.328125 )
 texture = ExtResource( 1 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( -44.1718, -17.0159 )
+position = Vector2( -318.053, -390.796 )

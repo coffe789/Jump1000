@@ -24,6 +24,12 @@ config/name="jump1000"
 run/main_scene="res://Scene/Levels/Area0.tscn"
 config/icon="res://icon.png"
 
+[display]
+
+window/size/height=567
+window/stretch/mode="viewport"
+window/stretch/aspect="keep_width"
+
 [input]
 
 ui_accept={
