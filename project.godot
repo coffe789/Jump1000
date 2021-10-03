@@ -28,7 +28,7 @@ config/icon="res://icon.png"
 
 window/size/height=567
 window/stretch/mode="viewport"
-window/stretch/aspect="keep_width"
+window/stretch/aspect="keep"
 
 [input]
 
