@@ -10,13 +10,13 @@ onready var Timers = Player.get_node("Timers")
 
 # Constants
 #====================================================#
-const GRAVITY = 3500
-const ACCELERATE_WALK = 1500
+const GRAVITY = 3500/2
+const ACCELERATE_WALK = 1500/1.5
 const FLOOR_DRAG = 1
-const AIR_DRAG = 0.25
-const MAX_X_SPEED = 200
-const JUMP_SPEED = 400
-const MAX_FALL_SPEED = 1000
+const AIR_DRAG = 0.2
+const MAX_X_SPEED = 200/2
+const JUMP_SPEED = 400/2
+const MAX_FALL_SPEED = 1000/2
 const UP_DIRECTION = Vector2(0,-1)
 const JUMP_BUFFER_DURATION = 0.15
 const COYOTE_TIME = 0.12
