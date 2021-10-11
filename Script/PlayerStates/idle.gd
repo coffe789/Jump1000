@@ -1,6 +1,7 @@
 extends PlayerState
 
 func do_state_logic(delta):
+	set_player_sprite_direction()
 	start_coyote_time()
 	do_gravity(delta, MAX_FALL_SPEED, GRAVITY)
 	do_normal_x_movement(delta,FLOOR_DRAG)

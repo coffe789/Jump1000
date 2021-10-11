@@ -7,6 +7,7 @@ class_name PlayerState
 onready var Player = get_parent().get_parent()
 onready var Audio = Player.get_node("Audio")
 onready var Timers = Player.get_node("Timers")
+onready var Player_Sprite = Player.get_node("Sprite")
 
 # Constants
 #====================================================#
@@ -85,3 +86,8 @@ func start_coyote_time():
 	Player.canCoyoteJump = true
 	Timers.get_node("CoyoteTimer").start(COYOTE_TIME)
 
+func set_player_sprite_direction():
+	if get_input_direction()==1 && Player.directionX == 1:
+		Player_Sprite.flip_h = false
+	elif get_input_direction() == -1 && Player.directionX == -1:
+		Player_Sprite.flip_h = true
