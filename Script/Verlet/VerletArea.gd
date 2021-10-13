@@ -4,8 +4,8 @@ onready var Link = preload("res://Scene/Entities/Verlet/Link.tscn")
 var PM_list = []
 var link_list = [] # Not a linked list lol
 var spawn_offset = Vector2(600,100)
-var PM_spacing_x = 10 # Length of links between nodes
-var PM_spacing_y = 10
+var PM_spacing_x = 3 # Length of links between nodes
+var PM_spacing_y = 2
 var grid_size = 4
 
 var outline_color = Color(33/255.0,39/255.0,58/255.0)
@@ -51,21 +51,21 @@ func color_PM():
 
 func link_PM():
 	assert(PM_list.size()>0)
-	for i in PM_list.size(): #horizontal
+	for i in PM_list.size(): #vertical
 		for j in PM_list.size()-1:
 			var new_link = Link.instance() 
 			new_link.PM_a = PM_list[i][j]
 			new_link.PM_b = PM_list[i][j+1]
-			new_link.resting_distance = PM_spacing_x
+			new_link.resting_distance = PM_spacing_y
 			link_list.append(new_link)
 			add_child(new_link) #Links must be added to scene to draw their lines
 			
 	for i in PM_list.size()-1:
-		for j in PM_list.size(): #Vertical
+		for j in PM_list.size(): #horizontal
 			var new_link = Link.instance()
 			new_link.PM_a = PM_list[i][j]
 			new_link.PM_b = PM_list[i+1][j]
-			new_link.resting_distance = PM_spacing_y
+			new_link.resting_distance = PM_spacing_x
 			link_list.append(new_link)
 			add_child(new_link)
 
