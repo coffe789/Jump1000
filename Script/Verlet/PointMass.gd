@@ -1,11 +1,11 @@
 extends Node2D
 onready var area = get_node("Area2D")
 var velocity = Vector2(0,0)
-var acceleration = Vector2(0,15) #gravity or other external forces
+var acceleration = Vector2(5,8) #gravity or other external forces
 var entered_body = false;
 var is_pin = false
-var collision_factor = 0.7 #Read docs for what this does
-var dampen_factor = 0.98
+var collision_factor = 0.3 #Read docs for what this does
+var dampen_factor = 0.96
 var fill_color = PoolColorArray()
 
 var drawto = [self]

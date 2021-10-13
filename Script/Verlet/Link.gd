@@ -12,11 +12,10 @@ var color = Color(213/255.0,39/255.0,64/255.0)
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if (PM_a.get("is_pin") == null):
-		print("makin it true")
 		is_PM_a_pin = true # True by default if not otherwise specified by node
 	else:
 		is_PM_a_pin = PM_a.is_pin # Can set value manually by giving your node an is_pin variable
-	
+
 	if (PM_b.get("is_pin") == null):
 		is_PM_b_pin = true
 	else:
@@ -35,7 +34,8 @@ func constrain():
 		distance_ratio = 1
 	if distance_ratio <= 0 || is_rigid:
 		# Move points proportionally to how far away they are
-		var translate_by = (PM_a.global_position - PM_b.global_position) * 0.5 * distance_ratio
+		var mult = (1.0 if(is_PM_a_pin||is_PM_a_pin) else 0.5)
+		var translate_by = (PM_a.global_position - PM_b.global_position) * mult * distance_ratio
 		if !is_PM_a_pin:
 			PM_a.position += translate_by
 		if !is_PM_b_pin:

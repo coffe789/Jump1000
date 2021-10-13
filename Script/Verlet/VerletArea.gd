@@ -1,21 +1,25 @@
 extends Node2D
 onready var PM = preload("res://Scene/Entities/Verlet/PointMass.tscn")
 onready var Link = preload("res://Scene/Entities/Verlet/Link.tscn")
+onready var CapeL = get_parent().get_node("Player/CapeL")
+onready var CapeR = get_parent().get_node("Player/CapeR")
 var PM_list = []
 var link_list = [] # Not a linked list lol
 var spawn_offset = Vector2(600,100)
 var PM_spacing_x = 3 # Length of links between nodes
-var PM_spacing_y = 2
+var PM_spacing_y = 3
 var grid_size = 4
 
-var outline_color = Color(33/255.0,39/255.0,58/255.0)
-var outline = []
+var outline_color = Color8(33,39,58)
+#Fill colour is set in PM script, couldn't figure out how to do it from here.
+var PM_outline = []
 
 func _ready():
 	spawn_PM()
 	color_PM()
 	init_outline()
 	link_PM()
+	attach_cape()
 
 func spawn_PM():
 	for i in grid_size:
@@ -27,17 +31,18 @@ func spawn_PM():
 			PM_list[i].append(new_PM)
 			add_child(new_PM)
 
-#fills the outline array with the outermost nodes (in proper order)
+#fills the outline array with the outermost nodes (in proper order) (used to draw outline)
 func init_outline():
 	for i in grid_size:#left
-			outline.append(PM_list[0][i])
+			PM_outline.append(PM_list[0][i])
 	for i in grid_size:#bottom
-			outline.append(PM_list[i][grid_size-1])
+			PM_outline.append(PM_list[i][grid_size-1])
 	for i in range(grid_size-1,-1,-1):#right
-			outline.append(PM_list[grid_size-1][i])
+			PM_outline.append(PM_list[grid_size-1][i])
 	for i in range(grid_size-1,-1,-1):#top
-			outline.append(PM_list[i][0])
+			PM_outline.append(PM_list[i][0])
 
+#fills in middle colour
 func color_PM():
 	for i in PM_list.size()-1:
 		for j in PM_list.size(): #Vertical offset
@@ -58,8 +63,7 @@ func link_PM():
 			new_link.PM_b = PM_list[i][j+1]
 			new_link.resting_distance = PM_spacing_y
 			link_list.append(new_link)
-			add_child(new_link) #Links must be added to scene to draw their lines
-			
+			#add_child(new_link) #Links must be added to scene to draw their grid
 	for i in PM_list.size()-1:
 		for j in PM_list.size(): #horizontal
 			var new_link = Link.instance()
@@ -67,11 +71,29 @@ func link_PM():
 			new_link.PM_b = PM_list[i+1][j]
 			new_link.resting_distance = PM_spacing_x
 			link_list.append(new_link)
-			add_child(new_link)
+			#add_child(new_link)
 
+func attach_cape():
+	var new_link = Link.instance()
+	new_link.PM_a = PM_list[0][0]
+	new_link.PM_b = CapeL
+	new_link.is_PM_a_pin = true
+	new_link.resting_distance = 0
+	link_list.append(new_link)
+	new_link.name = "LeftCapeAttach"
+	add_child(new_link)
+	
+	new_link = Link.instance()
+	new_link.PM_a = PM_list[grid_size-1][0]
+	new_link.PM_b = CapeR
+	new_link.is_PM_b_pin = true
+	new_link.resting_distance = 0
+	link_list.append(new_link)
+	new_link.name = "RightCapeAttach"
+	add_child(new_link)
 
 func _physics_process(delta):
-	suck_to_mouse(delta)
+	#suck_to_mouse(delta)
 	for i in link_list.size():
 		link_list[i].constrain()
 		link_list[i].constrain()
@@ -80,8 +102,7 @@ func _physics_process(delta):
 		for j in PM_list.size():
 			PM_list[i][j].do_verlet(delta)
 	update() #draws outline
-	#print(Engine.get_frames_per_second())
-	
+
 
 func suck_to_mouse(delta):
 	var mousepos = get_viewport().get_mouse_position() /3.2 #3.2 is the viewport scale
@@ -90,6 +111,6 @@ func suck_to_mouse(delta):
 
 func _draw():
 	var pva = PoolVector2Array()
-	for i in outline.size():
-		pva.append(outline[i].get_position()-self.get_position())
+	for i in PM_outline.size():
+		pva.append(PM_outline[i].get_position()-self.get_position())
 	draw_polyline(pva, outline_color,2)
