@@ -9,13 +9,13 @@
 [ext_resource path="res://Script/PlayerStates/jumping.gd" type="Script" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 5.34768, 11.4122 )
+extents = Vector2( 3.9521, 11.4122 )
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0.56123, -11.4745 )
+position = Vector2( 0.280297, -11.5681 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
