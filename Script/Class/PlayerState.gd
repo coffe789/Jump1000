@@ -87,7 +87,7 @@ func start_coyote_time():
 	Timers.get_node("CoyoteTimer").start(COYOTE_TIME)
 
 func set_player_sprite_direction():
-	if get_input_direction()==1 && Player.directionX == 1:
+	if get_input_direction()== -1:
 		Player_Sprite.flip_h = false
-	elif get_input_direction() == -1 && Player.directionX == -1:
+	elif get_input_direction() == 1:
 		Player_Sprite.flip_h = true
