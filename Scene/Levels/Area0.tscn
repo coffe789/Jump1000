@@ -7,7 +7,7 @@
 extents = Vector2( 512.797, 10 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 25.074, 4.70193 )
+extents = Vector2( 24, 5 )
 
 [node name="Area" type="Node2D"]
 position = Vector2( 479, 520 )
@@ -25,15 +25,13 @@ scale = Vector2( 18.3246, 0.59375 )
 texture = ExtResource( 1 )
 
 [node name="RigidBody2D2" type="StaticBody2D" parent="."]
-position = Vector2( -242.319, -395.543 )
+position = Vector2( -242, -390 )
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="RigidBody2D2"]
-position = Vector2( 1.24503, 8.24493 )
 shape = SubResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="RigidBody2D2"]
-position = Vector2( 1.319, 8.043 )
-scale = Vector2( 1.5625, 0.28125 )
+scale = Vector2( 1.5, 0.312 )
 texture = ExtResource( 1 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
