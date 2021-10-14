@@ -7,7 +7,7 @@
 [node name="ViewportContainer" type="ViewportContainer" parent="."]
 margin_right = 320.0
 margin_bottom = 180.0
-rect_scale = Vector2( 3.2, 3.2 )
+rect_scale = Vector2( 4, 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

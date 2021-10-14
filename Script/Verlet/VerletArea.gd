@@ -106,7 +106,7 @@ func _physics_process(delta):
 
 
 func suck_to_mouse(delta):
-	var mousepos = get_viewport().get_mouse_position() /3.2 #3.2 is the viewport scale
+	var mousepos = get_viewport().get_mouse_position() /4 #4 is the viewport scale
 	PM_list[0][0].global_position = PM_list[0][0].global_position.linear_interpolate(mousepos, delta * 40)
 	PM_list[grid_size-1][0].global_position = PM_list[0][0].global_position + Vector2((grid_size+1)*PM_spacing_x,0)
 
