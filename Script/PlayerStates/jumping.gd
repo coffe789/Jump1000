@@ -11,9 +11,6 @@ func enter(_init_arg):
 	play_jump_audio()
 
 func do_state_logic(delta):
-	set_cape_acceleration()
-	set_facing_direction()
-	set_player_sprite_direction()
 	check_buffered_jump_input()
 	check_if_finish_jump()
 	do_gravity(delta, MAX_FALL_SPEED, GRAVITY)

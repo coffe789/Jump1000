@@ -1,9 +1,6 @@
 extends PlayerState
 
 func do_state_logic(delta):
-	set_facing_direction()
-	set_cape_acceleration()
-	set_player_sprite_direction()
 	start_coyote_time()
 	Player.velocity.y = 0
 	do_normal_x_movement(delta,FLOOR_DRAG)

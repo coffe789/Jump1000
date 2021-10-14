@@ -19,9 +19,12 @@ onready var state_list = \
 
 # Controls every aspect of player physics
 func _physics_process(delta) -> void:
+	state_list[current_state].set_facing_direction()
 	directionX = sign(velocity.x)
 	directionY = -sign(velocity.y)
 	state_list[current_state].do_state_logic(delta)
+	state_list[current_state].set_cape_acceleration()
+	state_list[current_state].set_player_sprite_direction()
 	try_state_transition()
 
 # Changes state if the current state wants to

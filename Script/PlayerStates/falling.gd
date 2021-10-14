@@ -1,9 +1,6 @@
 extends PlayerState
 
 func do_state_logic(delta):
-	set_facing_direction()
-	set_cape_acceleration()
-	set_player_sprite_direction()
 	check_buffered_jump_input()
 	do_gravity(delta, MAX_FALL_SPEED, GRAVITY)
 	do_normal_x_movement(delta,AIR_DRAG)
