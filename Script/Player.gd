@@ -5,7 +5,9 @@ var isJumpBuffered = false;
 var canCoyoteJump = false;
 var directionX = 0; #Direction player is currently moving
 var directionY = 0;
+var facing = 1 #either -1 or 1
 var current_state = "idle";
+onready var Cape = get_parent().get_node("VerletArea")
 
 onready var state_list = \
 {

@@ -86,8 +86,19 @@ func start_coyote_time():
 	Player.canCoyoteJump = true
 	Timers.get_node("CoyoteTimer").start(COYOTE_TIME)
 
+#Changes facing direction if an input is pressed. Otherwise facing remains as is.
+func set_facing_direction():
+	if get_input_direction()==1:
+		Player.facing = 1
+	if get_input_direction() == -1:
+		Player.facing = -1
+	
+
+func set_cape_acceleration():
+	Player.Cape.accel = Vector2(-Player.facing * 5, 8)
+
 func set_player_sprite_direction():
-	if get_input_direction()== -1:
+	if Player.facing == -1:
 		Player_Sprite.flip_h = false
-	elif get_input_direction() == 1:
+	elif Player.facing == 1:
 		Player_Sprite.flip_h = true

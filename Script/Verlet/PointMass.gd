@@ -1,7 +1,6 @@
 extends Node2D
 onready var area = get_node("Area2D")
 var velocity = Vector2(0,0)
-var acceleration = Vector2(0,8) #gravity or other external forces #5,8 looks nice
 var entered_body = false;
 var is_pin = false
 var collision_factor = 0.3 #Read docs for what this does
@@ -27,7 +26,7 @@ func _physics_process(delta):
 onready var last_position = position
 var next_position
 
-func do_verlet(delta):
+func do_verlet(delta,accel):
 	var mult = 1
 	velocity = position - last_position
 	last_position = position
@@ -36,7 +35,7 @@ func do_verlet(delta):
 		position = last_position
 		velocity *= -collision_factor
 	velocity *= dampen_factor # damping
-	position = position + (velocity*delta*60) + (acceleration*delta * mult)
+	position = position + (velocity*delta*60) + (accel*delta * mult)
 
 func _on_Area2D_body_entered(body):
 	if (body.name != "Player"):

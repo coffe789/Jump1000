@@ -9,6 +9,7 @@ var spawn_offset = Vector2(600,100)
 var PM_spacing_x = 3 # Length of links between nodes
 var PM_spacing_y = 3
 var grid_size = 4
+var accel = Vector2(5,8)
 
 var outline_color = Color8(33,39,58)
 #Fill colour is set in PM script, couldn't figure out how to do it from here.
@@ -100,7 +101,7 @@ func _physics_process(delta):
 		link_list[i].constrain()
 	for i in PM_list.size():
 		for j in PM_list.size():
-			PM_list[i][j].do_verlet(delta)
+			PM_list[i][j].do_verlet(delta,accel)
 	update() #draws outline
 
 
