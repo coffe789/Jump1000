@@ -1,11 +1,11 @@
 extends Node2D
 onready var area = get_node("Area2D")
 var velocity = Vector2(0,0)
-var acceleration = Vector2(5,8) #gravity or other external forces
+var acceleration = Vector2(0,8) #gravity or other external forces #5,8 looks nice
 var entered_body = false;
 var is_pin = false
 var collision_factor = 0.3 #Read docs for what this does
-var dampen_factor = 0.96
+var dampen_factor = 0.9
 var fill_color = PoolColorArray()
 
 var drawto = [self]
@@ -38,8 +38,10 @@ func do_verlet(delta):
 	velocity *= dampen_factor # damping
 	position = position + (velocity*delta*60) + (acceleration*delta * mult)
 
-func _on_Area2D_body_entered(_body):
-	entered_body=true;
+func _on_Area2D_body_entered(body):
+	if (body.name != "Player"):
+		entered_body=true;
 
-func _on_Area2D_body_exited(_body):
-	entered_body = false
+func _on_Area2D_body_exited(body):
+	if (body.name != "Player"):
+		entered_body = false
