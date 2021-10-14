@@ -43,8 +43,6 @@ func try_state_transition():
 func can_wall_jump():
 	_update_wall_direction()
 	# If we're facing the direction with a valid wall
-	print(facing)
-	print(wall_direction)
 	if facing == wall_direction:
 		return true
 	return false
