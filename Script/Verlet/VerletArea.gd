@@ -101,6 +101,7 @@ func _physics_process(delta):
 		link_list[i].constrain()
 		link_list[i].constrain()
 		link_list[i].constrain()
+		link_list[i].constrain()
 	for i in PM_list.size():
 		for j in PM_list.size():
 			PM_list[i][j].do_verlet(delta,accel)
