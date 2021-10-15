@@ -40,32 +40,7 @@ func try_state_transition():
 		state_list[next_state].enter(init_arg)
 		current_state = next_state
 
-func can_wall_jump():
-	_update_wall_direction()
-	# If we're facing the direction with a valid wall
-	if facing == wall_direction:
-		return true
-	return false
-	
-func _update_wall_direction():
-	var is_near_wall_left = _check_is_valid_wall(left_wall_raycast)
-	var is_near_wall_right = _check_is_valid_wall(right_wall_raycast)
-	
-	# If the player is sandwiched between two walls, set the wall direction to whatever they face
-	if is_near_wall_left && is_near_wall_right:
-		wall_direction = facing
-	# If we're near a left wall, wall_direction will be -(1)+(0), right wall will be -(0)+(1), neither is 0
-	else:
-		wall_direction = -int(is_near_wall_left) + int(is_near_wall_right)
 
-func _check_is_valid_wall(raycast):
-	if raycast.is_colliding():
-		# Check if we're on a slope
-		var dot = acos(Vector2.UP.dot(raycast.get_collision_normal()))
-		# If the slope is 60 degrees either way (flipping direction changes the angle, so we need two checks)
-		if dot > PI * 0.35 && dot < PI * 0.55:
-			return true
-	return false
 
 # Signals
 #=================================#

@@ -22,7 +22,7 @@ func check_for_new_state() -> String:
 		return "falling"
 	if (Player.is_on_floor()):
 		return "idle"
-	if ((Input.is_action_just_pressed("jump") || Player.isJumpBuffered) && Player.can_wall_jump()):
+	if ((Input.is_action_just_pressed("jump") || Player.isJumpBuffered) && can_wall_jump()):
 		return "walljumping"
 	return "jumping"
 
