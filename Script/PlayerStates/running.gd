@@ -1,6 +1,7 @@
 extends PlayerState
 
 func do_state_logic(delta):
+	Animation_Player.play("running")
 	start_coyote_time()
 	Player.velocity.y = 0
 	do_normal_x_movement(delta,FLOOR_DRAG)
