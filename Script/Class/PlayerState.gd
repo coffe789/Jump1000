@@ -95,7 +95,7 @@ func set_facing_direction():
 		Player.facing = -1
 
 func set_cape_acceleration():
-	Player.Cape.accel = Vector2(-Player.facing * 5, 8)
+	Player.Cape.accel = Vector2(-Player.facing * 4, 8)
 
 func set_player_sprite_direction():
 	if Player.facing == -1:

@@ -2,14 +2,14 @@ extends Node2D
 onready var PM = preload("res://Scene/Entities/Verlet/PointMass.tscn")
 onready var Link = preload("res://Scene/Entities/Verlet/Link.tscn")
 onready var Player = get_parent().get_node("Player")
-onready var CapeL = Player.get_node("CapeL")
-onready var CapeR = Player.get_node("CapeR")
+onready var CapeL = Player.get_node("Cape/CapeL")
+onready var CapeR = Player.get_node("Cape/CapeR")
 var PM_list = []
 var link_list = [] # Not a linked list lol
 onready var spawn_offset = Player.position
-var PM_spacing_x = 3 # Length of links between nodes
-var PM_spacing_y = 3
-var grid_size = 4
+var PM_spacing_x = 9 # Length of links between nodes
+var PM_spacing_y = 5
+var grid_size = 3
 var accel = Vector2(5,8)
 
 var outline_color = Color8(33,39,58)
