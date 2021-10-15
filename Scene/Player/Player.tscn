@@ -108,7 +108,7 @@ anims/idle = SubResource( 2 )
 anims/jumping = SubResource( 3 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( 0, -12 )
+position = Vector2( 0, -13 )
 frames = SubResource( 7 )
 animation = "idle"
 
