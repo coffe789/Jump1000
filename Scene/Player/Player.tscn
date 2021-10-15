@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Art/Player/placeholder2.png" type="Texture" id=1]
 [ext_resource path="res://Script/Player.gd" type="Script" id=2]
@@ -9,9 +9,91 @@
 [ext_resource path="res://Script/PlayerStates/jumping.gd" type="Script" id=7]
 [ext_resource path="res://Script/Verlet/IsAPin.gd" type="Script" id=8]
 [ext_resource path="res://Script/PlayerStates/walljumping.gd" type="Script" id=9]
+[ext_resource path="res://Art/Player/test_sheet.png" type="Texture" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 5, 10 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 1 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AnimatedSprite:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "idle" ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "jumping"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "jump" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AnimatedSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0, 1 ]
+}
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 23, 25 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 10 )
+region = Rect2( 0, 0, 22, 26 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 10 )
+region = Rect2( 22, 0, 22, 26 )
+
+[sub_resource type="SpriteFrames" id=7]
+animations = [ {
+"frames": [ SubResource( 4 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 5 ), SubResource( 6 ) ],
+"loop": true,
+"name": "jump",
+"speed": 5.0
+} ]
 
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 2
@@ -21,7 +103,17 @@ script = ExtResource( 2 )
 position = Vector2( 0, -10 )
 shape = SubResource( 1 )
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/idle = SubResource( 2 )
+anims/jumping = SubResource( 3 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0, -12 )
+frames = SubResource( 7 )
+animation = "idle"
+
 [node name="Sprite" type="Sprite" parent="."]
+visible = false
 position = Vector2( -12, -25 )
 texture = ExtResource( 1 )
 centered = false

@@ -1,5 +1,8 @@
 extends PlayerState
 
+func enter(_init_arg):
+	Animation_Player.play("idle")
+
 func do_state_logic(delta):
 	start_coyote_time()
 	do_gravity(delta, MAX_FALL_SPEED, GRAVITY)

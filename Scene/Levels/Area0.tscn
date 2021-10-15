@@ -54,8 +54,10 @@ texture = ExtResource( 1 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 74, 127 )
+z_index = -1
 
 [node name="VerletArea" parent="." instance=ExtResource( 3 )]
+z_index = -2
 
 [node name="Wall2" type="StaticBody2D" parent="."]
 position = Vector2( 343.59, 259.304 )

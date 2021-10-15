@@ -3,6 +3,7 @@ var stop_rising = false
 var rng = RandomNumberGenerator.new()
 
 func enter(_init_arg):
+	Animation_Player.play("jumping")
 	stop_rising = false
 	Player.isJumpBuffered = false
 	Player.canCoyoteJump = false
