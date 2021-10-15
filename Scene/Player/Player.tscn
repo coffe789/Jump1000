@@ -67,12 +67,12 @@ script = ExtResource( 8 )
 
 [node name="RightWallRaycast" type="RayCast2D" parent="WallRaycasts"]
 enabled = true
-cast_to = Vector2( 10, 0 )
+cast_to = Vector2( 7, 0 )
 collide_with_areas = true
 
 [node name="LeftWallRaycast" type="RayCast2D" parent="WallRaycasts"]
 enabled = true
-cast_to = Vector2( -10, 0 )
+cast_to = Vector2( -7, 0 )
 collide_with_areas = true
 
 [connection signal="timeout" from="Timers/CoyoteTimer" to="." method="_on_CoyoteTimer_timeout"]
