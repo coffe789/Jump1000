@@ -62,6 +62,7 @@ func link_PM():
 		for j in PM_list.size()-1:
 			var new_link = Link.instance() 
 			new_link.PM_a = PM_list[i][j]
+			new_link.is_rigid = true
 			new_link.PM_b = PM_list[i][j+1]
 			new_link.resting_distance = PM_spacing_y
 			link_list.append(new_link)
