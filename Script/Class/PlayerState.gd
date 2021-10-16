@@ -23,6 +23,8 @@ const UP_DIRECTION = Vector2(0,-1)
 const JUMP_BUFFER_DURATION = 0.15
 const COYOTE_TIME = 0.12
 const AFTER_JUMP_SLOWDOWN_FACTOR = 2
+const WALL_GRAVITY_FACTOR = 0.01
+const WALLJUMP_X_SPEED_MULTIPLIER = 1.3
 
 #Base class functions
 #================================================#
@@ -72,7 +74,7 @@ func do_slow_x_movement(delta, friction_constant):
 	if (abs(Player.velocity.x)>MAX_X_SPEED && Player.directionX == get_input_direction()): #going too fast
 		Player.velocity.x = approach(Player.velocity.x, get_input_direction() * MAX_X_SPEED, delta * friction_constant)
 	elif (get_input_direction()!=0): # move player
-		Player.velocity.x = approach(Player.velocity.x, get_input_direction() * MAX_X_SPEED, delta * ACCELERATE_WALK/3.5)
+		Player.velocity.x = approach(Player.velocity.x, get_input_direction() * MAX_X_SPEED, delta * ACCELERATE_WALK/4)
 	else:	#normal friction
 		Player.velocity.x = approach(Player.velocity.x, 0, delta * friction_constant * 1000)
 		
