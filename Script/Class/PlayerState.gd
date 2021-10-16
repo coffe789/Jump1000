@@ -15,6 +15,7 @@ onready var Animation_Player = Player.get_node("AnimationPlayer")
 const GRAVITY = 3500/2
 const ACCELERATE_WALK = 1500/1.5
 const FLOOR_DRAG = 1
+const DUCK_FLOOR_DRAG = 0.8
 const AIR_DRAG = 0.2
 const MAX_X_SPEED = 200/2
 const JUMP_SPEED = 400/1.9
@@ -25,6 +26,7 @@ const COYOTE_TIME = 0.12
 const AFTER_JUMP_SLOWDOWN_FACTOR = 2
 const WALL_GRAVITY_FACTOR = 0.01
 const WALLJUMP_X_SPEED_MULTIPLIER = 1.3
+const WALLJUMP_SLOWDOWN_MULTIPLIER = 0.25
 
 #Base class functions
 #================================================#
@@ -45,6 +47,7 @@ func check_for_new_state() -> String:
 
 #Shared utility functions
 #===============================================#
+
 func check_buffered_jump_input():
 	if Input.is_action_just_pressed("jump"):
 		Player.isJumpBuffered = true;
@@ -61,23 +64,16 @@ func get_input_direction():
 		x -= 1
 	return x
 
-func do_normal_x_movement(delta, friction_constant):
+func do_normal_x_movement(delta, friction_constant, walk_acceleration):
 	if (abs(Player.velocity.x)>MAX_X_SPEED && Player.directionX == get_input_direction()): #going too fast
-		Player.velocity.x = approach(Player.velocity.x, get_input_direction() * MAX_X_SPEED, delta * friction_constant)
-	elif (get_input_direction()!=0): # move player
-		Player.velocity.x = approach(Player.velocity.x, get_input_direction() * MAX_X_SPEED, delta * ACCELERATE_WALK)
+		Player.velocity.x = approach(Player.velocity.x, get_input_direction() * MAX_X_SPEED, delta * friction_constant * 1000)
+	elif (get_input_direction()!=0 && walk_acceleration != 0): # move player
+		Player.velocity.x = approach(Player.velocity.x, get_input_direction() * MAX_X_SPEED, delta * walk_acceleration)
 	else:	#normal friction
 		Player.velocity.x = approach(Player.velocity.x, 0, delta * friction_constant * 1000)
+		print("doing friction")
 
-# Only difference is a third of the acceleration
-func do_slow_x_movement(delta, friction_constant):
-	if (abs(Player.velocity.x)>MAX_X_SPEED && Player.directionX == get_input_direction()): #going too fast
-		Player.velocity.x = approach(Player.velocity.x, get_input_direction() * MAX_X_SPEED, delta * friction_constant)
-	elif (get_input_direction()!=0): # move player
-		Player.velocity.x = approach(Player.velocity.x, get_input_direction() * MAX_X_SPEED, delta * ACCELERATE_WALK/4)
-	else:	#normal friction
-		Player.velocity.x = approach(Player.velocity.x, 0, delta * friction_constant * 1000)
-		
+
 func do_gravity(delta, fall_acceleration, max_fall_speed):
 	Player.velocity.y = approach(Player.velocity.y, max_fall_speed, delta * fall_acceleration)
 
@@ -144,3 +140,4 @@ func _check_is_valid_wall(raycast):
 			if dot > PI * 0.35 && dot < PI * 0.55:
 				return true
 	return false
+

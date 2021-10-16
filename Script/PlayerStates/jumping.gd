@@ -15,7 +15,7 @@ func do_state_logic(delta):
 	check_buffered_jump_input()
 	check_if_finish_jump()
 	do_gravity(delta, MAX_FALL_SPEED, GRAVITY)
-	do_normal_x_movement(delta,AIR_DRAG)
+	do_normal_x_movement(delta,AIR_DRAG, ACCELERATE_WALK)
 	Player.velocity = Player.move_and_slide(Player.velocity,UP_DIRECTION)
 
 func check_for_new_state() -> String:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Art/Player/player.png" type="Texture" id=1]
 [ext_resource path="res://Script/Player.gd" type="Script" id=2]
@@ -9,6 +9,9 @@
 [ext_resource path="res://Script/PlayerStates/jumping.gd" type="Script" id=7]
 [ext_resource path="res://Script/PlayerStates/wallsliding.gd" type="Script" id=8]
 [ext_resource path="res://Script/PlayerStates/walljumping.gd" type="Script" id=9]
+[ext_resource path="res://Script/PlayerStates/duckjumping.gd" type="Script" id=10]
+[ext_resource path="res://Script/PlayerStates/duckfalling.gd" type="Script" id=11]
+[ext_resource path="res://Script/PlayerStates/ducking.gd" type="Script" id=12]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 5, 10 )
@@ -126,6 +129,15 @@ script = ExtResource( 9 )
 
 [node name="wallsliding" type="Node" parent="StateMachine"]
 script = ExtResource( 8 )
+
+[node name="duckjumping" type="Node" parent="StateMachine"]
+script = ExtResource( 10 )
+
+[node name="duckfalling" type="Node" parent="StateMachine"]
+script = ExtResource( 11 )
+
+[node name="ducking" type="Node" parent="StateMachine"]
+script = ExtResource( 12 )
 
 [node name="Audio" type="Node" parent="."]
 
