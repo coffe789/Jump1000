@@ -100,7 +100,6 @@ anims/jumping = SubResource( 3 )
 anims/running = SubResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="."]
-visible = false
 position = Vector2( 0, -16 )
 texture = ExtResource( 1 )
 hframes = 10

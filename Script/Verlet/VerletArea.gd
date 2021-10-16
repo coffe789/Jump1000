@@ -8,7 +8,7 @@ var PM_list = []
 var link_list = [] # Not a linked list lol
 onready var spawn_offset = Player.position
 var PM_spacing_x = 3 # Length of links between nodes
-var PM_spacing_y = 5
+var PM_spacing_y = 6
 var grid_size = 3
 var accel = Vector2(5,8)
 
@@ -32,6 +32,10 @@ func spawn_PM():
 			new_PM.global_position = spawn_offset + Vector2(i,0)*PM_spacing_x + Vector2(0,j)*PM_spacing_y
 			PM_list[i].append(new_PM)
 			add_child(new_PM)
+			if (i==grid_size-1 && j == grid_size):
+				PM_list[i][j].constant_accel = Vector2(7,0)
+			if (i==0 && j == grid_size-1):
+				PM_list[i][j].constant_accel = Vector2(-7,0)
 
 #fills the outline array with the outermost nodes (in proper order) (used to draw outline)
 func init_outline():
