@@ -23,8 +23,11 @@ func check_for_new_state() -> String:
 		return "falling"
 	if (Player.is_on_floor()):
 		return "idle"
-	if ((Input.is_action_just_pressed("jump") || Player.isJumpBuffered) && can_wall_jump()):
-		return "walljumping"
+	if can_wall_jump():
+		if (Input.is_action_just_pressed("jump") or Player.isJumpBuffered):
+			return "walljumping"
+		else:
+			return "wallsliding"
 	return "jumping"
 
 # If you let go of jump, stop going up. Also handles buffered case.

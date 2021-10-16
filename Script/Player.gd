@@ -19,7 +19,8 @@ onready var state_list = \
 	"idle" : 	$StateMachine/idle,
 	"running" : $StateMachine/running,
 	"falling" : $StateMachine/falling,
-	"walljumping" : $StateMachine/walljumping
+	"walljumping" : $StateMachine/walljumping,
+	"wallsliding" : $StateMachine/wallsliding
 }
 
 # Controls every aspect of player physics

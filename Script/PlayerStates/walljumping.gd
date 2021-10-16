@@ -3,20 +3,20 @@ var stop_rising = false
 var rng = RandomNumberGenerator.new()
 
 func enter(_init_arg):
+	print(self.name)
 	stop_rising = false
 	Player.isJumpBuffered = false
 	Player.canCoyoteJump = false
-	print(self.name)
 	#Player.velocity.y = -JUMP_SPEED #jump
 	Player.velocity.y = -JUMP_SPEED
-	Player.velocity.x = MAX_X_SPEED*(-Player.facing)*1.5
+	Player.velocity.x = MAX_X_SPEED*(-Player.wall_direction)*1.5
 	play_jump_audio()
 
 func do_state_logic(delta):
 	check_buffered_jump_input()
 	check_if_finish_jump()
 	do_gravity(delta, MAX_FALL_SPEED, GRAVITY)
-	#do_normal_x_movement(delta,AIR_DRAG)
+	do_slow_x_movement(delta,AIR_DRAG)
 	Player.velocity = Player.move_and_slide(Player.velocity, UP_DIRECTION)
 	
 func check_for_new_state() -> String:
@@ -24,8 +24,9 @@ func check_for_new_state() -> String:
 		return "falling"
 	if (Player.is_on_floor()):
 		return "idle"
-	if ((Input.is_action_just_pressed("jump") || Player.isJumpBuffered) && can_wall_jump()):
-		return "walljumping"
+	if can_wall_jump():
+		if (Input.is_action_just_pressed("jump") or Player.isJumpBuffered):
+			return "walljumping"
 	return "walljumping"
 
 # If you let go of jump, stop going up. Also handles buffered case.
