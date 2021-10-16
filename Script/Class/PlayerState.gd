@@ -51,6 +51,8 @@ func check_buffered_jump_input():
 # Get intended x movement direction
 func get_input_direction():
 	var x = 0;
+	if Input.is_action_pressed("right") && Input.is_action_pressed("left"):
+		return 0
 	if Input.is_action_pressed("right"):
 		x += 1
 	if Input.is_action_pressed("left"):

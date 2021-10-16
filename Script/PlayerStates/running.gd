@@ -13,7 +13,7 @@ func check_for_new_state() -> String:
 		return "jumping"
 	if (!Player.is_on_floor()):
 		return "falling"
-	if (!Input.is_action_pressed("left") && !Input.is_action_pressed("right")):
+	if (get_input_direction()==0):
 		return "idle"
 	if ((Input.is_action_just_pressed("jump") || Player.isJumpBuffered) && Player.can_wall_jump()):
 		return "walljumping"
