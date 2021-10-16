@@ -40,8 +40,6 @@ func try_state_transition():
 		state_list[next_state].enter(init_arg)
 		current_state = next_state
 
-
-
 # Signals
 #=================================#
 func _on_BufferedJumpTimer_timeout():

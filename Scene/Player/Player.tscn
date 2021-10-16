@@ -10,7 +10,7 @@
 [ext_resource path="res://Script/PlayerStates/walljumping.gd" type="Script" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 5, 10 )
+extents = Vector2( 4, 11 )
 
 [sub_resource type="Animation" id=2]
 resource_name = "idle"

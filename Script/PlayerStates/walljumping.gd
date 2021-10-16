@@ -7,15 +7,16 @@ func enter(_init_arg):
 	Player.isJumpBuffered = false
 	Player.canCoyoteJump = false
 	print(self.name)
-	Player.velocity.y = -JUMP_SPEED #jump
-	Player.velocity.x = MAX_X_SPEED*(-Player.facing)*1.25
+	#Player.velocity.y = -JUMP_SPEED #jump
+	Player.velocity.y = -JUMP_SPEED
+	Player.velocity.x = MAX_X_SPEED*(-Player.facing)*1.5
 	play_jump_audio()
 
 func do_state_logic(delta):
 	check_buffered_jump_input()
 	check_if_finish_jump()
 	do_gravity(delta, MAX_FALL_SPEED, GRAVITY)
-	do_normal_x_movement(delta,AIR_DRAG)
+	#do_normal_x_movement(delta,AIR_DRAG)
 	Player.velocity = Player.move_and_slide(Player.velocity, UP_DIRECTION)
 	
 func check_for_new_state() -> String:
