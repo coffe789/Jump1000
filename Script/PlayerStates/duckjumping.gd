@@ -4,6 +4,8 @@ var stop_rising = false
 var rng = RandomNumberGenerator.new()
 
 func enter(_init_arg):
+	Collision_Body.get_shape().extents = DUCKING_COLLISION_EXTENT
+	Collision_Body.position.y = -4
 	Animation_Player.play("jumping")
 	stop_rising = false
 	Player.isJumpBuffered = false
@@ -35,3 +37,7 @@ func check_if_finish_jump() -> void:
 func play_jump_audio():
 	Audio.get_node("JumpAudio").pitch_scale = rng.randf_range(1.2, 0.9)
 	Audio.get_node("JumpAudio").play(0.001) # Hide stupid audio artifact
+
+func exit():
+	Collision_Body.get_shape().extents = NORMAL_COLLISION_EXTENT
+	Collision_Body.position.y = -8

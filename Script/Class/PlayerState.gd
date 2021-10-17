@@ -10,7 +10,8 @@ onready var Timers = Player.get_node("Timers")
 onready var Player_Sprite = Player.get_node("Sprite")
 onready var Animation_Player = Player.get_node("AnimationPlayer")
 onready var Collision_Body = Player.get_node("CollisionBody")
-onready var Ducking_Collision_Body = Player.get_node("DuckingCollisionBody")
+onready var left_wall_raycast = Player.get_node("CollisionChecks/WallRaycasts/LeftWallRaycast")
+onready var right_wall_raycast = Player.get_node("CollisionChecks/WallRaycasts/RightWallRaycast")
 
 # Constants
 #====================================================#
@@ -29,6 +30,9 @@ const AFTER_JUMP_SLOWDOWN_FACTOR = 2
 const WALL_GRAVITY_FACTOR = 0.01
 const WALLJUMP_X_SPEED_MULTIPLIER = 1.3
 const WALLJUMP_SLOWDOWN_MULTIPLIER = 0.25
+const NORMAL_COLLISION_EXTENT = Vector2(5,8)
+const DUCKING_COLLISION_EXTENT = Vector2(5,4)
+const NORMAL_DUCK_DIFFERENCE = NORMAL_COLLISION_EXTENT.y - DUCKING_COLLISION_EXTENT.y
 
 #Base class functions
 #================================================#
@@ -121,8 +125,8 @@ func can_wall_jump():
 	return false
 	
 func _update_wall_direction():
-	var is_near_wall_left = _check_is_valid_wall(Player.left_wall_raycast)
-	var is_near_wall_right = _check_is_valid_wall(Player.right_wall_raycast)
+	var is_near_wall_left = _check_is_valid_wall(left_wall_raycast)
+	var is_near_wall_right = _check_is_valid_wall(right_wall_raycast)
 	
 	# If the player is sandwiched between two walls, set the wall direction to whatever they face
 	if is_near_wall_left && is_near_wall_right:

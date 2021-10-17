@@ -1,8 +1,8 @@
 extends PlayerState
 
 func enter(_init_arg):
-	Ducking_Collision_Body.disabled = false
-	Collision_Body.disabled = true;
+	Collision_Body.get_shape().extents = DUCKING_COLLISION_EXTENT
+	Collision_Body.position.y = -4
 	Animation_Player.play("idle")
 	print(self.name)
 
@@ -22,5 +22,5 @@ func check_for_new_state() -> String:
 	return "ducking"
 
 func exit():
-	Ducking_Collision_Body.disabled = true
-	Collision_Body.disabled = false
+	Collision_Body.get_shape().extents = NORMAL_COLLISION_EXTENT
+	Collision_Body.position.y = -8

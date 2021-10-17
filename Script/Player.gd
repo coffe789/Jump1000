@@ -10,8 +10,7 @@ var current_state = "idle";
 onready var Cape = get_parent().get_node("VerletArea")
 
 var wall_direction = 1
-onready var left_wall_raycast = $WallRaycasts/LeftWallRaycast
-onready var right_wall_raycast = $WallRaycasts/RightWallRaycast
+
 
 onready var state_list = \
 {

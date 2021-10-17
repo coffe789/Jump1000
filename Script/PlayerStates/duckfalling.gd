@@ -1,6 +1,8 @@
 extends PlayerState
 
 func do_state_logic(delta):
+	Collision_Body.get_shape().extents = DUCKING_COLLISION_EXTENT
+	Collision_Body.position.y = -4
 	check_buffered_jump_input()
 	do_gravity(delta, MAX_FALL_SPEED, GRAVITY)
 	do_normal_x_movement(delta,AIR_DRAG, ACCELERATE_WALK)
@@ -15,3 +17,7 @@ func check_for_new_state() -> String:
 		else:
 			return "idle"
 	return "duckfalling"
+
+func exit():
+	Collision_Body.get_shape().extents = NORMAL_COLLISION_EXTENT
+	Collision_Body.position.y = -8

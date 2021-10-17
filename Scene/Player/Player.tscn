@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Art/Player/player.png" type="Texture" id=1]
 [ext_resource path="res://Script/Player.gd" type="Script" id=2]
@@ -13,30 +13,10 @@
 [ext_resource path="res://Script/PlayerStates/duckfalling.gd" type="Script" id=11]
 [ext_resource path="res://Script/PlayerStates/ducking.gd" type="Script" id=12]
 
-[sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 5, 4 )
-
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 5, 8 )
 
-[sub_resource type="Animation" id=2]
-resource_name = "idle"
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 0 ]
-}
-
 [sub_resource type="Animation" id=3]
-resource_name = "jumping"
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -52,7 +32,21 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id=4]
-resource_name = "running"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=5]
 length = 0.55
 loop = true
 step = 0.025
@@ -97,25 +91,39 @@ tracks/2/keys = {
 collision_layer = 2
 script = ExtResource( 2 )
 
-[node name="DuckingCollisionBody" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -4 )
-shape = SubResource( 5 )
+[node name="CollisionChecks" type="Node2D" parent="."]
+
+[node name="UncrouchCheck" type="Area2D" parent="CollisionChecks"]
+position = Vector2( 0, -8 )
+monitorable = false
+collision_layer = 0
+
+[node name="CollisionBody2" type="CollisionShape2D" parent="CollisionChecks/UncrouchCheck"]
+shape = SubResource( 1 )
 disabled = true
+
+[node name="WallRaycasts" type="Node2D" parent="CollisionChecks"]
+
+[node name="RightWallRaycast" type="RayCast2D" parent="CollisionChecks/WallRaycasts"]
+enabled = true
+cast_to = Vector2( 9, 0 )
+collide_with_areas = true
+
+[node name="LeftWallRaycast" type="RayCast2D" parent="CollisionChecks/WallRaycasts"]
+enabled = true
+cast_to = Vector2( -9, 0 )
+collide_with_areas = true
 
 [node name="CollisionBody" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -8 )
 shape = SubResource( 1 )
 
-[node name="UncrouchCheck" type="Area2D" parent="CollisionBody"]
-monitorable = false
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/idle = SubResource( 2 )
-anims/jumping = SubResource( 3 )
-anims/running = SubResource( 4 )
+anims/idle = SubResource( 3 )
+anims/jumping = SubResource( 4 )
+anims/running = SubResource( 5 )
 
 [node name="Sprite" type="Sprite" parent="."]
-visible = false
 position = Vector2( 0, -16 )
 texture = ExtResource( 1 )
 hframes = 10
@@ -171,19 +179,7 @@ position = Vector2( -4, 0 )
 [node name="CapeR" type="Position2D" parent="Cape"]
 position = Vector2( 4, 0 )
 
-[node name="WallRaycasts" type="Node2D" parent="."]
-
-[node name="RightWallRaycast" type="RayCast2D" parent="WallRaycasts"]
-enabled = true
-cast_to = Vector2( 9, 0 )
-collide_with_areas = true
-
-[node name="LeftWallRaycast" type="RayCast2D" parent="WallRaycasts"]
-enabled = true
-cast_to = Vector2( -9, 0 )
-collide_with_areas = true
-
-[connection signal="body_entered" from="CollisionBody/UncrouchCheck" to="." method="_on_UncrouchCheck_body_entered"]
-[connection signal="body_exited" from="CollisionBody/UncrouchCheck" to="." method="_on_UncrouchCheck_body_exited"]
+[connection signal="body_entered" from="CollisionChecks/UncrouchCheck" to="." method="_on_UncrouchCheck_body_entered"]
+[connection signal="body_exited" from="CollisionChecks/UncrouchCheck" to="." method="_on_UncrouchCheck_body_exited"]
 [connection signal="timeout" from="Timers/CoyoteTimer" to="." method="_on_CoyoteTimer_timeout"]
 [connection signal="timeout" from="Timers/BufferedJumpTimer" to="." method="_on_BufferedJumpTimer_timeout"]
