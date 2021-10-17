@@ -67,11 +67,10 @@ func get_input_direction():
 func do_normal_x_movement(delta, friction_constant, walk_acceleration):
 	if (abs(Player.velocity.x)>MAX_X_SPEED && Player.directionX == get_input_direction()): #going too fast
 		Player.velocity.x = approach(Player.velocity.x, get_input_direction() * MAX_X_SPEED, delta * friction_constant * 1000)
-	elif (get_input_direction()!=0 && walk_acceleration != 0): # move player
+	elif (get_input_direction()!=0 && walk_acceleration > 0): # move player
 		Player.velocity.x = approach(Player.velocity.x, get_input_direction() * MAX_X_SPEED, delta * walk_acceleration)
 	else:	#normal friction
 		Player.velocity.x = approach(Player.velocity.x, 0, delta * friction_constant * 1000)
-		print("doing friction")
 
 
 func do_gravity(delta, fall_acceleration, max_fall_speed):

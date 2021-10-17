@@ -21,14 +21,9 @@ func do_state_logic(delta):
 
 func check_for_new_state() -> String:
 	if (Player.velocity.y > 0):
-		return "falling"
+		return "duckfalling"
 	if (Player.is_on_floor()):
 		return "idle"
-	if can_wall_jump():
-		if (Input.is_action_just_pressed("jump") or Player.isJumpBuffered):
-			return "walljumping"
-		else:
-			return "wallsliding"
 	return "duckjumping"
 
 # If you let go of jump, stop going up. Also handles buffered case.
