@@ -9,6 +9,8 @@ onready var Audio = Player.get_node("Audio")
 onready var Timers = Player.get_node("Timers")
 onready var Player_Sprite = Player.get_node("Sprite")
 onready var Animation_Player = Player.get_node("AnimationPlayer")
+onready var Collision_Body = Player.get_node("CollisionBody")
+onready var Ducking_Collision_Body = Player.get_node("DuckingCollisionBody")
 
 # Constants
 #====================================================#

@@ -51,3 +51,11 @@ func _on_BufferedJumpTimer_timeout():
 
 func _on_CoyoteTimer_timeout():
 	canCoyoteJump = false
+
+
+func _on_UncrouchCheck_body_entered(body):
+	pass # Replace with function body.
+
+
+func _on_UncrouchCheck_body_exited(body):
+	pass # Replace with function body.
