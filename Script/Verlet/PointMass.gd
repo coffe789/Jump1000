@@ -21,7 +21,7 @@ func _draw():
 			pva.append(drawto[i].get_position()-self.get_position())
 		draw_primitive(pva, fill_color,PoolVector2Array())
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	update()
 
 onready var last_position = position

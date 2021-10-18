@@ -18,7 +18,7 @@ onready var right_wall_raycast = Player.get_node("CollisionChecks/WallRaycasts/R
 const GRAVITY = 3500/2
 const ACCELERATE_WALK = 1500/1.5
 const FLOOR_DRAG = 1
-const DUCK_FLOOR_DRAG = 0.8
+const DUCK_FLOOR_DRAG = 0.6
 const AIR_DRAG = 0.2
 const MAX_X_SPEED = 200/2
 const JUMP_SPEED = 400/1.9
@@ -32,7 +32,6 @@ const WALLJUMP_X_SPEED_MULTIPLIER = 1.3
 const WALLJUMP_SLOWDOWN_MULTIPLIER = 0.25
 const NORMAL_COLLISION_EXTENT = Vector2(5,8)
 const DUCKING_COLLISION_EXTENT = Vector2(5,4)
-const NORMAL_DUCK_DIFFERENCE = NORMAL_COLLISION_EXTENT.y - DUCKING_COLLISION_EXTENT.y
 
 #Base class functions
 #================================================#
