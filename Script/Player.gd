@@ -8,8 +8,8 @@ var directionY = 0;
 var facing = 1 #either -1 or 1
 var current_state = "idle";
 onready var Cape = get_parent().get_node("VerletArea")
-
-var wall_direction = 1
+var wall_direction = 1 #Walljump detection
+var can_unduck = true
 
 
 onready var state_list = \
@@ -53,8 +53,12 @@ func _on_CoyoteTimer_timeout():
 
 
 func _on_UncrouchCheck_body_entered(body):
-	pass # Replace with function body.
+	if body is StaticBody2D || body is RigidBody2D:
+		can_unduck = false
+	print("in body")
 
 
-func _on_UncrouchCheck_body_exited(body):
-	pass # Replace with function body.
+func _on_UncrouchCheck_body_exited(body):#not sure if this will behave correctlyif there are 2 bodies
+	if body is StaticBody2D || body is RigidBody2D:
+		can_unduck = true
+	print("out body")

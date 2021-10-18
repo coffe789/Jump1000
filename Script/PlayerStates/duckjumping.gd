@@ -2,6 +2,7 @@ extends PlayerState
 
 var stop_rising = false
 var rng = RandomNumberGenerator.new()
+var is_exit_unduck
 
 func enter(_init_arg):
 	Collision_Body.get_shape().extents = DUCKING_COLLISION_EXTENT
@@ -23,9 +24,15 @@ func do_state_logic(delta):
 
 func check_for_new_state() -> String:
 	if (Player.velocity.y > 0):
+		is_exit_unduck = false
 		return "duckfalling"
 	if (Player.is_on_floor()):
-		return "idle"
+		if Player.can_unduck:
+			is_exit_unduck = true
+			return "idle"
+		else:
+			is_exit_unduck = false
+			return "ducking"
 	return "duckjumping"
 
 # If you let go of jump, stop going up. Also handles buffered case.
@@ -39,5 +46,6 @@ func play_jump_audio():
 	Audio.get_node("JumpAudio").play(0.001) # Hide stupid audio artifact
 
 func exit():
-	Collision_Body.get_shape().extents = NORMAL_COLLISION_EXTENT
-	Collision_Body.position.y = -8
+	if is_exit_unduck:
+		Collision_Body.get_shape().extents = NORMAL_COLLISION_EXTENT
+		Collision_Body.position.y = -8

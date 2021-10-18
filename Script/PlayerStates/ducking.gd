@@ -1,4 +1,5 @@
 extends PlayerState
+var is_exit_unduck = false
 
 func enter(_init_arg):
 	Collision_Body.get_shape().extents = DUCKING_COLLISION_EXTENT
@@ -14,13 +15,17 @@ func do_state_logic(delta):
 
 func check_for_new_state() -> String:
 	if (!Player.is_on_floor()):
+		is_exit_unduck = false
 		return "duckfalling"
 	if (Input.is_action_just_pressed("jump") || Player.isJumpBuffered):
+		is_exit_unduck = false
 		return "duckjumping"
-	if (!Input.is_action_pressed("down")):
+	if (!Input.is_action_pressed("down") && Player.can_unduck):
+		is_exit_unduck = true
 		return "idle"
 	return "ducking"
 
 func exit():
-	Collision_Body.get_shape().extents = NORMAL_COLLISION_EXTENT
-	Collision_Body.position.y = -8
+	if is_exit_unduck:
+		Collision_Body.get_shape().extents = NORMAL_COLLISION_EXTENT
+		Collision_Body.position.y = -8
