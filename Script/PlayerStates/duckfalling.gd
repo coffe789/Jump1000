@@ -1,5 +1,8 @@
 extends PlayerState
 
+func set_attack_hitbox():
+	$"../ducking".set_attack_hitbox()
+
 func do_state_logic(delta):
 	Animation_Player.play("ducking")
 	Collision_Body.get_shape().extents = DUCKING_COLLISION_EXTENT

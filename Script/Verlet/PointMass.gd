@@ -39,9 +39,9 @@ func do_verlet(delta,accel):
 	position = position + (velocity*delta*60) + (accel + constant_accel) * delta * mult
 
 func _on_Area2D_body_entered(body):
-	if (body.name != "Player"):
+	if (body is StaticBody2D):
 		entered_body=true;
 
 func _on_Area2D_body_exited(body):
-	if (body.name != "Player"):
+	if (body is StaticBody2D):
 		entered_body = false

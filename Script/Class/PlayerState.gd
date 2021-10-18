@@ -12,6 +12,7 @@ onready var Animation_Player = Player.get_node("AnimationPlayer")
 onready var Collision_Body = Player.get_node("CollisionBody")
 onready var left_wall_raycast = Player.get_node("CollisionChecks/WallRaycasts/LeftWallRaycast")
 onready var right_wall_raycast = Player.get_node("CollisionChecks/WallRaycasts/RightWallRaycast")
+onready var Attack_Box = Player.get_node("CollisionChecks/AttackBox")
 
 # Constants
 #====================================================#
@@ -52,6 +53,14 @@ func check_for_new_state() -> String:
 
 #Shared utility functions
 #===============================================#
+
+func set_attack_hitbox():
+	Attack_Box.get_child(0).get_shape().extents = Vector2(8,5) #default values
+	Attack_Box.position.y = -8
+	Player.attack_box_x_distance = 14
+
+func set_attack_direction():
+	Attack_Box.position.x = Player.attack_box_x_distance * Player.facing
 
 func check_buffered_jump_input():
 	if Input.is_action_just_pressed("jump"):

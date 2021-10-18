@@ -10,6 +10,7 @@ var current_state = "idle";
 onready var Cape = get_parent().get_node("VerletArea")
 var wall_direction = 1 #Walljump detection
 var can_unduck = true
+var attack_box_x_distance = 14
 
 
 onready var state_list = \
@@ -33,6 +34,7 @@ func _physics_process(delta) -> void:
 	state_list[current_state].do_state_logic(delta)
 	state_list[current_state].set_cape_acceleration()
 	state_list[current_state].set_player_sprite_direction()
+	state_list[current_state].set_attack_direction()
 	try_state_transition()
 
 # Changes state if the current state wants to
@@ -42,6 +44,11 @@ func try_state_transition():
 		var init_arg = state_list[current_state].exit()
 		state_list[next_state].enter(init_arg)
 		current_state = next_state
+		execute_upon_transition()
+
+#saves us putting the same code in every single enter() function
+func execute_upon_transition():
+	state_list[current_state].set_attack_hitbox()
 
 # Signals
 #=================================#
@@ -58,7 +65,7 @@ func _on_UncrouchCheck_body_entered(body):
 	print("in body")
 
 
-func _on_UncrouchCheck_body_exited(body):#not sure if this will behave correctlyif there are 2 bodies
+func _on_UncrouchCheck_body_exited(body):#not sure if this will behave correctly if there are 2 bodies
 	if body is StaticBody2D || body is RigidBody2D:
 		can_unduck = true
 	print("out body")

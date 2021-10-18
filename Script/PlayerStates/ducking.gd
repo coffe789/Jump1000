@@ -1,5 +1,10 @@
 extends PlayerState
 
+func set_attack_hitbox():
+	Attack_Box.get_child(0).get_shape().extents = Vector2(8,5)
+	Attack_Box.position.y = -5
+	Player.attack_box_x_distance = 14
+
 func enter(_init_arg):
 	Collision_Body.get_shape().extents = DUCKING_COLLISION_EXTENT
 	Collision_Body.position.y = -4

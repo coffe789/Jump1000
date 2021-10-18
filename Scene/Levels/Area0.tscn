@@ -17,7 +17,8 @@ extents = Vector2( 29.4181, 68.6761 )
 
 [node name="RigidBody2D" type="StaticBody2D" parent="."]
 position = Vector2( 220.487, 131.892 )
-collision_mask = 3
+collision_layer = 9
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
 position = Vector2( 7.41858, 41.9188 )

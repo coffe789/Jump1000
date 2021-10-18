@@ -44,3 +44,6 @@ func play_jump_audio():
 func exit():
 	Collision_Body.get_shape().extents = NORMAL_COLLISION_EXTENT
 	Collision_Body.position.y = -8
+
+func set_attack_hitbox():
+	$"../ducking".set_attack_hitbox()
