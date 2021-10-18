@@ -20,6 +20,6 @@ func check_for_new_state() -> String:
 		return "jumping"
 	if Input.is_action_pressed("down"):
 		return "ducking"
-	if (Input.is_action_pressed("left") || Input.is_action_pressed("right")):
+	if (get_input_direction()!=0):
 		return "running"
 	return "idle"
