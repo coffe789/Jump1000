@@ -1,6 +1,7 @@
 extends PlayerState
 
 func do_state_logic(delta):
+	Animation_Player.play("ducking")
 	Collision_Body.get_shape().extents = DUCKING_COLLISION_EXTENT
 	Collision_Body.position.y = -4
 	check_buffered_jump_input()
