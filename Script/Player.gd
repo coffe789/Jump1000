@@ -11,6 +11,7 @@ onready var Cape = get_parent().get_node("VerletArea")
 var wall_direction = 1 #Walljump detection
 var can_unduck = true
 var attack_box_x_distance = 14
+var is_attacking = false
 
 
 onready var state_list = \
@@ -69,3 +70,8 @@ func _on_UncrouchCheck_body_exited(body):#not sure if this will behave correctly
 	if body is StaticBody2D || body is RigidBody2D:
 		can_unduck = true
 	print("out body")
+
+
+func _on_BetweenAttackTimer_timeout():
+	is_attacking = false
+	get_node("CollisionChecks/AttackBox/CollisionShape2D").disabled = true

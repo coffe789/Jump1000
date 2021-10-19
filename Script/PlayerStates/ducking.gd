@@ -12,6 +12,7 @@ func enter(_init_arg):
 	print(self.name)
 
 func do_state_logic(delta):
+	do_attack()
 	start_coyote_time()
 	do_gravity(delta, MAX_FALL_SPEED, GRAVITY)
 	Player.velocity = Player.move_and_slide(Player.velocity,UP_DIRECTION)

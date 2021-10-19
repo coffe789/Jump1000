@@ -59,6 +59,16 @@ func set_attack_hitbox():
 	Attack_Box.position.y = -8
 	Player.attack_box_x_distance = 14
 
+func do_attack():
+	if (Input.is_action_just_pressed("attack")):
+		Timers.get_node("BufferedAttackTimer").start(0.2)
+	
+	if (Input.is_action_just_pressed("attack") && !Player.is_attacking)\
+	or (Timers.get_node("BufferedAttackTimer").time_left > 0 && !Player.is_attacking):
+		Attack_Box.get_child(0).disabled = false
+		Player.is_attacking = true
+		Timers.get_node("BetweenAttackTimer").start(0.4)
+
 func set_attack_direction():
 	Attack_Box.position.x = Player.attack_box_x_distance * Player.facing
 
