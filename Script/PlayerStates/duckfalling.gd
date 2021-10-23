@@ -4,6 +4,7 @@ func set_attack_hitbox():
 	$"../ducking".set_attack_hitbox()
 
 func do_state_logic(delta):
+	do_attack()
 	Animation_Player.play("ducking")
 	Collision_Body.get_shape().extents = DUCKING_COLLISION_EXTENT
 	Collision_Body.position.y = -4

@@ -9,12 +9,18 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Area2D",
+"class": "Attackable_Area",
+"language": "GDScript",
+"path": "res://Script/Class/AttackableArea.gd"
+}, {
 "base": "Node",
 "class": "PlayerState",
 "language": "GDScript",
 "path": "res://Script/Class/PlayerState.gd"
 } ]
 _global_script_class_icons={
+"Attackable_Area": "",
 "PlayerState": ""
 }
 

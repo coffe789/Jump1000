@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scene/Entities/Class/AttackableArea.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Script/Templates/Attackable.gd" type="Script" id=2]
+
+[node name="KingPongus" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="AttackableArea" parent="." instance=ExtResource( 1 )]
