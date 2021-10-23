@@ -51,6 +51,11 @@ func try_state_transition():
 func execute_upon_transition():
 	state_list[current_state].set_attack_hitbox()
 
+#triggered by signal sent from attackable
+#response is dependent on the attackable's id & the player's state
+func attack_response(id):
+	current_state.attack_response(id)
+
 # Signals
 #=================================#
 func _on_BufferedJumpTimer_timeout():

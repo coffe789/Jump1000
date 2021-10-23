@@ -119,7 +119,8 @@ attack={
 
 2d_physics/layer_1="Tiles"
 2d_physics/layer_2="Player"
-2d_physics/layer_3="Attack/Attackable"
+2d_physics/layer_3="Attackable"
+2d_physics/layer_4="Attack"
 
 [physics]
 
