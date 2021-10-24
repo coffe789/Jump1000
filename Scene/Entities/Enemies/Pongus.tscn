@@ -16,6 +16,4 @@ script = null
 scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 3 )
 
-[connection signal="area_entered" from="AttackableArea" to="." method="_on_AttackableArea_area_entered"]
-
 [editable path="AttackableArea"]

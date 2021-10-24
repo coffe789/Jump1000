@@ -53,8 +53,8 @@ func execute_upon_transition():
 
 #triggered by signal sent from attackable
 #response is dependent on the attackable's id & the player's state
-func attack_response(id):
-	current_state.attack_response(id)
+func attack_response(response_id, attackable):
+	state_list[current_state].attack_response(response_id, attackable)
 
 # Signals
 #=================================#

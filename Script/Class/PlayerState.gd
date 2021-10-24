@@ -69,6 +69,14 @@ func do_attack():
 		Player.is_attacking = true
 		Timers.get_node("BetweenAttackTimer").start(0.4)
 
+func attack_response(response_id, attackable):
+	match response_id:
+		0:
+			Player.velocity.x = -Player.facing * 100 # recoil
+			attackable.on_attacked(0,0) #do damage or something
+		1:
+			print(1)
+
 func set_attack_direction():
 	Attack_Box.position.x = Player.attack_box_x_distance * Player.facing
 
