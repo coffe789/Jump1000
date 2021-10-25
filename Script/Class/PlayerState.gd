@@ -60,11 +60,12 @@ func set_attack_hitbox():
 	Player.attack_box_x_distance = 14
 
 func do_attack():
-	if (Input.is_action_just_pressed("attack")):
+	if (Input.is_action_just_pressed("attack")):#buffer an attack
 		Timers.get_node("BufferedAttackTimer").start(0.2)
 	
 	if (Input.is_action_just_pressed("attack") && !Player.is_attacking)\
-	or (Timers.get_node("BufferedAttackTimer").time_left > 0 && !Player.is_attacking):
+	or (Timers.get_node("BufferedAttackTimer").time_left > 0 && !Player.is_attacking): #actually attack
+		Player.current_attack_id += 1
 		Attack_Box.get_child(0).disabled = false
 		Player.is_attacking = true
 		Timers.get_node("BetweenAttackTimer").start(0.4)
@@ -73,7 +74,7 @@ func attack_response(response_id, attackable):
 	match response_id:
 		Globals.NORMAL_STAGGER:
 			Player.velocity.x = -Player.facing * 100 # recoil
-			attackable.on_attacked(10,Globals.NORMAL_ATTACK) #do damage or something
+			attackable.on_attacked(2,Globals.NORMAL_ATTACK) #do damage or something
 		Globals.CONTINUE_DASH:
 			print("continue da dash")
 
