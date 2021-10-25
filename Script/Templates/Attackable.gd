@@ -1,15 +1,12 @@
+# This script is to be used as a template by anything the player can attack
 extends Node2D
 signal attack_response
 var last_seen_attack_id = -1
 var Player
 
-var health = 5
-
 #called by the player state
 func on_attacked(attack_damage, attack_type):
-	health -= attack_damage
-	if health <= 0:
-		queue_free()
+	pass
 
 func _ready():
 	Player = get_tree().get_nodes_in_group("player")[0]
