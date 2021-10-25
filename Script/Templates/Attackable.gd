@@ -11,4 +11,4 @@ func _ready():
 #tells the player what it just attacked
 func _on_AttackableArea_area_entered(area):
 	if area.is_in_group("player_attack"):
-		get_tree().call_group("player", "attack_response", 0, self)
+		get_tree().call_group("player", "attack_response", Globals.NORMAL_STAGGER, self)

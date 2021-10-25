@@ -71,11 +71,11 @@ func do_attack():
 
 func attack_response(response_id, attackable):
 	match response_id:
-		0:
+		Globals.NORMAL_STAGGER:
 			Player.velocity.x = -Player.facing * 100 # recoil
-			attackable.on_attacked(0,0) #do damage or something
-		1:
-			print(1)
+			attackable.on_attacked(10,Globals.NORMAL_ATTACK) #do damage or something
+		Globals.CONTINUE_DASH:
+			print("continue da dash")
 
 func set_attack_direction():
 	Attack_Box.position.x = Player.attack_box_x_distance * Player.facing

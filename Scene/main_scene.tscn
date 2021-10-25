@@ -18,7 +18,3 @@ handle_input_locally = false
 render_target_update_mode = 3
 
 [node name="Area" parent="ViewportContainer/Viewport" instance=ExtResource( 1 )]
-
-[editable path="ViewportContainer/Viewport/Area"]
-[editable path="ViewportContainer/Viewport/Area/KingPongus"]
-[editable path="ViewportContainer/Viewport/Area/KingPongus/AttackableArea"]

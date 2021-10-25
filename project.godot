@@ -30,6 +30,10 @@ config/name="jump1000"
 run/main_scene="res://Scene/main_scene.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Globals="*res://Scene/Globals.tscn"
+
 [display]
 
 window/size/width=1280
