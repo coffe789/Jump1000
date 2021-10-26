@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Art/Player/player.png" type="Texture" id=1]
 [ext_resource path="res://Script/Player.gd" type="Script" id=2]
@@ -12,12 +12,17 @@
 [ext_resource path="res://Script/PlayerStates/duckjumping.gd" type="Script" id=10]
 [ext_resource path="res://Script/PlayerStates/duckfalling.gd" type="Script" id=11]
 [ext_resource path="res://Script/PlayerStates/ducking.gd" type="Script" id=12]
+[ext_resource path="res://Script/Player/DashCheckUp.gd" type="Script" id=13]
+[ext_resource path="res://Script/Player/DashCheckDown.gd" type="Script" id=14]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 4, 8 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 8, 5 )
+
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 13, 9 )
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 5, 8 )
@@ -196,6 +201,24 @@ modulate = Color( 1, 0, 0, 1 )
 shape = SubResource( 2 )
 disabled = true
 
+[node name="DashCheckUp" type="Area2D" parent="CollisionChecks" groups=[
+"dash_area",
+]]
+position = Vector2( -18, -22 )
+script = ExtResource( 13 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionChecks/DashCheckUp"]
+shape = SubResource( 8 )
+
+[node name="DashCheckDown" type="Area2D" parent="CollisionChecks" groups=[
+"dash_area",
+]]
+position = Vector2( -18, 6 )
+script = ExtResource( 14 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionChecks/DashCheckDown"]
+shape = SubResource( 8 )
+
 [node name="CollisionBody" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -8 )
 shape = SubResource( 3 )
@@ -269,6 +292,8 @@ position = Vector2( 4, 4 )
 
 [connection signal="body_entered" from="CollisionChecks/UncrouchCheck" to="." method="_on_UncrouchCheck_body_entered"]
 [connection signal="body_exited" from="CollisionChecks/UncrouchCheck" to="." method="_on_UncrouchCheck_body_exited"]
+[connection signal="area_entered" from="CollisionChecks/DashCheckDown" to="CollisionChecks/DashCheckDown" method="_on_DashCheckDown_area_entered"]
+[connection signal="area_exited" from="CollisionChecks/DashCheckDown" to="CollisionChecks/DashCheckDown" method="_on_DashCheckDown_area_exited"]
 [connection signal="timeout" from="Timers/CoyoteTimer" to="." method="_on_CoyoteTimer_timeout"]
 [connection signal="timeout" from="Timers/BufferedJumpTimer" to="." method="_on_BufferedJumpTimer_timeout"]
 [connection signal="timeout" from="Timers/BetweenAttackTimer" to="." method="_on_BetweenAttackTimer_timeout"]
