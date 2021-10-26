@@ -33,6 +33,7 @@ const WALLJUMP_X_SPEED_MULTIPLIER = 1.3
 const WALLJUMP_SLOWDOWN_MULTIPLIER = 0.25
 const NORMAL_COLLISION_EXTENT = Vector2(5,8)
 const DUCKING_COLLISION_EXTENT = Vector2(5,4)
+const NORMAL_ATTACK_SIZE = Vector2(10,5)
 
 #Base class functions
 #================================================#
@@ -55,9 +56,9 @@ func check_for_new_state() -> String:
 #===============================================#
 
 func set_attack_hitbox():
-	Attack_Box.get_child(0).get_shape().extents = Vector2(8,5) #default values
+	Attack_Box.get_child(0).get_shape().extents = NORMAL_ATTACK_SIZE
 	Attack_Box.position.y = -8
-	Player.attack_box_x_distance = 14
+	Player.attack_box_x_distance = 11
 
 func do_attack():
 	if (Input.is_action_just_pressed("attack")):#buffer an attack
