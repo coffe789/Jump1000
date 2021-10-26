@@ -13,6 +13,8 @@ onready var Collision_Body = Player.get_node("CollisionBody")
 onready var left_wall_raycast = Player.get_node("CollisionChecks/WallRaycasts/LeftWallRaycast")
 onready var right_wall_raycast = Player.get_node("CollisionChecks/WallRaycasts/RightWallRaycast")
 onready var Attack_Box = Player.get_node("CollisionChecks/AttackBox")
+onready var Dash_Check_Up = Player.get_node("CollisionChecks/DashCheckUp")
+onready var Dash_Check_Down = Player.get_node("CollisionChecks/DashCheckDown")
 
 # Constants
 #====================================================#
@@ -81,6 +83,8 @@ func attack_response(response_id, attackable):
 
 func set_attack_direction():
 	Attack_Box.position.x = Player.attack_box_x_distance * Player.facing
+	Dash_Check_Up.position.x = 18 * Player.facing
+	Dash_Check_Down.position.x = 18 * Player.facing
 
 func check_buffered_jump_input():
 	if Input.is_action_just_pressed("jump"):

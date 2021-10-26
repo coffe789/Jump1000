@@ -22,7 +22,7 @@ extents = Vector2( 4, 8 )
 extents = Vector2( 8, 5 )
 
 [sub_resource type="RectangleShape2D" id=8]
-extents = Vector2( 13, 9 )
+extents = Vector2( 13, 13 )
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 5, 8 )
@@ -204,7 +204,9 @@ disabled = true
 [node name="DashCheckUp" type="Area2D" parent="CollisionChecks" groups=[
 "dash_area",
 ]]
-position = Vector2( -18, -22 )
+position = Vector2( -18, -26 )
+collision_layer = 0
+collision_mask = 4
 script = ExtResource( 13 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionChecks/DashCheckUp"]
@@ -213,7 +215,9 @@ shape = SubResource( 8 )
 [node name="DashCheckDown" type="Area2D" parent="CollisionChecks" groups=[
 "dash_area",
 ]]
-position = Vector2( -18, 6 )
+position = Vector2( -18, 10 )
+collision_layer = 0
+collision_mask = 4
 script = ExtResource( 14 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionChecks/DashCheckDown"]
@@ -292,6 +296,8 @@ position = Vector2( 4, 4 )
 
 [connection signal="body_entered" from="CollisionChecks/UncrouchCheck" to="." method="_on_UncrouchCheck_body_entered"]
 [connection signal="body_exited" from="CollisionChecks/UncrouchCheck" to="." method="_on_UncrouchCheck_body_exited"]
+[connection signal="area_entered" from="CollisionChecks/DashCheckUp" to="CollisionChecks/DashCheckUp" method="_on_DashCheckUp_area_entered"]
+[connection signal="area_exited" from="CollisionChecks/DashCheckUp" to="CollisionChecks/DashCheckUp" method="_on_DashCheckUp_area_exited"]
 [connection signal="area_entered" from="CollisionChecks/DashCheckDown" to="CollisionChecks/DashCheckDown" method="_on_DashCheckDown_area_entered"]
 [connection signal="area_exited" from="CollisionChecks/DashCheckDown" to="CollisionChecks/DashCheckDown" method="_on_DashCheckDown_area_exited"]
 [connection signal="timeout" from="Timers/CoyoteTimer" to="." method="_on_CoyoteTimer_timeout"]

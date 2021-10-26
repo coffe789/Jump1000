@@ -2,16 +2,15 @@ extends Node2D
 class_name Attackable
 onready var Attackable_Area = get_node("AttackableArea") #All attackables must have an area called this
 
-signal attack_response
 var last_seen_attack_id = -1
 var Player
 
 #called by the player state
-func on_attacked(attack_damage, attack_type):
+func on_attacked(_attack_damage, _attack_type):
 	pass
 
 func _ready():
-	self.add_to_group("attackable")
+	Attackable_Area.add_to_group("attackable")
 	Player = get_tree().get_nodes_in_group("player")[0]
 	Attackable_Area.connect("area_entered", self, "_on_AttackableArea_area_entered")
 
@@ -22,12 +21,13 @@ func _on_AttackableArea_area_entered(area):
 		get_tree().call_group("player", "attack_response", Globals.NORMAL_STAGGER, self)
 
 func make_dashable():
-	self.remove_from_group("undashable")
-	self.add_to_group("dashable")
+	if Attackable_Area.is_in_group("undashable"):
+		Attackable_Area.remove_from_group("undashable")
+	Attackable_Area.add_to_group("dashable")
 	Attackable_Area.monitorable = false
 	Attackable_Area.monitorable = true # Ensures the dash area can detect us
 
 func make_undashable():
-	self.remove_from_group("dashable")
-	self.add_to_group("undashable")
+	Attackable_Area.remove_from_group("dashable")
+	Attackable_Area.add_to_group("undashable")
 	get_tree().call_in_group("dash_area", "detect_undashable")

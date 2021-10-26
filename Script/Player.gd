@@ -1,19 +1,23 @@
 extends KinematicBody2D
 
 export var velocity = Vector2(0,0);
-var isJumpBuffered = false;
-var canCoyoteJump = false;
 var directionX = 0; #Direction player is currently moving
 var directionY = 0;
 var facing = 1 #either -1 or 1
 var current_state = "idle";
-onready var Cape = get_parent().get_node("VerletArea")
+
+var isJumpBuffered = false;
+var canCoyoteJump = false;
+var stop_jump_rise = true
+
+onready var Cape = get_node("../VerletArea")
 var wall_direction = 1 #Walljump detection
 var can_unduck = true
 var attack_box_x_distance = 14
 var is_attacking = false
 var current_attack_id = 0 #used so enemies don't get hit twice by same attack
-var stop_jump_rise = true #idk
+var can_dash_up = false
+var can_dash_down = false
 
 
 onready var state_list = \
