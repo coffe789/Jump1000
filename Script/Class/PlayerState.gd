@@ -129,6 +129,12 @@ func start_coyote_time():
 	Player.canCoyoteJump = true
 	Timers.get_node("CoyoteTimer").start(COYOTE_TIME)
 
+# If you let go of jump, stop going up. Also handles buffered case.
+func check_if_finish_jump() -> void:
+	if ((!Input.is_action_pressed("jump") && !Player.stop_jump_rise)):
+		Player.velocity.y /= AFTER_JUMP_SLOWDOWN_FACTOR;
+		Player.stop_jump_rise = true;
+
 #Changes facing direction if an input is pressed. Otherwise facing remains as is.
 func set_facing_direction():
 	if get_input_direction()==1:
@@ -147,8 +153,8 @@ func set_player_sprite_direction():
 
 func can_wall_jump():
 	_update_wall_direction()
-	# If we're facing the direction with a valid wall
-	if Player.facing == Player.wall_direction:
+	# If we're near a valid wall
+	if Player.wall_direction != 0:
 		return true
 	return false
 	

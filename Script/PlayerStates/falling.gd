@@ -2,6 +2,7 @@ extends PlayerState
 
 func do_state_logic(delta):
 	do_attack()
+	check_if_finish_jump()
 	check_buffered_jump_input()
 	do_gravity(delta, MAX_FALL_SPEED, GRAVITY)
 	do_normal_x_movement(delta,AIR_DRAG, ACCELERATE_WALK)
@@ -20,6 +21,6 @@ func check_for_new_state() -> String:
 	if can_wall_jump():
 		if (Input.is_action_just_pressed("jump") or Player.isJumpBuffered):
 			return "walljumping"
-		else:
+		elif Player.wall_direction == get_input_direction() && Player.wall_direction != 0:
 			return "wallsliding"
 	return "falling"
