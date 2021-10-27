@@ -75,7 +75,7 @@ scale = Vector2( 1.89192, 4.33031 )
 texture = ExtResource( 1 )
 
 [node name="KingPongus" parent="." instance=ExtResource( 4 )]
-position = Vector2( 261.53, 150.362 )
+position = Vector2( 255, 119 )
 
 [editable path="KingPongus"]
 [editable path="KingPongus/AttackableArea"]

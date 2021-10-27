@@ -18,6 +18,7 @@ var is_attacking = false
 var current_attack_id = 0 #used so enemies don't get hit twice by same attack
 var can_dash_up = false
 var can_dash_down = false
+var dash_target_node = null
 
 
 onready var state_list = \

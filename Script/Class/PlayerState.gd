@@ -62,6 +62,24 @@ func set_attack_hitbox():
 	Attack_Box.position.y = -8
 	Player.attack_box_x_distance = 11
 
+# Target the closest node inside the up/down hitboxes
+# If none found, there is no dash target
+func calculate_dash_direction():
+	var best_distance_up = INF
+	var best_node_up = null
+	var best_distance_down = INF
+	var best_node_down = null
+	for i in Dash_Check_Up.area_list.size():
+		if (Player.position.x - Dash_Check_Up.area_list[i].position.x < best_distance_up):
+			best_distance_up = Dash_Check_Up.area_list[i].position.x
+			best_node_up = Dash_Check_Up.area_list[i]
+	for i in Dash_Check_Down.area_list.size():
+		if (Player.position.x - Dash_Check_Down.area_list[i].position.x < best_distance_down):
+			best_distance_down = Dash_Check_Down.area_list[i].position.x
+			best_node_down = Dash_Check_Down.area_list[i]
+	if best_node_down == best_node_up:
+		pass
+
 func do_attack():
 	if (Input.is_action_just_pressed("attack")):#buffer an attack
 		Timers.get_node("BufferedAttackTimer").start(0.2)
