@@ -16,8 +16,7 @@ var can_unduck = true
 var attack_box_x_distance = 14
 var is_attacking = false
 var current_attack_id = 0 #used so enemies don't get hit twice by same attack
-var can_dash_up = false
-var can_dash_down = false
+var dash_direction = 0
 var dash_target_node = null
 
 

@@ -22,7 +22,7 @@ func detect_undashable():
 func _on_DashCheckUp_area_entered(area):
 	if area.is_in_group("dashable"):
 		areas_inside_count += 1
-		Player.can_dash_up = true
+		#Player.can_dash_up = true
 		area_list.append(area)
 
 
@@ -31,5 +31,5 @@ func _on_DashCheckUp_area_exited(area):
 		areas_inside_count -= 1
 		area_list.erase(area)
 		assert(areas_inside_count>=0)
-		if (areas_inside_count == 0):
-			Player.can_dash_up = false
+#		if (areas_inside_count == 0):
+#			Player.can_dash_up = false

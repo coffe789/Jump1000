@@ -18,6 +18,8 @@ onready var Dash_Check_Down = Player.get_node("CollisionChecks/DashCheckDown")
 
 # Constants
 #====================================================#
+const PLAYER_HEIGHT = 16.0
+const PLAYER_WIDTH = 8
 const GRAVITY = 3500/2
 const ACCELERATE_WALK = 1500/1.5
 const FLOOR_DRAG = 1
@@ -62,23 +64,36 @@ func set_attack_hitbox():
 	Attack_Box.position.y = -8
 	Player.attack_box_x_distance = 11
 
-# Target the closest node inside the up/down hitboxes
-# If none found, there is no dash target
-func calculate_dash_direction():
-	var best_distance_up = INF
-	var best_node_up = null
-	var best_distance_down = INF
-	var best_node_down = null
+
+const DASH_DIR_UP = -1
+const DASH_DIR_DOWN = 1
+const DASH_DIR_NONE = 0
+# Find closest node within dash hitboxes & set Player.dash_target_node
+func set_dash_target():
+	var best_node = null
+	var best_distance = INF
 	for i in Dash_Check_Up.area_list.size():
-		if (Player.position.x - Dash_Check_Up.area_list[i].position.x < best_distance_up):
-			best_distance_up = Dash_Check_Up.area_list[i].position.x
-			best_node_up = Dash_Check_Up.area_list[i]
+		if ((Player.position.x - Dash_Check_Up.area_list[i].position.x) < best_distance):
+			best_distance = Dash_Check_Up.area_list[i].position.x
+			best_node = Dash_Check_Up.area_list[i]
 	for i in Dash_Check_Down.area_list.size():
-		if (Player.position.x - Dash_Check_Down.area_list[i].position.x < best_distance_down):
-			best_distance_down = Dash_Check_Down.area_list[i].position.x
-			best_node_down = Dash_Check_Down.area_list[i]
-	if best_node_down == best_node_up:
-		pass
+		if ((Player.position.x - Dash_Check_Down.area_list[i].position.x) < best_distance):
+			best_distance = Dash_Check_Down.area_list[i].position.x
+			best_node = Dash_Check_Down.area_list[i]
+	Player.dash_target_node = best_node
+
+# Set dash direction based on position of Player.dash_target_node
+func set_dash_direction():
+	if Player.dash_target_node == null:
+		Player.dash_direction = DASH_DIR_NONE
+		return 
+	var relative_position = Player.global_position.y - PLAYER_HEIGHT/2 - Player.dash_target_node.global_position.y
+	if relative_position < 0:
+		Player.dash_direction = DASH_DIR_DOWN
+		return
+	else:
+		Player.dash_direction =  DASH_DIR_UP
+		return
 
 func do_attack():
 	if (Input.is_action_just_pressed("attack")):#buffer an attack

@@ -12,6 +12,8 @@ func enter(_init_arg):
 	play_jump_audio()
 
 func do_state_logic(delta):
+	set_dash_target()
+	set_dash_direction()
 	do_attack()
 	check_buffered_jump_input()
 	check_if_finish_jump()

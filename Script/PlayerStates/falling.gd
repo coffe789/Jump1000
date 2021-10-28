@@ -1,6 +1,8 @@
 extends PlayerState
 
 func do_state_logic(delta):
+	set_dash_target()
+	print(set_dash_direction())
 	do_attack()
 	check_if_finish_jump()
 	check_buffered_jump_input()

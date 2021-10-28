@@ -12,7 +12,7 @@ func _ready():
 func _on_DashCheckDown_area_entered(area):
 	if area.is_in_group("dashable"):
 		areas_inside_count += 1
-		Player.can_dash_down = true
+#		Player.can_dash_down = true
 		area_list.append(area)
 	
 func _on_DashCheckDown_area_exited(area):
@@ -20,8 +20,8 @@ func _on_DashCheckDown_area_exited(area):
 		areas_inside_count -= 1
 		area_list.erase(area)
 		assert(areas_inside_count>=0)
-		if (areas_inside_count == 0):
-			Player.can_dash_down = false
+#		if (areas_inside_count == 0):
+#			Player.can_dash_down = false
 
 # If a detected area becomes undashable while inside this messes up the count
 # So when an area loses its dashability it tells this node to check if it should reduce its count
