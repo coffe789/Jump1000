@@ -31,6 +31,10 @@ func check_for_new_state() -> String:
 			return "walljumping"
 		else:
 			return "wallsliding"
+	if Player.dash_direction == -1 && Input.is_action_just_pressed("attack"):
+		return "dashing_up"
+	if Player.dash_direction == 1 && Input.is_action_just_pressed("attack"):
+		return "dashing_down"
 	return "jumping"
 
 

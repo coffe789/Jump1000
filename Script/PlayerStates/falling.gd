@@ -2,7 +2,7 @@ extends PlayerState
 
 func do_state_logic(delta):
 	set_dash_target()
-	print(set_dash_direction())
+	set_dash_direction()
 	do_attack()
 	check_if_finish_jump()
 	check_buffered_jump_input()
@@ -25,4 +25,8 @@ func check_for_new_state() -> String:
 			return "walljumping"
 		elif Player.wall_direction == get_input_direction() && Player.wall_direction != 0:
 			return "wallsliding"
+	if Player.dash_direction == -1 && Input.is_action_just_pressed("attack"):
+		return "dashing_up"
+	if Player.dash_direction == 1 && Input.is_action_just_pressed("attack"):
+		return "dashing_down"
 	return "falling"

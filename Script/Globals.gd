@@ -14,7 +14,7 @@ enum \
 	NORMAL_STAGGER,
 	DASH_DOWN_STAGGER,
 	DASH_UP_STAGGER,
-	CONTINUE_DASH
+	NO_RESPONSE
 }
 
 # Called when the node enters the scene tree for the first time.

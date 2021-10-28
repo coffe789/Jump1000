@@ -27,7 +27,7 @@ const DUCK_FLOOR_DRAG = 0.6
 const AIR_DRAG = 0.2
 const MAX_X_SPEED = 200/2
 const JUMP_SPEED = 400/1.9
-const MAX_FALL_SPEED = 1000/2
+const MAX_FALL_SPEED = 500
 const UP_DIRECTION = Vector2(0,-1)
 const JUMP_BUFFER_DURATION = 0.15
 const COYOTE_TIME = 0.12
@@ -38,6 +38,10 @@ const WALLJUMP_SLOWDOWN_MULTIPLIER = 0.25
 const NORMAL_COLLISION_EXTENT = Vector2(5,8)
 const DUCKING_COLLISION_EXTENT = Vector2(5,4)
 const NORMAL_ATTACK_SIZE = Vector2(10,5)
+
+# Variables
+#===============================================#
+var is_dashing = false
 
 #Base class functions
 #================================================#
@@ -111,8 +115,8 @@ func attack_response(response_id, attackable):
 		Globals.NORMAL_STAGGER:
 			Player.velocity.x = -Player.facing * 100 # recoil
 			attackable.on_attacked(2,Globals.NORMAL_ATTACK) #do damage or something
-		Globals.CONTINUE_DASH:
-			print("continue da dash")
+		Globals.NO_RESPONSE:
+			pass
 
 func set_attack_direction():
 	Attack_Box.position.x = Player.attack_box_x_distance * Player.facing

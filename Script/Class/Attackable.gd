@@ -18,7 +18,10 @@ func _ready():
 func _on_AttackableArea_area_entered(area):
 	if area.is_in_group("player_attack") && Player.current_attack_id != last_seen_attack_id:
 		last_seen_attack_id = Player.current_attack_id
-		get_tree().call_group("player", "attack_response", Globals.NORMAL_STAGGER, self)
+		if Player.state_list[Player.current_state].is_dashing:
+			get_tree().call_group("player", "attack_response", Globals.NO_RESPONSE, self)
+		else:
+			get_tree().call_group("player", "attack_response", Globals.NORMAL_STAGGER, self)
 
 func make_dashable():
 	if Attackable_Area.is_in_group("undashable"):
