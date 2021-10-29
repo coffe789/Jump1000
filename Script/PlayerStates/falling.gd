@@ -1,5 +1,8 @@
 extends PlayerState
 
+func _ready():
+	unset_dash_target = false
+
 func do_state_logic(delta):
 	set_dash_target()
 	set_dash_direction()

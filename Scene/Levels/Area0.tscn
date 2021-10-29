@@ -75,14 +75,14 @@ scale = Vector2( 1.89192, 4.33031 )
 texture = ExtResource( 1 )
 
 [node name="KingPongus" parent="." instance=ExtResource( 4 )]
-position = Vector2( 255, 119 )
+position = Vector2( 270, 122 )
 
 [node name="Sprite" parent="KingPongus" index="1"]
 position = Vector2( 0.257141, 0.5 )
 scale = Vector2( 0.514286, 0.1 )
 
 [node name="KingPongus2" parent="." instance=ExtResource( 4 )]
-position = Vector2( 124, 144 )
+position = Vector2( 269, 40 )
 
 [node name="Sprite" parent="KingPongus2" index="1"]
 position = Vector2( 0.257141, 0.5 )

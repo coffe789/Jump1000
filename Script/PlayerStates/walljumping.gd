@@ -2,6 +2,9 @@ extends PlayerState
 var stop_rising = false
 var rng = RandomNumberGenerator.new()
 
+func _ready():
+	unset_dash_target = false
+
 func enter(_init_arg):
 	print(self.name)
 	stop_rising = false
@@ -13,6 +16,8 @@ func enter(_init_arg):
 	play_jump_audio()
 
 func do_state_logic(delta):
+	set_dash_target()
+	set_dash_direction()
 	do_attack()
 	check_buffered_jump_input()
 	check_if_finish_jump()
@@ -28,6 +33,10 @@ func check_for_new_state() -> String:
 	if can_wall_jump():
 		if (Input.is_action_just_pressed("jump") or Player.isJumpBuffered):
 			return "walljumping"
+	if Player.dash_direction == -1 && Input.is_action_just_pressed("attack"):
+		return "dashing_up"
+	if Player.dash_direction == 1 && Input.is_action_just_pressed("attack"):
+		return "dashing_down"
 	return "walljumping"
 
 # If you let go of jump, stop going up. Also handles buffered case.

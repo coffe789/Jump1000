@@ -58,6 +58,8 @@ func try_state_transition():
 #saves us putting the same code in every single enter() function
 func execute_upon_transition():
 	state_list[current_state].set_attack_hitbox()
+	if state_list[current_state].unset_dash_target:
+		dash_target_node = null
 
 #triggered by signal sent from attackable
 #response is dependent on the attackable's id & the player's state

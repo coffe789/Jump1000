@@ -2,6 +2,9 @@ extends PlayerState
 var stop_rising = false
 var rng = RandomNumberGenerator.new()
 
+func _ready():
+	unset_dash_target = false
+
 func enter(_init_arg):
 	Animation_Player.play("jumping")
 	Player.stop_jump_rise = false

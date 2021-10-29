@@ -42,6 +42,7 @@ const NORMAL_ATTACK_SIZE = Vector2(10,5)
 # Variables
 #===============================================#
 var is_dashing = false
+var unset_dash_target = true
 
 #Base class functions
 #================================================#
@@ -85,6 +86,8 @@ func set_dash_target():
 			best_distance = Dash_Check_Down.area_list[i].position.x
 			best_node = Dash_Check_Down.area_list[i]
 	Player.dash_target_node = best_node
+	if best_node != null:
+		Player.dash_target_node = best_node.get_parent()
 
 # Set dash direction based on position of Player.dash_target_node
 func set_dash_direction():
