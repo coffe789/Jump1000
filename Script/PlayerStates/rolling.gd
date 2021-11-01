@@ -8,7 +8,7 @@ func enter(_init_arg):
 func do_state_logic(delta):
 	start_coyote_time()
 	do_gravity(delta, MAX_FALL_SPEED, GRAVITY)
-	do_unconcontrolled_movement(delta, 100 * roll_direction, 10)
+	do_unconcontrolled_movement(delta, MAX_X_SPEED * 1.5 * roll_direction, 1000)
 	Player.velocity = Player.move_and_slide(Player.velocity,UP_DIRECTION)
 
 func check_for_new_state() -> String:

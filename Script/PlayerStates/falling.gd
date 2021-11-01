@@ -25,9 +25,14 @@ func check_for_new_state() -> String:
 		return "jumping"
 	if can_wall_jump():
 		if (Input.is_action_just_pressed("jump") or Player.isJumpBuffered):
-			return "walljumping"
+			if Timers.get_node("WallBounceTimer").time_left > 0 && Player.velocity.y < 0:
+				return "wallbouncing"
+			else:
+				return "walljumping"
 		elif Player.wall_direction == get_input_direction() && Player.wall_direction != 0:
 			return "wallsliding"
+		elif Timers.get_node("WallBounceTimer").time_left > 0 && Player.velocity.y < 0:
+			return "wallbounce_sliding"
 	if Player.dash_direction == -1 && Input.is_action_just_pressed("attack"):
 		return "dashing_up"
 	if Player.dash_direction == 1 && Input.is_action_just_pressed("attack"):

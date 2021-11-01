@@ -14,6 +14,7 @@ func _ready():
 	Player = get_tree().get_nodes_in_group("player")[0]
 	Attackable_Area.connect("area_entered", self, "_on_AttackableArea_area_entered")
 
+# TODO: This needs to get the attack type before choosing the response
 # Tell the player what it just attacked
 func _on_AttackableArea_area_entered(area):
 	if area.is_in_group("player_attack") && Player.current_attack_id != last_seen_attack_id:

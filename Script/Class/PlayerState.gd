@@ -38,6 +38,7 @@ const WALLJUMP_SLOWDOWN_MULTIPLIER = 0.25
 const NORMAL_COLLISION_EXTENT = Vector2(5,8)
 const DUCKING_COLLISION_EXTENT = Vector2(5,4)
 const NORMAL_ATTACK_SIZE = Vector2(10,5)
+const DASH_ATTACK_SIZE = Vector2(10,10)
 
 # Variables
 #===============================================#
@@ -143,7 +144,7 @@ func get_input_direction():
 	return x
 
 func do_normal_x_movement(delta, friction_constant, walk_acceleration):
-	if (abs(Player.velocity.x)>MAX_X_SPEED && Player.directionX == get_input_direction()): #going too fast
+	if (abs(Player.velocity.x)>MAX_X_SPEED && Player.directionX != -get_input_direction()): #going too fast
 		Player.velocity.x = approach(Player.velocity.x, get_input_direction() * MAX_X_SPEED, delta * friction_constant * 1000)
 	elif (get_input_direction()!=0 && walk_acceleration > 0): # move player
 		Player.velocity.x = approach(Player.velocity.x, get_input_direction() * MAX_X_SPEED, delta * walk_acceleration)
@@ -151,7 +152,7 @@ func do_normal_x_movement(delta, friction_constant, walk_acceleration):
 		Player.velocity.x = approach(Player.velocity.x, 0, delta * friction_constant * 1000)
 
 func do_unconcontrolled_movement(delta, desired_speed, acceleration):
-	Player.velocity.x = approach(Player.velocity.x, get_input_direction() * desired_speed, delta * acceleration)
+	Player.velocity.x = approach(Player.velocity.x, desired_speed, delta * acceleration)
 
 func do_gravity(delta, fall_acceleration, max_fall_speed):
 	Player.velocity.y = approach(Player.velocity.y, max_fall_speed, delta * fall_acceleration)
