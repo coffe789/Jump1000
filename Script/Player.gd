@@ -32,7 +32,8 @@ onready var state_list = \
 	"duckjumping" : $StateMachine/duckjumping,
 	"duckfalling" : $StateMachine/duckfalling,
 	"dashing_up" : $StateMachine/dashing_up,
-	"dashing_down" : $StateMachine/dashing_down
+	"dashing_down" : $StateMachine/dashing_down,
+	"rolling" : $StateMachine/rolling
 }
 
 # Controls every aspect of player physics

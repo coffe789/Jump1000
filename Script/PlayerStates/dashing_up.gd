@@ -3,6 +3,12 @@ extends PlayerState
 func _ready():
 	is_dashing = true
 
+func set_player_sprite_direction():
+	pass
+
+func set_facing_direction():
+	pass
+
 func enter(_init_arg):
 	Timers.get_node("DashTimer").start(0.2)
 	Player.stop_jump_rise = false

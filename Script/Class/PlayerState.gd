@@ -150,6 +150,8 @@ func do_normal_x_movement(delta, friction_constant, walk_acceleration):
 	else:	#normal friction
 		Player.velocity.x = approach(Player.velocity.x, 0, delta * friction_constant * 1000)
 
+func do_unconcontrolled_movement(delta, desired_speed, acceleration):
+	Player.velocity.x = approach(Player.velocity.x, get_input_direction() * desired_speed, delta * acceleration)
 
 func do_gravity(delta, fall_acceleration, max_fall_speed):
 	Player.velocity.y = approach(Player.velocity.y, max_fall_speed, delta * fall_acceleration)

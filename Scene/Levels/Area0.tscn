@@ -31,7 +31,7 @@ scale = Vector2( 18.3246, 0.59375 )
 texture = ExtResource( 1 )
 
 [node name="RigidBody2D2" type="StaticBody2D" parent="."]
-position = Vector2( 171.795, 146 )
+position = Vector2( 275, 149 )
 collision_mask = 3
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="RigidBody2D2"]
@@ -82,7 +82,7 @@ position = Vector2( 0.257141, 0.5 )
 scale = Vector2( 0.514286, 0.1 )
 
 [node name="KingPongus2" parent="." instance=ExtResource( 4 )]
-position = Vector2( 269, 40 )
+position = Vector2( 99, 144 )
 
 [node name="Sprite" parent="KingPongus2" index="1"]
 position = Vector2( 0.257141, 0.5 )
