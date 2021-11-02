@@ -10,12 +10,16 @@ func set_player_sprite_direction():
 func set_facing_direction():
 	pass
 
+func exit():
+	stop_attack()
+
 func set_attack_hitbox():
 	Attack_Box.get_child(0).get_shape().extents = DASH_ATTACK_SIZE
 	Attack_Box.position.y = -8
 	Player.attack_box_x_distance = 11
 
 func enter(_init_arg):
+	do_attack()
 	Timers.get_node("DashTimer").start(0.5)
 	Player.stop_jump_rise = false
 	Player.isJumpBuffered = false
