@@ -16,4 +16,4 @@ func check_for_new_state() -> String:
 		return "wallsliding"
 	if can_wall_jump() && Player.velocity.y < 0:
 		return "wallbounce_sliding"
-	return "idle"
+	return "falling"

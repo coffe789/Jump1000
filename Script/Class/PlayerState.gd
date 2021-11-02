@@ -44,6 +44,7 @@ const DASH_ATTACK_SIZE = Vector2(10,10)
 #===============================================#
 var is_dashing = false
 var unset_dash_target = true
+var state_attack_type = Globals.NORMAL_ATTACK
 
 #Base class functions
 #================================================#
@@ -109,6 +110,7 @@ func do_attack():
 	
 	if (Input.is_action_just_pressed("attack") && !Player.is_attacking)\
 	or (Timers.get_node("BufferedAttackTimer").time_left > 0 && !Player.is_attacking): #actually attack
+		Player.last_attack_type = state_attack_type
 		Player.current_attack_id += 1
 		Attack_Box.get_child(0).disabled = false
 		Player.is_attacking = true

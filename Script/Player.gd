@@ -18,6 +18,7 @@ var is_attacking = false
 var current_attack_id = 0 #used so enemies don't get hit twice by same attack
 var dash_direction = 0
 var dash_target_node = null
+var last_attack_type = Globals.NORMAL_ATTACK
 
 
 onready var state_list = \
