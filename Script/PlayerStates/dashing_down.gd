@@ -19,7 +19,7 @@ func set_attack_hitbox():
 	Player.attack_box_x_distance = 11
 
 func enter(_init_arg):
-	do_attack()
+	force_attack()
 	Timers.get_node("DashTimer").start(0.5)
 	Player.stop_jump_rise = false
 	Player.isJumpBuffered = false

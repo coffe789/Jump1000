@@ -19,7 +19,7 @@ func set_attack_hitbox():
 	Player.attack_box_x_distance = 11
 
 func enter(_init_arg):
-	do_attack() #doesn't work because not the first frame you pressed attack
+	force_attack() #doesn't work because not the first frame you pressed attack
 	Timers.get_node("DashTimer").start(0.2)
 	Timers.get_node("WallBounceTimer").start(0.8)
 	Player.stop_jump_rise = false

@@ -24,4 +24,6 @@ func check_for_new_state() -> String:
 		return "ducking"
 	if (get_input_direction()==roll_direction*-1):
 		return "running"
+	if (Player.velocity.x == 0): #hit a wall
+		return "idle"
 	return "rolling"

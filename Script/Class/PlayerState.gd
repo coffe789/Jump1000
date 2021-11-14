@@ -118,6 +118,15 @@ func do_attack():
 			Timers.get_node("BetweenAttackTimer").start(0.4)
 			Timers.get_node("BufferedAttackTimer").stop()
 
+# Player attacks regardless of input or whatever
+func force_attack():
+	Player.last_attack_type = state_attack_type
+	Player.current_attack_id += 1
+	Attack_Box.get_child(0).disabled = false
+	Player.is_attacking = true
+	Timers.get_node("BetweenAttackTimer").start(0.4)
+	Timers.get_node("BufferedAttackTimer").stop()
+
 func stop_attack():
 	Attack_Box.get_child(0).disabled = true
 	Player.is_attacking = false
