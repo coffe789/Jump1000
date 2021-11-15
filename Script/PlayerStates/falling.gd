@@ -8,7 +8,6 @@ func do_state_logic(delta):
 	set_dash_direction()
 	do_attack()
 	check_if_finish_jump()
-	check_buffered_jump_input()
 	do_gravity(delta, MAX_FALL_SPEED, GRAVITY)
 	do_normal_x_movement(delta,AIR_DRAG, ACCELERATE_WALK)
 	Player.velocity = Player.move_and_slide(Player.velocity,UP_DIRECTION)
@@ -33,8 +32,8 @@ func check_for_new_state() -> String:
 			return "wallsliding"
 		elif Timers.get_node("WallBounceTimer").time_left > 0 && Player.velocity.y < 0:
 			return "wallbounce_sliding"
-	if Player.dash_direction == -1 && Input.is_action_just_pressed("attack"):
+	if Player.dash_direction == -1 && (Input.is_action_just_pressed("attack") || Timers.get_node("BufferedRedashTimer").time_left > 0):
 		return "dashing_up"
-	if Player.dash_direction == 1 && Input.is_action_just_pressed("attack"):
+	if Player.dash_direction == 1 && (Input.is_action_just_pressed("attack") || Timers.get_node("BufferedRedashTimer").time_left > 0):
 		return "dashing_down"
 	return "falling"

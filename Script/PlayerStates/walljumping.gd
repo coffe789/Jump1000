@@ -19,7 +19,6 @@ func do_state_logic(delta):
 	set_dash_target()
 	set_dash_direction()
 	do_attack()
-	check_buffered_jump_input()
 	check_if_finish_jump()
 	do_gravity(delta, MAX_FALL_SPEED, GRAVITY)
 	do_normal_x_movement(delta,AIR_DRAG, ACCELERATE_WALK * WALLJUMP_SLOWDOWN_MULTIPLIER)

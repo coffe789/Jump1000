@@ -105,9 +105,6 @@ func set_dash_direction():
 		return
 
 func do_attack():
-	if (Input.is_action_just_pressed("attack")):#buffer an attack
-		Timers.get_node("BufferedAttackTimer").start(0.2)
-	
 	if (Input.is_action_just_pressed("attack") && !Player.is_attacking)\
 	or (Timers.get_node("BufferedAttackTimer").time_left > 0 && !Player.is_attacking): #actually attack
 		if Player.dash_direction == 0:
@@ -127,6 +124,7 @@ func force_attack():
 	Timers.get_node("BetweenAttackTimer").start(0.4)
 	Timers.get_node("BufferedAttackTimer").stop()
 
+# If for whatever reason you want to cancel an attack (like entering another state)
 func stop_attack():
 	Attack_Box.get_child(0).disabled = true
 	Player.is_attacking = false
@@ -143,11 +141,6 @@ func set_attack_direction():
 	Attack_Box.position.x = Player.attack_box_x_distance * Player.facing
 	Dash_Check_Up.position.x = 18 * Player.facing
 	Dash_Check_Down.position.x = 18 * Player.facing
-
-func check_buffered_jump_input():
-	if Input.is_action_just_pressed("jump"):
-		Player.isJumpBuffered = true;
-		Timers.get_node("BufferedJumpTimer").start(JUMP_BUFFER_DURATION)
 
 # Get intended x movement direction
 func get_input_direction():
@@ -244,3 +237,25 @@ func _check_is_valid_wall(raycast):
 				return true
 	return false
 
+# Buffered inputs
+#==================================================================#
+# Calls the others. Will differ per state
+func check_buffered_inputs():
+	check_buffered_jump_input()
+	check_buffered_attack_input()
+
+func check_buffered_attack_input():
+	if (Input.is_action_just_pressed("attack")):
+		Timers.get_node("BufferedAttackTimer").start(0.2)
+
+func check_buffered_jump_input():
+	if Input.is_action_just_pressed("jump"):
+		Player.isJumpBuffered = true;
+		Timers.get_node("BufferedJumpTimer").start(JUMP_BUFFER_DURATION)
+
+# Used if you want to quickly dash again while in a dash state
+func check_buffered_redash_input():
+	if (Input.is_action_just_pressed("attack")):
+		Timers.get_node("BufferedRedashTimer").start(0.2)
+
+#==================================================================#

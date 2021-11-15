@@ -20,18 +20,23 @@ func set_attack_hitbox():
 
 func enter(_init_arg):
 	force_attack()
-	Timers.get_node("DashTimer").start(0.5)
+	Timers.get_node("DashTimer").start(0.2)
 	Player.stop_jump_rise = false
 	Player.isJumpBuffered = false
 	Player.canCoyoteJump = false
 	print(self.name)
-	Player.velocity = Vector2(Player.facing * 200, 140)
+	Player.velocity = Vector2(Player.facing * 200, 200)
 
 func do_state_logic(delta):
 	check_buffered_jump_input()
-	do_gravity(delta, MAX_FALL_SPEED, GRAVITY)
+	#do_gravity(delta, MAX_FALL_SPEED, GRAVITY)
 	Player.velocity = Player.move_and_slide(Player.velocity,UP_DIRECTION)
-	do_normal_x_movement(delta, AIR_DRAG, ACCELERATE_WALK)
+	do_normal_x_movement(delta, 0, ACCELERATE_WALK)
+	
+func check_buffered_inputs():
+	check_buffered_jump_input()
+	check_buffered_attack_input()
+	check_buffered_redash_input()
 	
 func check_for_new_state() -> String:
 	if (Player.is_on_floor()):
