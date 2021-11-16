@@ -30,9 +30,9 @@ func enter(_init_arg):
 
 func do_state_logic(delta):
 	check_buffered_jump_input()
-	do_gravity(delta, MAX_FALL_SPEED, GRAVITY)
+	#do_gravity(delta, MAX_FALL_SPEED, GRAVITY)
 	Player.velocity = Player.move_and_slide(Player.velocity,UP_DIRECTION)
-	do_normal_x_movement(delta, AIR_DRAG, ACCELERATE_WALK)
+	do_normal_x_movement(delta, 0, ACCELERATE_WALK)
 	
 func check_for_new_state() -> String:
 	if can_wall_jump():

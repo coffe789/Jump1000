@@ -48,6 +48,7 @@ func _physics_process(delta) -> void:
 	state_list[current_state].set_cape_acceleration()
 	state_list[current_state].set_player_sprite_direction()
 	state_list[current_state].set_attack_direction()
+	state_list[current_state].check_buffered_inputs()
 	try_state_transition()
 
 # Changes state if the current state wants to
