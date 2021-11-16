@@ -95,9 +95,18 @@ position = Vector2( 110, 10 )
 position = Vector2( 0.257141, 0.5 )
 scale = Vector2( 0.514286, 0.1 )
 
+[node name="KingPongus4" parent="." instance=ExtResource( 4 )]
+position = Vector2( 154, 120 )
+
+[node name="Sprite" parent="KingPongus4" index="1"]
+position = Vector2( 0.257141, 0.5 )
+scale = Vector2( 0.514286, 0.1 )
+
 [editable path="KingPongus"]
 [editable path="KingPongus/AttackableArea"]
 [editable path="KingPongus2"]
 [editable path="KingPongus2/AttackableArea"]
 [editable path="KingPongus3"]
 [editable path="KingPongus3/AttackableArea"]
+[editable path="KingPongus4"]
+[editable path="KingPongus4/AttackableArea"]

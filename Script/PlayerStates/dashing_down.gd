@@ -20,12 +20,12 @@ func set_attack_hitbox():
 
 func enter(_init_arg):
 	force_attack()
-	Timers.get_node("DashTimer").start(0.2)
+	Timers.get_node("DashTimer").start(0.4) #should be 0.2
 	Player.stop_jump_rise = false
 	Player.isJumpBuffered = false
 	Player.canCoyoteJump = false
 	print(self.name)
-	Player.velocity = Vector2(Player.facing * 200, 200)
+	Player.velocity = Vector2(Player.facing * 180, 150)
 
 func do_state_logic(delta):
 	check_buffered_jump_input()

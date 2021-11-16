@@ -10,8 +10,7 @@ func enter(_init_arg):
 	stop_rising = false
 	Player.isJumpBuffered = false
 	Player.canCoyoteJump = false
-	#Player.velocity.y = -JUMP_SPEED #jump
-	Player.velocity.y = -JUMP_SPEED * 1.35
+	Player.velocity.y = -JUMP_SPEED * WALLBOUNCE_MULTIPLIER
 	Player.velocity.x = MAX_X_SPEED*(-Player.wall_direction) * WALLJUMP_X_SPEED_MULTIPLIER
 	play_jump_audio()
 

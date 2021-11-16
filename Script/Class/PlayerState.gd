@@ -39,6 +39,7 @@ const NORMAL_COLLISION_EXTENT = Vector2(5,8)
 const DUCKING_COLLISION_EXTENT = Vector2(5,4)
 const NORMAL_ATTACK_SIZE = Vector2(10,5)
 const DASH_ATTACK_SIZE = Vector2(10,10)
+const WALLBOUNCE_MULTIPLIER = 1.35
 
 # Variables
 #===============================================#
@@ -191,6 +192,7 @@ func check_if_finish_jump() -> void:
 	if ((!Input.is_action_pressed("jump") && !Player.stop_jump_rise)):
 		Player.velocity.y /= AFTER_JUMP_SLOWDOWN_FACTOR;
 		Player.stop_jump_rise = true;
+		print("end jump")
 
 #Changes facing direction if an input is pressed. Otherwise facing remains as is.
 func set_facing_direction():
