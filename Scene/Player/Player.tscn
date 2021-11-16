@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Art/Player/player.png" type="Texture" id=1]
 [ext_resource path="res://Script/Player.gd" type="Script" id=2]
@@ -70,6 +70,23 @@ tracks/2/keys = {
 "values": [ Vector2( -4, 4 ) ]
 }
 
+[sub_resource type="Animation" id=9]
+resource_name = "falling"
+length = 0.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 30, 31 ]
+}
+
 [sub_resource type="Animation" id=6]
 loop = true
 tracks/0/type = "value"
@@ -79,10 +96,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 0 ]
+"values": [ 0, 1 ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Cape/CapeL:position")
@@ -110,6 +127,7 @@ tracks/2/keys = {
 }
 
 [sub_resource type="Animation" id=7]
+length = 0.2
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -118,10 +136,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 0 ]
+"values": [ 20, 21 ]
 }
 
 [sub_resource type="Animation" id=8]
@@ -138,7 +156,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.175, 0.275, 0.45, 0.55 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( -4, 0 ), Vector2( -4, 4 ), Vector2( -4, 4 ), Vector2( -4, 0 ), Vector2( -4, 0 ) ]
+"values": [ Vector2( -4, -1 ), Vector2( -4, 1 ), Vector2( -4, 1 ), Vector2( -4, -1 ), Vector2( -4, -1 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Cape/CapeR:position")
@@ -150,7 +168,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.175, 0.275, 0.45, 0.55 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 4, 0 ), Vector2( 4, 4 ), Vector2( 4, 4 ), Vector2( 4, 0 ), Vector2( 4, 0 ) ]
+"values": [ Vector2( 4, -1 ), Vector2( 4, 1 ), Vector2( 4, 1 ), Vector2( 4, -1 ), Vector2( 4, -1 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("Sprite:frame")
@@ -234,15 +252,17 @@ shape = SubResource( 4 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/ducking = SubResource( 5 )
+anims/falling = SubResource( 9 )
 anims/idle = SubResource( 6 )
 anims/jumping = SubResource( 7 )
 anims/running = SubResource( 8 )
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 0, -16 )
+position = Vector2( 0, -8 )
 texture = ExtResource( 1 )
 hframes = 10
-vframes = 7
+vframes = 5
+frame = 21
 
 [node name="StateMachine" type="Node" parent="."]
 
