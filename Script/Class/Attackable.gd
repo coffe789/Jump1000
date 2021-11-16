@@ -20,7 +20,7 @@ func _on_AttackableArea_area_entered(area):
 	if area.is_in_group("player_attack") && Player.current_attack_id != last_seen_attack_id:
 		last_seen_attack_id = Player.current_attack_id
 		if Player.last_attack_type == Globals.NORMAL_ATTACK:
-			get_tree().call_group("player", "attack_response", Globals.NORMAL_STAGGER, self)
+			get_tree().call_group("player", "attack_response", Globals.NO_RESPONSE, self)
 		else:
 			get_tree().call_group("player", "attack_response", Globals.NO_RESPONSE, self)
 

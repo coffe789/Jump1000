@@ -20,19 +20,19 @@ onready var Dash_Check_Down = Player.get_node("CollisionChecks/DashCheckDown")
 #====================================================#
 const PLAYER_HEIGHT = 16.0
 const PLAYER_WIDTH = 8
-const GRAVITY = 3500/2
+const GRAVITY = 500
 const ACCELERATE_WALK = 1500/1.5
 const FLOOR_DRAG = 1
 const DUCK_FLOOR_DRAG = 0.6
 const AIR_DRAG = 0.2
-const MAX_X_SPEED = 200/2
+const MAX_X_SPEED = 100
 const JUMP_SPEED = 400/1.9
-const MAX_FALL_SPEED = 500
+const MAX_FALL_SPEED = 450
 const UP_DIRECTION = Vector2(0,-1)
 const JUMP_BUFFER_DURATION = 0.15
 const COYOTE_TIME = 0.12
 const AFTER_JUMP_SLOWDOWN_FACTOR = 2
-const WALL_GRAVITY_FACTOR = 0.01
+const WALL_GRAVITY_FACTOR = 0.075
 const WALLJUMP_X_SPEED_MULTIPLIER = 1.3
 const WALLJUMP_SLOWDOWN_MULTIPLIER = 0.25
 const NORMAL_COLLISION_EXTENT = Vector2(5,8)
@@ -164,7 +164,7 @@ func do_normal_x_movement(delta, friction_constant, walk_acceleration):
 func do_unconcontrolled_movement(delta, desired_speed, acceleration):
 	Player.velocity.x = approach(Player.velocity.x, desired_speed, delta * acceleration)
 
-func do_gravity(delta, fall_acceleration, max_fall_speed):
+func do_gravity(delta, max_fall_speed, fall_acceleration):
 	Player.velocity.y = approach(Player.velocity.y, max_fall_speed, delta * fall_acceleration)
 
 # Have a number approach another with a defined increment
@@ -256,6 +256,6 @@ func check_buffered_jump_input():
 # Used if you want to quickly dash again while in a dash state
 func check_buffered_redash_input():
 	if (Input.is_action_just_pressed("attack")):
-		Timers.get_node("BufferedRedashTimer").start(0.2)
+		Timers.get_node("BufferedRedashTimer").start(0.1)
 
 #==================================================================#

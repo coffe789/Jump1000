@@ -3,6 +3,9 @@ extends PlayerState
 func _ready():
 	unset_dash_target = false
 
+func enter(_init_arg):
+	Animation_Player.play("falling")
+
 func do_state_logic(delta):
 	set_dash_target()
 	set_dash_direction()
@@ -32,8 +35,8 @@ func check_for_new_state() -> String:
 			return "wallsliding"
 		elif Timers.get_node("WallBounceTimer").time_left > 0 && Player.velocity.y < 0:
 			return "wallbounce_sliding"
-	if Player.dash_direction == -1 && (Input.is_action_just_pressed("attack") || Timers.get_node("BufferedRedashTimer").time_left > 0):
+	if (Player.dash_direction == -1 && Input.is_action_just_pressed("attack")) || Timers.get_node("BufferedRedashTimer").time_left > 0:
 		return "dashing_up"
-	if Player.dash_direction == 1 && (Input.is_action_just_pressed("attack") || Timers.get_node("BufferedRedashTimer").time_left > 0):
+	if (Player.dash_direction == 1 && Input.is_action_just_pressed("attack")) || Timers.get_node("BufferedRedashTimer").time_left > 0:
 		return "dashing_down"
 	return "falling"

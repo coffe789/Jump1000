@@ -13,13 +13,18 @@ func set_facing_direction():
 func exit():
 	stop_attack()
 
+func check_buffered_inputs():
+	check_buffered_jump_input()
+	check_buffered_attack_input()
+	check_buffered_redash_input()
+
 func set_attack_hitbox():
 	Attack_Box.get_child(0).get_shape().extents = DASH_ATTACK_SIZE
 	Attack_Box.position.y = -8
 	Player.attack_box_x_distance = 11
 
 func enter(_init_arg):
-	force_attack() #doesn't work because not the first frame you pressed attack
+	force_attack()
 	Timers.get_node("DashTimer").start(0.2)
 	Timers.get_node("WallBounceTimer").start(0.8)
 	Player.stop_jump_rise = false
