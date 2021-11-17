@@ -12,6 +12,7 @@ func set_facing_direction():
 
 func exit():
 	stop_attack()
+	return [init_args.ROLLING_FALL]
 
 func set_attack_hitbox():
 	Attack_Box.get_child(0).get_shape().extents = DASH_ATTACK_SIZE
@@ -20,12 +21,13 @@ func set_attack_hitbox():
 
 func enter(_init_arg):
 	force_attack()
-	Timers.get_node("DashTimer").start(0.4) #should be 0.2
+	Timers.get_node("DashTimer").start(0.2)
 	Player.stop_jump_rise = false
 	Player.isJumpBuffered = false
 	Player.canCoyoteJump = false
 	print(self.name)
-	Player.velocity = Vector2(Player.facing * 180, 150)
+	Player.velocity.y = 150
+	Player.velocity.x = set_if_lesser(Player.velocity.x, Player.facing * 180)
 
 func do_state_logic(delta):
 	check_buffered_jump_input()

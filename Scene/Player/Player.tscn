@@ -323,6 +323,9 @@ one_shot = true
 [node name="WallBounceTimer" type="Timer" parent="Timers"]
 one_shot = true
 
+[node name="RollTimer" type="Timer" parent="Timers"]
+one_shot = true
+
 [node name="Cape" type="Node2D" parent="."]
 position = Vector2( 0, -12 )
 

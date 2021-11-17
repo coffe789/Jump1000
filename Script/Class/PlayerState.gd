@@ -41,6 +41,13 @@ const NORMAL_ATTACK_SIZE = Vector2(10,5)
 const DASH_ATTACK_SIZE = Vector2(10,10)
 const WALLBOUNCE_MULTIPLIER = 1.35
 
+# State Initialisation Parameters
+#=============================================#
+enum init_args {
+	ROLLING_FALL
+}
+#=============================================#
+
 # Variables
 #===============================================#
 var is_dashing = false
@@ -183,6 +190,13 @@ func approach(to_change, maximum, change_by):
 		to_change = maximum
 	return to_change
 
+# sets value to maximum if maximum has a greater magnitude
+# Is used such that speed boosts can't slow you down
+func set_if_lesser(to_set, maximum):
+	if abs(to_set) > abs(maximum) && Globals.is_same_sign(to_set,maximum):
+		return to_set
+	return maximum
+
 func start_coyote_time():
 	Player.canCoyoteJump = true
 	Timers.get_node("CoyoteTimer").start(COYOTE_TIME)
@@ -241,7 +255,7 @@ func _check_is_valid_wall(raycast):
 
 # Buffered inputs
 #==================================================================#
-# Calls the others. Will differ per state
+# Calls the others. Contents will differ per state
 func check_buffered_inputs():
 	check_buffered_jump_input()
 	check_buffered_attack_input()

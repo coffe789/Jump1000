@@ -36,7 +36,8 @@ onready var state_list = \
 	"dashing_down" : $StateMachine/dashing_down,
 	"rolling" : $StateMachine/rolling,
 	"wallbounce_sliding" : $StateMachine/wallbounce_sliding,
-	"wallbouncing" : $StateMachine/wallbouncing
+	"wallbouncing" : $StateMachine/wallbouncing,
+	"rolling_fall" :$StateMachine/rolling_fall
 }
 
 # Controls every aspect of player physics
@@ -44,11 +45,7 @@ func _physics_process(delta) -> void:
 	state_list[current_state].set_facing_direction()
 	directionX = sign(velocity.x)
 	directionY = -sign(velocity.y)
-	state_list[current_state].do_state_logic(delta)
-	state_list[current_state].set_cape_acceleration()
-	state_list[current_state].set_player_sprite_direction()
-	state_list[current_state].set_attack_direction()
-	state_list[current_state].check_buffered_inputs()
+	execute_state(delta)
 	try_state_transition()
 
 # Changes state if the current state wants to
@@ -65,6 +62,13 @@ func execute_upon_transition():
 	state_list[current_state].set_attack_hitbox()
 	if state_list[current_state].unset_dash_target:
 		dash_target_node = null
+
+func execute_state(delta):
+	state_list[current_state].do_state_logic(delta) # state specific
+	state_list[current_state].set_cape_acceleration() # everything below isn't state specific by default
+	state_list[current_state].set_player_sprite_direction()
+	state_list[current_state].set_attack_direction()
+	state_list[current_state].check_buffered_inputs()
 
 #triggered by signal sent from attackable
 #response is dependent on the attackable's id & the player's state

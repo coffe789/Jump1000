@@ -1,10 +1,17 @@
 extends PlayerState
+var is_rolling_fall = false
 
 func _ready():
 	unset_dash_target = false
 
-func enter(_init_arg):
+func enter(init_arg):
 	Animation_Player.play("falling")
+	if init_arg != null:
+		if init_arg.has(init_args.ROLLING_FALL):
+			is_rolling_fall = true
+
+func exit():
+	is_rolling_fall = false
 
 func do_state_logic(delta):
 	set_dash_target()
@@ -17,6 +24,8 @@ func do_state_logic(delta):
 
 func check_for_new_state() -> String:
 	if (Player.is_on_floor()):
+		if is_rolling_fall:
+			return "rolling"
 		if (Input.is_action_pressed("left") || Input.is_action_pressed("right")):
 			return "running"
 		if (Input.is_action_pressed("down")):
