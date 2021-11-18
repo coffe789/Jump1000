@@ -18,7 +18,7 @@ onready var Dash_Check_Down = Player.get_node("CollisionChecks/DashCheckDown")
 
 # Constants
 #====================================================#
-const PLAYER_HEIGHT = 16.0
+const PLAYER_HEIGHT = 18.0
 const PLAYER_WIDTH = 8
 const GRAVITY = 500
 const ACCELERATE_WALK = 1500/1.5
@@ -35,12 +35,15 @@ const AFTER_JUMP_SLOWDOWN_FACTOR = 2
 const WALL_GRAVITY_FACTOR = 0.075
 const WALLJUMP_X_SPEED_MULTIPLIER = 1.3
 const WALLJUMP_SLOWDOWN_MULTIPLIER = 0.25
-const NORMAL_COLLISION_EXTENT = Vector2(5,8)
-const DUCKING_COLLISION_EXTENT = Vector2(5,4)
-const NORMAL_ATTACK_SIZE = Vector2(10,5)
-const DASH_ATTACK_SIZE = Vector2(10,10)
+const NORMAL_COLLISION_EXTENT = Vector2(3.5,8)
+const DUCKING_COLLISION_EXTENT = Vector2(3.5,4)
+const NORMAL_ATTACK_SIZE = Vector2(15,5)
+const DASH_ATTACK_SIZE = Vector2(5,15)
 const WALLBOUNCE_MULTIPLIER = 1.35
 
+const NO_DASH_TIME = 0.3
+const DASH_TIME = 0.2
+const ROLL_TIME = 0.3
 # State Initialisation Parameters
 #=============================================#
 enum init_args {
@@ -144,11 +147,15 @@ func attack_response(response_id, attackable):
 			attackable.on_attacked(2,Globals.NORMAL_ATTACK) #do damage or something
 		Globals.NO_RESPONSE:
 			pass
+		Globals.DASH_BONK:
+			Player.velocity = Vector2(-Player.facing * 70, -150)
 
 func set_attack_direction():
 	Attack_Box.position.x = Player.attack_box_x_distance * Player.facing
 	Dash_Check_Up.position.x = 18 * Player.facing
 	Dash_Check_Down.position.x = 18 * Player.facing
+	Dash_Check_Down.scale.x = -Player.facing
+	Dash_Check_Up.scale.x = -Player.facing
 
 # Get intended x movement direction
 func get_input_direction():
@@ -221,8 +228,10 @@ func set_cape_acceleration():
 func set_player_sprite_direction():
 	if Player.facing == -1:
 		Player_Sprite.flip_h = false
+		Player_Sprite.position.x = 0
 	elif Player.facing == 1:
 		Player_Sprite.flip_h = true
+		Player_Sprite.position.x = 1
 
 func can_wall_jump():
 	_update_wall_direction()

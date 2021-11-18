@@ -6,7 +6,7 @@ func enter(_init_arg):
 		roll_direction = Player.facing
 	else:
 		roll_direction = get_input_direction()
-	Timers.get_node("RollTimer").start(0.2)
+	Timers.get_node("RollTimer").start(ROLL_TIME)
 	print(self.name)
 
 func do_state_logic(delta):
@@ -26,7 +26,7 @@ func check_for_new_state() -> String:
 		return "jumping"
 	if Input.is_action_pressed("down"):
 		return "ducking"
-	if (get_input_direction()==roll_direction*-1):
+	if (get_input_direction()==roll_direction*-1 || get_input_direction() == 0):
 		return "running"
 	if (Player.velocity.x == 0): #hit a wall
 		return "idle"

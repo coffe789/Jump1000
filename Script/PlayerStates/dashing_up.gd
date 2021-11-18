@@ -25,8 +25,9 @@ func set_attack_hitbox():
 
 func enter(_init_arg):
 	force_attack()
-	Timers.get_node("DashTimer").start(0.2)
+	Timers.get_node("DashTimer").start(DASH_TIME)
 	Timers.get_node("WallBounceTimer").start(0.8)
+	Timers.get_node("NoDashTimer").start(NO_DASH_TIME)
 	Player.stop_jump_rise = false
 	Player.isJumpBuffered = false
 	Player.canCoyoteJump = false

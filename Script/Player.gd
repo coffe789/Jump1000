@@ -36,8 +36,7 @@ onready var state_list = \
 	"dashing_down" : $StateMachine/dashing_down,
 	"rolling" : $StateMachine/rolling,
 	"wallbounce_sliding" : $StateMachine/wallbounce_sliding,
-	"wallbouncing" : $StateMachine/wallbouncing,
-	"rolling_fall" :$StateMachine/rolling_fall
+	"wallbouncing" : $StateMachine/wallbouncing
 }
 
 # Controls every aspect of player physics
@@ -84,16 +83,19 @@ func _on_CoyoteTimer_timeout():
 	canCoyoteJump = false
 
 
+var crouch_body_count = 0
 func _on_UncrouchCheck_body_entered(body):
 	if body is StaticBody2D || body is RigidBody2D:
 		can_unduck = false
-	print("in body")
+		crouch_body_count += 1
 
 
-func _on_UncrouchCheck_body_exited(body):#not sure if this will behave correctly if there are 2 bodies
+
+func _on_UncrouchCheck_body_exited(body):#untested
 	if body is StaticBody2D || body is RigidBody2D:
-		can_unduck = true
-	print("out body")
+		crouch_body_count -= 1
+		if crouch_body_count ==0:
+			can_unduck = true
 
 
 func _on_BetweenAttackTimer_timeout():

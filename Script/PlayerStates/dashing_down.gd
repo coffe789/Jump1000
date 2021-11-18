@@ -21,7 +21,8 @@ func set_attack_hitbox():
 
 func enter(_init_arg):
 	force_attack()
-	Timers.get_node("DashTimer").start(0.2)
+	Timers.get_node("DashTimer").start(DASH_TIME)
+	Timers.get_node("NoDashTimer").start(NO_DASH_TIME)
 	Player.stop_jump_rise = false
 	Player.isJumpBuffered = false
 	Player.canCoyoteJump = false
@@ -42,8 +43,6 @@ func check_buffered_inputs():
 	
 func check_for_new_state() -> String:
 	if (Player.is_on_floor()):
-#		if (Input.is_action_pressed("left") || Input.is_action_pressed("right")):
-#			return "running"
 		if (Input.is_action_pressed("down")):
 			return "ducking"
 		else:

@@ -14,15 +14,15 @@ func _ready():
 	Player = get_tree().get_nodes_in_group("player")[0]
 	Attackable_Area.connect("area_entered", self, "_on_AttackableArea_area_entered")
 
-# TODO: This needs to get the attack type before choosing the response
 # Tell the player what it just attacked
 func _on_AttackableArea_area_entered(area):
 	if area.is_in_group("player_attack") && Player.current_attack_id != last_seen_attack_id:
 		last_seen_attack_id = Player.current_attack_id
-		if Player.last_attack_type == Globals.NORMAL_ATTACK:
+		if Player.last_attack_type == Globals.DASH_ATTACK_DOWN || Player.last_attack_type == Globals.DASH_ATTACK_UP:
 			get_tree().call_group("player", "attack_response", Globals.NO_RESPONSE, self)
 		else:
 			get_tree().call_group("player", "attack_response", Globals.NO_RESPONSE, self)
+			print(Player.last_attack_type)
 
 func make_dashable():
 	if Attackable_Area.is_in_group("undashable"):
