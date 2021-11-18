@@ -51,9 +51,10 @@ func check_for_new_state() -> String:
 			return "wallbounce_sliding"
 		elif Player.wall_direction == get_input_direction() && Player.wall_direction != 0:
 			return "wallsliding"
-	if (Input.is_action_just_pressed("attack") || Timers.get_node("BufferedRedashTimer").time_left > 0) && Timers.get_node("NoDashTimer").time_left == 0:
+	if (Input.is_action_just_pressed("attack") || Timers.get_node("BufferedRedashTimer").time_left > 0 || Timers.get_node("BufferedDashTimer").time_left > 0) && Timers.get_node("NoDashTimer").time_left == 0:
 		if Player.dash_direction == -1:
 			return "dashing_up"
 		if Player.dash_direction == 1:
+			print(Timers.get_node("BufferedDashTimer").time_left)
 			return "dashing_down"
 	return "falling"

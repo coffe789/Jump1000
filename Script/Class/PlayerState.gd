@@ -18,6 +18,8 @@ onready var Dash_Check_Down = Player.get_node("CollisionChecks/DashCheckDown")
 
 # Constants
 #====================================================#
+const DASH_SPEED_X = 180
+const DASH_SPEED_Y = 150
 const PLAYER_HEIGHT = 18.0
 const PLAYER_WIDTH = 8
 const GRAVITY = 500
@@ -44,6 +46,7 @@ const WALLBOUNCE_MULTIPLIER = 1.35
 const NO_DASH_TIME = 0.3
 const DASH_TIME = 0.2
 const ROLL_TIME = 0.3
+const BUFFERED_DASH_TIME = 6.0/60.0
 # State Initialisation Parameters
 #=============================================#
 enum init_args {
@@ -282,5 +285,9 @@ func check_buffered_jump_input():
 func check_buffered_redash_input():
 	if (Input.is_action_just_pressed("attack")):
 		Timers.get_node("BufferedRedashTimer").start(0.1)
+		
+func check_buffered_dash_input():
+	if (Input.is_action_just_pressed("attack")):
+		Timers.get_node("BufferedDashTimer").start(BUFFERED_DASH_TIME)
 
 #==================================================================#

@@ -33,13 +33,16 @@ func check_for_new_state() -> String:
 			return "walljumping"
 		else:
 			return "wallsliding"
-	if Player.dash_direction == -1 && Input.is_action_just_pressed("attack"):
+	if Player.dash_direction == -1 && (Input.is_action_just_pressed("attack") || Timers.get_node("BufferedDashTimer").time_left > 0):
 		return "dashing_up"
-	if Player.dash_direction == 1 && Input.is_action_just_pressed("attack"):
+	if Player.dash_direction == 1 && (Input.is_action_just_pressed("attack") || Timers.get_node("BufferedDashTimer").time_left > 0):
 		return "dashing_down"
 	return "jumping"
 
-
+func check_buffered_inputs():
+	check_buffered_jump_input()
+	check_buffered_attack_input()
+	check_buffered_dash_input()
 
 func play_jump_audio():
 	Audio.get_node("JumpAudio").pitch_scale = rng.randf_range(1.2, 0.9)

@@ -27,8 +27,8 @@ func enter(_init_arg):
 	Player.isJumpBuffered = false
 	Player.canCoyoteJump = false
 	print(self.name)
-	Player.velocity.y = 150
-	Player.velocity.x = set_if_lesser(Player.velocity.x, Player.facing * 180)
+	Player.velocity.x = set_if_lesser(Player.velocity.x, Player.facing * DASH_SPEED_X)
+	Player.velocity.y = DASH_SPEED_Y
 
 func do_state_logic(delta):
 	check_buffered_jump_input()

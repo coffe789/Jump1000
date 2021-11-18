@@ -180,9 +180,7 @@ tracks/2/keys = {
 "values": [ 10, 11, 12, 13, 14, 15 ]
 }
 
-[node name="Player" type="KinematicBody2D" groups=[
-"player",
-]]
+[node name="Player" type="KinematicBody2D" groups=["player"]]
 collision_layer = 2
 script = ExtResource( 2 )
 
@@ -199,49 +197,43 @@ shape = SubResource( 1 )
 [node name="WallRaycasts" type="Node2D" parent="CollisionChecks"]
 
 [node name="RightWallRaycast" type="RayCast2D" parent="CollisionChecks/WallRaycasts"]
+position = Vector2( 0.5, 0 )
 enabled = true
-cast_to = Vector2( 9, 0 )
+cast_to = Vector2( 8.5, 0 )
 
 [node name="LeftWallRaycast" type="RayCast2D" parent="CollisionChecks/WallRaycasts"]
+position = Vector2( 0.5, 0 )
 enabled = true
-cast_to = Vector2( -9, 0 )
+cast_to = Vector2( -8.5, 0 )
 collide_with_areas = true
 
-[node name="AttackBox" type="Area2D" parent="CollisionChecks" groups=[
-"player_attack",
-]]
+[node name="AttackBox" type="Area2D" parent="CollisionChecks" groups=["player_attack"]]
 position = Vector2( -14, -8 )
 collision_layer = 8
 collision_mask = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionChecks/AttackBox" groups=[
-"player_attack",
-]]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionChecks/AttackBox" groups=["player_attack"]]
 modulate = Color( 1, 0, 0, 1 )
 shape = SubResource( 2 )
 disabled = true
 
-[node name="DashCheckUp" type="Area2D" parent="CollisionChecks" groups=[
-"dash_area",
-]]
+[node name="DashCheckUp" type="Area2D" parent="CollisionChecks" groups=["dash_area"]]
 position = Vector2( -18, -26 )
 collision_layer = 0
 collision_mask = 4
 script = ExtResource( 13 )
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="CollisionChecks/DashCheckUp"]
-polygon = PoolVector2Array( -17, -14, 18, 1, 18, 20, -17, 14 )
+polygon = PoolVector2Array( -17, -20, 19, 1, 19, 20, -17, 14 )
 
-[node name="DashCheckDown" type="Area2D" parent="CollisionChecks" groups=[
-"dash_area",
-]]
+[node name="DashCheckDown" type="Area2D" parent="CollisionChecks" groups=["dash_area"]]
 position = Vector2( -18, 10 )
 collision_layer = 0
 collision_mask = 4
 script = ExtResource( 14 )
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="CollisionChecks/DashCheckDown"]
-polygon = PoolVector2Array( -17, 14, -17, -14, 18, -20, 18, -1 )
+polygon = PoolVector2Array( -17, 20, -17, -14, 19, -20, 19, -1 )
 
 [node name="CollisionBody" type="CollisionShape2D" parent="."]
 position = Vector2( 0.5, -8 )
@@ -323,11 +315,20 @@ __meta__ = {
 
 [node name="BufferedAttackTimer" type="Timer" parent="Timers"]
 one_shot = true
+__meta__ = {
+"_editor_description_": "You can buffer an attack during your previous attack"
+}
 
 [node name="DashTimer" type="Timer" parent="Timers"]
 one_shot = true
 __meta__ = {
 "_editor_description_": "This is how long you're in the dash state for"
+}
+
+[node name="BufferedDashTimer" type="Timer" parent="Timers"]
+one_shot = true
+__meta__ = {
+"_editor_description_": "Works the same way as other buffers. This is extremely short (much shorter than the redash timer)"
 }
 
 [node name="NoDashTimer" type="Timer" parent="Timers"]
@@ -344,6 +345,9 @@ __meta__ = {
 
 [node name="WallBounceTimer" type="Timer" parent="Timers"]
 one_shot = true
+__meta__ = {
+"_editor_description_": "While this timer is active (and the player is moving upward) you can wallbounce"
+}
 
 [node name="RollTimer" type="Timer" parent="Timers"]
 one_shot = true
