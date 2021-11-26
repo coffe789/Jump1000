@@ -10,7 +10,6 @@ func enter(_init_arg):
 	stop_rising = false
 	Player.isJumpBuffered = false
 	Player.canCoyoteJump = false
-	print(self.name)
 	Player.velocity.y = -JUMP_SPEED #jump
 	play_jump_audio()
 

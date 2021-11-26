@@ -38,7 +38,7 @@ const COYOTE_TIME = 0.12
 const AFTER_JUMP_SLOWDOWN_FACTOR = 2
 const WALL_GRAVITY_FACTOR = 0.075
 const WALLJUMP_X_SPEED_MULTIPLIER = 1.3
-const WALLJUMP_SLOWDOWN_MULTIPLIER = 0.25
+const WALLJUMP_SLOWDOWN_MULTIPLIER = 0.24
 const NORMAL_COLLISION_EXTENT = Vector2(3.5,8)
 const DUCKING_COLLISION_EXTENT = Vector2(3.5,4)
 const NORMAL_ATTACK_SIZE = Vector2(15,5)
@@ -66,7 +66,7 @@ var state_attack_type = Globals.NORMAL_ATTACK
 #================================================#
 # Called when state is entered. Can be given list of strings
 func enter(_init_arg):
-	print(self.name)
+	pass
 
 # Called when state is exited. May return a list of strings
 func exit():
@@ -214,7 +214,6 @@ func check_if_finish_jump() -> void:
 	if ((!Input.is_action_pressed("jump") && !Player.stop_jump_rise)):
 		Player.velocity.y /= AFTER_JUMP_SLOWDOWN_FACTOR;
 		Player.stop_jump_rise = true;
-		print("end jump")
 
 #Changes facing direction if an input is pressed. Otherwise facing remains as is.
 func set_facing_direction():

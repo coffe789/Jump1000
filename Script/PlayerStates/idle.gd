@@ -2,7 +2,6 @@ extends PlayerState
 
 func enter(_init_arg):
 	Animation_Player.play("idle")
-	print(self.name)
 
 func do_state_logic(delta):
 	do_attack()

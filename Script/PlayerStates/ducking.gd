@@ -9,7 +9,6 @@ func enter(_init_arg):
 	Collision_Body.get_shape().extents = DUCKING_COLLISION_EXTENT
 	Collision_Body.position.y = -4
 	Animation_Player.play("ducking")
-	print(self.name)
 
 func do_state_logic(delta):
 	do_attack()

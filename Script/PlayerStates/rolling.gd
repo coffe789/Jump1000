@@ -7,7 +7,6 @@ func enter(_init_arg):
 	else:
 		roll_direction = get_input_direction()
 	Timers.get_node("RollTimer").start(ROLL_TIME)
-	print(self.name)
 
 func do_state_logic(delta):
 	start_coyote_time()

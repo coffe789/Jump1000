@@ -17,3 +17,6 @@ func check_for_new_state() -> String:
 		return "wallsliding"
 	else:
 		return "falling"
+
+func set_cape_acceleration():
+	Player.Cape.accel = Vector2(0, 8)

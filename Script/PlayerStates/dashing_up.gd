@@ -31,7 +31,6 @@ func enter(_init_arg):
 	Player.stop_jump_rise = false
 	Player.isJumpBuffered = false
 	Player.canCoyoteJump = false
-	print(self.name)
 	Player.velocity.x = set_if_lesser(Player.velocity.x, Player.facing * DASH_SPEED_X)
 	Player.velocity.y = -DASH_SPEED_Y
 

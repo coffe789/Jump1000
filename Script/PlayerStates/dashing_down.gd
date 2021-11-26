@@ -26,7 +26,6 @@ func enter(_init_arg):
 	Player.stop_jump_rise = false
 	Player.isJumpBuffered = false
 	Player.canCoyoteJump = false
-	print(self.name)
 	Player.velocity.x = set_if_lesser(Player.velocity.x, Player.facing * DASH_SPEED_X)
 	Player.velocity.y = DASH_SPEED_Y
 
@@ -49,4 +48,6 @@ func check_for_new_state() -> String:
 			return "rolling"
 	if Timers.get_node("DashTimer").time_left > 0:
 		return "dashing_down"
+	if can_wall_jump() && (Input.is_action_just_pressed("jump") or Player.isJumpBuffered):
+		return "walljumping"
 	return "falling"

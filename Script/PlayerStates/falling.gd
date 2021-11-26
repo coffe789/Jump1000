@@ -5,7 +5,6 @@ func _ready():
 	unset_dash_target = false
 
 func enter(init_arg):
-	print(self.name)
 	Animation_Player.play("falling")
 	if init_arg != null:
 		if init_arg.has(init_args.ROLLING_FALL):
@@ -55,6 +54,5 @@ func check_for_new_state() -> String:
 		if Player.dash_direction == -1:
 			return "dashing_up"
 		if Player.dash_direction == 1:
-			print(Timers.get_node("BufferedDashTimer").time_left)
 			return "dashing_down"
 	return "falling"
