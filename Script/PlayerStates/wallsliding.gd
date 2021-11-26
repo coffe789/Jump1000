@@ -13,6 +13,8 @@ func check_for_new_state() -> String:
 		return "idle"
 	if (Input.is_action_just_pressed("jump") || Player.isJumpBuffered):
 		return "walljumping"
+	if (get_ledge_behaviour() != Globals.LEDGE_EXIT):
+			return "ledgeclinging"
 	if Player.wall_direction == get_input_direction() && Player.wall_direction != 0:
 		return "wallsliding"
 	else:

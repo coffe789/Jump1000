@@ -48,6 +48,8 @@ func check_for_new_state() -> String:
 				return "walljumping"
 		elif Timers.get_node("WallBounceTimer").time_left > 0 && Player.velocity.y < 0:
 			return "wallbounce_sliding"
+		elif (get_ledge_behaviour() != Globals.LEDGE_EXIT):
+			return "ledgeclinging"
 		elif Player.wall_direction == get_input_direction() && Player.wall_direction != 0:
 			return "wallsliding"
 	if (Input.is_action_just_pressed("attack") || Timers.get_node("BufferedRedashTimer").time_left > 0 || Timers.get_node("BufferedDashTimer").time_left > 0) && Timers.get_node("NoDashTimer").time_left == 0:

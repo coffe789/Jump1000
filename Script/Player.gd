@@ -36,7 +36,8 @@ onready var state_list = \
 	"dashing_down" : $StateMachine/dashing_down,
 	"rolling" : $StateMachine/rolling,
 	"wallbounce_sliding" : $StateMachine/wallbounce_sliding,
-	"wallbouncing" : $StateMachine/wallbouncing
+	"wallbouncing" : $StateMachine/wallbouncing,
+	"ledgeclinging" : $StateMachine/ledgeclinging
 }
 
 # Controls every aspect of player physics

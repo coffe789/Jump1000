@@ -14,6 +14,9 @@ onready var left_wall_raycast = Player.get_node("CollisionChecks/WallRaycasts/Le
 onready var right_wall_raycast = Player.get_node("CollisionChecks/WallRaycasts/RightWallRaycast")
 onready var left_wall_raycast2 = Player.get_node("CollisionChecks/WallRaycasts/LeftWallRaycast2")
 onready var right_wall_raycast2 = Player.get_node("CollisionChecks/WallRaycasts/RightWallRaycast2")
+onready var ledge_cast_top = Player.get_node("CollisionChecks/LedgeRaycasts/LedgeRayTop")
+onready var ledge_cast_mid = Player.get_node("CollisionChecks/LedgeRaycasts/LedgeRayMid")
+onready var ledge_cast_bottom = Player.get_node("CollisionChecks/LedgeRaycasts/LedgeRayBottom")
 onready var Attack_Box = Player.get_node("CollisionChecks/AttackBox")
 onready var Dash_Check_Up = Player.get_node("CollisionChecks/DashCheckUp")
 onready var Dash_Check_Down = Player.get_node("CollisionChecks/DashCheckDown")
@@ -38,7 +41,7 @@ const COYOTE_TIME = 0.12
 const AFTER_JUMP_SLOWDOWN_FACTOR = 2
 const WALL_GRAVITY_FACTOR = 0.075
 const WALLJUMP_X_SPEED_MULTIPLIER = 1.3
-const WALLJUMP_SLOWDOWN_MULTIPLIER = 0.24
+const WALLJUMP_SLOWDOWN_MULTIPLIER = 0.245
 const NORMAL_COLLISION_EXTENT = Vector2(3.5,8)
 const DUCKING_COLLISION_EXTENT = Vector2(3.5,4)
 const NORMAL_ATTACK_SIZE = Vector2(15,5)
@@ -263,6 +266,19 @@ func _check_is_valid_wall(raycast):
 			if dot > PI * 0.35 && dot < PI * 0.55:
 				return true
 	return false
+
+func get_ledge_behaviour():
+	print(_check_is_valid_wall(ledge_cast_bottom), _check_is_valid_wall(ledge_cast_mid), \
+	!_check_is_valid_wall(ledge_cast_top), Player.velocity.y >= 0)
+	_update_wall_direction()
+	if get_input_direction() == Player.wall_direction && get_input_direction() != 0:
+		if _check_is_valid_wall(ledge_cast_bottom) && _check_is_valid_wall(ledge_cast_mid) \
+		and !_check_is_valid_wall(ledge_cast_top) && Player.velocity.y >= 0:
+			return Globals.LEDGE_REST
+		elif _check_is_valid_wall(ledge_cast_bottom) && !_check_is_valid_wall(ledge_cast_mid):
+			return Globals.LEDGE_NO_ACTION
+	else:
+		return Globals.LEDGE_EXIT
 
 # Buffered inputs
 #==================================================================#

@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Art/Player/player.png" type="Texture" id=1]
 [ext_resource path="res://Script/Player.gd" type="Script" id=2]
@@ -19,6 +19,7 @@
 [ext_resource path="res://Script/PlayerStates/rolling.gd" type="Script" id=17]
 [ext_resource path="res://Script/PlayerStates/wallbounce_sliding.gd" type="Script" id=18]
 [ext_resource path="res://Script/PlayerStates/wallbouncing.gd" type="Script" id=19]
+[ext_resource path="res://Script/PlayerStates/ledgeclinging.gd" type="Script" id=20]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 3.5, 8 )
@@ -187,6 +188,7 @@ script = ExtResource( 2 )
 [node name="CollisionChecks" type="Node2D" parent="."]
 
 [node name="UncrouchCheck" type="Area2D" parent="CollisionChecks"]
+visible = false
 position = Vector2( 0.5, -8 )
 collision_layer = 0
 
@@ -219,7 +221,28 @@ enabled = true
 cast_to = Vector2( -8.5, 0 )
 collide_with_areas = true
 
+[node name="LedgeRaycasts" type="Node2D" parent="CollisionChecks"]
+
+[node name="LedgeRayTop" type="RayCast2D" parent="CollisionChecks/LedgeRaycasts"]
+position = Vector2( 0.5, -9 )
+enabled = true
+cast_to = Vector2( -8.5, 0 )
+collide_with_areas = true
+
+[node name="LedgeRayMid" type="RayCast2D" parent="CollisionChecks/LedgeRaycasts"]
+position = Vector2( 0.5, -8 )
+enabled = true
+cast_to = Vector2( -8.5, 0 )
+collide_with_areas = true
+
+[node name="LedgeRayBottom" type="RayCast2D" parent="CollisionChecks/LedgeRaycasts"]
+position = Vector2( 0.5, 0 )
+enabled = true
+cast_to = Vector2( -8.5, 0 )
+collide_with_areas = true
+
 [node name="AttackBox" type="Area2D" parent="CollisionChecks" groups=["player_attack"]]
+visible = false
 position = Vector2( -14, -8 )
 collision_layer = 8
 collision_mask = 4
@@ -308,6 +331,9 @@ script = ExtResource( 18 )
 [node name="wallbouncing" type="Node" parent="StateMachine"]
 script = ExtResource( 19 )
 
+[node name="ledgeclinging" type="Node" parent="StateMachine"]
+script = ExtResource( 20 )
+
 [node name="Audio" type="Node" parent="."]
 
 [node name="JumpAudio" type="AudioStreamPlayer" parent="Audio"]
@@ -368,6 +394,7 @@ __meta__ = {
 }
 
 [node name="Cape" type="Node2D" parent="."]
+visible = false
 position = Vector2( 0, -13 )
 
 [node name="CapeL" type="Position2D" parent="Cape"]

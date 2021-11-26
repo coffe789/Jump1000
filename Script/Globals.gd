@@ -16,6 +16,14 @@ enum \
 	NO_RESPONSE
 }
 
+#ledge grab behaviours
+enum \
+{
+	LEDGE_REST,
+	LEDGE_NO_ACTION,
+	LEDGE_EXIT
+}
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
