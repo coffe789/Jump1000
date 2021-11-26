@@ -12,6 +12,8 @@ onready var Animation_Player = Player.get_node("AnimationPlayer")
 onready var Collision_Body = Player.get_node("CollisionBody")
 onready var left_wall_raycast = Player.get_node("CollisionChecks/WallRaycasts/LeftWallRaycast")
 onready var right_wall_raycast = Player.get_node("CollisionChecks/WallRaycasts/RightWallRaycast")
+onready var left_wall_raycast2 = Player.get_node("CollisionChecks/WallRaycasts/LeftWallRaycast2")
+onready var right_wall_raycast2 = Player.get_node("CollisionChecks/WallRaycasts/RightWallRaycast2")
 onready var Attack_Box = Player.get_node("CollisionChecks/AttackBox")
 onready var Dash_Check_Up = Player.get_node("CollisionChecks/DashCheckUp")
 onready var Dash_Check_Down = Player.get_node("CollisionChecks/DashCheckDown")
@@ -120,14 +122,9 @@ func set_dash_direction():
 
 func do_attack():
 	if (Input.is_action_just_pressed("attack") && !Player.is_attacking)\
-	or (Timers.get_node("BufferedAttackTimer").time_left > 0 && !Player.is_attacking): #actually attack
+	or (Timers.get_node("BufferedAttackTimer").time_left > 0 && !Player.is_attacking):
 		if Player.dash_direction == 0:
-			Player.last_attack_type = state_attack_type
-			Player.current_attack_id += 1
-			Attack_Box.get_child(0).disabled = false
-			Player.is_attacking = true
-			Timers.get_node("BetweenAttackTimer").start(0.4)
-			Timers.get_node("BufferedAttackTimer").stop()
+			force_attack()
 
 # Player attacks regardless of input or whatever
 func force_attack():
@@ -143,6 +140,7 @@ func stop_attack():
 	Attack_Box.get_child(0).disabled = true
 	Player.is_attacking = false
 
+# What the player does after attacking (dependent on target)
 func attack_response(response_id, attackable):
 	match response_id:
 		Globals.NORMAL_STAGGER:
@@ -246,13 +244,15 @@ func can_wall_jump():
 func _update_wall_direction():
 	var is_near_wall_left = _check_is_valid_wall(left_wall_raycast)
 	var is_near_wall_right = _check_is_valid_wall(right_wall_raycast)
+	var is_near_wall_left2 = _check_is_valid_wall(left_wall_raycast2)
+	var is_near_wall_right2 = _check_is_valid_wall(right_wall_raycast2)
 	
 	# If the player is sandwiched between two walls, set the wall direction to whatever they face
-	if is_near_wall_left && is_near_wall_right:
+	if (is_near_wall_left || is_near_wall_left2) && (is_near_wall_right || is_near_wall_right2):
 		Player.wall_direction = Player.facing
 	# If we're near a left wall, wall_direction will be -(1)+(0), right wall will be -(0)+(1), neither is 0
 	else:
-		Player.wall_direction = -int(is_near_wall_left) + int(is_near_wall_right)
+		Player.wall_direction = -int(is_near_wall_left||is_near_wall_left2) + int(is_near_wall_right||is_near_wall_right2)
 
 func _check_is_valid_wall(raycast):
 	if raycast.is_colliding():

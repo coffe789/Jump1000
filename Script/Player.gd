@@ -4,7 +4,7 @@ export var velocity = Vector2(0,0);
 var directionX = 0; #Direction player is currently moving
 var directionY = 0;
 var facing = 1 #either -1 or 1
-var current_state = "idle";
+var current_state = "falling";
 
 var isJumpBuffered = false;
 var canCoyoteJump = false;
@@ -63,8 +63,8 @@ func execute_upon_transition():
 		dash_target_node = null
 
 func execute_state(delta):
-	state_list[current_state].do_state_logic(delta) # state specific
-	state_list[current_state].set_cape_acceleration() # everything below isn't state specific by default
+	state_list[current_state].do_state_logic(delta) # always state specific
+	state_list[current_state].set_cape_acceleration() # everything here & below isn't state specific by default
 	state_list[current_state].set_player_sprite_direction()
 	state_list[current_state].set_attack_direction()
 	state_list[current_state].check_buffered_inputs()
