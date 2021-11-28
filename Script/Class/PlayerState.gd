@@ -268,17 +268,17 @@ func _check_is_valid_wall(raycast):
 	return false
 
 func get_ledge_behaviour():
-	print(_check_is_valid_wall(ledge_cast_bottom), _check_is_valid_wall(ledge_cast_mid), \
-	!_check_is_valid_wall(ledge_cast_top), Player.velocity.y >= 0)
+	print(
+		_check_is_valid_wall(ledge_cast_mid),
+		!_check_is_valid_wall(ledge_cast_top), Player.velocity.y >= 0)
 	_update_wall_direction()
 	if get_input_direction() == Player.wall_direction && get_input_direction() != 0:
-		if _check_is_valid_wall(ledge_cast_bottom) && _check_is_valid_wall(ledge_cast_mid) \
+		if _check_is_valid_wall(ledge_cast_mid) \
 		and !_check_is_valid_wall(ledge_cast_top) && Player.velocity.y >= 0:
 			return Globals.LEDGE_REST
-		elif _check_is_valid_wall(ledge_cast_bottom) && !_check_is_valid_wall(ledge_cast_mid):
+		elif (_check_is_valid_wall(ledge_cast_bottom) || _check_is_valid_wall(ledge_cast_mid)) && !_check_is_valid_wall(ledge_cast_top):
 			return Globals.LEDGE_NO_ACTION
-	else:
-		return Globals.LEDGE_EXIT
+	return Globals.LEDGE_EXIT
 
 # Buffered inputs
 #==================================================================#

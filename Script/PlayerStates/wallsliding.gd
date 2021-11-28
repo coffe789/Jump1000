@@ -9,11 +9,15 @@ func do_state_logic(delta):
 
 func check_for_new_state() -> String:
 	_update_wall_direction()
+	var ledge_behaviour = get_ledge_behaviour()
 	if (Player.is_on_floor()):
 		return "idle"
 	if (Input.is_action_just_pressed("jump") || Player.isJumpBuffered):
-		return "walljumping"
-	if (get_ledge_behaviour() != Globals.LEDGE_EXIT):
+		if ledge_behaviour != Globals.LEDGE_EXIT:
+			return "jumping" #may change
+		else:
+			return "walljumping"
+	if (ledge_behaviour != Globals.LEDGE_EXIT):
 			return "ledgeclinging"
 	if Player.wall_direction == get_input_direction() && Player.wall_direction != 0:
 		return "wallsliding"

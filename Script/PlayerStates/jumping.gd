@@ -23,10 +23,16 @@ func do_state_logic(delta):
 	Player.velocity = Player.move_and_slide(Player.velocity,UP_DIRECTION)
 
 func check_for_new_state() -> String:
+	var ledge_behaviour = get_ledge_behaviour()
 	if (Player.velocity.y > 0):
 		return "falling"
 	if (Player.is_on_floor()):
 		return "idle"
+	if (Input.is_action_just_pressed("jump") || Player.isJumpBuffered)\
+	and ledge_behaviour != Globals.LEDGE_EXIT:
+			return "jumping" #may change
+	if (ledge_behaviour != Globals.LEDGE_EXIT):
+			return "ledgeclinging"
 	if can_wall_jump():
 		if (Input.is_action_just_pressed("jump") or Player.isJumpBuffered):
 			return "walljumping"

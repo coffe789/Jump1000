@@ -224,21 +224,21 @@ collide_with_areas = true
 [node name="LedgeRaycasts" type="Node2D" parent="CollisionChecks"]
 
 [node name="LedgeRayTop" type="RayCast2D" parent="CollisionChecks/LedgeRaycasts"]
-position = Vector2( 0.5, -9 )
+position = Vector2( 0.5, -13 )
 enabled = true
-cast_to = Vector2( -8.5, 0 )
+cast_to = Vector2( -9.5, 0 )
 collide_with_areas = true
 
 [node name="LedgeRayMid" type="RayCast2D" parent="CollisionChecks/LedgeRaycasts"]
-position = Vector2( 0.5, -8 )
+position = Vector2( 0.5, -5 )
 enabled = true
-cast_to = Vector2( -8.5, 0 )
+cast_to = Vector2( -9.5, 0 )
 collide_with_areas = true
 
 [node name="LedgeRayBottom" type="RayCast2D" parent="CollisionChecks/LedgeRaycasts"]
 position = Vector2( 0.5, 0 )
 enabled = true
-cast_to = Vector2( -8.5, 0 )
+cast_to = Vector2( -9.5, 0 )
 collide_with_areas = true
 
 [node name="AttackBox" type="Area2D" parent="CollisionChecks" groups=["player_attack"]]
