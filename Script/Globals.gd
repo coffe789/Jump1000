@@ -21,7 +21,8 @@ enum \
 {
 	LEDGE_REST,
 	LEDGE_NO_ACTION,
-	LEDGE_EXIT
+	LEDGE_EXIT,
+	LEDGE_LENIENCY_RISE
 }
 
 # Called when the node enters the scene tree for the first time.

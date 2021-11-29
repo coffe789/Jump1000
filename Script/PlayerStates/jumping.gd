@@ -29,14 +29,15 @@ func check_for_new_state() -> String:
 	if (Player.is_on_floor()):
 		return "idle"
 	if (Input.is_action_just_pressed("jump") || Player.isJumpBuffered)\
-	and ledge_behaviour != Globals.LEDGE_EXIT:
-			return "jumping" #may change
-	if (ledge_behaviour != Globals.LEDGE_EXIT):
-			return "ledgeclinging"
+	and ledge_behaviour != Globals.LEDGE_EXIT && can_wall_jump():
+		return "jumping" #may change
+	if (ledge_behaviour != Globals.LEDGE_EXIT) && Timers.get_node("PostClingJumpTimer").time_left == 0:
+		print("jump to ledge")
+		return "ledgeclinging"
 	if can_wall_jump():
 		if (Input.is_action_just_pressed("jump") or Player.isJumpBuffered):
 			return "walljumping"
-		elif get_input_direction() == Player.wall_direction:
+		elif get_input_direction() == Player.wall_direction && Timers.get_node("PostClingJumpTimer").time_left == 0:
 			return "wallsliding"
 	if Player.dash_direction == -1 && (Input.is_action_just_pressed("attack") || Timers.get_node("BufferedDashTimer").time_left > 0):
 		return "dashing_up"

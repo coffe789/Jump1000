@@ -14,6 +14,7 @@ onready var left_wall_raycast = Player.get_node("CollisionChecks/WallRaycasts/Le
 onready var right_wall_raycast = Player.get_node("CollisionChecks/WallRaycasts/RightWallRaycast")
 onready var left_wall_raycast2 = Player.get_node("CollisionChecks/WallRaycasts/LeftWallRaycast2")
 onready var right_wall_raycast2 = Player.get_node("CollisionChecks/WallRaycasts/RightWallRaycast2")
+onready var ledge_cast_lenient = Player.get_node("CollisionChecks/LedgeRaycasts/LedgeRayLenient")
 onready var ledge_cast_top = Player.get_node("CollisionChecks/LedgeRaycasts/LedgeRayTop")
 onready var ledge_cast_mid = Player.get_node("CollisionChecks/LedgeRaycasts/LedgeRayMid")
 onready var ledge_cast_bottom = Player.get_node("CollisionChecks/LedgeRaycasts/LedgeRayBottom")
@@ -161,6 +162,12 @@ func set_attack_direction():
 	Dash_Check_Down.scale.x = -Player.facing
 	Dash_Check_Up.scale.x = -Player.facing
 
+func set_ledge_ray_direction():
+	ledge_cast_bottom.scale.x = -Player.facing
+	ledge_cast_mid.scale.x = -Player.facing
+	ledge_cast_top.scale.x = -Player.facing
+	ledge_cast_lenient.scale.x = -Player.facing
+
 # Get intended x movement direction
 func get_input_direction():
 	var x = 0;
@@ -268,16 +275,16 @@ func _check_is_valid_wall(raycast):
 	return false
 
 func get_ledge_behaviour():
-	print(
-		_check_is_valid_wall(ledge_cast_mid),
-		!_check_is_valid_wall(ledge_cast_top), Player.velocity.y >= 0)
 	_update_wall_direction()
-	if get_input_direction() == Player.wall_direction && get_input_direction() != 0:
+	if get_input_direction() != 0:
 		if _check_is_valid_wall(ledge_cast_mid) \
 		and !_check_is_valid_wall(ledge_cast_top) && Player.velocity.y >= 0:
 			return Globals.LEDGE_REST
 		elif (_check_is_valid_wall(ledge_cast_bottom) || _check_is_valid_wall(ledge_cast_mid)) && !_check_is_valid_wall(ledge_cast_top):
 			return Globals.LEDGE_NO_ACTION
+		elif(_check_is_valid_wall(ledge_cast_top) && !_check_is_valid_wall(ledge_cast_lenient) && !(Player.velocity.y < 0 && Player.current_state=="wallsliding")):
+			print(_check_is_valid_wall(ledge_cast_lenient))
+			return Globals.LEDGE_LENIENCY_RISE
 	return Globals.LEDGE_EXIT
 
 # Buffered inputs

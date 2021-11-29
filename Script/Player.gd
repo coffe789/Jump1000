@@ -70,6 +70,7 @@ func execute_state(delta):
 	state_list[current_state].set_player_sprite_direction()
 	state_list[current_state].set_attack_direction()
 	state_list[current_state].check_buffered_inputs()
+	state_list[current_state].set_ledge_ray_direction()
 
 #triggered by signal sent from attackable
 #response is dependent on the attackable's id & the player's state

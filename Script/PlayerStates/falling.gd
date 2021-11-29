@@ -44,7 +44,7 @@ func check_for_new_state() -> String:
 		if (Input.is_action_just_pressed("jump") or Player.isJumpBuffered):
 			if Timers.get_node("WallBounceTimer").time_left > 0 && Player.velocity.y < 0:
 				return "wallbouncing"
-			elif (get_ledge_behaviour() != Globals.LEDGE_EXIT):
+			elif (get_ledge_behaviour() != Globals.LEDGE_EXIT) && can_wall_jump():
 				return "jumping"#will maybe change later?
 			else:
 				return "walljumping"

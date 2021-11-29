@@ -223,6 +223,12 @@ collide_with_areas = true
 
 [node name="LedgeRaycasts" type="Node2D" parent="CollisionChecks"]
 
+[node name="LedgeRayLenient" type="RayCast2D" parent="CollisionChecks/LedgeRaycasts"]
+position = Vector2( 0.5, -16 )
+enabled = true
+cast_to = Vector2( -9.5, 0 )
+collide_with_areas = true
+
 [node name="LedgeRayTop" type="RayCast2D" parent="CollisionChecks/LedgeRaycasts"]
 position = Vector2( 0.5, -13 )
 enabled = true
@@ -347,6 +353,12 @@ __meta__ = {
 "_editor_description_": "Coyote jump leniency"
 }
 
+[node name="PostClingJumpTimer" type="Timer" parent="Timers"]
+one_shot = true
+__meta__ = {
+"_editor_description_": "Can't cling again right after cling jumping to prevent cling->jump->cling->falling upward, as you can't control jump height when falling"
+}
+
 [node name="BufferedJumpTimer" type="Timer" parent="Timers"]
 
 [node name="BetweenAttackTimer" type="Timer" parent="Timers"]
@@ -410,5 +422,6 @@ position = Vector2( 4, -1 )
 [connection signal="area_entered" from="CollisionChecks/DashCheckDown" to="CollisionChecks/DashCheckDown" method="_on_DashCheckDown_area_entered"]
 [connection signal="area_exited" from="CollisionChecks/DashCheckDown" to="CollisionChecks/DashCheckDown" method="_on_DashCheckDown_area_exited"]
 [connection signal="timeout" from="Timers/CoyoteTimer" to="." method="_on_CoyoteTimer_timeout"]
+[connection signal="timeout" from="Timers/PostClingJumpTimer" to="." method="_on_CoyoteTimer_timeout"]
 [connection signal="timeout" from="Timers/BufferedJumpTimer" to="." method="_on_BufferedJumpTimer_timeout"]
 [connection signal="timeout" from="Timers/BetweenAttackTimer" to="." method="_on_BetweenAttackTimer_timeout"]
