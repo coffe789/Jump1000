@@ -1,17 +1,26 @@
 extends PlayerState
 var stop_rising = false
 var rng = RandomNumberGenerator.new()
+var can_roll_fall = false
 
 func _ready():
 	unset_dash_target = false
 
-func enter(_init_arg):
+func enter(init_arg):
 	Animation_Player.play("jumping")
 	Player.stop_jump_rise = false
 	Player.isJumpBuffered = false
 	Player.canCoyoteJump = false
 	Player.velocity.y = -JUMP_SPEED #jump
 	play_jump_audio()
+	if init_arg != null:
+		if init_arg.has(init_args.ROLLING_FALL):
+			can_roll_fall = true
+
+func exit():
+	if can_roll_fall:
+		can_roll_fall = false
+		return [init_args.ROLLING_FALL]
 
 func do_state_logic(delta):
 	set_dash_target()
@@ -32,7 +41,6 @@ func check_for_new_state() -> String:
 	and ledge_behaviour != Globals.LEDGE_EXIT && can_wall_jump():
 		return "jumping" #may change
 	if (ledge_behaviour != Globals.LEDGE_EXIT) && Timers.get_node("PostClingJumpTimer").time_left == 0:
-		print("jump to ledge")
 		return "ledgeclinging"
 	if can_wall_jump():
 		if (Input.is_action_just_pressed("jump") or Player.isJumpBuffered):

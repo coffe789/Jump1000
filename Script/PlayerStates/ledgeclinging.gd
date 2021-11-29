@@ -1,8 +1,8 @@
 extends PlayerState
 var ledge_behaviour
 
-func enter(_arg):
-	pass
+func exit():
+	return [init_args.ROLLING_FALL]
 
 func do_state_transition():
 	pass
@@ -31,7 +31,6 @@ func do_state_logic(delta):
 		do_gravity(delta, MAX_FALL_SPEED * WALL_GRAVITY_FACTOR, GRAVITY)
 		if ledge_behaviour == Globals.LEDGE_LENIENCY_RISE:
 			Player.velocity.y = -10
-			print("rise")
 		do_normal_x_movement(delta,AIR_DRAG, ACCELERATE_WALK)
 		Player.velocity = Player.move_and_slide(Player.velocity, UP_DIRECTION)
 
@@ -49,8 +48,6 @@ func check_for_new_state() -> String:
 	if (Input.is_action_just_pressed("jump") || Player.isJumpBuffered):
 		Timers.get_node("PostClingJumpTimer").start(0.1)
 		return "jumping"
-#	if Player.wall_direction == get_input_direction() && Player.wall_direction != 0:
-#		return "wallsliding"
 	if ledge_behaviour == Globals.LEDGE_EXIT:
 		return "falling"
 	else:

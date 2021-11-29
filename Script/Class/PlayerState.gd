@@ -56,7 +56,7 @@ const BUFFERED_DASH_TIME = 6.0/60.0
 # State Initialisation Parameters
 #=============================================#
 enum init_args {
-	ROLLING_FALL
+	ROLLING_FALL,
 }
 #=============================================#
 
@@ -74,7 +74,7 @@ func enter(_init_arg):
 
 # Called when state is exited. May return a list of strings
 func exit():
-	pass
+	return []
 
 # Called every physics frame a state is active
 func do_state_logic(_delta):
@@ -283,7 +283,6 @@ func get_ledge_behaviour():
 		elif (_check_is_valid_wall(ledge_cast_bottom) || _check_is_valid_wall(ledge_cast_mid)) && !_check_is_valid_wall(ledge_cast_top):
 			return Globals.LEDGE_NO_ACTION
 		elif(_check_is_valid_wall(ledge_cast_top) && !_check_is_valid_wall(ledge_cast_lenient) && !(Player.velocity.y < 0 && Player.current_state=="wallsliding")):
-			print(_check_is_valid_wall(ledge_cast_lenient))
 			return Globals.LEDGE_LENIENCY_RISE
 	return Globals.LEDGE_EXIT
 
