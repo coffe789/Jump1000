@@ -415,6 +415,13 @@ position = Vector2( -3, -1 )
 [node name="CapeR" type="Position2D" parent="Cape"]
 position = Vector2( 4, -1 )
 
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+limit_left = 0
+limit_bottom = 170
+limit_smoothed = true
+smoothing_enabled = true
+
 [connection signal="body_entered" from="CollisionChecks/UncrouchCheck" to="." method="_on_UncrouchCheck_body_entered"]
 [connection signal="body_exited" from="CollisionChecks/UncrouchCheck" to="." method="_on_UncrouchCheck_body_exited"]
 [connection signal="area_entered" from="CollisionChecks/DashCheckUp" to="CollisionChecks/DashCheckUp" method="_on_DashCheckUp_area_entered"]

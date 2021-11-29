@@ -8,8 +8,8 @@ func do_state_transition():
 	pass
 
 func get_ledge_Y():
-	for i in 16: #(-5--13)*2
-		ledge_cast_top.position.y += 0.5
+	for i in 8: #(-5--13)
+		ledge_cast_top.position.y += 1
 		ledge_cast_top.force_raycast_update()
 		if _check_is_valid_wall(ledge_cast_top):
 			var ledge_pos = ledge_cast_top.global_position.y
@@ -46,7 +46,7 @@ func check_for_new_state() -> String:
 	if (Player.is_on_floor()):
 		return "idle"
 	if (Input.is_action_just_pressed("jump") || Player.isJumpBuffered):
-		Timers.get_node("PostClingJumpTimer").start(0.1)
+		Timers.get_node("PostClingJumpTimer").start(0.12)
 		return "jumping"
 	if ledge_behaviour == Globals.LEDGE_EXIT:
 		return "falling"
