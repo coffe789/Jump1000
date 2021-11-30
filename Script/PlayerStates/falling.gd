@@ -10,14 +10,18 @@ func enter(init_arg):
 		if init_arg.has(init_args.ROLLING_FALL):
 			is_rolling_fall = true
 
+var is_exit_roll_jump = false
 func exit():
 	is_rolling_fall = false
+	if is_exit_roll_jump:
+		is_exit_roll_jump = false
+		return [init_args.ROLLING_JUMP]
 
 func do_state_logic(delta):
 	set_dash_target()
 	set_dash_direction()
-	do_attack()
-	#check_if_finish_jump()
+	if do_attack(): #cancel rolling fall if you attack
+		is_rolling_fall = false
 	do_gravity(delta, MAX_FALL_SPEED, GRAVITY)
 	do_normal_x_movement(delta,AIR_DRAG, ACCELERATE_WALK)
 	Player.velocity = Player.move_and_slide(Player.velocity,UP_DIRECTION)
@@ -46,6 +50,7 @@ func check_for_new_state() -> String:
 				return "wallbouncing"
 			elif (get_ledge_behaviour() != Globals.LEDGE_EXIT) && can_wall_jump():
 				Timers.get_node("PostClingJumpTimer").start(0.12)
+				is_exit_roll_jump = true
 				return "jumping"#will maybe change later?
 			else:
 				return "walljumping"

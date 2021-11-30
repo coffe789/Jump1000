@@ -2,7 +2,7 @@ extends PlayerState
 var ledge_behaviour
 
 func exit():
-	return [init_args.ROLLING_FALL]
+	return [init_args.ROLLING_JUMP]
 
 func do_state_transition():
 	pass

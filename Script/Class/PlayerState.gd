@@ -57,6 +57,7 @@ const BUFFERED_DASH_TIME = 6.0/60.0
 #=============================================#
 enum init_args {
 	ROLLING_FALL,
+	ROLLING_JUMP
 }
 #=============================================#
 
@@ -124,11 +125,14 @@ func set_dash_direction():
 		Player.dash_direction =  DASH_DIR_UP
 		return
 
+# Performs attack if button is pressed/is buffered. Returns success status
 func do_attack():
 	if (Input.is_action_just_pressed("attack") && !Player.is_attacking)\
 	or (Timers.get_node("BufferedAttackTimer").time_left > 0 && !Player.is_attacking):
 		if Player.dash_direction == 0:
 			force_attack()
+			return true
+	return false
 
 # Player attacks regardless of input or whatever
 func force_attack():
@@ -262,6 +266,8 @@ func _update_wall_direction():
 	# If we're near a left wall, wall_direction will be -(1)+(0), right wall will be -(0)+(1), neither is 0
 	else:
 		Player.wall_direction = -int(is_near_wall_left||is_near_wall_left2) + int(is_near_wall_right||is_near_wall_right2)
+	if Player.wall_direction != 0:
+		Player.last_wall_direction = Player.wall_direction
 
 func _check_is_valid_wall(raycast):
 	if raycast.is_colliding():

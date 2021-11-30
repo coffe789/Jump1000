@@ -82,7 +82,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 30, 31 ]
+"values": [ 30, 30 ]
 }
 
 [sub_resource type="Animation" id=6]
@@ -137,7 +137,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 20, 21 ]
+"values": [ 20, 20 ]
 }
 
 [sub_resource type="Animation" id=8]
@@ -291,7 +291,8 @@ anims/running = SubResource( 8 )
 position = Vector2( 0, -8 )
 texture = ExtResource( 1 )
 hframes = 10
-vframes = 5
+vframes = 7
+frame = 31
 
 [node name="StateMachine" type="Node" parent="."]
 
@@ -410,10 +411,10 @@ visible = false
 position = Vector2( 0, -13 )
 
 [node name="CapeL" type="Position2D" parent="Cape"]
-position = Vector2( -3, -1 )
+position = Vector2( -4, 4 )
 
 [node name="CapeR" type="Position2D" parent="Cape"]
-position = Vector2( 4, -1 )
+position = Vector2( 4, 4 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true

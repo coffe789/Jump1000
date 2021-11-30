@@ -11,7 +11,8 @@ var canCoyoteJump = false;
 var stop_jump_rise = true
 
 onready var Cape = get_node("../VerletArea")
-var wall_direction = 1 #Walljump detection
+var wall_direction = 0 #Walljump detection
+var last_wall_direction = 1 #Last value that wasn't zero
 var can_unduck = true
 var attack_box_x_distance = 14
 var is_attacking = false

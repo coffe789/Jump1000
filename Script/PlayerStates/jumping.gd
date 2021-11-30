@@ -14,18 +14,25 @@ func enter(init_arg):
 	Player.velocity.y = -JUMP_SPEED #jump
 	play_jump_audio()
 	if init_arg != null:
-		if init_arg.has(init_args.ROLLING_FALL):
+		if init_arg.has(init_args.ROLLING_JUMP):
 			can_roll_fall = true
 
+var is_exit_roll_jump = false
 func exit():
+	var to_return = []
 	if can_roll_fall:
 		can_roll_fall = false
-		return [init_args.ROLLING_FALL]
+		to_return.append(init_args.ROLLING_FALL)
+	if is_exit_roll_jump:
+		is_exit_roll_jump = false
+		to_return.append(init_args.ROLLING_JUMP)
+	return to_return
 
 func do_state_logic(delta):
 	set_dash_target()
 	set_dash_direction()
-	do_attack()
+	if do_attack():
+		can_roll_fall = false #cancel rolling upon attack
 	check_if_finish_jump()
 	do_gravity(delta, MAX_FALL_SPEED, GRAVITY)
 	do_normal_x_movement(delta,AIR_DRAG, ACCELERATE_WALK)
@@ -39,6 +46,8 @@ func check_for_new_state() -> String:
 		return "idle"
 	if (Input.is_action_just_pressed("jump") || Player.isJumpBuffered)\
 	and ledge_behaviour != Globals.LEDGE_EXIT && can_wall_jump():
+		get_parent().get_node("ledgeclinging").exit()
+		is_exit_roll_jump = true
 		return "jumping" #may change
 	if (ledge_behaviour != Globals.LEDGE_EXIT) && Timers.get_node("PostClingJumpTimer").time_left == 0:
 		return "ledgeclinging"
