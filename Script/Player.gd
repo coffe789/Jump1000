@@ -24,6 +24,7 @@ var last_attack_type = Globals.NORMAL_ATTACK
 
 onready var state_list = \
 {
+	"previous_state" : "",
 	"jumping" : $StateMachine/jumping,
 	"idle" : 	$StateMachine/idle,
 	"running" : $StateMachine/running,
@@ -93,14 +94,11 @@ func _on_UncrouchCheck_body_entered(body):
 		can_unduck = false
 		crouch_body_count += 1
 
-
-
 func _on_UncrouchCheck_body_exited(body):#untested
 	if body is StaticBody2D || body is RigidBody2D:
 		crouch_body_count -= 1
 		if crouch_body_count ==0:
 			can_unduck = true
-
 
 func _on_BetweenAttackTimer_timeout():
 	is_attacking = false

@@ -16,6 +16,13 @@ func enter(init_arg):
 	if init_arg != null:
 		if init_arg.has(init_args.ROLLING_JUMP):
 			can_roll_fall = true
+	emit_jump_particles()
+
+func emit_jump_particles():
+	Player.get_node("Particles/JumpCloud").emitting = true
+	Player.get_node("Particles/JumpCloud").process_material.direction.x = -Player.directionX
+	yield(get_tree().create_timer(0.04), "timeout")
+	Player.get_node("Particles/JumpCloud").emitting = false
 
 var is_exit_roll_jump = false
 func exit():
@@ -54,13 +61,13 @@ func check_for_new_state() -> String:
 	if can_wall_jump():
 		if (Input.is_action_just_pressed("jump") or Player.isJumpBuffered):
 			return "walljumping"
-		elif get_input_direction() == Player.wall_direction && Timers.get_node("PostClingJumpTimer").time_left == 0:
-			return "wallsliding"
+#		elif get_input_direction() == Player.wall_direction && Timers.get_node("PostClingJumpTimer").time_left == 0:
+#			return "wallsliding"
 	if Player.dash_direction == -1 && (Input.is_action_just_pressed("attack") || Timers.get_node("BufferedDashTimer").time_left > 0):
 		return "dashing_up"
 	if Player.dash_direction == 1 && (Input.is_action_just_pressed("attack") || Timers.get_node("BufferedDashTimer").time_left > 0):
 		return "dashing_down"
-	return "jumping"
+	return Player.current_state
 
 func check_buffered_inputs():
 	check_buffered_jump_input()

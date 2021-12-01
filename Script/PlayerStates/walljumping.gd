@@ -24,18 +24,7 @@ func do_state_logic(delta):
 	Player.velocity = Player.move_and_slide(Player.velocity, UP_DIRECTION)
 	
 func check_for_new_state() -> String:
-	if (Player.velocity.y > 0):
-		return "falling"
-	if (Player.is_on_floor()):
-		return "idle"
-	if can_wall_jump():
-		if (Input.is_action_just_pressed("jump") or Player.isJumpBuffered):
-			return "walljumping"
-	if Player.dash_direction == -1 && Input.is_action_just_pressed("attack"):
-		return "dashing_up"
-	if Player.dash_direction == 1 && Input.is_action_just_pressed("attack"):
-		return "dashing_down"
-	return "walljumping"
+	return get_parent().get_node("jumping").check_for_new_state()
 
 # If you let go of jump, stop going up. Also handles buffered case.
 func check_if_finish_jump() -> void:

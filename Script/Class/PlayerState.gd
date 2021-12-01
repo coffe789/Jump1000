@@ -288,7 +288,8 @@ func get_ledge_behaviour():
 			return Globals.LEDGE_REST
 		elif (_check_is_valid_wall(ledge_cast_bottom) || _check_is_valid_wall(ledge_cast_mid)) && !_check_is_valid_wall(ledge_cast_top):
 			return Globals.LEDGE_NO_ACTION
-		elif(_check_is_valid_wall(ledge_cast_top) && !_check_is_valid_wall(ledge_cast_lenient) && !(Player.velocity.y < 0 && Player.current_state=="wallsliding")):
+		elif(_check_is_valid_wall(ledge_cast_top) && !_check_is_valid_wall(ledge_cast_lenient) && !(Player.velocity.y < 0 && Player.current_state=="wallsliding"))\
+		and Player.velocity.y >= -10:
 			return Globals.LEDGE_LENIENCY_RISE
 	return Globals.LEDGE_EXIT
 
