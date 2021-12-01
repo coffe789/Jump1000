@@ -8,12 +8,12 @@ func do_state_logic(delta):
 func check_for_new_state() -> String:
 	_update_wall_direction()
 	if (Player.is_on_floor()):
-		return "idle"
+		return Player.PS_IDLE
 	if (Input.is_action_just_pressed("jump") || Player.isJumpBuffered):
-		return "wallbouncing"
+		return Player.PS_WALLBOUNCING
 	if Player.wall_direction == get_input_direction() && Player.wall_direction != 0 && Player.velocity.y >= 0:
-		return "wallsliding"
+		return Player.PS_WALLSLIDING
 	if can_wall_jump() && Player.velocity.y < 0:
-		return "wallbounce_sliding"
-	return "falling"
+		return Player.PS_WALLBOUNCE_SLIDING
+	return Player.PS_FALLING
 

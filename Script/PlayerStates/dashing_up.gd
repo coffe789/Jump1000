@@ -44,9 +44,9 @@ func check_for_new_state() -> String:
 	if can_wall_jump():
 		if (Input.is_action_just_pressed("jump") or Player.isJumpBuffered):
 			if Timers.get_node("WallBounceTimer").time_left > 0 && Player.velocity.y < 0:
-				return "wallbouncing"
+				return Player.PS_WALLBOUNCING
 			else:
-				return "walljumping"
+				return Player.PS_WALLJUMPING
 	if Timers.get_node("DashTimer").time_left > 0:
-		return "dashing_up"
-	return "falling"
+		return Player.PS_DASHING_UP
+	return Player.PS_FALLING

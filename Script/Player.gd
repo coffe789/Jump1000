@@ -4,7 +4,7 @@ export var velocity = Vector2(0,0);
 var directionX = 0; #Direction player is currently moving
 var directionY = 0;
 var facing = 1 #either -1 or 1
-var current_state = "falling";
+var current_state = PS_FALLING;
 
 var isJumpBuffered = false;
 var canCoyoteJump = false;
@@ -21,25 +21,44 @@ var dash_direction = 0
 var dash_target_node = null
 var last_attack_type = Globals.NORMAL_ATTACK
 
+enum \
+{
+	PS_PREVIOUS,
+	PS_JUMPING,
+	PS_IDLE,
+	PS_RUNNING,
+	PS_FALLING,
+	PS_WALLJUMPING,
+	PS_WALLSLIDING,
+	PS_DUCKING,
+	PS_DUCKJUMPING,
+	PS_DUCKFALLING,
+	PS_DASHING_UP,
+	PS_DASHING_DOWN,
+	PS_ROLLING,
+	PS_WALLBOUNCE_SLIDING,
+	PS_WALLBOUNCING,
+	PS_LEDGECLINGING
+}
 
 onready var state_list = \
 {
-	"previous_state" : "",
-	"jumping" : $StateMachine/jumping,
-	"idle" : 	$StateMachine/idle,
-	"running" : $StateMachine/running,
-	"falling" : $StateMachine/falling,
-	"walljumping" : $StateMachine/walljumping,
-	"wallsliding" : $StateMachine/wallsliding,
-	"ducking" : $StateMachine/ducking,
-	"duckjumping" : $StateMachine/duckjumping,
-	"duckfalling" : $StateMachine/duckfalling,
-	"dashing_up" : $StateMachine/dashing_up,
-	"dashing_down" : $StateMachine/dashing_down,
-	"rolling" : $StateMachine/rolling,
-	"wallbounce_sliding" : $StateMachine/wallbounce_sliding,
-	"wallbouncing" : $StateMachine/wallbouncing,
-	"ledgeclinging" : $StateMachine/ledgeclinging
+	PS_PREVIOUS : "",
+	PS_JUMPING : $StateMachine/jumping,
+	PS_IDLE : 	$StateMachine/idle,
+	PS_RUNNING : $StateMachine/running,
+	PS_FALLING : $StateMachine/falling,
+	PS_WALLJUMPING : $StateMachine/walljumping,
+	PS_WALLSLIDING : $StateMachine/wallsliding,
+	PS_DUCKING : $StateMachine/ducking,
+	PS_DUCKJUMPING : $StateMachine/duckjumping,
+	PS_DUCKFALLING : $StateMachine/duckfalling,
+	PS_DASHING_UP : $StateMachine/dashing_up,
+	PS_DASHING_DOWN : $StateMachine/dashing_down,
+	PS_ROLLING : $StateMachine/rolling,
+	PS_WALLBOUNCE_SLIDING : $StateMachine/wallbounce_sliding,
+	PS_WALLBOUNCING : $StateMachine/wallbouncing,
+	PS_LEDGECLINGING : $StateMachine/ledgeclinging
 }
 
 # Controls every aspect of player physics

@@ -11,18 +11,18 @@ func check_for_new_state() -> String:
 	_update_wall_direction()
 	var ledge_behaviour = get_ledge_behaviour()
 	if (Player.is_on_floor()):
-		return "idle"
+		return Player.PS_IDLE
 	if (Input.is_action_just_pressed("jump") || Player.isJumpBuffered):
 		if ledge_behaviour != Globals.LEDGE_EXIT:
-			return "jumping" #may change
+			return Player.PS_JUMPING #may change
 		else:
-			return "walljumping"
+			return Player.PS_WALLJUMPING
 	if (ledge_behaviour != Globals.LEDGE_EXIT):
-			return "ledgeclinging"
+			return Player.PS_LEDGECLINGING
 	if Player.wall_direction == get_input_direction() && Player.wall_direction != 0:
-		return "wallsliding"
+		return Player.PS_WALLSLIDING
 	else:
-		return "falling"
+		return Player.PS_FALLING
 
 func set_cape_acceleration():
 	Player.Cape.accel = Vector2(0, 8)

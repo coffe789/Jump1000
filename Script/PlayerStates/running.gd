@@ -12,19 +12,19 @@ func do_state_logic(delta):
 func check_for_new_state() -> String:
 	if (Input.is_action_pressed("down") && Input.is_action_just_pressed("jump"))\
 	or (Input.is_action_pressed("down") && Player.isJumpBuffered):
-		return "duckjumping"
+		return Player.PS_DUCKJUMPING
 	if (Input.is_action_just_pressed("jump") || Player.isJumpBuffered):
-		return "jumping"
+		return Player.PS_JUMPING
 	if (!Player.is_on_floor()):
-		return "falling"
+		return Player.PS_FALLING
 	if (Input.is_action_pressed("down")):
-		return "ducking"
+		return Player.PS_DUCKING
 	if (get_input_direction()==0):
-		return "idle"
+		return Player.PS_IDLE
 	if can_wall_jump() and not Player.is_on_floor():
 		if (Input.is_action_just_pressed("jump") or Player.isJumpBuffered):
-			return "walljumping"
+			return Player.PS_WALLJUMPING
 		else:
-			return "wallsliding"
-	return "running"
+			return Player.PS_WALLSLIDING
+	return Player.PS_RUNNING
 

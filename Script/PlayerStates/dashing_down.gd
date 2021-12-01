@@ -43,11 +43,11 @@ func check_buffered_inputs():
 func check_for_new_state() -> String:
 	if (Player.is_on_floor()):
 		if (Input.is_action_pressed("down")):
-			return "ducking"
+			return Player.PS_DUCKING
 		else:
-			return "rolling"
+			return Player.PS_ROLLING
 	if Timers.get_node("DashTimer").time_left > 0:
-		return "dashing_down"
+		return Player.PS_DASHING_DOWN
 	if can_wall_jump() && (Input.is_action_just_pressed("jump") or Player.isJumpBuffered):
-		return "walljumping"
-	return "falling"
+		return Player.PS_WALLJUMPING
+	return Player.PS_FALLING

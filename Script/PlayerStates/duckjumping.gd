@@ -6,7 +6,7 @@ var rng = RandomNumberGenerator.new()
 func enter(_init_arg):
 	Collision_Body.get_shape().extents = DUCKING_COLLISION_EXTENT
 	Collision_Body.position.y = -4
-	Animation_Player.play("ducking")
+	Animation_Player.play(Player.PS_DUCKING)
 	stop_rising = false
 	Player.isJumpBuffered = false
 	Player.canCoyoteJump = false
@@ -23,13 +23,13 @@ func do_state_logic(delta):
 
 func check_for_new_state() -> String:
 	if (Player.velocity.y > 0):
-		return "duckfalling"
+		return Player.PS_DUCKFALLING
 	if (Player.is_on_floor()):
 		if Player.can_unduck:
-			return "idle"
+			return Player.PS_IDLE
 		else:
-			return "ducking"
-	return "duckjumping"
+			return Player.PS_DUCKING
+	return Player.PS_DUCKJUMPING
 
 # If you let go of jump, stop going up. Also handles buffered case.
 func check_if_finish_jump() -> void:

@@ -8,7 +8,7 @@ func set_attack_hitbox():
 func enter(_init_arg):
 	Collision_Body.get_shape().extents = DUCKING_COLLISION_EXTENT
 	Collision_Body.position.y = -4
-	Animation_Player.play("ducking")
+	Animation_Player.play(Player.PS_DUCKING)
 
 func do_state_logic(delta):
 	do_attack()
@@ -19,12 +19,12 @@ func do_state_logic(delta):
 
 func check_for_new_state() -> String:
 	if (!Player.is_on_floor()):
-		return "duckfalling"
+		return Player.PS_DUCKFALLING
 	if (Input.is_action_just_pressed("jump") || Player.isJumpBuffered):
-		return "duckjumping"
+		return Player.PS_DUCKJUMPING
 	if (!Input.is_action_pressed("down") && Player.can_unduck):
-		return "idle"
-	return "ducking"
+		return Player.PS_IDLE
+	return Player.PS_DUCKING
 
 func exit():
 	Collision_Body.get_shape().extents = NORMAL_COLLISION_EXTENT

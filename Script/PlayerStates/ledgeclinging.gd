@@ -44,12 +44,12 @@ func set_cape_acceleration():
 func check_for_new_state() -> String:
 	_update_wall_direction()
 	if (Player.is_on_floor()):
-		return "idle"
+		return Player.PS_IDLE
 	if (Input.is_action_just_pressed("jump") || Player.isJumpBuffered):
 		Timers.get_node("PostClingJumpTimer").start(0.12)
-		return "jumping"
+		return Player.PS_JUMPING
 	if ledge_behaviour == Globals.LEDGE_EXIT:
-		return "falling"
+		return Player.PS_FALLING
 	else:
-		return "ledgeclinging"
+		return Player.PS_LEDGECLINGING
 

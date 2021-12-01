@@ -35,34 +35,34 @@ func check_buffered_inputs():
 func check_for_new_state() -> String:
 	if (Player.is_on_floor()):
 		if is_rolling_fall && get_input_direction() != 0:
-			return "rolling"
+			return Player.PS_ROLLING
 		if (Input.is_action_pressed("left") || Input.is_action_pressed("right")):
-			return "running"
+			return Player.PS_RUNNING
 		if (Input.is_action_pressed("down")):
-			return "ducking"
+			return Player.PS_DUCKING
 		else:
-			return "idle"
+			return Player.PS_IDLE
 	if (Input.is_action_just_pressed("jump") && Player.canCoyoteJump):
-		return "jumping"
+		return Player.PS_JUMPING
 	if can_wall_jump():
 		if (Input.is_action_just_pressed("jump") or Player.isJumpBuffered):
 			if Timers.get_node("WallBounceTimer").time_left > 0 && Player.velocity.y < 0:
-				return "wallbouncing"
+				return Player.PS_WALLBOUNCING
 			elif (get_ledge_behaviour() != Globals.LEDGE_EXIT) && can_wall_jump():
 				Timers.get_node("PostClingJumpTimer").start(0.12)
 				is_exit_roll_jump = true
-				return "jumping"#will maybe change later?
+				return Player.PS_JUMPING#will maybe change later?
 			else:
-				return "walljumping"
+				return Player.PS_WALLJUMPING
 		elif Timers.get_node("WallBounceTimer").time_left > 0 && Player.velocity.y < 0:
-			return "wallbounce_sliding"
+			return Player.PS_WALLBOUNCE_SLIDING
 		elif (get_ledge_behaviour() != Globals.LEDGE_EXIT):
-			return "ledgeclinging"
+			return Player.PS_LEDGECLINGING
 		elif Player.wall_direction == get_input_direction() && Player.wall_direction != 0:
-			return "wallsliding"
+			return Player.PS_WALLSLIDING
 	if (Input.is_action_just_pressed("attack") || Timers.get_node("BufferedRedashTimer").time_left > 0 || Timers.get_node("BufferedDashTimer").time_left > 0) && Timers.get_node("NoDashTimer").time_left == 0:
 		if Player.dash_direction == -1:
-			return "dashing_up"
+			return Player.PS_DASHING_UP
 		if Player.dash_direction == 1:
-			return "dashing_down"
-	return "falling"
+			return Player.PS_DASHING_DOWN
+	return Player.PS_FALLING

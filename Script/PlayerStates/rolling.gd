@@ -16,19 +16,19 @@ func do_state_logic(delta):
 
 func check_for_new_state() -> String:
 	if (!Player.is_on_floor()):
-		return "falling"
+		return Player.PS_FALLING
 	if (Input.is_action_pressed("down") && Input.is_action_just_pressed("jump")) \
 	or Input.is_action_pressed("down") && Player.isJumpBuffered:
-		return "duckjumping"
+		return Player.PS_DUCKJUMPING
 	if (Input.is_action_just_pressed("jump") || Player.isJumpBuffered):
 		Player.velocity.x = set_if_lesser(Player.velocity.x, roll_direction*260)
-		return "jumping"
+		return Player.PS_JUMPING
 	if Input.is_action_pressed("down"):
-		return "ducking"
+		return Player.PS_DUCKING
 	if (get_input_direction()==roll_direction*-1 || get_input_direction() == 0):
-		return "running"
+		return Player.PS_RUNNING
 	if (Player.velocity.x == 0): #hit a wall
-		return "idle"
+		return Player.PS_IDLE
 	if Timers.get_node("RollTimer").time_left == 0:
-		return "idle"
-	return "rolling"
+		return Player.PS_IDLE
+	return Player.PS_ROLLING
