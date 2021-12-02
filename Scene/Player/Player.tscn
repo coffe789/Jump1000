@@ -444,6 +444,7 @@ position = Vector2( 4, 4 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
+process_mode = 0
 limit_left = 0
 limit_bottom = 170
 limit_smoothed = true
