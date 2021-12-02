@@ -12,6 +12,7 @@ func enter(_init_arg):
 	Player.velocity.y = -JUMP_SPEED * WALLBOUNCE_MULTIPLIER
 	Player.velocity.x = MAX_X_SPEED*(-Player.last_wall_direction) * WALLJUMP_X_SPEED_MULTIPLIER
 	play_jump_audio()
+	emit_jump_particles()
 
 func do_state_logic(delta):
 	set_dash_target()

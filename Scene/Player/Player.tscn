@@ -190,10 +190,12 @@ gradient = SubResource( 10 )
 
 [sub_resource type="ParticlesMaterial" id=9]
 lifetime_randomness = 0.5
+emission_shape = 1
+emission_sphere_radius = 1.0
 flag_rotate_y = true
 flag_disable_z = true
 direction = Vector3( 0, -1, 0 )
-spread = 80.0
+spread = 70.0
 gravity = Vector3( 0, 0, 0 )
 initial_velocity = 39.22
 initial_velocity_random = 0.8

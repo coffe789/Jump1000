@@ -18,12 +18,6 @@ func enter(init_arg):
 			can_roll_fall = true
 	emit_jump_particles()
 
-func emit_jump_particles():
-	Player.get_node("Particles/JumpCloud").emitting = true
-	Player.get_node("Particles/JumpCloud").process_material.direction.x = -Player.directionX
-	yield(get_tree().create_timer(0.04), "timeout")
-	Player.get_node("Particles/JumpCloud").emitting = false
-
 var is_exit_roll_jump = false
 func exit():
 	var to_return = []

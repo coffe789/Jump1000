@@ -293,6 +293,12 @@ func get_ledge_behaviour():
 			return Globals.LEDGE_LENIENCY_RISE
 	return Globals.LEDGE_EXIT
 
+func emit_jump_particles():
+	Player.get_node("Particles/JumpCloud").emitting = true
+	Player.get_node("Particles/JumpCloud").process_material.direction.x = -Player.directionX
+	yield(get_tree().create_timer(0.04), "timeout")
+	Player.get_node("Particles/JumpCloud").emitting = false
+
 # Buffered inputs
 #==================================================================#
 # Calls the others. Contents will differ per state

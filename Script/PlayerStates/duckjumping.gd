@@ -6,12 +6,13 @@ var rng = RandomNumberGenerator.new()
 func enter(_init_arg):
 	Collision_Body.get_shape().extents = DUCKING_COLLISION_EXTENT
 	Collision_Body.position.y = -4
-	Animation_Player.play(Player.PS_DUCKING)
+	Animation_Player.play("ducking")
 	stop_rising = false
 	Player.isJumpBuffered = false
 	Player.canCoyoteJump = false
 	Player.velocity.y = -JUMP_SPEED #jump
 	play_jump_audio()
+	emit_jump_particles()
 
 func do_state_logic(delta):
 	do_attack()
