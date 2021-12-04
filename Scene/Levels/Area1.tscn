@@ -113,6 +113,6 @@ scale = Vector2( 5.39881, 0.610232 )
 texture = ExtResource( 4 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( 64.1409, 76.8259 )
+position = Vector2( -84.3591, 47.8259 )
 
 [node name="VerletArea" parent="." instance=ExtResource( 1 )]

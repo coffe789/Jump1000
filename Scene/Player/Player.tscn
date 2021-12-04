@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://Art/Player/player.png" type="Texture" id=1]
 [ext_resource path="res://Script/Player.gd" type="Script" id=2]
@@ -20,6 +20,7 @@
 [ext_resource path="res://Script/PlayerStates/wallbounce_sliding.gd" type="Script" id=18]
 [ext_resource path="res://Script/PlayerStates/wallbouncing.gd" type="Script" id=19]
 [ext_resource path="res://Script/PlayerStates/ledgeclinging.gd" type="Script" id=20]
+[ext_resource path="res://Script/Player/PlayerCamera.gd" type="Script" id=21]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 3.5, 8 )
@@ -386,6 +387,7 @@ script = ExtResource( 19 )
 script = ExtResource( 20 )
 
 [node name="Audio" type="Node" parent="."]
+pause_mode = 2
 
 [node name="JumpAudio" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource( 3 )
@@ -393,7 +395,7 @@ volume_db = -3.0
 
 [node name="Timers" type="Node" parent="."]
 
-[node name="CoyoteTimer" type="Timer" parent="Timers"]
+[node name="CoyoteTimer" type="Timer" parent="Timers" groups=["reset_on_room_transition"]]
 __meta__ = {
 "_editor_description_": "Coyote jump leniency"
 }
@@ -404,7 +406,8 @@ __meta__ = {
 "_editor_description_": "Can't cling again right after cling jumping to prevent cling->jump->cling->falling upward, as you can't control jump height when falling"
 }
 
-[node name="BufferedJumpTimer" type="Timer" parent="Timers"]
+[node name="BufferedJumpTimer" type="Timer" parent="Timers" groups=["reset_on_room_transition"]]
+one_shot = true
 
 [node name="BetweenAttackTimer" type="Timer" parent="Timers"]
 
@@ -420,7 +423,7 @@ __meta__ = {
 "_editor_description_": "This is how long you're in the dash state for"
 }
 
-[node name="BufferedDashTimer" type="Timer" parent="Timers"]
+[node name="BufferedDashTimer" type="Timer" parent="Timers" groups=["reset_on_room_transition"]]
 one_shot = true
 __meta__ = {
 "_editor_description_": "Works the same way as other buffers. This is extremely short (much shorter than the redash timer)"
@@ -432,7 +435,7 @@ __meta__ = {
 "_editor_description_": "You can't dash while this is active. It lasts a bit longer than the dash itself. This is to prevent dashing twice into the same object."
 }
 
-[node name="BufferedRedashTimer" type="Timer" parent="Timers"]
+[node name="BufferedRedashTimer" type="Timer" parent="Timers" groups=["reset_on_room_transition"]]
 one_shot = true
 __meta__ = {
 "_editor_description_": "If you try to dash while NoDashTimer is active, you can buffer a dash."
@@ -460,11 +463,14 @@ position = Vector2( -4, 4 )
 [node name="CapeR" type="Position2D" parent="Cape"]
 position = Vector2( 4, 4 )
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="PlayerCamera" type="Camera2D" parent="."]
 current = true
 process_mode = 0
 limit_smoothed = true
 smoothing_enabled = true
+script = ExtResource( 21 )
+
+[node name="TransitionTimer" type="Timer" parent="PlayerCamera"]
 
 [node name="Particles" type="Node2D" parent="."]
 

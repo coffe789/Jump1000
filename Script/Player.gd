@@ -129,32 +129,5 @@ func _on_room_entered():
 
 func _on_RoomDetection_area_entered(area):
 	if area.is_in_group("room"):
-		do_room_transition(area)
+		$PlayerCamera.do_room_transition(area)
 
-func do_room_transition(area):
-	var cam = $Camera2D
-	var player_location = $CollisionChecks/RoomDetection
-	if current_room != null:
-		if player_location.global_position.y < cam.limit_top:
-			velocity.y = -230
-			print("up")
-		elif player_location.global_position.y > cam.limit_bottom:
-			print("down")
-		elif player_location.global_position.x < cam.limit_left:
-			print("left")
-		elif player_location.global_position.x > cam.limit_right:
-			print("right")
-	
-	var room_collision_shape = area.get_node("CollisionShape2D")
-	var room_size = room_collision_shape.shape.extents*2
-	
-	#set camera
-	cam.limit_left = room_collision_shape.global_position.x - room_size.x / 2
-	cam.limit_top = room_collision_shape.global_position.y - room_size.y / 2
-	cam.limit_right = cam.limit_left + room_size.x
-	cam.limit_bottom = cam.limit_top + room_size.y
-	
-	current_room = area
-#	#get direction
-#	if global_position < current_room.global_position.y - room_size.y / 2:
-#		print("up")
