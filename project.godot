@@ -44,6 +44,7 @@ window/stretch/aspect="keep"
 [global]
 
 background=false
+collision=false
 
 [importer_defaults]
 
@@ -135,6 +136,7 @@ attack={
 2d_physics/layer_2="Player"
 2d_physics/layer_3="Attackable"
 2d_physics/layer_4="Attack"
+2d_physics/layer_5="Room"
 
 [physics]
 
