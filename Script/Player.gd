@@ -24,18 +24,27 @@ var dash_direction = 0
 var dash_target_node = null
 var last_attack_type = Globals.NORMAL_ATTACK
 
+var init_pos
+func _init():
+	init_pos = position
+
 func _ready():
-	yield(get_tree().create_timer(0.1), "timeout")
+	var old_pos = position
+	yield(get_tree(), "idle_frame")
 	call_deferred("do_rooms")
-	position = Vector2(0,0)
+	collision_mask = collision_mask | 16 #enable room boundary collision after boundaries are created
+
 func do_rooms():
 	for room in get_tree().get_nodes_in_group("room"):
-		print(room.get_overlapping_bodies().size())
 		for overlapping_body in room.get_overlapping_bodies():
 			if overlapping_body.is_in_group("room_boundary"):
-				print(overlapping_body,overlapping_body.get_node("CollisionPolygon2D").polygon)
-				var new_poly = Geometry.clip_polygons_2d(overlapping_body.get_node("CollisionPolygon2D").polygon, room.cutout_shape)
+				var pos_dif = room.global_position - overlapping_body.global_position
+				var new_cutout_shape = PoolVector2Array([room.cutout_shape[0]+pos_dif,room.cutout_shape[1]+pos_dif,room.cutout_shape[2]+pos_dif,room.cutout_shape[3]+pos_dif])
+				var new_poly = Geometry.clip_polygons_2d(overlapping_body.get_node("CollisionPolygon2D").polygon, new_cutout_shape)
 				overlapping_body.get_node("CollisionPolygon2D").polygon = new_poly[0]
+				if new_poly.size() > 1: #If polygon is split into 2+ pieces, create new static bodies
+					for i in range(1,new_poly.size()):
+						room.add_boundary(new_poly[i])
 
 enum \
 {

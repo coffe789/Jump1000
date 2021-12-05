@@ -1,4 +1,6 @@
 extends Area2D
+var Boundary = preload("res://Scene/Entities/Room/Boundary.tscn")
+
 var left_x
 var right_x
 var top_y
@@ -48,6 +50,11 @@ func init_cutout_shape():
 	cutout_shape[2] = Vector2(right_x,bottom_y)
 	cutout_shape[3] = Vector2(left_x,bottom_y)
 	cutout_shape = PoolVector2Array(cutout_shape)
+
+func add_boundary(polygon):
+	var new_boundary = Boundary.instance()
+	new_boundary.get_node("CollisionPolygon2D").polygon = polygon
+	add_child(new_boundary)
 
 func cutout_shapes():
 	var new_poly = Geometry.clip_polygons_2d($Boundary/CollisionPolygon2D.polygon, cutout_shape)

@@ -19,6 +19,11 @@ extents = Vector2( 86.0916, 31.9239 )
 
 [node name="Area1" type="Node2D"]
 
+[node name="Player" parent="." instance=ExtResource( 2 )]
+position = Vector2( -175.743, 52.8337 )
+
+[node name="VerletArea" parent="." instance=ExtResource( 1 )]
+
 [node name="Room" parent="." instance=ExtResource( 3 )]
 position = Vector2( 86.0525, 67.6211 )
 
@@ -54,6 +59,33 @@ position = Vector2( 76.0916, 0 )
 shape = SubResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="Room/RigidBody2D3"]
+position = Vector2( 75.7264, -3.50177e-06 )
+scale = Vector2( 5.39881, 0.610232 )
+texture = ExtResource( 4 )
+
+[node name="Room4" parent="." instance=ExtResource( 3 )]
+position = Vector2( -233.015, 219.218 )
+
+[node name="RigidBody2D" type="StaticBody2D" parent="Room4"]
+position = Vector2( -42.9635, 39.293 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Room4/RigidBody2D"]
+position = Vector2( 76.0916, 0 )
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Room4/RigidBody2D"]
+position = Vector2( 75.7264, -3.50177e-06 )
+scale = Vector2( 5.39881, 0.610232 )
+texture = ExtResource( 4 )
+
+[node name="RigidBody2D2" type="StaticBody2D" parent="Room4"]
+position = Vector2( 188.319, -25.0163 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Room4/RigidBody2D2"]
+position = Vector2( 76.0916, 0 )
+shape = SubResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="Room4/RigidBody2D2"]
 position = Vector2( 75.7264, -3.50177e-06 )
 scale = Vector2( 5.39881, 0.610232 )
 texture = ExtResource( 4 )
@@ -112,9 +144,5 @@ position = Vector2( 75.7264, -3.50177e-06 )
 scale = Vector2( 5.39881, 0.610232 )
 texture = ExtResource( 4 )
 
-[node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( -175.743, 52.8337 )
-
-[node name="VerletArea" parent="." instance=ExtResource( 1 )]
-
 [editable path="Room"]
+[editable path="Room4"]
