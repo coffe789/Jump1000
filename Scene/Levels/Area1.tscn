@@ -20,7 +20,7 @@ extents = Vector2( 86.0916, 31.9239 )
 [node name="Area1" type="Node2D"]
 
 [node name="Room" parent="." instance=ExtResource( 3 )]
-position = Vector2( 88.5724, 68.881 )
+position = Vector2( 86.0525, 67.6211 )
 
 [node name="RigidBody2D" type="StaticBody2D" parent="Room"]
 position = Vector2( -149.036, 22.456 )
@@ -113,6 +113,8 @@ scale = Vector2( 5.39881, 0.610232 )
 texture = ExtResource( 4 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( -84.3591, 47.8259 )
+position = Vector2( -175.743, 52.8337 )
 
 [node name="VerletArea" parent="." instance=ExtResource( 1 )]
+
+[editable path="Room"]

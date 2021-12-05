@@ -7,6 +7,7 @@ var facing = 1 #either -1 or 1
 var current_state = PS_FALLING
 var previous_state = PS_FALLING
 var current_room
+var previous_position
 
 var isJumpBuffered = false;
 var canCoyoteJump = false;
@@ -22,6 +23,19 @@ var current_attack_id = 0 #used so enemies don't get hit twice by same attack
 var dash_direction = 0
 var dash_target_node = null
 var last_attack_type = Globals.NORMAL_ATTACK
+
+func _ready():
+	yield(get_tree().create_timer(0.1), "timeout")
+	call_deferred("do_rooms")
+	position = Vector2(0,0)
+func do_rooms():
+	for room in get_tree().get_nodes_in_group("room"):
+		print(room.get_overlapping_bodies().size())
+		for overlapping_body in room.get_overlapping_bodies():
+			if overlapping_body.is_in_group("room_boundary"):
+				print(overlapping_body,overlapping_body.get_node("CollisionPolygon2D").polygon)
+				var new_poly = Geometry.clip_polygons_2d(overlapping_body.get_node("CollisionPolygon2D").polygon, room.cutout_shape)
+				overlapping_body.get_node("CollisionPolygon2D").polygon = new_poly[0]
 
 enum \
 {
@@ -65,6 +79,7 @@ onready var state_list = \
 
 # Controls every aspect of player physics
 func _physics_process(delta) -> void:
+	previous_position = position
 	if Input.is_action_just_pressed("clear_console"):
 		Globals.clear_console()
 	state_list[current_state].set_facing_direction()
@@ -124,7 +139,7 @@ func _on_UncrouchCheck_body_entered(body):
 		can_unduck = false
 		crouch_body_count += 1
 
-func _on_UncrouchCheck_body_exited(body):#untested
+func _on_UncrouchCheck_body_exited(body):
 	if body is StaticBody2D || body is RigidBody2D:
 		crouch_body_count -= 1
 		if crouch_body_count ==0:
