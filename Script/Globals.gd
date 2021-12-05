@@ -41,3 +41,7 @@ func is_same_sign(num1,num2):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+
+func clear_console():
+	for i in 20:
+		print("\n")

@@ -6,7 +6,7 @@ func _ready():
 	unset_dash_target = false
 
 func enter(_init_arg):
-	stop_rising = false
+	Player.stop_jump_rise = false
 	Player.isJumpBuffered = false
 	Player.canCoyoteJump = false
 	#Player.velocity.y = -JUMP_SPEED #jump
@@ -26,12 +26,6 @@ func do_state_logic(delta):
 	
 func check_for_new_state() -> String:
 	return get_parent().get_node("jumping").check_for_new_state()
-
-# If you let go of jump, stop going up. Also handles buffered case.
-func check_if_finish_jump() -> void:
-	if ((!Input.is_action_pressed("jump") && !stop_rising)):
-		Player.velocity.y /= AFTER_JUMP_SLOWDOWN_FACTOR;
-		stop_rising = true;
 
 func play_jump_audio():
 	Audio.get_node("JumpAudio").pitch_scale = rng.randf_range(1.5, 1.2)

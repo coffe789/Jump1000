@@ -31,7 +31,7 @@ func do_state_logic(delta):
 		do_gravity(delta, MAX_FALL_SPEED * WALL_GRAVITY_FACTOR, GRAVITY)
 		if ledge_behaviour == Globals.LEDGE_LENIENCY_RISE:
 			Player.velocity.y = -10
-		do_normal_x_movement(delta,AIR_DRAG, ACCELERATE_WALK)
+		#do_normal_x_movement(delta,AIR_DRAG, ACCELERATE_WALK)
 		Player.velocity = Player.move_and_slide(Player.velocity, UP_DIRECTION)
 
 # Called when the node enters the scene tree for the first time.
@@ -49,7 +49,10 @@ func check_for_new_state() -> String:
 		Timers.get_node("PostClingJumpTimer").start(0.12)
 		return Player.PS_JUMPING
 	if ledge_behaviour == Globals.LEDGE_EXIT:
-		return Player.PS_FALLING
+		if Player.velocity.y < 10:
+			return Player.PS_PREVIOUS
+		else:
+			return Player.PS_FALLING
 	else:
 		return Player.PS_LEDGECLINGING
 

@@ -482,6 +482,15 @@ lifetime = 0.4
 local_coords = false
 process_material = SubResource( 9 )
 
+[node name="DebugLabel" type="Label" parent="."]
+margin_left = -31.0
+margin_top = -55.0
+margin_right = 9.0
+margin_bottom = -41.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="body_entered" from="CollisionChecks/BodyArea" to="." method="_on_UncrouchCheck_body_entered"]
 [connection signal="body_exited" from="CollisionChecks/BodyArea" to="." method="_on_UncrouchCheck_body_exited"]
 [connection signal="area_entered" from="CollisionChecks/DashCheckUp" to="CollisionChecks/DashCheckUp" method="_on_DashCheckUp_area_entered"]

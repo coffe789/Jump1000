@@ -4,7 +4,8 @@ export var velocity = Vector2(0,0);
 var directionX = 0; #Direction player is currently moving
 var directionY = 0;
 var facing = 1 #either -1 or 1
-var current_state = PS_FALLING;
+var current_state = PS_FALLING
+var previous_state = PS_FALLING
 var current_room
 
 var isJumpBuffered = false;
@@ -64,16 +65,25 @@ onready var state_list = \
 
 # Controls every aspect of player physics
 func _physics_process(delta) -> void:
+	if Input.is_action_just_pressed("clear_console"):
+		Globals.clear_console()
 	state_list[current_state].set_facing_direction()
 	directionX = sign(velocity.x)
 	directionY = -sign(velocity.y)
 	execute_state(delta)
 	try_state_transition()
+	$DebugLabel.text = "State: " + str(state_list[current_state].name) + "\nPrevious:" + str(state_list[previous_state].name)
 
 # Changes state if the current state wants to
 func try_state_transition():
 	var next_state = state_list[current_state].check_for_new_state()
-	if next_state != current_state:
+	if next_state == PS_PREVIOUS:
+		#previous_state = current_state
+		state_list[current_state].exit() #exit but don't enter
+		current_state = previous_state
+		execute_upon_transition()
+	elif next_state != current_state:
+		previous_state = current_state
 		var init_arg = state_list[current_state].exit()
 		state_list[next_state].enter(init_arg)
 		current_state = next_state
