@@ -173,6 +173,11 @@ func _on_room_entered():
 	print("entered room")
 
 func _on_RoomDetection_area_entered(area):
+	pass#if area.is_in_group("room"):
+#		$PlayerCamera.do_room_transition(area)
+
+
+
+func _on_BodyArea_area_entered(area):
 	if area.is_in_group("room"):
 		$PlayerCamera.do_room_transition(area)
-

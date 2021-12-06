@@ -221,6 +221,7 @@ script = ExtResource( 2 )
 visible = false
 position = Vector2( 0.5, -8 )
 collision_layer = 0
+collision_mask = 17
 __meta__ = {
 "_editor_description_": "Currently used for ducking detection and room detection"
 }
@@ -468,6 +469,7 @@ current = true
 process_mode = 0
 limit_smoothed = true
 smoothing_enabled = true
+smoothing_speed = 7.0
 script = ExtResource( 21 )
 
 [node name="TransitionTimer" type="Timer" parent="PlayerCamera"]
@@ -491,6 +493,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[connection signal="area_entered" from="CollisionChecks/BodyArea" to="." method="_on_BodyArea_area_entered"]
 [connection signal="body_entered" from="CollisionChecks/BodyArea" to="." method="_on_UncrouchCheck_body_entered"]
 [connection signal="body_exited" from="CollisionChecks/BodyArea" to="." method="_on_UncrouchCheck_body_exited"]
 [connection signal="area_entered" from="CollisionChecks/DashCheckUp" to="CollisionChecks/DashCheckUp" method="_on_DashCheckUp_area_entered"]

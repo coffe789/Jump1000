@@ -25,7 +25,7 @@ extents = Vector2( 86.0916, 31.9239 )
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( -128, -168 )
 
-[node name="VerletArea" parent="." instance=ExtResource( 1 )]
+[node name="VerletArea" parent="." groups=["verlet_area"] instance=ExtResource( 1 )]
 
 [node name="Room" parent="." instance=ExtResource( 3 )]
 position = Vector2( -72, 176 )
