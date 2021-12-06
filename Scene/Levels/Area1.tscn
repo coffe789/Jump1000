@@ -1,9 +1,12 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scene/Entities/Verlet/VerletArea.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scene/Player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scene/Levels/Room.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Art/solid.png" type="Texture" id=4]
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 320, 92 )
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 86.0916, 10 )
@@ -20,13 +23,16 @@ extents = Vector2( 86.0916, 31.9239 )
 [node name="Area1" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( -175.743, 52.8337 )
+position = Vector2( -128, -168 )
 
 [node name="VerletArea" parent="." instance=ExtResource( 1 )]
 
 [node name="Room" parent="." instance=ExtResource( 3 )]
-position = Vector2( -233.902, 183.736 )
+position = Vector2( -72, 176 )
 input_pickable = false
+
+[node name="CollisionShape2D" parent="Room" index="0"]
+shape = SubResource( 5 )
 
 [node name="RigidBody2D" type="StaticBody2D" parent="Room"]
 position = Vector2( -149.036, 22.456 )
@@ -53,7 +59,7 @@ scale = Vector2( 5.39881, 0.610232 )
 texture = ExtResource( 4 )
 
 [node name="RigidBody2D3" type="StaticBody2D" parent="Room"]
-position = Vector2( 41.0285, -56.9552 )
+position = Vector2( 40, -64 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Room/RigidBody2D3"]
 position = Vector2( 76.0916, 0 )
@@ -65,7 +71,7 @@ scale = Vector2( 5.39881, 0.610232 )
 texture = ExtResource( 4 )
 
 [node name="Room4" parent="." instance=ExtResource( 3 )]
-position = Vector2( -127.008, -182.433 )
+position = Vector2( -120, -192 )
 
 [node name="RigidBody2D" type="StaticBody2D" parent="Room4"]
 position = Vector2( -42.9635, 39.293 )
@@ -92,10 +98,10 @@ scale = Vector2( 5.39881, 0.610232 )
 texture = ExtResource( 4 )
 
 [node name="Room2" parent="." instance=ExtResource( 3 )]
-position = Vector2( -235.122, 0 )
+position = Vector2( -232, -8 )
 
 [node name="RigidBody2D" type="StaticBody2D" parent="Room2"]
-position = Vector2( 0.0718689, 70.9002 )
+position = Vector2( -16, 88 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Room2/RigidBody2D"]
 position = Vector2( 76.0916, 0 )
@@ -107,7 +113,7 @@ scale = Vector2( 5.39881, 0.610232 )
 texture = ExtResource( 4 )
 
 [node name="RigidBody2D2" type="StaticBody2D" parent="Room2"]
-position = Vector2( -152.719, 71.434 )
+position = Vector2( -160, 72 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Room2/RigidBody2D2"]
 position = Vector2( 76.0916, 0 )
@@ -119,10 +125,10 @@ scale = Vector2( 5.39881, 0.610232 )
 texture = ExtResource( 4 )
 
 [node name="Room3" parent="." instance=ExtResource( 3 )]
-position = Vector2( -553.748, 149.333 )
+position = Vector2( -552, 176 )
 
 [node name="RigidBody2D" type="StaticBody2D" parent="Room3"]
-position = Vector2( 45.7702, 93.3748 )
+position = Vector2( 128, 24 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Room3/RigidBody2D"]
 position = Vector2( 76.0916, 21.9239 )

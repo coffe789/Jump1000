@@ -7,8 +7,7 @@ const FREEZE_TIME = 0.6
 func do_room_transition(area):
 	if Player.current_room == null: #Upon booting the game or something
 		set_player_room(area)
-	else:
-		var cam = self
+	elif area != Player.current_room:
 		var player_location = Player.get_node("CollisionChecks/RoomDetection")
 		if area != Player.current_room:
 			if player_location.global_position.y < limit_top:#up

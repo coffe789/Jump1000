@@ -45,14 +45,15 @@ func do_rooms():
 				overlapping_body.get_node("CollisionPolygon2D").polygon = new_poly[0]
 				if new_poly.size() > 1: #If polygon is split into 2+ pieces, create new static bodies
 					for i in range(1,new_poly.size()):
-						var bound = room.add_boundary(new_poly[i])
+						var bound = overlapping_body.get_parent().add_boundary(new_poly[i])
 						var diff = bound.global_position - overlapping_body.global_position
 						for j in range(0,bound.get_child(0).polygon.size()):
 							bound.get_child(0).polygon[j]-=diff
-#						bound.get_child(0).polygon[0]-=diff
-#						bound.get_child(0).polygon[1]-=diff
-#						bound.get_child(0).polygon[2]-=diff
-#						bound.get_child(0).polygon[3]-=diff
+	for node in get_tree().get_nodes_in_group("room_boundary"):
+		if node is StaticBody2D:
+			node.get_child(0).call_deferred("set_disabled",true)
+	if current_room:
+		current_room.enable_above_bounds(true)
 
 enum \
 {

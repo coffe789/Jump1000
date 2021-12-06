@@ -64,8 +64,8 @@ func init_cutout_shape():
 func add_boundary(polygon):
 	var new_boundary = Boundary.instance()
 	new_boundary.get_node("CollisionPolygon2D").polygon = polygon
+	new_boundary.add_to_group("room_boundary")
 	add_child(new_boundary)
-	print(self," ",new_boundary.name)
 	return new_boundary
 
 # Set position of the boundaries above the room
@@ -76,6 +76,10 @@ func set_above_bounds():
 func enable_above_bounds(state:bool):
 	$AboveBoundLeft/CollisionShape2D.call_deferred("set_disabled",!state)
 	$AboveBoundRight/CollisionShape2D.call_deferred("set_disabled",!state)
+	for child in get_children():
+		if child.is_in_group("room_boundary")  && child is StaticBody2D:
+			child.get_child(0).call_deferred("set_disabled",!state)
+			print(child.get_child(0))
 #	yield(get_tree(), "idle_frame")
 #	print($AboveBoundRight/CollisionShape2D.disabled,!state) #test it works
 
