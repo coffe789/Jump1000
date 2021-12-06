@@ -4,8 +4,10 @@ var ledge_behaviour
 func exit():
 	return [init_args.ROLLING_JUMP]
 
+
 func do_state_transition():
 	pass
+
 
 func get_ledge_Y():
 	for i in 8: #(-5--13)
@@ -13,8 +15,9 @@ func get_ledge_Y():
 		ledge_cast_top.force_raycast_update()
 		if _check_is_valid_wall(ledge_cast_top):
 			var ledge_pos = ledge_cast_top.global_position.y
-			ledge_cast_top.position.y = -13 #initial value
+			ledge_cast_top.position.y = -13 # Initial value
 			return ledge_pos
+
 
 func do_state_logic(delta):
 	check_if_finish_jump()
@@ -34,12 +37,10 @@ func do_state_logic(delta):
 		#do_normal_x_movement(delta,AIR_DRAG, ACCELERATE_WALK)
 		Player.velocity = Player.move_and_slide(Player.velocity, UP_DIRECTION)
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
 
 func set_cape_acceleration():
 	Player.Cape.accel = Vector2(0, 8)
+
 
 func check_for_new_state() -> String:
 	_update_wall_direction()
@@ -55,4 +56,3 @@ func check_for_new_state() -> String:
 			return Player.PS_FALLING
 	else:
 		return Player.PS_LEDGECLINGING
-

@@ -16,7 +16,7 @@ enum \
 	NO_RESPONSE
 }
 
-#ledge grab behaviours
+# Ledge grab behaviours
 enum \
 {
 	LEDGE_REST,
@@ -24,10 +24,6 @@ enum \
 	LEDGE_EXIT,
 	LEDGE_LENIENCY_RISE
 }
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
 
 func is_same_sign(num1,num2):
 	if num1 == 0 || num2 == 0:
@@ -38,10 +34,8 @@ func is_same_sign(num1,num2):
 		return true
 	return false
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
 
+# For debug
 func clear_console():
 	for i in 20:
 		print("\n")

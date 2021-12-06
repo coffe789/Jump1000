@@ -73,13 +73,16 @@ var state_attack_type = Globals.NORMAL_ATTACK
 func enter(_init_arg):
 	pass
 
+
 # Called when state is exited. May return a list of strings
 func exit():
 	return []
 
+
 # Called every physics frame a state is active
 func do_state_logic(_delta):
 	pass
+
 
 func check_for_new_state() -> String:
 	return "Error: State transitions are not defined"
@@ -112,6 +115,7 @@ func set_dash_target():
 	if best_node != null:
 		Player.dash_target_node = best_node.get_parent()
 
+
 # Set dash direction based on position of Player.dash_target_node
 func set_dash_direction():
 	if Player.dash_target_node == null:
@@ -125,6 +129,7 @@ func set_dash_direction():
 		Player.dash_direction =  DASH_DIR_UP
 		return
 
+
 # Performs attack if button is pressed/is buffered. Returns success status
 func do_attack():
 	if (Input.is_action_just_pressed("attack") && !Player.is_attacking)\
@@ -133,6 +138,7 @@ func do_attack():
 			force_attack()
 			return true
 	return false
+
 
 # Player attacks regardless of input or whatever
 func force_attack():
@@ -143,10 +149,12 @@ func force_attack():
 	Timers.get_node("BetweenAttackTimer").start(0.4)
 	Timers.get_node("BufferedAttackTimer").stop()
 
+
 # If for whatever reason you want to cancel an attack (like entering another state)
 func stop_attack():
 	Attack_Box.get_child(0).disabled = true
 	Player.is_attacking = false
+
 
 # What the player does after attacking (dependent on target)
 func attack_response(response_id, attackable):
@@ -159,6 +167,7 @@ func attack_response(response_id, attackable):
 		Globals.DASH_BONK:
 			Player.velocity = Vector2(-Player.facing * 70, -150)
 
+
 func set_attack_direction():
 	Attack_Box.position.x = Player.attack_box_x_distance * Player.facing
 	Dash_Check_Up.position.x = 18 * Player.facing
@@ -166,11 +175,13 @@ func set_attack_direction():
 	Dash_Check_Down.scale.x = -Player.facing
 	Dash_Check_Up.scale.x = -Player.facing
 
+
 func set_ledge_ray_direction():
 	ledge_cast_bottom.scale.x = -Player.facing
 	ledge_cast_mid.scale.x = -Player.facing
 	ledge_cast_top.scale.x = -Player.facing
 	ledge_cast_lenient.scale.x = -Player.facing
+
 
 # Get intended x movement direction
 func get_input_direction():
@@ -183,6 +194,7 @@ func get_input_direction():
 		x -= 1
 	return x
 
+
 func do_normal_x_movement(delta, friction_constant, walk_acceleration):
 	if (abs(Player.velocity.x)>MAX_X_SPEED && Player.directionX != -get_input_direction()): #going too fast
 		Player.velocity.x = approach(Player.velocity.x, get_input_direction() * MAX_X_SPEED, delta * friction_constant * 1000)
@@ -191,11 +203,14 @@ func do_normal_x_movement(delta, friction_constant, walk_acceleration):
 	else:	#normal friction
 		Player.velocity.x = approach(Player.velocity.x, 0, delta * friction_constant * 1000)
 
+
 func do_unconcontrolled_movement(delta, desired_speed, acceleration):
 	Player.velocity.x = approach(Player.velocity.x, desired_speed, delta * acceleration)
 
+
 func do_gravity(delta, max_fall_speed, fall_acceleration):
 	Player.velocity.y = approach(Player.velocity.y, max_fall_speed, delta * fall_acceleration)
+
 
 # Have a number approach another with a defined increment
 func approach(to_change, maximum, change_by):
@@ -212,6 +227,7 @@ func approach(to_change, maximum, change_by):
 		to_change = maximum
 	return to_change
 
+
 # sets value to maximum if maximum has a greater magnitude
 # Is used such that speed boosts can't slow you down
 func set_if_lesser(to_set, maximum):
@@ -219,15 +235,18 @@ func set_if_lesser(to_set, maximum):
 		return to_set
 	return maximum
 
+
 func start_coyote_time():
 	Player.canCoyoteJump = true
 	Timers.get_node("CoyoteTimer").start(COYOTE_TIME)
+
 
 # If you let go of jump, stop going up. Also handles buffered case.
 func check_if_finish_jump() -> void:
 	if ((!Input.is_action_pressed("jump") && !Player.stop_jump_rise)):
 		Player.velocity.y /= AFTER_JUMP_SLOWDOWN_FACTOR;
 		Player.stop_jump_rise = true;
+
 
 #Changes facing direction if an input is pressed. Otherwise facing remains as is.
 func set_facing_direction():
@@ -236,8 +255,10 @@ func set_facing_direction():
 	if get_input_direction() == -1:
 		Player.facing = -1
 
+
 func set_cape_acceleration():
 	Player.Cape.accel = Vector2(-Player.facing * 4, 8)
+
 
 func set_player_sprite_direction():
 	if Player.facing == -1:
@@ -247,13 +268,15 @@ func set_player_sprite_direction():
 		Player_Sprite.flip_h = true
 		Player_Sprite.position.x = 1
 
+
 func can_wall_jump():
 	_update_wall_direction()
 	# If we're near a valid wall
 	if Player.wall_direction != 0:
 		return true
 	return false
-	
+
+
 func _update_wall_direction():
 	var is_near_wall_left = _check_is_valid_wall(left_wall_raycast)
 	var is_near_wall_right = _check_is_valid_wall(right_wall_raycast)
@@ -269,6 +292,7 @@ func _update_wall_direction():
 	if Player.wall_direction != 0:
 		Player.last_wall_direction = Player.wall_direction
 
+
 func _check_is_valid_wall(raycast):
 	if raycast.is_colliding():
 		var object = raycast.get_collider()
@@ -279,6 +303,7 @@ func _check_is_valid_wall(raycast):
 			if dot > PI * 0.35 && dot < PI * 0.55:
 				return true
 	return false
+
 
 func get_ledge_behaviour():
 	_update_wall_direction()
@@ -293,6 +318,7 @@ func get_ledge_behaviour():
 			return Globals.LEDGE_LENIENCY_RISE
 	return Globals.LEDGE_EXIT
 
+
 func emit_jump_particles():
 	Player.get_node("Particles/JumpCloud").emitting = true
 	Player.get_node("Particles/JumpCloud").process_material.direction.x = -Player.directionX
@@ -306,20 +332,24 @@ func check_buffered_inputs():
 	check_buffered_jump_input()
 	check_buffered_attack_input()
 
+
 func check_buffered_attack_input():
 	if (Input.is_action_just_pressed("attack")):
 		Timers.get_node("BufferedAttackTimer").start(0.2)
+
 
 func check_buffered_jump_input():
 	if Input.is_action_just_pressed("jump"):
 		Player.isJumpBuffered = true;
 		Timers.get_node("BufferedJumpTimer").start(JUMP_BUFFER_DURATION)
 
+
 # Used if you want to quickly dash again while in a dash state
 func check_buffered_redash_input():
 	if (Input.is_action_just_pressed("attack")):
 		Timers.get_node("BufferedRedashTimer").start(0.1)
-		
+
+
 func check_buffered_dash_input():
 	if (Input.is_action_just_pressed("attack")):
 		Timers.get_node("BufferedDashTimer").start(BUFFERED_DASH_TIME)

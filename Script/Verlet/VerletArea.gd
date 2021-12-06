@@ -13,8 +13,9 @@ var grid_size = 3
 var accel = Vector2(5,8)
 
 var outline_color = Color8(33,39,58)
-#Fill colour is set in PM script, couldn't figure out how to do it from here.
+# Fill colour is set in PM script, couldn't figure out how to do it from here.
 var PM_outline = []
+
 
 func _ready():
 	spawn_PM()
@@ -22,6 +23,7 @@ func _ready():
 	init_outline()
 	link_PM()
 	attach_cape()
+
 
 func spawn_PM():
 	for i in grid_size:
@@ -37,7 +39,8 @@ func spawn_PM():
 #			if (i==0 && j == grid_size-1):
 #				PM_list[i][j].constant_accel = Vector2(-7,0)
 
-#fills the outline array with the outermost nodes (in proper order) (used to draw outline)
+
+# Fills the outline array with the outermost nodes (in proper order) (used to draw outline)
 func init_outline():
 	for i in grid_size:#left
 			PM_outline.append(PM_list[0][i])
@@ -48,7 +51,8 @@ func init_outline():
 	for i in range(grid_size-1,-1,-1):#top
 			PM_outline.append(PM_list[i][0])
 
-#fills in middle colour
+
+# Fills in middle colour
 func color_PM():
 	for i in PM_list.size()-1:
 		for j in PM_list.size(): #Vertical offset
@@ -59,6 +63,7 @@ func color_PM():
 	for i in PM_list.size(): #horizontal offset
 		for j in PM_list.size()-1:
 			PM_list[i][j].drawto.append(PM_list[i][j+1])
+
 
 func link_PM():
 	assert(PM_list.size()>0)
@@ -80,6 +85,7 @@ func link_PM():
 			link_list.append(new_link)
 			#add_child(new_link)
 
+
 func attach_cape():
 	var new_link = Link.instance()
 	new_link.PM_a = PM_list[0][0]
@@ -99,6 +105,7 @@ func attach_cape():
 	new_link.name = "RightCapeAttach"
 	add_child(new_link)
 
+
 func _physics_process(delta):
 	#suck_to_mouse(delta)
 	for i in link_list.size():
@@ -109,13 +116,14 @@ func _physics_process(delta):
 	for i in PM_list.size():
 		for j in PM_list.size():
 			PM_list[i][j].do_verlet(delta,accel)
-	update() #draws outline
+	update() # draws outline
 
 
 func suck_to_mouse(delta):
 	var mousepos = get_viewport().get_mouse_position() /4 #4 is the viewport scale
 	PM_list[0][0].global_position = PM_list[0][0].global_position.linear_interpolate(mousepos, delta * 40)
 	PM_list[grid_size-1][0].global_position = PM_list[0][0].global_position + Vector2((grid_size+1)*PM_spacing_x,0)
+
 
 func _draw():
 	var pva = PoolVector2Array()

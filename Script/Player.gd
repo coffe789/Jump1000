@@ -24,15 +24,50 @@ var dash_direction = 0
 var dash_target_node = null
 var last_attack_type = Globals.NORMAL_ATTACK
 
-var init_pos
-func _init():
-	init_pos = position
+enum {
+	PS_PREVIOUS,
+	PS_JUMPING,
+	PS_IDLE,
+	PS_RUNNING,
+	PS_FALLING,
+	PS_WALLJUMPING,
+	PS_WALLSLIDING,
+	PS_DUCKING,
+	PS_DUCKJUMPING,
+	PS_DUCKFALLING,
+	PS_DASHING_UP,
+	PS_DASHING_DOWN,
+	PS_ROLLING,
+	PS_WALLBOUNCE_SLIDING,
+	PS_WALLBOUNCING,
+	PS_LEDGECLINGING,
+}
+
+onready var state_list = {
+	PS_PREVIOUS : "",
+	PS_JUMPING : $StateMachine/jumping,
+	PS_IDLE : 	$StateMachine/idle,
+	PS_RUNNING : $StateMachine/running,
+	PS_FALLING : $StateMachine/falling,
+	PS_WALLJUMPING : $StateMachine/walljumping,
+	PS_WALLSLIDING : $StateMachine/wallsliding,
+	PS_DUCKING : $StateMachine/ducking,
+	PS_DUCKJUMPING : $StateMachine/duckjumping,
+	PS_DUCKFALLING : $StateMachine/duckfalling,
+	PS_DASHING_UP : $StateMachine/dashing_up,
+	PS_DASHING_DOWN : $StateMachine/dashing_down,
+	PS_ROLLING : $StateMachine/rolling,
+	PS_WALLBOUNCE_SLIDING : $StateMachine/wallbounce_sliding,
+	PS_WALLBOUNCING : $StateMachine/wallbouncing,
+	PS_LEDGECLINGING : $StateMachine/ledgeclinging
+}
 
 func _ready():
 	var old_pos = position
 	yield(get_tree(), "idle_frame")
-	call_deferred("initialise_rooms")
+	initialise_rooms()
 	collision_mask = collision_mask | 16 #enable room boundary collision after boundaries are created
+
 
 func initialise_rooms():
 	for room in get_tree().get_nodes_in_group("room"):
@@ -57,45 +92,6 @@ func initialise_rooms():
 	if current_room:
 		current_room.enable_bounds(true)
 
-enum \
-{
-	PS_PREVIOUS,
-	PS_JUMPING,
-	PS_IDLE,
-	PS_RUNNING,
-	PS_FALLING,
-	PS_WALLJUMPING,
-	PS_WALLSLIDING,
-	PS_DUCKING,
-	PS_DUCKJUMPING,
-	PS_DUCKFALLING,
-	PS_DASHING_UP,
-	PS_DASHING_DOWN,
-	PS_ROLLING,
-	PS_WALLBOUNCE_SLIDING,
-	PS_WALLBOUNCING,
-	PS_LEDGECLINGING
-}
-
-onready var state_list = \
-{
-	PS_PREVIOUS : "",
-	PS_JUMPING : $StateMachine/jumping,
-	PS_IDLE : 	$StateMachine/idle,
-	PS_RUNNING : $StateMachine/running,
-	PS_FALLING : $StateMachine/falling,
-	PS_WALLJUMPING : $StateMachine/walljumping,
-	PS_WALLSLIDING : $StateMachine/wallsliding,
-	PS_DUCKING : $StateMachine/ducking,
-	PS_DUCKJUMPING : $StateMachine/duckjumping,
-	PS_DUCKFALLING : $StateMachine/duckfalling,
-	PS_DASHING_UP : $StateMachine/dashing_up,
-	PS_DASHING_DOWN : $StateMachine/dashing_down,
-	PS_ROLLING : $StateMachine/rolling,
-	PS_WALLBOUNCE_SLIDING : $StateMachine/wallbounce_sliding,
-	PS_WALLBOUNCING : $StateMachine/wallbouncing,
-	PS_LEDGECLINGING : $StateMachine/ledgeclinging
-}
 
 # Controls every aspect of player physics
 func _physics_process(delta) -> void:
@@ -109,12 +105,12 @@ func _physics_process(delta) -> void:
 	try_state_transition()
 	$DebugLabel.text = "State: " + str(state_list[current_state].name) + "\nPrevious:" + str(state_list[previous_state].name)
 
+
 # Changes state if the current state wants to
 func try_state_transition():
 	var next_state = state_list[current_state].check_for_new_state()
 	if next_state == PS_PREVIOUS:
-		#previous_state = current_state
-		state_list[current_state].exit() #exit but don't enter
+		state_list[current_state].exit() # exit but don't enter
 		current_state = previous_state
 		execute_upon_transition()
 	elif next_state != current_state:
@@ -124,12 +120,14 @@ func try_state_transition():
 		current_state = next_state
 		execute_upon_transition()
 
-#saves us putting the same code in every single enter() function
+
+# Saves putting the same code in every single enter() function
 func execute_upon_transition():
 	print(state_list[current_state].name)
 	state_list[current_state].set_attack_hitbox()
 	if state_list[current_state].unset_dash_target:
 		dash_target_node = null
+
 
 func execute_state(delta):
 	state_list[current_state].do_state_logic(delta) # always state specific
@@ -138,6 +136,7 @@ func execute_state(delta):
 	state_list[current_state].set_attack_direction()
 	state_list[current_state].check_buffered_inputs()
 	state_list[current_state].set_ledge_ray_direction()
+
 
 #triggered by signal sent from attackable
 #response is dependent on the attackable's id & the player's state
@@ -149,6 +148,7 @@ func attack_response(response_id, attackable):
 func _on_BufferedJumpTimer_timeout():
 	isJumpBuffered = false
 
+
 func _on_CoyoteTimer_timeout():
 	canCoyoteJump = false
 
@@ -159,23 +159,26 @@ func _on_UncrouchCheck_body_entered(body):
 		can_unduck = false
 		crouch_body_count += 1
 
+
 func _on_UncrouchCheck_body_exited(body):
 	if body is StaticBody2D || body is RigidBody2D:
 		crouch_body_count -= 1
 		if crouch_body_count ==0:
 			can_unduck = true
 
+
 func _on_BetweenAttackTimer_timeout():
 	is_attacking = false
 	get_node("CollisionChecks/AttackBox/CollisionShape2D").disabled = true
 
+
 func _on_room_entered():
 	print("entered room")
+
 
 func _on_RoomDetection_area_entered(area):
 	pass#if area.is_in_group("room"):
 #		$PlayerCamera.do_room_transition(area)
-
 
 
 func _on_BodyArea_area_entered(area):
