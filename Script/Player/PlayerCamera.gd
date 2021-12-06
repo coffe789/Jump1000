@@ -41,6 +41,7 @@ func do_room_transition(area):
 #momentarily pauses the game while transitioning rooms
 func do_transition_pause(area):
 	if area != Player.current_room:
+		snap_player_to_room()
 		pause_mode = Node.PAUSE_MODE_PROCESS
 		get_tree().paused = true
 		var timers_to_pause = get_tree().get_nodes_in_group("reset_on_room_transition")
@@ -62,3 +63,17 @@ func set_player_room(area):
 	limit_right = limit_left + room_size.x
 	limit_bottom = limit_top + room_size.y
 	reset_smoothing()
+
+var p_fatness = 3.5 #width/2
+var p_height = 8
+func snap_player_to_room():
+	if Player.position.x - p_fatness < limit_left:
+		Player.position.x = limit_left + p_fatness
+		print("move right")
+	elif Player.position.x + p_fatness > limit_right:
+		Player.position.x = limit_right - p_fatness
+		print("move left")
+	if Player.position.y - p_height < limit_top:
+		Player.position.y = limit_top + p_height
+	elif Player.position.y + p_height > limit_bottom:
+		Player.position.y = limit_bottom - p_height

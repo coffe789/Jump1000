@@ -16,16 +16,15 @@ func _ready():
 	spawn_boundary_rectangle()
 	init_cutout_shape()
 	#cutout_shapes()
-	set_above_bounds()
 	
 
 
 func enter_room():
-	enable_above_bounds(true)
+	enable_bounds(true)
 
 func exit_room():
 	print("exit: ",self)
-	enable_above_bounds(false)
+	enable_bounds(false)
 
 # Sets coordinates of boundarys for if needed later
 func init_boundarys():
@@ -68,20 +67,11 @@ func add_boundary(polygon):
 	add_child(new_boundary)
 	return new_boundary
 
-# Set position of the boundaries above the room
-func set_above_bounds():
-	$AboveBoundLeft.position = Vector2(left_x-1,top_y-extra_space_above/2)
-	$AboveBoundRight.position = Vector2(right_x+1,top_y-extra_space_above/2)
-
-func enable_above_bounds(state:bool):
-	$AboveBoundLeft/CollisionShape2D.call_deferred("set_disabled",!state)
-	$AboveBoundRight/CollisionShape2D.call_deferred("set_disabled",!state)
+func enable_bounds(state:bool):
 	for child in get_children():
 		if child.is_in_group("room_boundary")  && child is StaticBody2D:
 			child.get_child(0).call_deferred("set_disabled",!state)
 			print(child.get_child(0))
-#	yield(get_tree(), "idle_frame")
-#	print($AboveBoundRight/CollisionShape2D.disabled,!state) #test it works
 
 func cutout_shapes():
 	var new_poly = Geometry.clip_polygons_2d($Boundary/CollisionPolygon2D.polygon, cutout_shape_internal)
