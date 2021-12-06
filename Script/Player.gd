@@ -36,6 +36,7 @@ func _ready():
 
 func do_rooms():
 	for room in get_tree().get_nodes_in_group("room"):
+		room.cutout_shapes()
 		for overlapping_body in room.get_overlapping_bodies():
 			if overlapping_body.is_in_group("room_boundary"):
 				var pos_dif = room.global_position - overlapping_body.global_position
@@ -44,7 +45,8 @@ func do_rooms():
 				overlapping_body.get_node("CollisionPolygon2D").polygon = new_poly[0]
 				if new_poly.size() > 1: #If polygon is split into 2+ pieces, create new static bodies
 					for i in range(1,new_poly.size()):
-						room.add_boundary(new_poly[i])
+						var bound = room.add_boundary(new_poly[i])
+						bound.global_position = overlapping_body.global_position
 
 enum \
 {

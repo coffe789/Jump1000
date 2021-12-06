@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Script/RoomStuff/Room.gd" type="Script" id=1]
 [ext_resource path="res://Scene/Entities/Room/Boundary.tscn" type="PackedScene" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 160, 90 )
+extents = Vector2( 160, 92 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 0.5, 16 )
 
 [node name="Room" type="Area2D"]
 collision_layer = 16
@@ -15,3 +18,31 @@ script = ExtResource( 1 )
 shape = SubResource( 1 )
 
 [node name="Boundary" parent="." instance=ExtResource( 2 )]
+
+[node name="AboveBoundLeft" type="StaticBody2D" parent="."]
+modulate = Color( 0.196078, 1, 0, 1 )
+position = Vector2( -66.2253, -107.195 )
+collision_layer = 0
+collision_mask = 17
+__meta__ = {
+"_editor_description_": "These do not get cut away like usual boundaries.
+Only active when the player is in the same room as them."
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AboveBoundLeft"]
+shape = SubResource( 2 )
+disabled = true
+
+[node name="AboveBoundRight" type="StaticBody2D" parent="."]
+modulate = Color( 0.12549, 1, 0, 1 )
+position = Vector2( 93.1643, -110.562 )
+collision_layer = 0
+collision_mask = 0
+__meta__ = {
+"_editor_description_": "These do not get cut away like usual boundaries.
+Only active when the player is in the same room as them."
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AboveBoundRight"]
+shape = SubResource( 2 )
+disabled = true

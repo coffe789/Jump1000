@@ -25,7 +25,8 @@ position = Vector2( -175.743, 52.8337 )
 [node name="VerletArea" parent="." instance=ExtResource( 1 )]
 
 [node name="Room" parent="." instance=ExtResource( 3 )]
-position = Vector2( 86.0525, 67.6211 )
+position = Vector2( 86, 67 )
+input_pickable = false
 
 [node name="RigidBody2D" type="StaticBody2D" parent="Room"]
 position = Vector2( -149.036, 22.456 )
@@ -64,7 +65,7 @@ scale = Vector2( 5.39881, 0.610232 )
 texture = ExtResource( 4 )
 
 [node name="Room4" parent="." instance=ExtResource( 3 )]
-position = Vector2( -233.015, 219.218 )
+position = Vector2( -234, 219 )
 
 [node name="RigidBody2D" type="StaticBody2D" parent="Room4"]
 position = Vector2( -42.9635, 39.293 )
@@ -91,7 +92,7 @@ scale = Vector2( 5.39881, 0.610232 )
 texture = ExtResource( 4 )
 
 [node name="Room2" parent="." instance=ExtResource( 3 )]
-position = Vector2( -233.539, 19.6877 )
+position = Vector2( -234, 0 )
 
 [node name="RigidBody2D" type="StaticBody2D" parent="Room2"]
 position = Vector2( 0.0718689, 70.9002 )
@@ -118,7 +119,7 @@ scale = Vector2( 5.39881, 0.610232 )
 texture = ExtResource( 4 )
 
 [node name="Room3" parent="." instance=ExtResource( 3 )]
-position = Vector2( 146.282, -112.163 )
+position = Vector2( 146, -112 )
 
 [node name="RigidBody2D" type="StaticBody2D" parent="Room3"]
 position = Vector2( 45.7702, 93.3748 )
@@ -130,18 +131,6 @@ shape = SubResource( 3 )
 [node name="Sprite" type="Sprite" parent="Room3/RigidBody2D"]
 position = Vector2( 75.7264, 23.2238 )
 scale = Vector2( 5.39881, 2.06172 )
-texture = ExtResource( 4 )
-
-[node name="RigidBody2D2" type="StaticBody2D" parent="Room3"]
-position = Vector2( -208.663, 90.3248 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Room3/RigidBody2D2"]
-position = Vector2( 76.0916, 0 )
-shape = SubResource( 2 )
-
-[node name="Sprite" type="Sprite" parent="Room3/RigidBody2D2"]
-position = Vector2( 75.7264, -3.50177e-06 )
-scale = Vector2( 5.39881, 0.610232 )
 texture = ExtResource( 4 )
 
 [editable path="Room"]
