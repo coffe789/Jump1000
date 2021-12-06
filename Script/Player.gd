@@ -1,12 +1,13 @@
 extends KinematicBody2D
 
 export var velocity = Vector2(0,0);
-var directionX = 0; #Direction player is currently moving
-var directionY = 0;
-var facing = 1 #either -1 or 1
+var directionX = 0 # Direction player is currently moving
+var directionY = 0
+var facing = 1 # Either -1 or 1
 var current_state = PS_FALLING
 var previous_state = PS_FALLING
 var current_room
+var current_area
 var previous_position
 
 var isJumpBuffered = false;
@@ -14,12 +15,12 @@ var canCoyoteJump = false;
 var stop_jump_rise = true
 
 onready var Cape = get_node("../VerletArea")
-var wall_direction = 0 #Walljump detection
-var last_wall_direction = 1 #Last value that wasn't zero
+var wall_direction = 0 # Walljump detection
+var last_wall_direction = 1 # Last value that wasn't zero
 var can_unduck = true
 var attack_box_x_distance = 14
 var is_attacking = false
-var current_attack_id = 0 #used so enemies don't get hit twice by same attack
+var current_attack_id = 0 # Used so enemies don't get hit twice by same attack
 var dash_direction = 0
 var dash_target_node = null
 var last_attack_type = Globals.NORMAL_ATTACK
@@ -61,36 +62,6 @@ onready var state_list = {
 	PS_WALLBOUNCING : $StateMachine/wallbouncing,
 	PS_LEDGECLINGING : $StateMachine/ledgeclinging
 }
-
-func _ready():
-	var old_pos = position
-	yield(get_tree(), "idle_frame")
-	initialise_rooms()
-	collision_mask = collision_mask | 16 #enable room boundary collision after boundaries are created
-
-
-func initialise_rooms():
-	for room in get_tree().get_nodes_in_group("room"):
-		room.cutout_shapes()
-		for overlapping_body in room.get_overlapping_bodies():
-			if overlapping_body.is_in_group("room_boundary"):
-				var pos_dif = room.global_position - overlapping_body.global_position #clip operation requires polygons to be in same coordiante space
-				var transformed_cutout_shape = PoolVector2Array([Vector2(),Vector2(),Vector2(),Vector2()]) #this is how you create a size 4 array in gdscript
-				for i in range(0,4):
-					transformed_cutout_shape[i] = room.cutout_shape[i] + pos_dif
-				var new_poly = Geometry.clip_polygons_2d(overlapping_body.get_node("CollisionPolygon2D").polygon, transformed_cutout_shape)
-				overlapping_body.get_node("CollisionPolygon2D").polygon = new_poly[0]
-				if new_poly.size() > 1: #If polygon is split into 2+ pieces, create new static bodies
-					for i in range(1,new_poly.size()):
-						var bound = overlapping_body.get_parent().add_boundary(new_poly[i])
-						var diff = bound.global_position - overlapping_body.global_position
-						for j in range(0,bound.get_child(0).polygon.size()): #clip operation only gets new shape, not position, so we set it ourselves
-							bound.get_child(0).polygon[j]-=diff
-	for node in get_tree().get_nodes_in_group("room_boundary"): #All bounds are disabled by default. We wait until now to disable them so clipping works
-		if node is StaticBody2D:
-			node.get_child(0).call_deferred("set_disabled",true)
-	if current_room:
-		current_room.enable_bounds(true)
 
 
 # Controls every aspect of player physics
@@ -172,10 +143,6 @@ func _on_BetweenAttackTimer_timeout():
 	get_node("CollisionChecks/AttackBox/CollisionShape2D").disabled = true
 
 
-func _on_room_entered():
-	print("entered room")
-
-
 func _on_RoomDetection_area_entered(area):
 	pass#if area.is_in_group("room"):
 #		$PlayerCamera.do_room_transition(area)
@@ -183,4 +150,4 @@ func _on_RoomDetection_area_entered(area):
 
 func _on_BodyArea_area_entered(area):
 	if area.is_in_group("room"):
-		$PlayerCamera.do_room_transition(area)
+		current_area.do_room_transition(area)

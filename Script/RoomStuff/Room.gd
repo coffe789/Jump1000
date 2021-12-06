@@ -39,10 +39,11 @@ func init_boundarys():
 
 # Creates collision shape covering the whole room. Will be cutout later to serve as a boundary
 func spawn_boundary_rectangle():
-	$Boundary/CollisionPolygon2D.polygon[0] = Vector2(left_x,top_y) + Vector2(-boundary_margin_x,-extra_space_above-1)
-	$Boundary/CollisionPolygon2D.polygon[1] = Vector2(right_x,top_y) + Vector2(boundary_margin_x,-extra_space_above-1)
-	$Boundary/CollisionPolygon2D.polygon[2] = Vector2(right_x,bottom_y) + Vector2(boundary_margin_x,0)
-	$Boundary/CollisionPolygon2D.polygon[3] = Vector2(left_x,bottom_y) + Vector2(-boundary_margin_x,0)
+	var boundary_shape = $Boundary/CollisionPolygon2D
+	boundary_shape.polygon[0] = Vector2(left_x,top_y) + Vector2(-boundary_margin_x,-extra_space_above-1)
+	boundary_shape.polygon[1] = Vector2(right_x,top_y) + Vector2(boundary_margin_x,-extra_space_above-1)
+	boundary_shape.polygon[2] = Vector2(right_x,bottom_y) + Vector2(boundary_margin_x,0)
+	boundary_shape.polygon[3] = Vector2(left_x,bottom_y) + Vector2(-boundary_margin_x,0)
 
 
 # Sets cutout_shape to a PoolVector2Array with the same geometry as the room + upper margin

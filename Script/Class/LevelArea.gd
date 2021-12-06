@@ -2,9 +2,17 @@ extends Node2D
 class_name LevelArea
 
 onready var Player = get_tree().get_nodes_in_group("player")[0]
+onready var Cam = Player.get_node("PlayerCamera")
+
+const FREEZE_TIME = 0.6
+const UP_TRANSITION_BOOST = -230
 
 func _ready():
-	pass
+	Player.current_area = self
+	yield(get_tree(), "idle_frame") # Collision polygons need a frame to settle
+	initialise_rooms()
+	Player.collision_mask = Player.collision_mask | 16 # enable room boundary collision after boundaries are created
+
 
 func initialise_rooms():
 	for room in get_tree().get_nodes_in_group("room"):
@@ -28,3 +36,77 @@ func initialise_rooms():
 			node.get_child(0).call_deferred("set_disabled",true)
 	if Player.current_room:
 		Player.current_room.enable_bounds(true)
+
+
+# Called when player enters a room area
+func do_room_transition(area):
+	if Player.current_room == null:
+		set_player_room(area)
+	elif area != Player.current_room:
+		Player.current_area.check_transition_type()
+		
+		var room_collision_shape = area.get_node("CollisionShape2D")
+		Cam.set_camera_limits(room_collision_shape)
+		
+		area.enter_room()
+		snap_player_to_room()
+		Player.current_area.do_transition_pause()
+		yield(get_tree().create_timer(FREEZE_TIME), "timeout")
+		Player.current_room.exit_room()
+		Player.current_room = area
+
+
+# Momentarily pauses the game while transitioning rooms
+func do_transition_pause():
+	Cam.pause_mode = Node.PAUSE_MODE_PROCESS
+	get_tree().get_nodes_in_group("verlet_area")[0].pause_mode = Node.PAUSE_MODE_PROCESS
+	get_tree().paused = true
+	var timers_to_pause = get_tree().get_nodes_in_group("reset_on_room_transition")
+	for i in timers_to_pause.size():
+		timers_to_pause[i].start(0) # maybe stops timer
+	Player.isJumpBuffered = false
+	Player.canCoyoteJump = false
+	yield(get_tree().create_timer(FREEZE_TIME/3), "timeout")
+	get_tree().get_nodes_in_group("verlet_area")[0].pause_mode = Node.PAUSE_MODE_INHERIT # temporary (bad) dejanking of cape during transitions
+	yield(get_tree().create_timer(2*FREEZE_TIME/3), "timeout")
+	get_tree().paused = false
+	Cam.pause_mode = Node.PAUSE_MODE_INHERIT
+
+
+func check_transition_type():
+	var player_center = Player.get_node("CollisionChecks/RoomDetection")
+	if player_center.global_position.y < Cam.limit_top: # up transition
+		if Player.velocity.y > UP_TRANSITION_BOOST:
+			Player.velocity.y = UP_TRANSITION_BOOST
+			Player.stop_jump_rise = true # Letting go of jump doesn't nullify new velocity
+	elif player_center.global_position.y > Cam.limit_bottom: # down transition
+		pass
+	elif player_center.global_position.x < Cam.limit_left: # left transition
+		pass
+	elif player_center.global_position.x > Cam.limit_right: # right transition
+		pass
+
+
+var snap_fatness = 5
+var snap_height = 9
+func snap_player_to_room():
+	if Player.position.x - snap_fatness < Cam.limit_left:
+		Player.position.x = Cam.limit_left + snap_fatness
+	elif Player.position.x + snap_fatness > Cam.limit_right:
+		Player.position.x = Cam.limit_right - snap_fatness
+	
+	if Player.position.y - snap_height < Cam.limit_top:
+		Player.position.y = Cam.limit_top + snap_height
+	elif Player.position.y + snap_height > (Cam.limit_bottom + Cam.LOWER_OFFSCREEN_MARGIN):
+		Player.position.y = Cam.limit_bottom - snap_height
+
+
+# Forcibly sets room. Used on the first room upon spawning so that the camera locks instantly
+func set_player_room(area):
+	Player.current_room = area
+	Player.current_room.enter_room()
+	
+	# Set camera limits/position
+	var room_collision_shape = area.get_node("CollisionShape2D")
+	Cam.set_camera_limits(room_collision_shape)
+	Cam.reset_smoothing()
