@@ -46,7 +46,13 @@ func do_rooms():
 				if new_poly.size() > 1: #If polygon is split into 2+ pieces, create new static bodies
 					for i in range(1,new_poly.size()):
 						var bound = room.add_boundary(new_poly[i])
-						bound.global_position = overlapping_body.global_position
+						var diff = bound.global_position - overlapping_body.global_position
+						for j in range(0,bound.get_child(0).polygon.size()):
+							bound.get_child(0).polygon[j]-=diff
+#						bound.get_child(0).polygon[0]-=diff
+#						bound.get_child(0).polygon[1]-=diff
+#						bound.get_child(0).polygon[2]-=diff
+#						bound.get_child(0).polygon[3]-=diff
 
 enum \
 {
