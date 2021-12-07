@@ -42,8 +42,8 @@ func constrain():
 				PM_b.position -= translate_by
 
 func _draw():
-	draw_line(PM_a.global_position, PM_b.global_position, color , 2, false)
+	pass#draw_line(PM_a.global_position, PM_b.global_position, color , 2, false)
 
 
 func _process(_delta):
-	update()
+	pass#update()

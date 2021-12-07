@@ -1,7 +1,7 @@
 extends Node2D
 onready var PM = preload("res://Scene/Entities/Verlet/PointMass.tscn")
 onready var Link = preload("res://Scene/Entities/Verlet/Link.tscn")
-onready var Player = get_parent().get_node("Player")
+onready var Player = get_parent()
 onready var CapeL = Player.get_node("Cape/CapeL")
 onready var CapeR = Player.get_node("Cape/CapeR")
 var PM_list = []
@@ -18,6 +18,7 @@ var PM_outline = []
 
 
 func _ready():
+	set_as_toplevel(true)
 	spawn_PM()
 	color_PM()
 	init_outline()

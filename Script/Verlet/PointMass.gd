@@ -12,6 +12,9 @@ var drawto = [self]
 var drawto_size
 
 func _ready():
+	if !is_pin:
+		add_to_group("cape_point")
+	set_as_toplevel(true)
 	fill_color.append(Color(213/255.0,39/255.0,64/255.0))
 
 func _draw():

@@ -7,8 +7,10 @@ onready var Cam = Player.get_node("PlayerCamera")
 const FREEZE_TIME = 0.6 # When room transitioning
 const UP_TRANSITION_BOOST = -230
 
+func _init():
+	self.add_to_group("area")
+
 func _ready():
-	Player.current_area = self
 	yield(get_tree(), "idle_frame") # Collision polygons need a frame to settle
 	initialise_rooms()
 	Player.collision_mask = Player.collision_mask | 16 # enable room boundary collision after boundaries are created
@@ -59,7 +61,7 @@ func do_room_transition(area):
 # Momentarily pauses the game while transitioning rooms
 func do_transition_pause():
 	Cam.pause_mode = Node.PAUSE_MODE_PROCESS
-	get_tree().get_nodes_in_group("verlet_area")[0].pause_mode = Node.PAUSE_MODE_PROCESS
+#	get_tree().get_nodes_in_group("verlet_area")[0].pause_mode = Node.PAUSE_MODE_PROCESS
 	get_tree().paused = true
 	var timers_to_pause = get_tree().get_nodes_in_group("reset_on_room_transition")
 	for i in timers_to_pause.size():
@@ -67,7 +69,7 @@ func do_transition_pause():
 	Player.isJumpBuffered = false
 	Player.canCoyoteJump = false
 	yield(get_tree().create_timer(FREEZE_TIME/3), "timeout")
-	get_tree().get_nodes_in_group("verlet_area")[0].pause_mode = Node.PAUSE_MODE_INHERIT # temporary (bad) dejanking of cape during transitions
+#	get_tree().get_nodes_in_group("verlet_area")[0].pause_mode = Node.PAUSE_MODE_INHERIT # temporary (bad) dejanking of cape during transitions
 	yield(get_tree().create_timer(2*FREEZE_TIME/3), "timeout")
 	get_tree().paused = false
 	Cam.pause_mode = Node.PAUSE_MODE_INHERIT
@@ -90,6 +92,7 @@ func check_transition_type():
 var snap_fatness = 5
 var snap_height = 9
 func snap_player_to_room():
+	var init_pos = Player.position
 	if Player.position.x - snap_fatness < Cam.limit_left:
 		Player.position.x = Cam.limit_left + snap_fatness
 	elif Player.position.x + snap_fatness > Cam.limit_right:
@@ -99,6 +102,13 @@ func snap_player_to_room():
 		Player.position.y = Cam.limit_top + snap_height
 	elif Player.position.y + snap_height > (Cam.limit_bottom + Cam.LOWER_OFFSCREEN_MARGIN):
 		Player.position.y = Cam.limit_bottom - snap_height
+	
+	# Move the cape too
+	var diff_pos = Player.position - init_pos
+	Player.Cape.position += diff_pos
+	for cape_point in get_tree().get_nodes_in_group("cape_point"):
+		cape_point.position += diff_pos
+		cape_point.last_position = cape_point.position # Stop verlet physics from jerking
 
 
 # Forcibly sets room. Used on the first room upon spawning so that the camera locks instantly

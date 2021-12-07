@@ -7,14 +7,14 @@ var facing = 1 # Either -1 or 1
 var current_state = PS_FALLING
 var previous_state = PS_FALLING
 var current_room
-var current_area
+onready var current_area = get_tree().get_nodes_in_group("area")[0]
 var previous_position
 
 var isJumpBuffered = false;
 var canCoyoteJump = false;
 var stop_jump_rise = true
 
-onready var Cape = get_node("../VerletArea")
+onready var Cape = get_node("VerletArea")
 var wall_direction = 0 # Walljump detection
 var last_wall_direction = 1 # Last value that wasn't zero
 var can_unduck = true
