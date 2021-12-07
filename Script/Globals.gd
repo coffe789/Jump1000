@@ -39,3 +39,6 @@ func is_same_sign(num1,num2):
 func clear_console():
 	for i in 20:
 		print("\n")
+
+func get_player():
+	return get_tree().get_nodes_in_group("player")[0]

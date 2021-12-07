@@ -1,5 +1,6 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
+[ext_resource path="res://Scene/Entities/Enemies/Pongus.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scene/Player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scene/Levels/Room.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Art/solid.png" type="Texture" id=4]
@@ -84,6 +85,9 @@ texture = ExtResource( 4 )
 
 [node name="SpawnPoint" parent="Room" instance=ExtResource( 7 )]
 position = Vector2( -296, -8 )
+
+[node name="KingPongus" parent="Room" instance=ExtResource( 1 )]
+position = Vector2( -48, -24 )
 
 [node name="Room4" parent="." instance=ExtResource( 3 )]
 position = Vector2( -120, -192 )

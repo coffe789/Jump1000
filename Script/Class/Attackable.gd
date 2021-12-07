@@ -3,7 +3,6 @@ class_name Attackable
 onready var Attackable_Area = get_node("AttackableArea") #All attackables must have an area called this
 
 var last_seen_attack_id = -1
-var Player
 
 #called by the player state
 func on_attacked(_attack_damage, _attack_type):
@@ -11,18 +10,17 @@ func on_attacked(_attack_damage, _attack_type):
 
 func _ready():
 	Attackable_Area.add_to_group("attackable")
-	Player = get_tree().get_nodes_in_group("player")[0]
 	Attackable_Area.connect("area_entered", self, "_on_AttackableArea_area_entered")
 
 # Tell the player what it just attacked
 func _on_AttackableArea_area_entered(area):
-	if area.is_in_group("player_attack") && Player.current_attack_id != last_seen_attack_id:
-		last_seen_attack_id = Player.current_attack_id
-		if Player.last_attack_type == Globals.DASH_ATTACK_DOWN || Player.last_attack_type == Globals.DASH_ATTACK_UP:
+	if area.is_in_group("player_attack") && Globals.get_player().current_attack_id != last_seen_attack_id:
+		last_seen_attack_id = Globals.get_player().current_attack_id
+		if Globals.get_player().last_attack_type == Globals.DASH_ATTACK_DOWN || Globals.get_player().last_attack_type == Globals.DASH_ATTACK_UP:
 			get_tree().call_group("player", "attack_response", Globals.NO_RESPONSE, self)
 		else:
 			get_tree().call_group("player", "attack_response", Globals.NO_RESPONSE, self)
-			print(Player.last_attack_type)
+			print(Globals.get_player().last_attack_type)
 
 func make_dashable():
 	if Attackable_Area.is_in_group("undashable"):

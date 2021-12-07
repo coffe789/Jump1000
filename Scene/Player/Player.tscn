@@ -425,7 +425,7 @@ __meta__ = {
 "_editor_description_": "This is how long you're in the dash state for"
 }
 
-[node name="BufferedDashTimer" type="Timer" parent="Timers" groups=["reset_on_room_transition"]]
+[node name="BufferedDashTimer" type="Timer" parent="Timers"]
 one_shot = true
 __meta__ = {
 "_editor_description_": "Works the same way as other buffers. This is extremely short (much shorter than the redash timer)"
@@ -437,7 +437,7 @@ __meta__ = {
 "_editor_description_": "You can't dash while this is active. It lasts a bit longer than the dash itself. This is to prevent dashing twice into the same object."
 }
 
-[node name="BufferedRedashTimer" type="Timer" parent="Timers" groups=["reset_on_room_transition"]]
+[node name="BufferedRedashTimer" type="Timer" parent="Timers"]
 one_shot = true
 __meta__ = {
 "_editor_description_": "If you try to dash while NoDashTimer is active, you can buffer a dash."

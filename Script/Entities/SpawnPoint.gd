@@ -8,9 +8,9 @@ var spawn_direction
 
 func _ready():
 	call_deferred("get_spawn_direction")
-#	yield(get_tree().create_timer(3), "timeout")
-#	Player.queue_free()
-#	call_deferred("spawn_player")
+	yield(get_tree().create_timer(3), "timeout")
+	Player.queue_free()
+	call_deferred("spawn_player")
 
 
 func get_spawn_direction():
@@ -20,9 +20,10 @@ func get_spawn_direction():
 		spawn_direction = 1
 
 func spawn_player():
+	Player.current_room.exit_room()
 	var new_player = player_scene.instance()
-	new_player.position = position
-	Player.collision_mask = Player.collision_mask | 16 # enable room boundaries
+	new_player.position = global_position
+	new_player.collision_mask = Player.collision_mask | 16 # enable room boundaries
 	area.add_child(new_player)
 	
 #	Player.position = position

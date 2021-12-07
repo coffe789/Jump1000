@@ -15,6 +15,7 @@ script = null
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 0.25, 0.25 )
+z_index = 1
 texture = ExtResource( 3 )
 
 [node name="Slash" parent="." instance=ExtResource( 4 )]

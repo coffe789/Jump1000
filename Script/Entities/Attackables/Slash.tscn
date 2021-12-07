@@ -4,6 +4,7 @@
 [ext_resource path="res://Art/Entity/Enemy/slash.png" type="Texture" id=2]
 
 [node name="Slash" type="Sprite"]
+z_index = 1
 texture = ExtResource( 2 )
 script = ExtResource( 1 )
 

@@ -9,6 +9,7 @@ var previous_state = PS_FALLING
 var current_room
 onready var current_area = get_tree().get_nodes_in_group("area")[0]
 var previous_position
+var spawn_point
 
 var isJumpBuffered = false;
 var canCoyoteJump = false;
@@ -109,10 +110,14 @@ func execute_state(delta):
 	state_list[current_state].set_ledge_ray_direction()
 
 
-#triggered by signal sent from attackable
-#response is dependent on the attackable's id & the player's state
+# triggered by signal sent from attackable
+# response is dependent on the attackable's id & the player's state
 func attack_response(response_id, attackable):
 	state_list[current_state].attack_response(response_id, attackable)
+
+# Sets spawn point to the closest in the room
+func set_spawn():
+	pass
 
 # Signals
 #=================================#
