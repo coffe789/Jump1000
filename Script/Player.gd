@@ -143,7 +143,7 @@ func _on_BetweenAttackTimer_timeout():
 	get_node("CollisionChecks/AttackBox/CollisionShape2D").disabled = true
 
 
-func _on_RoomDetection_area_entered(area):
+func _on_RoomDetection_area_entered(_area):
 	pass#if area.is_in_group("room"):
 #		$PlayerCamera.do_room_transition(area)
 

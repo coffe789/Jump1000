@@ -16,7 +16,7 @@ var resetable_scene
 
 func _ready():
 	add_to_group("room")
-	init_boundarys()
+	init_boundaries()
 	spawn_boundary_rectangle()
 	init_cutout_shape()
 	init_killbox()
@@ -43,7 +43,7 @@ func exit_room():
 
 
 # Sets coordinates of boundarys for if needed later
-func init_boundarys():
+func init_boundaries():
 	var room_collision_shape = get_node("CollisionShape2D")
 	var room_size = room_collision_shape.shape.extents * 2
 	left_x = -room_size.x / 2
