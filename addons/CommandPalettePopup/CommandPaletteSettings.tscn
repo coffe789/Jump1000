@@ -1,0 +1,396 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://addons/CommandPalettePopup/CommandPaletteSettings.gd" type="Script" id=1]
+
+[node name="CommandPaletteSettings" type="WindowDialog"]
+visible = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = 65.0001
+rect_min_size = Vector2( 0, 665 )
+window_title = "Command Palette Settings"
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 50.0
+margin_top = 15.0
+margin_right = -50.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+margin_right = 924.0
+margin_bottom = 650.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SettingsVB" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+margin_right = 924.0
+margin_bottom = 592.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HideScriptPanelOnStart" type="CheckButton" parent="MarginContainer/VBoxContainer/SettingsVB"]
+margin_right = 924.0
+margin_bottom = 40.0
+text = "Hide script panel on start"
+
+[node name="IncludeHelpPages" type="CheckButton" parent="MarginContainer/VBoxContainer/SettingsVB"]
+margin_top = 44.0
+margin_right = 924.0
+margin_bottom = 84.0
+pressed = true
+text = "Include help pages in open script list"
+
+[node name="AdaptiveHeight" type="CheckButton" parent="MarginContainer/VBoxContainer/SettingsVB"]
+margin_top = 88.0
+margin_right = 924.0
+margin_bottom = 128.0
+pressed = true
+text = "Adaptive height"
+
+[node name="ShowPathForRecentFiles" type="CheckButton" parent="MarginContainer/VBoxContainer/SettingsVB"]
+margin_top = 132.0
+margin_right = 924.0
+margin_bottom = 172.0
+text = "Show file path for recent files"
+
+[node name="KeyboardShortcut" type="HBoxContainer" parent="MarginContainer/VBoxContainer/SettingsVB"]
+margin_top = 176.0
+margin_right = 924.0
+margin_bottom = 200.0
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/SettingsVB/KeyboardShortcut"]
+margin_top = 5.0
+margin_right = 116.0
+margin_bottom = 19.0
+text = "Keyboard shortcut"
+valign = 1
+
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/SettingsVB/KeyboardShortcut"]
+margin_left = 424.0
+margin_right = 924.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 500, 0 )
+size_flags_horizontal = 10
+text = "Control+E"
+
+[node name="WindowWidth" type="HBoxContainer" parent="MarginContainer/VBoxContainer/SettingsVB"]
+margin_top = 204.0
+margin_right = 924.0
+margin_bottom = 228.0
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/SettingsVB/WindowWidth"]
+margin_top = 5.0
+margin_right = 90.0
+margin_bottom = 19.0
+text = "Window width"
+valign = 1
+
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/SettingsVB/WindowWidth"]
+margin_left = 424.0
+margin_right = 924.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 500, 0 )
+size_flags_horizontal = 10
+text = "1500"
+
+[node name="WindowMaxHeight" type="HBoxContainer" parent="MarginContainer/VBoxContainer/SettingsVB"]
+margin_top = 232.0
+margin_right = 924.0
+margin_bottom = 256.0
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/SettingsVB/WindowMaxHeight"]
+margin_top = 5.0
+margin_right = 126.0
+margin_bottom = 19.0
+text = "Window max height"
+valign = 1
+
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/SettingsVB/WindowMaxHeight"]
+margin_left = 424.0
+margin_right = 924.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 500, 0 )
+size_flags_horizontal = 10
+text = "920"
+
+[node name="KeywordAllFiles" type="HBoxContainer" parent="MarginContainer/VBoxContainer/SettingsVB"]
+margin_top = 260.0
+margin_right = 924.0
+margin_bottom = 284.0
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/SettingsVB/KeywordAllFiles"]
+margin_top = 5.0
+margin_right = 104.0
+margin_bottom = 19.0
+text = "Keyword all files"
+valign = 1
+
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/SettingsVB/KeywordAllFiles"]
+margin_left = 424.0
+margin_right = 924.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 500, 0 )
+size_flags_horizontal = 10
+text = "a "
+
+[node name="KeywordAllScripts" type="HBoxContainer" parent="MarginContainer/VBoxContainer/SettingsVB"]
+margin_top = 288.0
+margin_right = 924.0
+margin_bottom = 312.0
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/SettingsVB/KeywordAllScripts"]
+margin_top = 5.0
+margin_right = 120.0
+margin_bottom = 19.0
+text = "Keyword all scripts"
+valign = 1
+
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/SettingsVB/KeywordAllScripts"]
+margin_left = 424.0
+margin_right = 924.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 500, 0 )
+size_flags_horizontal = 10
+text = "ac "
+
+[node name="KeywordAllScenes" type="HBoxContainer" parent="MarginContainer/VBoxContainer/SettingsVB"]
+margin_top = 316.0
+margin_right = 924.0
+margin_bottom = 340.0
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/SettingsVB/KeywordAllScenes"]
+margin_top = 5.0
+margin_right = 122.0
+margin_bottom = 19.0
+text = "Keyword all scenes"
+valign = 1
+
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/SettingsVB/KeywordAllScenes"]
+margin_left = 424.0
+margin_right = 924.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 500, 0 )
+size_flags_horizontal = 10
+text = "as "
+
+[node name="KeywordOpenScenes" type="HBoxContainer" parent="MarginContainer/VBoxContainer/SettingsVB"]
+margin_top = 344.0
+margin_right = 924.0
+margin_bottom = 368.0
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/SettingsVB/KeywordOpenScenes"]
+margin_top = 5.0
+margin_right = 139.0
+margin_bottom = 19.0
+text = "Keyword open scenes"
+valign = 1
+
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/SettingsVB/KeywordOpenScenes"]
+margin_left = 424.0
+margin_right = 924.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 500, 0 )
+size_flags_horizontal = 10
+text = "s "
+
+[node name="KeywordSelectNode" type="HBoxContainer" parent="MarginContainer/VBoxContainer/SettingsVB"]
+margin_top = 372.0
+margin_right = 924.0
+margin_bottom = 396.0
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/SettingsVB/KeywordSelectNode"]
+margin_top = 5.0
+margin_right = 144.0
+margin_bottom = 19.0
+text = "Keyword select a node"
+valign = 1
+
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/SettingsVB/KeywordSelectNode"]
+margin_left = 424.0
+margin_right = 924.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 500, 0 )
+size_flags_horizontal = 10
+text = "n "
+
+[node name="KeywordSettings" type="HBoxContainer" parent="MarginContainer/VBoxContainer/SettingsVB"]
+margin_top = 400.0
+margin_right = 924.0
+margin_bottom = 424.0
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/SettingsVB/KeywordSettings"]
+margin_top = 5.0
+margin_right = 225.0
+margin_bottom = 19.0
+text = "Keyword set project/editor settings"
+valign = 1
+
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/SettingsVB/KeywordSettings"]
+margin_left = 424.0
+margin_right = 924.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 500, 0 )
+size_flags_horizontal = 10
+text = "sett "
+
+[node name="KeywordInspector" type="HBoxContainer" parent="MarginContainer/VBoxContainer/SettingsVB"]
+margin_top = 428.0
+margin_right = 924.0
+margin_bottom = 452.0
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/SettingsVB/KeywordInspector"]
+margin_top = 5.0
+margin_right = 200.0
+margin_bottom = 19.0
+text = "Keyword set inspector property"
+valign = 1
+
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/SettingsVB/KeywordInspector"]
+margin_left = 424.0
+margin_right = 924.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 500, 0 )
+size_flags_horizontal = 10
+text = "set "
+
+[node name="KeywordFileTree" type="HBoxContainer" parent="MarginContainer/VBoxContainer/SettingsVB"]
+margin_top = 456.0
+margin_right = 924.0
+margin_bottom = 480.0
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/SettingsVB/KeywordFileTree"]
+margin_top = 5.0
+margin_right = 108.0
+margin_bottom = 19.0
+text = "Keyword file tree"
+valign = 1
+
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/SettingsVB/KeywordFileTree"]
+margin_left = 424.0
+margin_right = 924.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 500, 0 )
+size_flags_horizontal = 10
+text = "res"
+
+[node name="KeywordGotoLine" type="HBoxContainer" parent="MarginContainer/VBoxContainer/SettingsVB"]
+margin_top = 484.0
+margin_right = 924.0
+margin_bottom = 508.0
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/SettingsVB/KeywordGotoLine"]
+margin_top = 5.0
+margin_right = 114.0
+margin_bottom = 19.0
+text = "Keyword goto line"
+valign = 1
+
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/SettingsVB/KeywordGotoLine"]
+margin_left = 424.0
+margin_right = 924.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 500, 0 )
+size_flags_horizontal = 10
+text = ": "
+
+[node name="KeywordGotoMethod" type="HBoxContainer" parent="MarginContainer/VBoxContainer/SettingsVB"]
+margin_top = 512.0
+margin_right = 924.0
+margin_bottom = 536.0
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/SettingsVB/KeywordGotoMethod"]
+margin_top = 5.0
+margin_right = 140.0
+margin_bottom = 19.0
+text = "Keyword goto method"
+valign = 1
+
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/SettingsVB/KeywordGotoMethod"]
+margin_left = 424.0
+margin_right = 924.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 500, 0 )
+size_flags_horizontal = 10
+text = "m "
+
+[node name="KeywordTexteditorPlugin" type="HBoxContainer" parent="MarginContainer/VBoxContainer/SettingsVB"]
+margin_top = 540.0
+margin_right = 924.0
+margin_bottom = 564.0
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/SettingsVB/KeywordTexteditorPlugin"]
+margin_top = 5.0
+margin_right = 226.0
+margin_bottom = 19.0
+text = "Keyword texteditor plugin (by fenix)"
+valign = 1
+
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/SettingsVB/KeywordTexteditorPlugin"]
+margin_left = 424.0
+margin_right = 924.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 500, 0 )
+size_flags_horizontal = 10
+text = "file "
+
+[node name="KeywordTODOPlugin" type="HBoxContainer" parent="MarginContainer/VBoxContainer/SettingsVB"]
+margin_top = 568.0
+margin_right = 924.0
+margin_bottom = 592.0
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/SettingsVB/KeywordTODOPlugin"]
+margin_top = 5.0
+margin_right = 257.0
+margin_bottom = 19.0
+text = "Keyword todo plugin (by need12648430)"
+valign = 1
+
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/SettingsVB/KeywordTODOPlugin"]
+margin_left = 424.0
+margin_right = 924.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 500, 0 )
+size_flags_horizontal = 10
+text = "todo "
+
+[node name="ButtonsHB" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+margin_left = 387.0
+margin_top = 596.0
+margin_right = 537.0
+margin_bottom = 650.0
+rect_min_size = Vector2( 0, 45 )
+size_flags_horizontal = 4
+size_flags_vertical = 7
+custom_constants/separation = 25
+
+[node name="SaveButton" type="Button" parent="MarginContainer/VBoxContainer/ButtonsHB"]
+margin_top = 17.0
+margin_right = 60.0
+margin_bottom = 37.0
+rect_min_size = Vector2( 60, 0 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Save"
+
+[node name="DefaultsButton" type="Button" parent="MarginContainer/VBoxContainer/ButtonsHB"]
+margin_left = 85.0
+margin_top = 17.0
+margin_right = 150.0
+margin_bottom = 37.0
+rect_min_size = Vector2( 60, 0 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Defaults"
+[connection signal="popup_hide" from="." to="." method="_on_CommandPaletteSettings_popup_hide"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ButtonsHB/SaveButton" to="." method="_on_SaveButton_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ButtonsHB/DefaultsButton" to="." method="_on_DefaultsButton_pressed"]

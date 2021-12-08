@@ -23,11 +23,17 @@ _global_script_classes=[ {
 "class": "PlayerState",
 "language": "GDScript",
 "path": "res://Script/Class/PlayerState.gd"
+}, {
+"base": "Area2D",
+"class": "Trigger",
+"language": "GDScript",
+"path": "res://Script/Class/Trigger.gd"
 } ]
 _global_script_class_icons={
 "Attackable": "",
 "LevelArea": "",
-"PlayerState": ""
+"PlayerState": "",
+"Trigger": ""
 }
 
 [application]
@@ -40,12 +46,20 @@ config/icon="res://icon.png"
 
 Globals="*res://Scene/Globals.tscn"
 
+[debug]
+
+gdscript/warnings/return_value_discarded=false
+
 [display]
 
 window/size/width=1280
 window/size/height=720
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/CommandPalettePopup/plugin.cfg" )
 
 [global]
 

@@ -90,6 +90,12 @@ func check_for_new_state() -> String:
 #Shared utility functions
 #===============================================#
 
+func take_damage(amount):
+	Player.health -= amount
+	if Player.health <= 0:
+		Player.respawn()
+
+
 func set_attack_hitbox():
 	Attack_Box.get_child(0).get_shape().extents = NORMAL_ATTACK_SIZE
 	Attack_Box.position.y = -8

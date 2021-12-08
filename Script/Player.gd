@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 export var velocity = Vector2(0,0);
+var health = 2
 var directionX = 0 # Direction player is currently moving
 var directionY = 0
 var facing = 1 # Either -1 or 1
@@ -127,7 +128,6 @@ func set_spawn():
 				best_distance = distance
 				best_spawn = descendant
 		spawn_point = best_spawn
-		print(spawn_point)
 	
 	if !best_spawn:
 		push_warning("No spawnpoint in room: " + current_room.name)
@@ -140,7 +140,9 @@ func respawn():
 	
 	current_room.exit_room()
 	spawn_point.spawn_player()
+	
 	queue_free()
+
 
 # Signals
 #=================================#
@@ -162,7 +164,7 @@ func _on_UncrouchCheck_body_entered(body):
 func _on_UncrouchCheck_body_exited(body):
 	if body is StaticBody2D || body is RigidBody2D:
 		crouch_body_count -= 1
-		if crouch_body_count ==0:
+		if crouch_body_count == 0:
 			can_unduck = true
 
 

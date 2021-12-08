@@ -1,7 +1,7 @@
 tool
 extends Node2D
 
-onready var room = get_parent().get_parent() #make it a child of resetable node
+onready var room = get_parent()
 onready var area = room.get_parent()
 onready var player_scene = preload("res://Scene/Player/Player.tscn")
 var spawn_direction

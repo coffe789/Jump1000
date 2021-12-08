@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Scene/Entities/Enemies/Pongus.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scene/Player/Player.tscn" type="PackedScene" id=2]
@@ -7,6 +7,8 @@
 [ext_resource path="res://Script/Area/Area1.gd" type="Script" id=5]
 [ext_resource path="res://icon.png" type="Texture" id=6]
 [ext_resource path="res://Scene/Entities/Room/SpawnPoint.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scene/Triggers/ChangeRespawnTrigger.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Script/Triggers/ChangeRespawnTrigger.gd" type="Script" id=9]
 
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 320, 92 )
@@ -29,7 +31,7 @@ extents = Vector2( 86.0916, 31.9239 )
 script = ExtResource( 5 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( -80, -184 )
+position = Vector2( -184, 176 )
 
 [node name="Room" parent="." instance=ExtResource( 3 )]
 position = Vector2( -72, 176 )
@@ -46,12 +48,6 @@ texture = ExtResource( 6 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Room/ResetableNodes/RigidBody2D"]
 shape = SubResource( 6 )
-
-[node name="SpawnPoint" parent="Room/ResetableNodes" index="1" instance=ExtResource( 7 )]
-position = Vector2( -296, 16 )
-
-[node name="SpawnPoint2" parent="Room/ResetableNodes" index="2" instance=ExtResource( 7 )]
-position = Vector2( 16, -32 )
 
 [node name="RigidBody2D" type="StaticBody2D" parent="Room"]
 position = Vector2( -149.036, 22.456 )
@@ -92,6 +88,17 @@ texture = ExtResource( 4 )
 [node name="KingPongus" parent="Room" instance=ExtResource( 1 )]
 position = Vector2( -48, -24 )
 
+[node name="SpawnPoint" parent="Room" instance=ExtResource( 7 )]
+position = Vector2( -296, 16 )
+
+[node name="SpawnPoint2" parent="Room" instance=ExtResource( 7 )]
+position = Vector2( 16, -32 )
+
+[node name="ChangeRespawnTrigger" parent="Room" instance=ExtResource( 8 )]
+position = Vector2( -80, 0 )
+script = ExtResource( 9 )
+position_mode = 2
+
 [node name="Room4" parent="." instance=ExtResource( 3 )]
 position = Vector2( -120, -192 )
 
@@ -118,6 +125,9 @@ shape = SubResource( 2 )
 position = Vector2( 75.7264, -3.50177e-06 )
 scale = Vector2( 5.39881, 0.610232 )
 texture = ExtResource( 4 )
+
+[node name="SpawnPoint" parent="Room4" instance=ExtResource( 7 )]
+position = Vector2( -32, 24 )
 
 [node name="Room2" parent="." instance=ExtResource( 3 )]
 position = Vector2( -232, -8 )
@@ -146,11 +156,11 @@ position = Vector2( 75.7264, -3.50177e-06 )
 scale = Vector2( 5.39881, 0.610232 )
 texture = ExtResource( 4 )
 
+[node name="SpawnPoint" parent="Room2" instance=ExtResource( 7 )]
+position = Vector2( -16, 56 )
+
 [node name="Room3" parent="." instance=ExtResource( 3 )]
 position = Vector2( -552, 176 )
-
-[node name="SpawnPoint" parent="Room3/ResetableNodes" index="0" instance=ExtResource( 7 )]
-position = Vector2( 128, 16 )
 
 [node name="RigidBody2D" type="StaticBody2D" parent="Room3"]
 position = Vector2( 128, 24 )
@@ -163,6 +173,9 @@ shape = SubResource( 3 )
 position = Vector2( 75.7264, 23.2238 )
 scale = Vector2( 5.39881, 2.06172 )
 texture = ExtResource( 4 )
+
+[node name="SpawnPoint" parent="Room3" instance=ExtResource( 7 )]
+position = Vector2( 128, 16 )
 
 [editable path="Room"]
 [editable path="Room4"]
