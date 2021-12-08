@@ -29,7 +29,7 @@ extents = Vector2( 86.0916, 31.9239 )
 script = ExtResource( 5 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( -152, 112 )
+position = Vector2( -80, -184 )
 
 [node name="Room" parent="." instance=ExtResource( 3 )]
 position = Vector2( -72, 176 )
@@ -46,6 +46,12 @@ texture = ExtResource( 6 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Room/ResetableNodes/RigidBody2D"]
 shape = SubResource( 6 )
+
+[node name="SpawnPoint" parent="Room/ResetableNodes" index="1" instance=ExtResource( 7 )]
+position = Vector2( -296, 16 )
+
+[node name="SpawnPoint2" parent="Room/ResetableNodes" index="2" instance=ExtResource( 7 )]
+position = Vector2( 16, -32 )
 
 [node name="RigidBody2D" type="StaticBody2D" parent="Room"]
 position = Vector2( -149.036, 22.456 )
@@ -82,9 +88,6 @@ shape = SubResource( 4 )
 position = Vector2( 75.7264, -3.50177e-06 )
 scale = Vector2( 5.39881, 0.610232 )
 texture = ExtResource( 4 )
-
-[node name="SpawnPoint" parent="Room" instance=ExtResource( 7 )]
-position = Vector2( -296, -8 )
 
 [node name="KingPongus" parent="Room" instance=ExtResource( 1 )]
 position = Vector2( -48, -24 )
@@ -146,6 +149,9 @@ texture = ExtResource( 4 )
 [node name="Room3" parent="." instance=ExtResource( 3 )]
 position = Vector2( -552, 176 )
 
+[node name="SpawnPoint" parent="Room3/ResetableNodes" index="0" instance=ExtResource( 7 )]
+position = Vector2( 128, 16 )
+
 [node name="RigidBody2D" type="StaticBody2D" parent="Room3"]
 position = Vector2( 128, 24 )
 
@@ -160,3 +166,5 @@ texture = ExtResource( 4 )
 
 [editable path="Room"]
 [editable path="Room4"]
+[editable path="Room2"]
+[editable path="Room3"]

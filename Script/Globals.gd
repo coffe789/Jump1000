@@ -42,3 +42,10 @@ func clear_console():
 
 func get_player():
 	return get_tree().get_nodes_in_group("player")[0]
+
+func get_all_descendants(node, array):
+	if node.get_child_count() > 0:
+		for child in node.get_children():
+			array.append(child)
+			array.append_array(get_all_descendants(child, array))
+	return array

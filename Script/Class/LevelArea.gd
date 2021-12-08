@@ -45,17 +45,18 @@ func do_room_transition(area):
 	if Globals.get_player().current_room == null:
 		set_player_room(area)
 	elif area != Globals.get_player().current_room:
+		var old_room = Globals.get_player().current_room
 		Globals.get_player().current_area.check_transition_type()
 		
 		var room_collision_shape = area.get_node("CollisionShape2D")
 		get_cam().set_camera_limits(room_collision_shape)
 		
 		area.enter_room()
+		Globals.get_player().current_room = area
 		snap_player_to_room()
 		Globals.get_player().current_area.do_transition_pause()
 		yield(get_tree().create_timer(FREEZE_TIME), "timeout")
-		Globals.get_player().current_room.exit_room()
-		Globals.get_player().current_room = area
+		old_room.exit_room()
 
 
 # Momentarily pauses the game while transitioning rooms

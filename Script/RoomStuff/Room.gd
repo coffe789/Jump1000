@@ -34,6 +34,7 @@ func enter_room():
 	$KillBox/CollisionShape2D.call_deferred("set_disabled",false)
 	var scene_instance = resetable_scene.instance()
 	call_deferred("add_child",scene_instance)
+	Globals.get_player().call_deferred("set_spawn")
 
 
 func exit_room():
@@ -54,7 +55,7 @@ func init_boundaries():
 const KILLBOX_HEIGHT = 10.0
 func init_killbox():
 	$KillBox.position.y = bottom_y + KILLBOX_HEIGHT / 2 + 3
-	$KillBox/CollisionShape2D.shape.extents.x = (right_x - left_x) / 2
+	$KillBox/CollisionShape2D.shape.extents.x = (right_x - left_x)# / 2
 
 
 # Creates collision shape covering the whole room. Will be cutout later to serve as a boundary
@@ -107,4 +108,4 @@ func cutout_shapes():
 
 func _on_KillBox_body_entered(body):
 	if body.is_in_group("player"):
-		print("kill da player")
+		Globals.get_player().respawn()

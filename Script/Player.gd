@@ -115,9 +115,32 @@ func execute_state(delta):
 func attack_response(response_id, attackable):
 	state_list[current_state].attack_response(response_id, attackable)
 
+
 # Sets spawn point to the closest in the room
 func set_spawn():
-	pass
+	var best_distance = INF
+	var best_spawn
+	for descendant in get_tree().get_nodes_in_group("spawnpoint"):
+		if descendant.room == current_room:
+			var distance = global_position.distance_to(descendant.global_position)
+			if distance < best_distance:
+				best_distance = distance
+				best_spawn = descendant
+		spawn_point = best_spawn
+		print(spawn_point)
+	
+	if !best_spawn:
+		push_warning("No spawnpoint in room: " + current_room.name)
+
+
+func respawn():
+	if (!is_instance_valid(spawn_point)):
+		push_error("Failed to respawn in " + current_room.name)
+		assert(false)
+	
+	current_room.exit_room()
+	spawn_point.spawn_player()
+	queue_free()
 
 # Signals
 #=================================#

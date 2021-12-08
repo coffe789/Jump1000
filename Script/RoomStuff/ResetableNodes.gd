@@ -8,7 +8,7 @@ func _ready():
 
 func create_scene():
 	var packed_scene = PackedScene.new()
-	for child in get_all_descendants(self,[]):
+	for child in Globals.get_all_descendants(self,[]):
 		child.owner = self
 	packed_scene.pack(self)
 	ResourceSaver.save(
@@ -18,10 +18,3 @@ func create_scene():
 		+ ".tscn",
 		packed_scene)
 	return packed_scene
-
-func get_all_descendants(node, array):
-	if node.get_child_count() > 0:
-		for child in node.get_children():
-			array.append(child)
-			array.append_array(get_all_descendants(child, array))
-	return array
