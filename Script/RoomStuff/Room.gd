@@ -35,6 +35,7 @@ func enter_room():
 	var scene_instance = resetable_scene.instance()
 	call_deferred("add_child",scene_instance)
 	Globals.get_player().call_deferred("set_spawn")
+	Globals.get_player().state_list[Globals.get_player().current_state].heal(99)
 
 
 func exit_room():

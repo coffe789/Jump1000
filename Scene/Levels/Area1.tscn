@@ -8,7 +8,7 @@
 [ext_resource path="res://icon.png" type="Texture" id=6]
 [ext_resource path="res://Scene/Entities/Room/SpawnPoint.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scene/Triggers/ChangeRespawnTrigger.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Script/Triggers/ChangeRespawnTrigger.gd" type="Script" id=9]
+[ext_resource path="res://Scene/Triggers/TakeDamageTrigger.tscn" type="PackedScene" id=10]
 
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 320, 92 )
@@ -32,6 +32,7 @@ script = ExtResource( 5 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( -184, 176 )
+is_invincible = false
 
 [node name="Room" parent="." instance=ExtResource( 3 )]
 position = Vector2( -72, 176 )
@@ -96,8 +97,9 @@ position = Vector2( 16, -32 )
 
 [node name="ChangeRespawnTrigger" parent="Room" instance=ExtResource( 8 )]
 position = Vector2( -80, 0 )
-script = ExtResource( 9 )
-position_mode = 2
+
+[node name="DamageTrigger" parent="Room" instance=ExtResource( 10 )]
+position = Vector2( -24, 0 )
 
 [node name="Room4" parent="." instance=ExtResource( 3 )]
 position = Vector2( -120, -192 )

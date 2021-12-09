@@ -53,6 +53,8 @@ const NO_DASH_TIME = 0.3
 const DASH_TIME = 0.2
 const ROLL_TIME = 0.3
 const BUFFERED_DASH_TIME = 6.0/60.0
+
+const INVINCIBLE_TIME = 2.5
 # State Initialisation Parameters
 #=============================================#
 enum init_args {
@@ -91,9 +93,23 @@ func check_for_new_state() -> String:
 #===============================================#
 
 func take_damage(amount):
-	Player.health -= amount
-	if Player.health <= 0:
-		Player.respawn()
+	if !Player.is_invincible:
+		Player.health -= amount
+		do_iframes()
+		if Player.health <= 0:
+			Player.respawn()
+
+
+func heal(amount):
+	if !(Player.health >= Player.max_health):
+		Player.health += amount
+		Player.health = clamp(Player.health, 0, Player.max_health)
+		print("healed ",Player.health)
+
+
+func do_iframes():
+	Timers.get_node("IFrameTimer").play("invincible")
+	
 
 
 func set_attack_hitbox():

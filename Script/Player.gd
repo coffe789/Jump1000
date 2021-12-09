@@ -1,7 +1,6 @@
 extends KinematicBody2D
 
 export var velocity = Vector2(0,0);
-var health = 2
 var directionX = 0 # Direction player is currently moving
 var directionY = 0
 var facing = 1 # Either -1 or 1
@@ -11,6 +10,12 @@ var current_room
 onready var current_area = get_tree().get_nodes_in_group("area")[0]
 var previous_position
 var spawn_point
+
+
+var max_health = 2
+var health = 2
+export var is_invincible = false
+
 
 var isJumpBuffered = false;
 var canCoyoteJump = false;

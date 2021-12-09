@@ -24,7 +24,7 @@ func get_spawn_direction():
 		spawn_direction = 1
 
 func spawn_player():
-	Globals.get_player().current_room.exit_room() #we need to exit before killing the player
+	Globals.get_player().current_room.exit_room() # we need to exit before killing the player
 	var new_player = player_scene.instance()
 	new_player.position = global_position
 	new_player.collision_mask = Globals.get_player().collision_mask | 16 # enable room boundaries
