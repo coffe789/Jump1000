@@ -4,4 +4,3 @@ extends Attackable
 func _ready():
 	self.add_to_group("attackable")
 	make_dashable()
-	Attackable_Area.connect("area_entered", self, "_on_AttackableArea_area_entered")

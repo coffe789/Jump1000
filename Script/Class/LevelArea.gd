@@ -62,7 +62,6 @@ func do_room_transition(area):
 # Momentarily pauses the game while transitioning rooms
 func do_transition_pause():
 	get_cam().pause_mode = Node.PAUSE_MODE_PROCESS
-#	get_tree().get_nodes_in_group("verlet_area")[0].pause_mode = Node.PAUSE_MODE_PROCESS
 	get_tree().paused = true
 	var timers_to_pause = get_tree().get_nodes_in_group("reset_on_room_transition")
 	for i in timers_to_pause.size():
@@ -70,7 +69,6 @@ func do_transition_pause():
 	Globals.get_player().isJumpBuffered = false
 	Globals.get_player().canCoyoteJump = false
 	yield(get_tree().create_timer(FREEZE_TIME/3), "timeout")
-#	get_tree().get_nodes_in_group("verlet_area")[0].pause_mode = Node.PAUSE_MODE_INHERIT # temporary (bad) dejanking of cape during transitions
 	yield(get_tree().create_timer(2*FREEZE_TIME/3), "timeout")
 	get_tree().paused = false
 	get_cam().pause_mode = Node.PAUSE_MODE_INHERIT
@@ -90,7 +88,7 @@ func check_transition_type():
 		pass
 
 
-var snap_fatness = 5
+var snap_fatness = 6
 var snap_height = 9
 func snap_player_to_room():
 	var init_pos = Globals.get_player().position
@@ -98,6 +96,7 @@ func snap_player_to_room():
 		Globals.get_player().position.x = get_cam().limit_left + snap_fatness
 	elif Globals.get_player().position.x + snap_fatness > get_cam().limit_right:
 		Globals.get_player().position.x = get_cam().limit_right - snap_fatness
+		print("snapping leftward")
 	
 	if Globals.get_player().position.y - snap_height < get_cam().limit_top:
 		Globals.get_player().position.y = get_cam().limit_top + snap_height

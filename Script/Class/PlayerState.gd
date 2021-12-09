@@ -143,7 +143,10 @@ func set_dash_direction():
 	if Player.dash_target_node == null:
 		Player.dash_direction = DASH_DIR_NONE
 		return 
-	var relative_position = Player.global_position.y - PLAYER_HEIGHT/2 - Player.dash_target_node.global_position.y
+	var relative_position = (
+		Player.global_position.y 
+		- PLAYER_HEIGHT/2 
+		- Player.dash_target_node.global_position.y)
 	if relative_position < 0:
 		Player.dash_direction = DASH_DIR_DOWN
 		return

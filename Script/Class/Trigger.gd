@@ -30,10 +30,17 @@ var bottom_bound
 func _ready():
 	connect("body_entered", self, "_on_body_entered")
 	set_bounds()
+	on_ready()
+
+
+# Used so I don't have to overwrite _ready() in inherited objects
+func on_ready():
+	pass
 
 
 func _on_body_entered(_body:Node):
-	activate()
+	if _body.is_in_group("player"):
+		activate()
 
 
 # Set bound parameters for convenience 

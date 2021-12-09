@@ -202,28 +202,28 @@ tracks/0/keys = {
 "values": [ true, false ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("../Sprite:modulate")
+tracks/1/path = NodePath("..:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
-tracks/1/enabled = false
+tracks/1/enabled = true
 tracks/1/keys = {
 "times": PoolRealArray( 0, 1.5 ),
-"transitions": PoolRealArray( 1, 1 ),
+"transitions": PoolRealArray( 1, 0 ),
 "update": 1,
-"values": [ Color( 1, 1, 1, 0.380392 ), Color( 1, 1, 1, 1 ) ]
+"values": [ Color( 1, 1, 1, 0.54902 ), Color( 1, 1, 1, 1 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("..:modulate")
+tracks/2/path = NodePath("../CollisionChecks/DamageHitbox:monitoring")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
 "times": PoolRealArray( 0, 1.5 ),
-"transitions": PoolRealArray( 1, 0 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ Color( 1, 1, 1, 0.54902 ), Color( 1, 1, 1, 1 ) ]
+"values": [ false, true ]
 }
 
 [sub_resource type="Animation" id=14]
@@ -285,8 +285,7 @@ script = ExtResource( 2 )
 
 [node name="CollisionChecks" type="Node2D" parent="."]
 
-[node name="BodyArea" type="Area2D" parent="CollisionChecks"]
-visible = false
+[node name="FullBodyArea" type="Area2D" parent="CollisionChecks"]
 position = Vector2( 0.5, -8 )
 collision_layer = 0
 collision_mask = 17
@@ -294,12 +293,11 @@ __meta__ = {
 "_editor_description_": "Currently used for ducking detection and room detection"
 }
 
-[node name="CollisionBody2" type="CollisionShape2D" parent="CollisionChecks/BodyArea"]
+[node name="CollisionBody2" type="CollisionShape2D" parent="CollisionChecks/FullBodyArea"]
 modulate = Color( 0.521569, 1, 0, 1 )
 shape = SubResource( 1 )
 
 [node name="WallRaycasts" type="Node2D" parent="CollisionChecks"]
-visible = false
 
 [node name="RightWallRaycast" type="RayCast2D" parent="CollisionChecks/WallRaycasts"]
 position = Vector2( 0.5, 0 )
@@ -350,7 +348,6 @@ cast_to = Vector2( -9.5, 0 )
 collide_with_areas = true
 
 [node name="AttackBox" type="Area2D" parent="CollisionChecks" groups=["player_attack"]]
-visible = false
 position = Vector2( -14, -8 )
 collision_layer = 8
 collision_mask = 4
@@ -384,11 +381,20 @@ collision_layer = 0
 collision_mask = 16
 monitorable = false
 __meta__ = {
-"_editor_description_": "Used to detect room transitions"
+"_editor_description_": "Used to detect what type of room transition you're doing"
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionChecks/RoomDetection"]
 shape = SubResource( 12 )
+
+[node name="DamageHitbox" type="Area2D" parent="CollisionChecks" groups=["player_damage_hitbox"]]
+collision_layer = 8
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionBody" type="CollisionShape2D" parent="CollisionChecks/DamageHitbox"]
+position = Vector2( 0.5, -8 )
+shape = SubResource( 3 )
 
 [node name="CollisionBody" type="CollisionShape2D" parent="."]
 position = Vector2( 0.5, -8 )
@@ -527,7 +533,6 @@ anims/invincible = SubResource( 13 )
 anims/reset = SubResource( 14 )
 
 [node name="Cape" type="Node2D" parent="."]
-visible = false
 position = Vector2( 0, -13 )
 
 [node name="CapeL" type="Position2D" parent="Cape"]
@@ -567,9 +572,9 @@ __meta__ = {
 
 [node name="VerletArea" parent="." instance=ExtResource( 22 )]
 
-[connection signal="area_entered" from="CollisionChecks/BodyArea" to="." method="_on_BodyArea_area_entered"]
-[connection signal="body_entered" from="CollisionChecks/BodyArea" to="." method="_on_UncrouchCheck_body_entered"]
-[connection signal="body_exited" from="CollisionChecks/BodyArea" to="." method="_on_UncrouchCheck_body_exited"]
+[connection signal="area_entered" from="CollisionChecks/FullBodyArea" to="." method="_on_BodyArea_area_entered"]
+[connection signal="body_entered" from="CollisionChecks/FullBodyArea" to="." method="_on_UncrouchCheck_body_entered"]
+[connection signal="body_exited" from="CollisionChecks/FullBodyArea" to="." method="_on_UncrouchCheck_body_exited"]
 [connection signal="area_entered" from="CollisionChecks/DashCheckUp" to="CollisionChecks/DashCheckUp" method="_on_DashCheckUp_area_entered"]
 [connection signal="area_exited" from="CollisionChecks/DashCheckUp" to="CollisionChecks/DashCheckUp" method="_on_DashCheckUp_area_exited"]
 [connection signal="area_entered" from="CollisionChecks/DashCheckDown" to="CollisionChecks/DashCheckDown" method="_on_DashCheckDown_area_entered"]

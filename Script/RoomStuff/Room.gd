@@ -44,7 +44,7 @@ func exit_room():
 	$ResetableNodes.queue_free()
 
 
-# Sets coordinates of boundarys for if needed later
+# Sets coordinates of boundaries for if needed later
 func init_boundaries():
 	var room_collision_shape = get_node("CollisionShape2D")
 	var room_size = room_collision_shape.shape.extents * 2

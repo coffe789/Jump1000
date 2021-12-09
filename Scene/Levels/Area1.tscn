@@ -32,7 +32,6 @@ script = ExtResource( 5 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( -184, 176 )
-is_invincible = false
 
 [node name="Room" parent="." instance=ExtResource( 3 )]
 position = Vector2( -72, 176 )
