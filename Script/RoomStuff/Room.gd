@@ -31,7 +31,8 @@ func set_resetable_scene():
 
 func enter_room():
 	enable_bounds(true)
-	$KillBox/CollisionShape2D.call_deferred("set_disabled",false)
+	Globals.get_player().current_room.get_node("KillBox").set_deferred("monitoring",false)
+	$KillBox.set_deferred("monitoring",true)
 	var scene_instance = resetable_scene.instance()
 	call_deferred("add_child",scene_instance)
 	Globals.get_player().call_deferred("set_spawn")
@@ -40,7 +41,7 @@ func enter_room():
 
 func exit_room():
 	enable_bounds(false)
-	$KillBox/CollisionShape2D.call_deferred("set_disabled",true)
+	$KillBox.set_deferred("monitoring",false)
 	$ResetableNodes.queue_free()
 
 
@@ -56,7 +57,7 @@ func init_boundaries():
 const KILLBOX_HEIGHT = 10.0
 func init_killbox():
 	$KillBox.position.y = bottom_y + KILLBOX_HEIGHT / 2 + 3
-	$KillBox/CollisionShape2D.shape.extents.x = (right_x - left_x)# / 2
+	$KillBox/CollisionShape2D.shape.extents.x = (right_x - left_x) / 2
 
 
 # Creates collision shape covering the whole room. Will be cutout later to serve as a boundary
@@ -99,6 +100,7 @@ func enable_bounds(state:bool):
 			child.get_child(0).call_deferred("set_disabled",!state)
 
 
+# This is purely internal. Initial bounds without regards to adjacent rooms
 func cutout_shapes():
 	var new_poly = Geometry.clip_polygons_2d($Boundary/CollisionPolygon2D.polygon, cutout_shape_internal)
 	$Boundary/CollisionPolygon2D.polygon = new_poly[0]

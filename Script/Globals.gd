@@ -1,6 +1,6 @@
 extends Node
 
-signal damage_player
+signal damage_player(damage)
 
 # Types of attacks the player can do
 enum \

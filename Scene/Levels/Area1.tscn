@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Scene/Entities/Enemies/Pongus.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scene/Player/Player.tscn" type="PackedScene" id=2]
@@ -10,8 +10,23 @@
 [ext_resource path="res://Scene/Triggers/ChangeRespawnTrigger.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scene/Triggers/TakeDamageTrigger.tscn" type="PackedScene" id=10]
 
+[sub_resource type="RectangleShape2D" id=13]
+resource_local_to_scene = true
+extents = Vector2( 160, 92 )
+
+[sub_resource type="RectangleShape2D" id=10]
+resource_local_to_scene = true
+extents = Vector2( 10, 5 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 86.0916, 31.9239 )
+
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 320, 92 )
+
+[sub_resource type="RectangleShape2D" id=7]
+resource_local_to_scene = true
+extents = Vector2( 10, 5 )
 
 [sub_resource type="RectangleShape2D" id=6]
 
@@ -24,21 +39,61 @@ extents = Vector2( 86.0916, 10 )
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 86.0916, 10 )
 
-[sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 86.0916, 31.9239 )
+[sub_resource type="RectangleShape2D" id=12]
+resource_local_to_scene = true
+extents = Vector2( 160, 92 )
+
+[sub_resource type="RectangleShape2D" id=9]
+resource_local_to_scene = true
+extents = Vector2( 10, 5 )
+
+[sub_resource type="RectangleShape2D" id=11]
+resource_local_to_scene = true
+extents = Vector2( 160, 92 )
+
+[sub_resource type="RectangleShape2D" id=8]
+resource_local_to_scene = true
+extents = Vector2( 10, 5 )
 
 [node name="Area1" type="Node2D"]
 script = ExtResource( 5 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( -184, 176 )
+position = Vector2( -184, 64 )
+
+[node name="Room3" parent="." instance=ExtResource( 3 )]
+position = Vector2( -72, 416 )
+
+[node name="CollisionShape2D" parent="Room3" index="0"]
+shape = SubResource( 13 )
+
+[node name="CollisionShape2D" parent="Room3/KillBox" index="0"]
+shape = SubResource( 10 )
+
+[node name="RigidBody2D" type="StaticBody2D" parent="Room3"]
+position = Vector2( 128, 24 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Room3/RigidBody2D"]
+position = Vector2( 76.0916, 21.9239 )
+shape = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="Room3/RigidBody2D"]
+position = Vector2( 75.7264, 23.2238 )
+scale = Vector2( 5.39881, 2.06172 )
+texture = ExtResource( 4 )
+
+[node name="SpawnPoint" parent="Room3" instance=ExtResource( 7 )]
+position = Vector2( 128, 16 )
 
 [node name="Room" parent="." instance=ExtResource( 3 )]
-position = Vector2( -72, 176 )
+position = Vector2( -56, 232 )
 input_pickable = false
 
 [node name="CollisionShape2D" parent="Room" index="0"]
 shape = SubResource( 5 )
+
+[node name="CollisionShape2D" parent="Room/KillBox" index="0"]
+shape = SubResource( 7 )
 
 [node name="RigidBody2D" type="RigidBody2D" parent="Room/ResetableNodes" index="0"]
 position = Vector2( -144, -56 )
@@ -100,8 +155,50 @@ position = Vector2( -80, 0 )
 [node name="DamageTrigger" parent="Room" instance=ExtResource( 10 )]
 position = Vector2( -24, 0 )
 
+[node name="Room2" parent="." instance=ExtResource( 3 )]
+position = Vector2( 96, 48 )
+
+[node name="CollisionShape2D" parent="Room2" index="0"]
+shape = SubResource( 12 )
+
+[node name="CollisionShape2D" parent="Room2/KillBox" index="0"]
+shape = SubResource( 9 )
+
+[node name="RigidBody2D" type="StaticBody2D" parent="Room2"]
+position = Vector2( -16, 88 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Room2/RigidBody2D"]
+position = Vector2( 76.0916, 0 )
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Room2/RigidBody2D"]
+position = Vector2( 75.7264, -3.50177e-06 )
+scale = Vector2( 5.39881, 0.610232 )
+texture = ExtResource( 4 )
+
+[node name="RigidBody2D2" type="StaticBody2D" parent="Room2"]
+position = Vector2( -64, 88 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Room2/RigidBody2D2"]
+position = Vector2( 76.0916, 0 )
+shape = SubResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="Room2/RigidBody2D2"]
+position = Vector2( 75.7264, -3.50177e-06 )
+scale = Vector2( 5.39881, 0.610232 )
+texture = ExtResource( 4 )
+
+[node name="SpawnPoint" parent="Room2" instance=ExtResource( 7 )]
+position = Vector2( -16, 56 )
+
 [node name="Room4" parent="." instance=ExtResource( 3 )]
-position = Vector2( -120, -192 )
+position = Vector2( -440, 48 )
+
+[node name="CollisionShape2D" parent="Room4" index="0"]
+shape = SubResource( 11 )
+
+[node name="CollisionShape2D" parent="Room4/KillBox" index="0"]
+shape = SubResource( 8 )
 
 [node name="RigidBody2D" type="StaticBody2D" parent="Room4"]
 position = Vector2( -42.9635, 39.293 )
@@ -130,55 +227,7 @@ texture = ExtResource( 4 )
 [node name="SpawnPoint" parent="Room4" instance=ExtResource( 7 )]
 position = Vector2( -32, 24 )
 
-[node name="Room2" parent="." instance=ExtResource( 3 )]
-position = Vector2( -232, -8 )
-
-[node name="RigidBody2D" type="StaticBody2D" parent="Room2"]
-position = Vector2( -16, 88 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Room2/RigidBody2D"]
-position = Vector2( 76.0916, 0 )
-shape = SubResource( 1 )
-
-[node name="Sprite" type="Sprite" parent="Room2/RigidBody2D"]
-position = Vector2( 75.7264, -3.50177e-06 )
-scale = Vector2( 5.39881, 0.610232 )
-texture = ExtResource( 4 )
-
-[node name="RigidBody2D2" type="StaticBody2D" parent="Room2"]
-position = Vector2( -160, 72 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Room2/RigidBody2D2"]
-position = Vector2( 76.0916, 0 )
-shape = SubResource( 2 )
-
-[node name="Sprite" type="Sprite" parent="Room2/RigidBody2D2"]
-position = Vector2( 75.7264, -3.50177e-06 )
-scale = Vector2( 5.39881, 0.610232 )
-texture = ExtResource( 4 )
-
-[node name="SpawnPoint" parent="Room2" instance=ExtResource( 7 )]
-position = Vector2( -16, 56 )
-
-[node name="Room3" parent="." instance=ExtResource( 3 )]
-position = Vector2( -552, 176 )
-
-[node name="RigidBody2D" type="StaticBody2D" parent="Room3"]
-position = Vector2( 128, 24 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Room3/RigidBody2D"]
-position = Vector2( 76.0916, 21.9239 )
-shape = SubResource( 3 )
-
-[node name="Sprite" type="Sprite" parent="Room3/RigidBody2D"]
-position = Vector2( 75.7264, 23.2238 )
-scale = Vector2( 5.39881, 2.06172 )
-texture = ExtResource( 4 )
-
-[node name="SpawnPoint" parent="Room3" instance=ExtResource( 7 )]
-position = Vector2( 128, 16 )
-
-[editable path="Room"]
-[editable path="Room4"]
-[editable path="Room2"]
 [editable path="Room3"]
+[editable path="Room"]
+[editable path="Room2"]
+[editable path="Room4"]

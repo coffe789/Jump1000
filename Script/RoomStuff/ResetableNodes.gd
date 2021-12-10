@@ -11,10 +11,10 @@ func create_scene():
 	for child in Globals.get_all_descendants(self,[]):
 		child.owner = self
 	packed_scene.pack(self)
-	ResourceSaver.save(
-		"res://Scene/CodeGenerated/ResetableNodes/"
-		+ area.name
-		+ room.name
-		+ ".tscn",
-		packed_scene)
+#	ResourceSaver.save(
+#		"user://" # Can't write to res:// during runtime
+#		+ area.name
+#		+ room.name
+#		+ ".tscn",
+#		packed_scene)
 	return packed_scene

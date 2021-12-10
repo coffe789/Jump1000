@@ -8,6 +8,7 @@ const UP_TRANSITION_BOOST = -230
 func _init():
 	self.add_to_group("area")
 
+
 func _ready():
 	yield(get_tree(), "idle_frame") # Collision polygons need a frame to settle
 	initialise_rooms()
@@ -18,9 +19,9 @@ func get_cam():
 
 func initialise_rooms():
 	for room in get_tree().get_nodes_in_group("room"):
-		room.cutout_shapes()
+		
 		for overlapping_body in room.get_overlapping_bodies():
-			if overlapping_body.is_in_group("room_boundary"):
+			if overlapping_body.is_in_group("room_boundary") && overlapping_body.get_parent()!=room:
 				var transformed_cutout_shape = PoolVector2Array([Vector2(),Vector2(),Vector2(),Vector2()]) # this is how you create a size 4 array in gdscript
 				var pos_dif = room.global_position - overlapping_body.global_position # clip operation requires polygons to be in same coordiante space
 				for i in range(0,4):
@@ -33,6 +34,8 @@ func initialise_rooms():
 						var diff = bound.global_position - overlapping_body.global_position
 						for j in range(0,bound.get_child(0).polygon.size()): # clip operation only gets new shape, not position, so we set it ourselves
 							bound.get_child(0).polygon[j]-=diff
+	for room in get_tree().get_nodes_in_group("room"):
+		room.cutout_shapes()
 	for node in get_tree().get_nodes_in_group("room_boundary"): # All bounds are disabled by default. We wait until now to disable them so clipping works
 		if node is StaticBody2D:
 			node.get_child(0).call_deferred("set_disabled",true)
@@ -88,7 +91,7 @@ func check_transition_type():
 		pass
 
 
-var snap_fatness = 6
+var snap_fatness = 5
 var snap_height = 9
 func snap_player_to_room():
 	var init_pos = Globals.get_player().position
