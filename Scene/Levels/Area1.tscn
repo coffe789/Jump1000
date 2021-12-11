@@ -59,10 +59,10 @@ extents = Vector2( 10, 5 )
 script = ExtResource( 5 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( -184, 64 )
+position = Vector2( -40, 184 )
 
 [node name="Room3" parent="." instance=ExtResource( 3 )]
-position = Vector2( -72, 416 )
+position = Vector2( 424, 88 )
 
 [node name="CollisionShape2D" parent="Room3" index="0"]
 shape = SubResource( 13 )
@@ -129,7 +129,7 @@ scale = Vector2( 5.39881, 0.610232 )
 texture = ExtResource( 4 )
 
 [node name="RigidBody2D3" type="StaticBody2D" parent="Room"]
-position = Vector2( 40, -64 )
+position = Vector2( 40, -56 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Room/RigidBody2D3"]
 position = Vector2( 76.0916, 0 )
@@ -144,7 +144,7 @@ texture = ExtResource( 4 )
 position = Vector2( -48, -24 )
 
 [node name="SpawnPoint" parent="Room" instance=ExtResource( 7 )]
-position = Vector2( -296, 16 )
+position = Vector2( -144, 0 )
 
 [node name="SpawnPoint2" parent="Room" instance=ExtResource( 7 )]
 position = Vector2( 16, -32 )

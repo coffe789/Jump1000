@@ -1,7 +1,6 @@
 extends Node2D
 class_name LevelArea
 
-
 const FREEZE_TIME = 0.6 # When room transitioning
 const UP_TRANSITION_BOOST = -230
 
@@ -17,6 +16,7 @@ func _ready():
 func get_cam():
 	return Globals.get_player().get_node("PlayerCamera")
 
+# Shapes the boundaries for all rooms based on their relative positions
 func initialise_rooms():
 	for room in get_tree().get_nodes_in_group("room"):
 		
@@ -54,12 +54,14 @@ func do_room_transition(area):
 		var room_collision_shape = area.get_node("CollisionShape2D")
 		get_cam().set_camera_limits(room_collision_shape)
 		
+		snap_player_to_room()
 		area.enter_room()
 		Globals.get_player().current_room = area
-		snap_player_to_room()
+		
 		Globals.get_player().current_area.do_transition_pause()
 		yield(get_tree().create_timer(FREEZE_TIME), "timeout")
 		old_room.exit_room()
+#		area.get_node("KillBox").set_deferred("monitoring",true)
 
 
 # Momentarily pauses the game while transitioning rooms
@@ -71,8 +73,7 @@ func do_transition_pause():
 		timers_to_pause[i].start(0) # maybe stops timer
 	Globals.get_player().isJumpBuffered = false
 	Globals.get_player().canCoyoteJump = false
-	yield(get_tree().create_timer(FREEZE_TIME/3), "timeout")
-	yield(get_tree().create_timer(2*FREEZE_TIME/3), "timeout")
+	yield(get_tree().create_timer(FREEZE_TIME), "timeout")
 	get_tree().paused = false
 	get_cam().pause_mode = Node.PAUSE_MODE_INHERIT
 
@@ -92,19 +93,21 @@ func check_transition_type():
 
 
 var snap_fatness = 5
-var snap_height = 9
+var snap_up_height = 0
+var snap_down_height = 21
 func snap_player_to_room():
 	var init_pos = Globals.get_player().position
 	if Globals.get_player().position.x - snap_fatness < get_cam().limit_left:
 		Globals.get_player().position.x = get_cam().limit_left + snap_fatness
 	elif Globals.get_player().position.x + snap_fatness > get_cam().limit_right:
 		Globals.get_player().position.x = get_cam().limit_right - snap_fatness
-		print("snapping leftward")
 	
-	if Globals.get_player().position.y - snap_height < get_cam().limit_top:
-		Globals.get_player().position.y = get_cam().limit_top + snap_height
-	elif Globals.get_player().position.y + snap_height > (get_cam().limit_bottom + get_cam().LOWER_OFFSCREEN_MARGIN):
-		Globals.get_player().position.y = get_cam().limit_bottom - snap_height
+	if Globals.get_player().position.y - snap_down_height < get_cam().limit_top:
+		Globals.get_player().position.y = get_cam().limit_top + snap_down_height
+	elif Globals.get_player().position.y + snap_up_height > (get_cam().limit_bottom + get_cam().LOWER_OFFSCREEN_MARGIN):
+		Globals.get_player().position.y = get_cam().limit_bottom - snap_up_height
+		Globals.get_player().velocity.y = 300
+	
 	
 	# Move the cape too
 	var diff_pos = Globals.get_player().position - init_pos

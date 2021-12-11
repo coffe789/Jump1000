@@ -285,9 +285,9 @@ script = ExtResource( 2 )
 
 [node name="CollisionChecks" type="Node2D" parent="."]
 
-[node name="FullBodyArea" type="Area2D" parent="CollisionChecks"]
+[node name="FullBodyArea" type="Area2D" parent="CollisionChecks" groups=["player_area"]]
 position = Vector2( 0.5, -8 )
-collision_layer = 0
+collision_layer = 2
 collision_mask = 17
 __meta__ = {
 "_editor_description_": "Currently used for ducking detection and room detection"

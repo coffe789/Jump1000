@@ -75,6 +75,10 @@ func _ready():
 	Globals.connect("damage_player", self, "_take_damage")
 
 
+func _process(delta):
+	pass
+
+
 # Controls every aspect of player physics
 func _physics_process(delta) -> void:
 	previous_position = position
@@ -87,6 +91,7 @@ func _physics_process(delta) -> void:
 	try_state_transition()
 	#$DebugLabel.text = "State: " + str(state_list[current_state].name) + "\nPrevious:" + str(state_list[previous_state].name)
 	$DebugLabel.text = str(health) + "hp"
+	return
 
 # Changes state if the current state wants to
 func try_state_transition():

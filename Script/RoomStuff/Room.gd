@@ -56,7 +56,7 @@ func init_boundaries():
 
 const KILLBOX_HEIGHT = 10.0
 func init_killbox():
-	$KillBox.position.y = bottom_y + KILLBOX_HEIGHT / 2 + 3
+	$KillBox.position.y = bottom_y + KILLBOX_HEIGHT / 2 + 5
 	$KillBox/CollisionShape2D.shape.extents.x = (right_x - left_x) / 2
 
 
@@ -110,5 +110,14 @@ func cutout_shapes():
 
 
 func _on_KillBox_body_entered(body):
-	if body.is_in_group("player"):
+	pass#	if body.is_in_group("player") && !Globals.get_player().current_area.is_transitioning:
+##		get_tree().paused = true
+#		print(body.global_position)
+#		print($KillBox.global_position)
+#		Globals.get_player().respawn()
+#		print(body)
+		
+func _on_KillBox_area_entered(area):
+	if area.is_in_group("player_area"):
+#		get_tree().paused = true
 		Globals.get_player().respawn()
