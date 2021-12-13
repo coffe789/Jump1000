@@ -19,7 +19,6 @@ func get_cam():
 # Shapes the boundaries for all rooms based on their relative positions
 func initialise_rooms():
 	for room in get_tree().get_nodes_in_group("room"):
-		
 		for overlapping_body in room.get_overlapping_bodies():
 			if overlapping_body.is_in_group("room_boundary") && overlapping_body.get_parent()!=room:
 				var transformed_cutout_shape = PoolVector2Array([Vector2(),Vector2(),Vector2(),Vector2()]) # this is how you create a size 4 array in gdscript
@@ -36,6 +35,7 @@ func initialise_rooms():
 							bound.get_child(0).polygon[j]-=diff
 	for room in get_tree().get_nodes_in_group("room"):
 		room.cutout_shapes()
+		room.cutout_killboxes()
 	for node in get_tree().get_nodes_in_group("room_boundary"): # All bounds are disabled by default. We wait until now to disable them so clipping works
 		if node is StaticBody2D:
 			node.get_child(0).call_deferred("set_disabled",true)
@@ -49,7 +49,7 @@ func do_room_transition(area):
 		set_player_room(area)
 	elif area != Globals.get_player().current_room:
 		var old_room = Globals.get_player().current_room
-		Globals.get_player().current_area.check_transition_type()
+		check_transition_type()
 		
 		var room_collision_shape = area.get_node("CollisionShape2D")
 		get_cam().set_camera_limits(room_collision_shape)
@@ -80,11 +80,11 @@ func do_transition_pause():
 
 func check_transition_type():
 	var player_center = Globals.get_player().get_node("CollisionChecks/RoomDetection")
-	if player_center.global_position.y < get_cam().limit_top: # up transition
+	if player_center.global_position.y < get_cam().limit_top + 1: # up transition
 		if Globals.get_player().velocity.y > UP_TRANSITION_BOOST:
 			Globals.get_player().velocity.y = UP_TRANSITION_BOOST
 			Globals.get_player().stop_jump_rise = true # Letting go of jump doesn't nullify new velocity
-	elif player_center.global_position.y > get_cam().limit_bottom: # down transition
+	elif player_center.global_position.y > get_cam().limit_bottom - 1: # down transition
 		pass
 	elif player_center.global_position.x < get_cam().limit_left: # left transition
 		pass
@@ -93,8 +93,8 @@ func check_transition_type():
 
 
 var snap_fatness = 5
-var snap_up_height = 0
-var snap_down_height = 21
+var snap_up_height = 2
+var snap_down_height = 14
 func snap_player_to_room():
 	var init_pos = Globals.get_player().position
 	if Globals.get_player().position.x - snap_fatness < get_cam().limit_left:
@@ -106,8 +106,9 @@ func snap_player_to_room():
 		Globals.get_player().position.y = get_cam().limit_top + snap_down_height
 	elif Globals.get_player().position.y + snap_up_height > (get_cam().limit_bottom + get_cam().LOWER_OFFSCREEN_MARGIN):
 		Globals.get_player().position.y = get_cam().limit_bottom - snap_up_height
-		Globals.get_player().velocity.y = 300
-	
+		if Globals.get_player().velocity.y > UP_TRANSITION_BOOST:
+			Globals.get_player().velocity.y = UP_TRANSITION_BOOST
+			Globals.get_player().stop_jump_rise = true # Letting go of jump doesn't nullify new velocity
 	
 	# Move the cape too
 	var diff_pos = Globals.get_player().position - init_pos

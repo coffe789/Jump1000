@@ -3,14 +3,11 @@
 [ext_resource path="res://Script/RoomStuff/Room.gd" type="Script" id=1]
 [ext_resource path="res://Scene/Entities/Room/Boundary.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Script/RoomStuff/ResetableNodes.gd" type="Script" id=3]
+[ext_resource path="res://Scene/Entities/Room/RoomKillBox.tscn" type="PackedScene" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 resource_local_to_scene = true
 extents = Vector2( 160, 92 )
-
-[sub_resource type="RectangleShape2D" id=2]
-resource_local_to_scene = true
-extents = Vector2( 10, 5 )
 
 [node name="Room" type="Area2D"]
 collision_layer = 16
@@ -22,17 +19,7 @@ shape = SubResource( 1 )
 
 [node name="Boundary" parent="." instance=ExtResource( 2 )]
 
-[node name="KillBox" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 2
-monitoring = false
-monitorable = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="KillBox"]
-shape = SubResource( 2 )
+[node name="KillBox" parent="." instance=ExtResource( 4 )]
 
 [node name="ResetableNodes" type="Node2D" parent="."]
 script = ExtResource( 3 )
-
-[connection signal="area_entered" from="KillBox" to="." method="_on_KillBox_area_entered"]
-[connection signal="body_entered" from="KillBox" to="." method="_on_KillBox_body_entered"]

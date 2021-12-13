@@ -1,6 +1,7 @@
 extends Node
 
 signal damage_player(damage)
+signal enter_room_killbox
 
 # Types of attacks the player can do
 enum \

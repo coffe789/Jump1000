@@ -1,5 +1,6 @@
 extends Area2D
 var Boundary = preload("res://Scene/Entities/Room/Boundary.tscn") 
+var Killbox = preload("res://Scene/Entities/Room/RoomKillBox.tscn")
 
 
 var left_x
@@ -31,8 +32,12 @@ func set_resetable_scene():
 
 func enter_room():
 	enable_bounds(true)
-	Globals.get_player().current_room.get_node("KillBox").set_deferred("monitoring",false)
-	$KillBox.set_deferred("monitoring",true)
+#	for child in Globals.get_player().current_room.get_children():
+#		if child.is_in_group("room_killbox"):
+#			child.set_deferred("monitoring",false)
+#	for child in get_children():
+#		if child.is_in_group("room_killbox"):
+#			child.set_deferred("monitoring",true)
 	var scene_instance = resetable_scene.instance()
 	call_deferred("add_child",scene_instance)
 	Globals.get_player().call_deferred("set_spawn")
@@ -41,7 +46,9 @@ func enter_room():
 
 func exit_room():
 	enable_bounds(false)
-	$KillBox.set_deferred("monitoring",false)
+#	for child in get_children():
+#		if child.is_in_group("room_killbox"):
+#			child.set_deferred("monitoring",false)
 	$ResetableNodes.queue_free()
 
 
@@ -57,7 +64,12 @@ func init_boundaries():
 const KILLBOX_HEIGHT = 10.0
 func init_killbox():
 	$KillBox.position.y = bottom_y + KILLBOX_HEIGHT / 2 + 5
-	$KillBox/CollisionShape2D.shape.extents.x = (right_x - left_x) / 2
+#	$KillBox/CollisionShape2D.shape.extents.x = (right_x - left_x) / 2
+	
+	$KillBox/CollisionPolygon2D.polygon[0].x = left_x
+	$KillBox/CollisionPolygon2D.polygon[1].x = right_x
+	$KillBox/CollisionPolygon2D.polygon[2].x = right_x
+	$KillBox/CollisionPolygon2D.polygon[3].x = left_x
 
 
 # Creates collision shape covering the whole room. Will be cutout later to serve as a boundary
@@ -94,6 +106,14 @@ func add_boundary(polygon):
 	return new_boundary
 
 
+func add_killbox(polygon):
+	var new_killbox = Killbox.instance()
+	new_killbox.get_node("CollisionPolygon2D").polygon = polygon
+	new_killbox.add_to_group("room_boundary")
+	add_child(new_killbox)
+	return new_killbox
+
+
 func enable_bounds(state:bool):
 	for child in get_children():
 		if child.is_in_group("room_boundary")  && child is StaticBody2D:
@@ -108,16 +128,21 @@ func cutout_shapes():
 		for i in range(1,new_poly.size()):
 			add_boundary(new_poly[i])
 
-
-func _on_KillBox_body_entered(body):
-	pass#	if body.is_in_group("player") && !Globals.get_player().current_area.is_transitioning:
-##		get_tree().paused = true
-#		print(body.global_position)
-#		print($KillBox.global_position)
-#		Globals.get_player().respawn()
-#		print(body)
-		
-func _on_KillBox_area_entered(area):
-	if area.is_in_group("player_area"):
-#		get_tree().paused = true
-		Globals.get_player().respawn()
+func cutout_killboxes():
+	for killbox in get_tree().get_nodes_in_group("room_killbox"):
+		var pos_dif = global_position - killbox.global_position
+		var transformed_cutout_shape = PoolVector2Array([Vector2(),Vector2(),Vector2(),Vector2()])
+		for i in range(0,4):
+				transformed_cutout_shape[i] = cutout_shape[i] + pos_dif
+		var new_killbox_shape = Geometry.clip_polygons_2d(killbox.get_child(0).polygon, transformed_cutout_shape)
+		if new_killbox_shape.size() > 0:
+			killbox.get_child(0).polygon = new_killbox_shape[0]
+		if new_killbox_shape.size() > 1:
+			for i in range(1, new_killbox_shape.size()):
+				var new_killbox = Killbox.instance()
+				new_killbox.get_node("CollisionPolygon2D").polygon = new_killbox_shape[i]
+				new_killbox.add_to_group("room_boundary")
+				new_killbox.position -= pos_dif
+				add_child(new_killbox)
+		elif new_killbox_shape == []:
+			killbox.get_child(0).polygon = new_killbox_shape
