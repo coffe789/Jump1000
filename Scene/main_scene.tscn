@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://Scene/Levels/Area1.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scene/Levels/Area1/Area1.tscn" type="PackedScene" id=1]
 
 [node name="main_scene" type="Node2D"]
 
