@@ -70,8 +70,8 @@ gdscript/warnings/return_value_discarded=false
 
 [display]
 
-window/size/width=1280
-window/size/height=720
+window/size/width=1344
+window/size/height=756
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 

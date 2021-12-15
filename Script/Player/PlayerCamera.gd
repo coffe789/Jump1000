@@ -1,7 +1,7 @@
 extends Camera2D
 
 onready var Player = get_parent()
-const LOWER_OFFSCREEN_MARGIN = 4
+const LOWER_OFFSCREEN_MARGIN = 0#4
 
 
 func _ready():
@@ -14,3 +14,4 @@ func set_camera_limits(room_shape):
 	limit_top = room_shape.global_position.y - room_size.y / 2
 	limit_right = limit_left + room_size.x
 	limit_bottom = limit_top + room_size.y - LOWER_OFFSCREEN_MARGIN
+	print(limit_right)
