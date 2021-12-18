@@ -5,14 +5,15 @@
 [node name="main_scene" type="Node2D"]
 
 [node name="ViewportContainer" type="ViewportContainer" parent="."]
-margin_bottom = 189.0
+margin_right = 384.0
+margin_bottom = 216.0
 rect_scale = Vector2( 4, 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Viewport" type="Viewport" parent="ViewportContainer"]
-size = Vector2( 336, 189 )
+size = Vector2( 384, 216 )
 handle_input_locally = false
 render_target_update_mode = 3
 

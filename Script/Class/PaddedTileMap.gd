@@ -80,5 +80,5 @@ func do_paddings():
 				set_cell(cell.x, cell.y, get_cellv(cell), 0,0,0, rand_center(cell.x,cell.y))
 
 func _ready():
-	do_paddings()
+	pass#do_paddings()
 

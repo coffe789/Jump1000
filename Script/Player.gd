@@ -170,13 +170,13 @@ func _on_CoyoteTimer_timeout():
 
 var crouch_body_count = 0
 func _on_UncrouchCheck_body_entered(body):
-	if body is StaticBody2D || body is RigidBody2D:
+	if body is StaticBody2D || body is RigidBody2D || body is TileMap:
 		can_unduck = false
 		crouch_body_count += 1
 
 
 func _on_UncrouchCheck_body_exited(body):
-	if body is StaticBody2D || body is RigidBody2D:
+	if body is StaticBody2D || body is RigidBody2D || body is TileMap:
 		crouch_body_count -= 1
 		if crouch_body_count == 0:
 			can_unduck = true
