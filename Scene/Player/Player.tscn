@@ -408,11 +408,12 @@ anims/jumping = SubResource( 7 )
 anims/running = SubResource( 8 )
 
 [node name="Sprite" type="Sprite" parent="."]
+light_mask = 2
 position = Vector2( 0, -8 )
 texture = ExtResource( 1 )
 hframes = 10
 vframes = 7
-frame = 30
+frame = 60
 
 [node name="StateMachine" type="Node" parent="."]
 
