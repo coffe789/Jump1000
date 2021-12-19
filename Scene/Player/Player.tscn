@@ -413,7 +413,7 @@ position = Vector2( 0, -8 )
 texture = ExtResource( 1 )
 hframes = 10
 vframes = 7
-frame = 60
+frame = 30
 
 [node name="StateMachine" type="Node" parent="."]
 
@@ -534,6 +534,7 @@ anims/invincible = SubResource( 13 )
 anims/reset = SubResource( 14 )
 
 [node name="Cape" type="Node2D" parent="."]
+light_mask = 0
 position = Vector2( 0, -13 )
 
 [node name="CapeL" type="Position2D" parent="Cape"]
@@ -572,6 +573,7 @@ __meta__ = {
 }
 
 [node name="VerletArea" parent="." instance=ExtResource( 22 )]
+light_mask = 0
 
 [connection signal="area_entered" from="CollisionChecks/FullBodyArea" to="." method="_on_BodyArea_area_entered"]
 [connection signal="body_entered" from="CollisionChecks/FullBodyArea" to="." method="_on_UncrouchCheck_body_entered"]

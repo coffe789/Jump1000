@@ -3,5 +3,6 @@
 [ext_resource path="res://Script/Verlet/Link.gd" type="Script" id=1]
 
 [node name="Link" type="Node2D"]
+light_mask = 0
 z_index = -1
 script = ExtResource( 1 )

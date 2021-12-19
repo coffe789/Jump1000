@@ -6,6 +6,7 @@
 extents = Vector2( 0.4465, 0.482207 )
 
 [node name="PointMass" type="Node2D"]
+light_mask = 0
 z_index = -1
 script = ExtResource( 1 )
 
