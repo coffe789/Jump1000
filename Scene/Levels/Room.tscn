@@ -7,7 +7,7 @@
 
 [sub_resource type="RectangleShape2D" id=1]
 resource_local_to_scene = true
-extents = Vector2( 192, 108 )
+extents = Vector2( 576, 108 )
 
 [node name="Room" type="Area2D"]
 collision_layer = 16
