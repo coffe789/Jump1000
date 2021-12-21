@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Resource/Tileset/Area2/Tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Scene/Levels/Room.tscn" type="PackedScene" id=2]
@@ -15,7 +15,18 @@
 [ext_resource path="res://Script/RoomStuff/bgMasterTileMap.gd" type="Script" id=13]
 [ext_resource path="res://Resource/Tileset/Area2/bgTileset.tres" type="TileSet" id=14]
 [ext_resource path="res://Art/Styleground/Testing/mist.png" type="Texture" id=15]
+[ext_resource path="res://Art/Styleground/Testing/forest/goshray_a.png" type="Texture" id=16]
 [ext_resource path="res://Art/Styleground/Testing/forest/sky.png" type="Texture" id=17]
+[ext_resource path="res://Art/Styleground/Testing/forest/goshray_b.png" type="Texture" id=18]
+[ext_resource path="res://Art/Styleground/Testing/forest/gosh_ray_c.png" type="Texture" id=19]
+[ext_resource path="res://Art/Decals/Forest/geo_grass.png" type="Texture" id=20]
+[ext_resource path="res://Art/Decals/Forest/geo_grass_b.png" type="Texture" id=21]
+[ext_resource path="res://Art/Decals/Forest/fruit_plant_a.png" type="Texture" id=22]
+[ext_resource path="res://Art/Decals/Forest/fruit_plant_b.png" type="Texture" id=23]
+[ext_resource path="res://Art/Decals/Forest/fruit_plant_c.png" type="Texture" id=24]
+[ext_resource path="res://Art/Decals/Forest/geo_grass_c.png" type="Texture" id=25]
+[ext_resource path="res://Art/Decals/Forest/shroom_a.png" type="Texture" id=26]
+[ext_resource path="res://Art/Decals/Forest/shroom_b.png" type="Texture" id=27]
 
 [sub_resource type="RectangleShape2D" id=97]
 resource_local_to_scene = true
@@ -45,8 +56,45 @@ tile_set = ExtResource( 14 )
 cell_size = Vector2( 12, 12 )
 cell_custom_transform = Transform2D( 12, 0, 0, 12, 0, 0 )
 format = 1
-tile_data = PoolIntArray( 393210, 0, 262149, 393211, 0, 327689, 393212, 0, 327690, 458746, 0, 393221, 458747, 0, 196609, 458748, 0, 720897, 458749, 0, 524291, 524279, 0, 458753, 524280, 0, 458754, 524281, 0, 393218, 524282, 0, 720898, 524283, 0, 655370 )
+tile_data = PoolIntArray( 393210, 0, 262149, 393211, 0, 327689, 393212, 0, 327690, 458746, 0, 393221, 458747, 0, 196609, 458748, 0, 720897, 458749, 0, 524291, 524279, 0, 458753, 524280, 0, 458754, 524281, 0, 393218, 524282, 0, 720898, 524283, 0, 655370, 458783, 0, 327684, 458784, 0, 327686, 458785, 0, 327686, 458786, 0, 327686, 458787, 0, 327687, 458788, 0, 327690, 524319, 0, 720901, 524320, 0, 655368, 524321, 0, 655367, 524322, 0, 655368, 524323, 0, 655366, 524324, 0, 655371 )
 script = ExtResource( 12 )
+
+[node name="geo_grass" type="Sprite" parent="Room"]
+position = Vector2( -96, 60 )
+texture = ExtResource( 20 )
+
+[node name="geo_grass2" type="Sprite" parent="Room"]
+position = Vector2( -127, 54 )
+texture = ExtResource( 21 )
+
+[node name="geo_grass3" type="Sprite" parent="Room"]
+position = Vector2( 176, 60 )
+texture = ExtResource( 25 )
+
+[node name="shroom" type="Sprite" parent="Room"]
+position = Vector2( -168, 60 )
+texture = ExtResource( 26 )
+centered = false
+
+[node name="shroom2" type="Sprite" parent="Room"]
+position = Vector2( -156, 60 )
+texture = ExtResource( 27 )
+centered = false
+
+[node name="fruit_plant" type="Sprite" parent="Room"]
+position = Vector2( 24, 12 )
+texture = ExtResource( 22 )
+centered = false
+
+[node name="fruit_plant2" type="Sprite" parent="Room"]
+position = Vector2( 120, 24 )
+texture = ExtResource( 23 )
+centered = false
+
+[node name="fruit_plant3" type="Sprite" parent="Room"]
+position = Vector2( 96, 12 )
+texture = ExtResource( 24 )
+centered = false
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
 light_mask = 0
@@ -86,6 +134,8 @@ script = ExtResource( 13 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 layer = -1
+offset = Vector2( -192, 0 )
+transform = Transform2D( 1, 0, 0, 1, -192, 0 )
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2( 0.1, 0 )
@@ -97,9 +147,20 @@ light_mask = 0
 texture = ExtResource( 17 )
 centered = false
 
+[node name="goshray_b" type="ParallaxLayer" parent="ParallaxBackground"]
+z_index = 2
+motion_scale = Vector2( 0.15, 0 )
+motion_offset = Vector2( 288, -108 )
+motion_mirroring = Vector2( 576, 216 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/goshray_b"]
+light_mask = 0
+texture = ExtResource( 18 )
+centered = false
+
 [node name="fg00" type="ParallaxLayer" parent="ParallaxBackground"]
 z_index = 2
-motion_scale = Vector2( 0.22, 0 )
+motion_scale = Vector2( 0.2, 0 )
 motion_offset = Vector2( 288, -108 )
 motion_mirroring = Vector2( 576, 216 )
 
@@ -108,15 +169,37 @@ light_mask = 0
 texture = ExtResource( 9 )
 centered = false
 
+[node name="goshray_a" type="ParallaxLayer" parent="ParallaxBackground"]
+z_index = 2
+motion_scale = Vector2( 0.22, 0 )
+motion_offset = Vector2( 288, -108 )
+motion_mirroring = Vector2( 576, 216 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/goshray_a"]
+light_mask = 0
+texture = ExtResource( 16 )
+centered = false
+
 [node name="fg02" type="ParallaxLayer" parent="ParallaxBackground"]
 z_index = 2
-motion_scale = Vector2( 0.2, 0 )
+motion_scale = Vector2( 0.24, 0 )
 motion_offset = Vector2( 288, -108 )
 motion_mirroring = Vector2( 576, 216 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/fg02"]
 light_mask = 0
 texture = ExtResource( 10 )
+centered = false
+
+[node name="gosh_ray_c" type="ParallaxLayer" parent="ParallaxBackground"]
+z_index = 2
+motion_scale = Vector2( 0.26, 0 )
+motion_offset = Vector2( 288, -108 )
+motion_mirroring = Vector2( 576, 216 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/gosh_ray_c"]
+light_mask = 0
+texture = ExtResource( 19 )
 centered = false
 
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
