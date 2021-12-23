@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://Resource/Tileset/Area2/Tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Scene/Levels/Room.tscn" type="PackedScene" id=2]
@@ -36,6 +36,11 @@ extents = Vector2( 192, 108 )
 resource_local_to_scene = true
 extents = Vector2( 576, 108 )
 
+[sub_resource type="Environment" id=99]
+background_mode = 4
+glow_blend_mode = 1
+glow_hdr_threshold = 1.5
+
 [node name="Area2" type="Node2D"]
 script = ExtResource( 4 )
 
@@ -65,24 +70,25 @@ tile_data = PoolIntArray( 393210, 0, 262149, 393211, 0, 327689, 393212, 0, 32769
 script = ExtResource( 12 )
 
 [node name="geo_grass" type="Sprite" parent="Room"]
-position = Vector2( -96, 60 )
+position = Vector2( 216, 60 )
 texture = ExtResource( 20 )
 
 [node name="geo_grass2" type="Sprite" parent="Room"]
-position = Vector2( -127, 54 )
+position = Vector2( 540, 48 )
 texture = ExtResource( 21 )
+centered = false
 
 [node name="geo_grass3" type="Sprite" parent="Room"]
 position = Vector2( 176, 60 )
 texture = ExtResource( 25 )
 
 [node name="shroom" type="Sprite" parent="Room"]
-position = Vector2( -168, 60 )
+position = Vector2( 384, 0 )
 texture = ExtResource( 26 )
 centered = false
 
 [node name="shroom2" type="Sprite" parent="Room"]
-position = Vector2( -156, 60 )
+position = Vector2( 420, 0 )
 texture = ExtResource( 27 )
 centered = false
 
@@ -92,12 +98,12 @@ texture = ExtResource( 22 )
 centered = false
 
 [node name="fruit_plant2" type="Sprite" parent="Room"]
-position = Vector2( 120, 24 )
+position = Vector2( 228, 24 )
 texture = ExtResource( 23 )
 centered = false
 
 [node name="fruit_plant3" type="Sprite" parent="Room"]
-position = Vector2( 96, 12 )
+position = Vector2( 516, 24 )
 texture = ExtResource( 24 )
 centered = false
 
@@ -108,6 +114,7 @@ position = Vector2( 288, 60 )
 [node name="Light2D" type="Light2D" parent="Player"]
 texture = ExtResource( 11 )
 texture_scale = 3.21
+energy = 0.65
 range_layer_min = -1
 shadow_enabled = true
 
@@ -245,6 +252,9 @@ visible = false
 modulate = Color( 0.27451, 0.27451, 0.27451, 1 )
 texture = ExtResource( 15 )
 centered = false
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 99 )
 
 [editable path="Room"]
 [editable path="Room2"]
