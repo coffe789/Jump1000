@@ -54,7 +54,7 @@ func check_for_new_state() -> String:
 		return Player.PS_LEDGECLINGING
 	if can_wall_jump():
 		if (Input.is_action_just_pressed("jump") or Player.isJumpBuffered):
-			get_parent().get_node("walljumping").enter([])
+			get_parent().get_node("walljumping").enter([]) # If it ain't broke
 			return Player.PS_WALLJUMPING
 #		elif get_input_direction() == Player.wall_direction && Timers.get_node("PostClingJumpTimer").time_left == 0:
 #			return Player.PS_WALLSLIDING
