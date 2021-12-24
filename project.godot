@@ -189,6 +189,6 @@ common/enable_pause_aware_picking=true
 [rendering]
 
 2d/snapping/use_gpu_pixel_snap=true
-environment/default_clear_color=Color( 0.886275, 0.67451, 0.415686, 1 )
+environment/default_clear_color=Color( 0.384314, 0.643137, 0.796078, 1 )
 environment/default_environment="res://default_env.tres"
 quality/dynamic_fonts/use_oversampling=false
