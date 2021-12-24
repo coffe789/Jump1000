@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/geo_grass.png-4d228314b73fa493e96c3b82c934bed0.stex"
+path="res://.import/00-geo_grass_c.png-b826a3994744b313de058be56b468b7a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Decals/Forest/geo_grass.png"
-dest_files=[ "res://.import/geo_grass.png-4d228314b73fa493e96c3b82c934bed0.stex" ]
+source_file="res://Art/Decals/Forest/00-geo_grass_c.png"
+dest_files=[ "res://.import/00-geo_grass_c.png-b826a3994744b313de058be56b468b7a.stex" ]
 
 [params]
 

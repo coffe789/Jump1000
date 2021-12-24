@@ -1,32 +1,23 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=17 format=2]
 
-[ext_resource path="res://Resource/Tileset/Area2/Tileset.tres" type="TileSet" id=1]
+[ext_resource path="res://Scene/Levels/LevelArea.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scene/Levels/Room.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scene/Player/Player.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Script/Class/LevelArea.gd" type="Script" id=4]
 [ext_resource path="res://Scene/Entities/Room/SpawnPoint.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Script/RoomStuff/MasterTileMap.gd" type="Script" id=6]
-[ext_resource path="res://Script/RoomStuff/PaddedTileMap12x.gd" type="Script" id=7]
 [ext_resource path="res://Art/Styleground/Testing/vignette.png" type="Texture" id=8]
 [ext_resource path="res://Art/Styleground/Testing/forest/fg00.png" type="Texture" id=9]
 [ext_resource path="res://Art/Styleground/Testing/forest/fg02.png" type="Texture" id=10]
 [ext_resource path="res://Art/FX/krlight.png" type="Texture" id=11]
-[ext_resource path="res://Script/Class/PaddedTileMap.gd" type="Script" id=12]
-[ext_resource path="res://Script/RoomStuff/bgMasterTileMap.gd" type="Script" id=13]
-[ext_resource path="res://Resource/Tileset/Area2/bgTileset.tres" type="TileSet" id=14]
 [ext_resource path="res://Art/Styleground/Testing/mist.png" type="Texture" id=15]
 [ext_resource path="res://Art/Styleground/Testing/forest/goshray_a.png" type="Texture" id=16]
 [ext_resource path="res://Art/Styleground/Testing/forest/sky.png" type="Texture" id=17]
 [ext_resource path="res://Art/Styleground/Testing/forest/goshray_b.png" type="Texture" id=18]
 [ext_resource path="res://Art/Styleground/Testing/forest/gosh_ray_c.png" type="Texture" id=19]
-[ext_resource path="res://Art/Decals/Forest/geo_grass.png" type="Texture" id=20]
-[ext_resource path="res://Art/Decals/Forest/geo_grass_b.png" type="Texture" id=21]
-[ext_resource path="res://Art/Decals/Forest/fruit_plant_a.png" type="Texture" id=22]
-[ext_resource path="res://Art/Decals/Forest/fruit_plant_b.png" type="Texture" id=23]
-[ext_resource path="res://Art/Decals/Forest/fruit_plant_c.png" type="Texture" id=24]
-[ext_resource path="res://Art/Decals/Forest/geo_grass_c.png" type="Texture" id=25]
-[ext_resource path="res://Art/Decals/Forest/shroom_a.png" type="Texture" id=26]
-[ext_resource path="res://Art/Decals/Forest/shroom_b.png" type="Texture" id=27]
+
+[sub_resource type="Environment" id=99]
+background_mode = 4
+glow_blend_mode = 1
+glow_hdr_threshold = 1.5
 
 [sub_resource type="RectangleShape2D" id=97]
 resource_local_to_scene = true
@@ -34,229 +25,148 @@ extents = Vector2( 192, 108 )
 
 [sub_resource type="RectangleShape2D" id=98]
 resource_local_to_scene = true
-extents = Vector2( 576, 108 )
+extents = Vector2( 384, 108 )
 
-[sub_resource type="Environment" id=99]
-background_mode = 4
-glow_blend_mode = 1
-glow_hdr_threshold = 1.5
+[node name="Buffer" type="Node2D"]
 
-[node name="Area2" type="Node2D"]
-script = ExtResource( 4 )
+[node name="RealLevelArea" parent="." instance=ExtResource( 1 )]
 
-[node name="Room" parent="." instance=ExtResource( 2 )]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="RealLevelArea"]
+environment = SubResource( 99 )
 
-[node name="CollisionShape2D" parent="Room" index="0"]
-shape = SubResource( 97 )
-
-[node name="SpawnPoint" parent="Room" instance=ExtResource( 5 )]
-position = Vector2( -72, 84 )
-
-[node name="PaddedTileMap" type="TileMap" parent="Room" groups=["join_tile"]]
-tile_set = ExtResource( 1 )
-cell_size = Vector2( 12, 12 )
-cell_quadrant_size = 1
-format = 1
-tile_data = PoolIntArray( -65554, 1, 327685, -65553, 1, 327686, -65552, 1, 262155, -18, 1, 589829, -17, 1, 0, -16, 1, 524298, 65518, 1, 589829, 65519, 1, 0, 65520, 1, 393226, 131054, 1, 458757, 131055, 1, 0, 131056, 1, 262145, 131057, 1, 327691, 196590, 1, 458757, 196591, 1, 0, 196592, 1, 0, 196593, 1, 589834, 262126, 1, 589829, 262127, 1, 0, 262128, 1, 0, 262129, 1, 589834, 327662, 1, 393221, 327663, 1, 0, 327664, 1, 0, 327665, 1, 524298, 262151, 1, 65543, 393198, 1, 589829, 393199, 1, 0, 393200, 1, 0, 393201, 1, 589834, 327686, 1, 262148, 327687, 1, 131083, 458734, 1, 458757, 458735, 1, 0, 458736, 1, 0, 458737, 1, 262145, 458738, 1, 327689, 458739, 1, 327687, 458740, 1, 327688, 458741, 1, 262154, 393218, 1, 327684, 393219, 1, 327689, 393220, 1, 327689, 393221, 1, 327686, 393222, 1, 262146, 393223, 1, 262145, 393224, 1, 327689, 393225, 1, 327691, 524270, 1, 589829, 524271, 1, 0, 524272, 1, 0, 524273, 1, 0, 524274, 1, 0, 524275, 1, 0, 524276, 1, 0, 524277, 1, 262145, 524278, 1, 327689, 524279, 1, 327688, 524280, 1, 327687, 524281, 1, 327688, 524282, 1, 327689, 524283, 1, 327687, 524284, 1, 327688, 524285, 1, 327687, 524286, 1, 327687, 524287, 1, 327686, 458752, 1, 327687, 458753, 1, 327689, 458754, 1, 262146, 458755, 1, 0, 458756, 1, 0, 458757, 1, 0, 458758, 1, 0, 458759, 1, 0, 458760, 1, 0, 458761, 1, 262145, 458762, 1, 327686, 458763, 1, 327686, 458764, 1, 327688, 458765, 1, 327687, 458766, 1, 327686, 458767, 1, 327690, 589806, 1, 589829, 589807, 1, 0, 589808, 1, 0, 589809, 1, 0, 589810, 1, 0, 589811, 1, 0, 589812, 1, 0, 589813, 1, 0, 589814, 1, 0, 589815, 1, 0, 589816, 1, 0, 589817, 1, 0, 589818, 1, 0, 589819, 1, 0, 589820, 1, 0, 589821, 1, 0, 589822, 1, 0, 589823, 1, 0, 524288, 1, 0, 524289, 1, 0, 524290, 1, 0, 524291, 1, 0, 524292, 1, 0, 524293, 1, 0, 524294, 1, 0, 524295, 1, 0, 524296, 1, 0, 524297, 1, 0, 524298, 1, 0, 524299, 1, 0, 524300, 1, 0, 524301, 1, 0, 524302, 1, 0, 524303, 1, 524298, 655342, 1, 655365, 655343, 1, 655368, 655344, 1, 655367, 655345, 1, 655369, 655346, 1, 655366, 655347, 1, 655369, 655348, 1, 655368, 655349, 1, 655368, 655350, 1, 655366, 655351, 1, 655368, 655352, 1, 655366, 655353, 1, 655367, 655354, 1, 655366, 655355, 1, 655366, 655356, 1, 655368, 655357, 1, 655369, 655358, 1, 655366, 655359, 1, 655367, 589824, 1, 655367, 589825, 1, 655368, 589826, 1, 655369, 589827, 1, 655368, 589828, 1, 655366, 589829, 1, 655369, 589830, 1, 655367, 589831, 1, 655367, 589832, 1, 655369, 589833, 1, 655368, 589834, 1, 655367, 589835, 1, 655366, 589836, 1, 655368, 589837, 1, 655368, 589838, 1, 655367, 589839, 1, 720906 )
-script = ExtResource( 7 )
-
-[node name="BgPaddedTileMap" type="TileMap" parent="Room" groups=["bg_join_tile"]]
-z_index = -2
-tile_set = ExtResource( 14 )
-cell_size = Vector2( 12, 12 )
-cell_custom_transform = Transform2D( 12, 0, 0, 12, 0, 0 )
-format = 1
-tile_data = PoolIntArray( 393210, 0, 262149, 393211, 0, 327689, 393212, 0, 327690, 458746, 0, 393221, 458747, 0, 196609, 458748, 0, 720897, 458749, 0, 524291, 524279, 0, 458753, 524280, 0, 458754, 524281, 0, 393218, 524282, 0, 720898, 524283, 0, 655370, 458783, 0, 327684, 458784, 0, 327686, 458785, 0, 327686, 458786, 0, 327686, 458787, 0, 327687, 458788, 0, 327690, 524319, 0, 720901, 524320, 0, 655368, 524321, 0, 655367, 524322, 0, 655368, 524323, 0, 655366, 524324, 0, 655371 )
-script = ExtResource( 12 )
-
-[node name="geo_grass" type="Sprite" parent="Room"]
-position = Vector2( 216, 60 )
-texture = ExtResource( 20 )
-
-[node name="geo_grass2" type="Sprite" parent="Room"]
-position = Vector2( 540, 48 )
-texture = ExtResource( 21 )
-centered = false
-
-[node name="geo_grass3" type="Sprite" parent="Room"]
-position = Vector2( 176, 60 )
-texture = ExtResource( 25 )
-
-[node name="shroom" type="Sprite" parent="Room"]
-position = Vector2( 384, 0 )
-texture = ExtResource( 26 )
-centered = false
-
-[node name="shroom2" type="Sprite" parent="Room"]
-position = Vector2( 420, 0 )
-texture = ExtResource( 27 )
-centered = false
-
-[node name="fruit_plant" type="Sprite" parent="Room"]
-position = Vector2( 24, 12 )
-texture = ExtResource( 22 )
-centered = false
-
-[node name="fruit_plant2" type="Sprite" parent="Room"]
-position = Vector2( 228, 24 )
-texture = ExtResource( 23 )
-centered = false
-
-[node name="fruit_plant3" type="Sprite" parent="Room"]
-position = Vector2( 516, 24 )
-texture = ExtResource( 24 )
-centered = false
-
-[node name="Player" parent="." instance=ExtResource( 3 )]
-light_mask = 0
-position = Vector2( 288, 60 )
-
-[node name="Light2D" type="Light2D" parent="Player"]
-texture = ExtResource( 11 )
-texture_scale = 3.21
-energy = 0.65
-range_layer_min = -1
-shadow_enabled = true
-
-[node name="Room2" parent="." instance=ExtResource( 2 )]
-position = Vector2( 768, 0 )
-
-[node name="CollisionShape2D" parent="Room2" index="0"]
-position = Vector2( 9, 0 )
-shape = SubResource( 98 )
-
-[node name="PaddedTileMap" type="TileMap" parent="Room2" groups=["join_tile"]]
-tile_set = ExtResource( 1 )
-cell_size = Vector2( 12, 12 )
-format = 1
-tile_data = PoolIntArray( -262131, 1, 327685, -262130, 1, 327689, -262129, 1, 327687, -262128, 1, 262154, -131084, 3, 262149, -131083, 3, 327687, -131082, 3, 327687, -131081, 3, 327691, -196598, 1, 327685, -196597, 1, 327686, -196596, 1, 327687, -196595, 1, 262146, -196594, 1, 0, -196593, 1, 0, -196592, 1, 524298, -65548, 3, 589829, -65547, 3, 0, -65546, 3, 0, -65545, 3, 589834, -131062, 1, 458757, -131061, 1, 0, -131060, 1, 0, -131059, 1, 0, -131058, 1, 0, -131057, 1, 0, -131056, 1, 524298, -12, 3, 458757, -11, 3, 0, -10, 3, 0, -9, 3, 458762, -65526, 1, 458757, -65525, 1, 0, -65524, 1, 0, -65523, 1, 0, -65522, 1, 0, -65521, 1, 0, -65520, 1, 524298, 65520, 1, 262148, 65521, 1, 262155, 65524, 3, 524293, 65525, 3, 0, 65526, 3, 0, 65527, 3, 524298, 10, 1, 524293, 11, 1, 0, 12, 1, 0, 13, 1, 0, 14, 1, 0, 15, 1, 0, 16, 1, 393226, 131056, 1, 393221, 131057, 1, 458762, 131060, 3, 393221, 131061, 3, 0, 131062, 3, 0, 131063, 3, 589834, 131065, 1, 65542, 65545, 1, 327684, 65546, 1, 262146, 65547, 1, 0, 65548, 1, 0, 65549, 1, 0, 65550, 1, 0, 65551, 1, 0, 65552, 1, 262145, 65553, 1, 262155, 196592, 1, 720901, 196593, 1, 655371, 196596, 3, 458757, 196597, 3, 0, 196598, 3, 0, 196599, 3, 458762, 196601, 1, 131079, 131081, 1, 458757, 131082, 1, 0, 131083, 1, 0, 131084, 1, 0, 131085, 1, 0, 131086, 1, 0, 131087, 1, 0, 131088, 1, 0, 131089, 1, 589834, 262128, 2, 393221, 262129, 2, 524298, 262132, 3, 393221, 262133, 3, 0, 262134, 3, 0, 262135, 3, 458762, 262137, 1, 131081, 196617, 1, 393221, 196618, 1, 0, 196619, 1, 0, 196620, 1, 0, 196621, 1, 0, 196622, 1, 0, 196623, 1, 0, 196624, 1, 0, 196625, 1, 393226, 196666, 1, 65544, 327664, 2, 458757, 327665, 2, 458762, 327668, 1, 262148, 327669, 1, 327688, 327670, 1, 327688, 327671, 1, 262155, 327673, 1, 131078, 262153, 1, 524293, 262154, 1, 0, 262155, 1, 0, 262156, 1, 0, 262157, 1, 0, 262158, 1, 0, 262159, 1, 0, 262160, 1, 0, 262161, 1, 393226, 262202, 1, 131081, 393174, 1, 262148, 393175, 1, 327688, 393176, 1, 327691, 393191, 1, 327685, 393192, 1, 327690, 393200, 2, 524293, 393201, 2, 458762, 393204, 1, 393221, 393205, 1, 0, 393206, 1, 0, 393207, 1, 458762, 393209, 1, 131080, 327689, 1, 589829, 327690, 1, 0, 327691, 1, 0, 327692, 1, 0, 327693, 1, 0, 327694, 1, 0, 327695, 1, 0, 327696, 1, 0, 327697, 1, 262145, 327698, 1, 327690, 327702, 1, 262149, 327703, 1, 327687, 327704, 1, 327689, 327705, 1, 327690, 327738, 1, 131079, 458710, 1, 458757, 458711, 1, 0, 458712, 1, 262145, 458713, 1, 327690, 458727, 1, 524293, 458728, 1, 589834, 458736, 2, 524293, 458737, 2, 393226, 458739, 1, 262149, 458740, 1, 262146, 458741, 1, 0, 458742, 1, 0, 458743, 1, 458762, 458745, 1, 131082, 458746, 1, 262154, 393221, 1, 327684, 393222, 1, 327691, 393225, 1, 393221, 393226, 1, 0, 393227, 1, 0, 393228, 1, 0, 393229, 1, 0, 393230, 1, 0, 393231, 1, 0, 393232, 1, 0, 393233, 1, 0, 393234, 1, 524298, 393238, 1, 458757, 393239, 1, 0, 393240, 1, 0, 393241, 1, 393226, 393248, 1, 327684, 393249, 1, 327690, 393258, 1, 327684, 393259, 1, 327691, 393269, 1, 327685, 393270, 1, 262154, 393274, 1, 131081, 524240, 1, 262148, 524241, 1, 327686, 524242, 1, 327688, 524243, 1, 327689, 524244, 1, 327686, 524245, 1, 327688, 524246, 1, 262146, 524247, 1, 0, 524248, 1, 0, 524249, 1, 262145, 524250, 1, 327689, 524251, 1, 327688, 524252, 1, 327687, 524253, 1, 327686, 524254, 1, 327689, 524255, 1, 327686, 524256, 1, 327688, 524257, 1, 327687, 524258, 1, 327687, 524259, 1, 327688, 524260, 1, 327687, 524261, 1, 327686, 524262, 1, 327688, 524263, 1, 262146, 524264, 1, 262145, 524265, 1, 327688, 524266, 1, 327688, 524267, 1, 327687, 524268, 1, 327689, 524269, 1, 327689, 524270, 1, 327686, 524271, 1, 327689, 524272, 1, 327686, 524273, 1, 327689, 524274, 1, 327689, 524275, 1, 262146, 524276, 1, 0, 524277, 1, 0, 524278, 1, 0, 524279, 1, 262145, 524280, 1, 327689, 524281, 1, 262146, 524282, 1, 262145, 524283, 1, 327687, 524284, 1, 327688, 524285, 1, 327686, 524286, 1, 327686, 524287, 1, 327688, 458752, 1, 327688, 458753, 1, 327691, 458757, 1, 589829, 458758, 1, 262145, 458759, 1, 327689, 458760, 1, 327686, 458761, 1, 262146, 458762, 1, 0, 458763, 1, 0, 458764, 1, 0, 458765, 1, 0, 458766, 1, 0, 458767, 1, 0, 458768, 1, 0, 458769, 1, 0, 458770, 1, 589834, 458774, 1, 393221, 458775, 1, 0, 458776, 1, 0, 458777, 1, 393226, 458784, 1, 393221, 458785, 1, 458762, 458794, 1, 589829, 458795, 1, 524298, 458805, 1, 589829, 458806, 1, 393226, 458810, 1, 131078, 589776, 1, 458757, 589777, 1, 0, 589778, 1, 0, 589779, 1, 0, 589780, 1, 0, 589781, 1, 0, 589782, 1, 0, 589783, 1, 0, 589784, 1, 0, 589785, 1, 0, 589786, 1, 0, 589787, 1, 0, 589788, 1, 0, 589789, 1, 0, 589790, 1, 0, 589791, 1, 0, 589792, 1, 0, 589793, 1, 0, 589794, 1, 0, 589795, 1, 0, 589796, 1, 0, 589797, 1, 0, 589798, 1, 0, 589799, 1, 0, 589800, 1, 0, 589801, 1, 0, 589802, 1, 0, 589803, 1, 0, 589804, 1, 0, 589805, 1, 0, 589806, 1, 0, 589807, 1, 0, 589808, 1, 0, 589809, 1, 0, 589810, 1, 0, 589811, 1, 0, 589812, 1, 0, 589813, 1, 0, 589814, 1, 0, 589815, 1, 0, 589816, 1, 0, 589817, 1, 0, 589818, 1, 0, 589819, 1, 0, 589820, 1, 0, 589821, 1, 0, 589822, 1, 0, 589823, 1, 0, 524288, 1, 0, 524289, 1, 262145, 524290, 1, 327687, 524291, 1, 327688, 524292, 1, 327689, 524293, 1, 262146, 524294, 1, 0, 524295, 1, 0, 524296, 1, 0, 524297, 1, 0, 524298, 1, 0, 524299, 1, 0, 524300, 1, 0, 524301, 1, 0, 524302, 1, 0, 524303, 1, 0, 524304, 1, 0, 524305, 1, 0, 524306, 1, 262145, 524307, 1, 327688, 524308, 1, 327687, 524309, 1, 327688, 524310, 1, 262146, 524311, 1, 0, 524312, 1, 0, 524313, 1, 262145, 524314, 1, 327687, 524315, 1, 327688, 524316, 1, 327689, 524317, 1, 327688, 524318, 1, 327687, 524319, 1, 327687, 524320, 1, 262146, 524321, 1, 262145, 524322, 1, 327687, 524323, 1, 327688, 524324, 1, 327688, 524325, 1, 327687, 524326, 1, 327688, 524327, 1, 327687, 524328, 1, 327688, 524329, 1, 327686, 524330, 1, 262146, 524331, 1, 262145, 524332, 1, 327688, 524333, 1, 327687, 524334, 1, 327689, 524335, 1, 327688, 524336, 1, 327689, 524337, 1, 327687, 524338, 1, 327687, 524339, 1, 327686, 524340, 1, 327686, 524341, 1, 262146, 524342, 1, 262145, 524343, 1, 327688, 524344, 1, 327688, 524345, 1, 327687, 524346, 1, 131083, 655312, 1, 720901, 655313, 1, 655368, 655314, 1, 655369, 655315, 1, 655367, 655316, 1, 655368, 655317, 1, 655369, 655318, 1, 655368, 655319, 1, 655368, 655320, 1, 655368, 655321, 1, 655366, 655322, 1, 655368, 655323, 1, 655366, 655324, 1, 655369, 655325, 1, 655368, 655326, 1, 655367, 655327, 1, 655368, 655328, 1, 655368, 655329, 1, 655366, 655330, 1, 655367, 655331, 1, 655368, 655332, 1, 655369, 655333, 1, 655367, 655334, 1, 655367, 655335, 1, 655368, 655336, 1, 655366, 655337, 1, 655366, 655338, 1, 655368, 655339, 1, 655366, 655340, 1, 655367, 655341, 1, 655369, 655342, 1, 655367, 655343, 1, 655369, 655344, 1, 655367, 655345, 1, 655369, 655346, 1, 655368, 655347, 1, 655369, 655348, 1, 655367, 655349, 1, 655367, 655350, 1, 655366, 655351, 1, 655368, 655352, 1, 655366, 655353, 1, 655367, 655354, 1, 655366, 655355, 1, 655369, 655356, 1, 655366, 655357, 1, 655366, 655358, 1, 655369, 655359, 1, 655368, 589824, 1, 655369, 589825, 1, 655368, 589826, 1, 655367, 589827, 1, 655368, 589828, 1, 655368, 589829, 1, 655367, 589830, 1, 655366, 589831, 1, 655366, 589832, 1, 655369, 589833, 1, 655366, 589834, 1, 655369, 589835, 1, 655366, 589836, 1, 655367, 589837, 1, 655369, 589838, 1, 655367, 589839, 1, 655367, 589840, 1, 655369, 589841, 1, 655367, 589842, 1, 655367, 589843, 1, 655369, 589844, 1, 655367, 589845, 1, 655368, 589846, 1, 655368, 589847, 1, 655366, 589848, 1, 655367, 589849, 1, 655367, 589850, 1, 655368, 589851, 1, 655366, 589852, 1, 655367, 589853, 1, 655366, 589854, 1, 655366, 589855, 1, 655369, 589856, 1, 655367, 589857, 1, 655366, 589858, 1, 655368, 589859, 1, 655366, 589860, 1, 655367, 589861, 1, 655366, 589862, 1, 655366, 589863, 1, 655368, 589864, 1, 655369, 589865, 1, 655367, 589866, 1, 655368, 589867, 1, 655366, 589868, 1, 655369, 589869, 1, 655368, 589870, 1, 655367, 589871, 1, 655369, 589872, 1, 655366, 589873, 1, 655369, 589874, 1, 655369, 589875, 1, 655369, 589876, 1, 655367, 589877, 1, 655368, 589878, 1, 655367, 589879, 1, 655369, 589880, 1, 655366, 589881, 1, 655368, 589882, 1, 720906 )
-script = ExtResource( 7 )
-
-[node name="tree tiles" type="TileMap" parent="Room2"]
-z_index = 4
-tile_set = ExtResource( 1 )
-cell_size = Vector2( 12, 12 )
-format = 1
-tile_data = PoolIntArray( 131038, 3, 262148, 131039, 3, 327688, 131040, 3, 327689, 131041, 3, 327687, 131042, 3, 327689, 131043, 3, 327686, 131044, 3, 327687, 131045, 3, 327690, 196572, 3, 65543, 196574, 3, 458757, 196575, 3, 0, 196576, 3, 0, 196577, 3, 0, 196578, 3, 0, 196579, 3, 0, 196580, 3, 0, 196581, 3, 393226, 262108, 3, 720902, 262109, 3, 393218, 262110, 3, 458756, 262111, 3, 0, 262112, 3, 0, 262113, 3, 0, 262114, 3, 0, 262115, 3, 0, 262116, 3, 0, 262117, 3, 393226, 262119, 3, 65544, 327646, 3, 458757, 327647, 3, 0, 327648, 3, 0, 327649, 3, 0, 327650, 3, 0, 327651, 3, 0, 327652, 3, 0, 327653, 3, 458763, 327654, 3, 393218, 327655, 3, 720905, 393182, 3, 524293, 393183, 3, 0, 393184, 3, 0, 393185, 3, 0, 393186, 3, 0, 393187, 3, 0, 393188, 3, 0, 393189, 3, 589834, 458718, 3, 393221, 458719, 3, 0, 458720, 3, 0, 458721, 3, 0, 458722, 3, 0, 458723, 3, 0, 458724, 3, 0, 458725, 3, 393226, 524254, 3, 589829, 524255, 3, 0, 524256, 3, 0, 524257, 3, 0, 524258, 3, 0, 524259, 3, 0, 524260, 3, 0, 524261, 3, 589834, 589790, 3, 458757, 589791, 3, 0, 589792, 3, 0, 589793, 3, 0, 589794, 3, 0, 589795, 3, 0, 589796, 3, 0, 589797, 3, 589834, 655326, 3, 589829, 655327, 3, 0, 655328, 3, 0, 655329, 3, 0, 655330, 3, 0, 655331, 3, 0, 655332, 3, 0, 655333, 3, 524298, 720862, 3, 458757, 720863, 3, 0, 720864, 3, 0, 720865, 3, 0, 720866, 3, 0, 720867, 3, 0, 720868, 3, 0, 720869, 3, 524298, 786398, 3, 720900, 786399, 3, 655369, 786400, 3, 655367, 786401, 3, 655366, 786402, 3, 655369, 786403, 3, 655366, 786404, 3, 655366, 786405, 3, 720907 )
-script = ExtResource( 7 )
-is_self_padded = true
-
-[node name="geo_grass3" type="Sprite" parent="Room2"]
-position = Vector2( -252, 60 )
-texture = ExtResource( 25 )
-
-[node name="fruit_plant" type="Sprite" parent="Room2"]
-position = Vector2( -468, 24 )
-texture = ExtResource( 22 )
-centered = false
-
-[node name="MasterTileMap" type="TileMap" parent="."]
-z_index = 1
-tile_set = ExtResource( 1 )
-cell_size = Vector2( 12, 12 )
-cell_custom_transform = Transform2D( 12, 0, 0, 12, 0, 0 )
-format = 1
-script = ExtResource( 6 )
-
-[node name="bgMasterTileMap" type="TileMap" parent="."]
-z_index = -1
-tile_set = ExtResource( 14 )
-cell_size = Vector2( 12, 12 )
-cell_custom_transform = Transform2D( 12, 0, 0, 12, 0, 0 )
-format = 1
-script = ExtResource( 13 )
-
-[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+[node name="ParallaxBackground" type="ParallaxBackground" parent="RealLevelArea"]
 layer = -1
 offset = Vector2( -192, 0 )
 transform = Transform2D( 1, 0, 0, 1, -192, 0 )
 
-[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="ParallaxLayer" type="ParallaxLayer" parent="RealLevelArea/ParallaxBackground"]
 motion_scale = Vector2( 0.1, 0 )
 motion_offset = Vector2( 288, -108 )
 motion_mirroring = Vector2( 576, 216 )
 
-[node name="sky" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+[node name="sky" type="Sprite" parent="RealLevelArea/ParallaxBackground/ParallaxLayer"]
 light_mask = 0
 texture = ExtResource( 17 )
 centered = false
 
-[node name="goshray_b" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="goshray_b" type="ParallaxLayer" parent="RealLevelArea/ParallaxBackground"]
 z_index = 2
 motion_scale = Vector2( 0.15, 0 )
 motion_offset = Vector2( 288, -108 )
 motion_mirroring = Vector2( 576, 216 )
 
-[node name="Sprite" type="Sprite" parent="ParallaxBackground/goshray_b"]
+[node name="Sprite" type="Sprite" parent="RealLevelArea/ParallaxBackground/goshray_b"]
 light_mask = 0
 texture = ExtResource( 18 )
 centered = false
 
-[node name="fg00" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="fg00" type="ParallaxLayer" parent="RealLevelArea/ParallaxBackground"]
 z_index = 2
 motion_scale = Vector2( 0.2, 0 )
 motion_offset = Vector2( 288, -108 )
 motion_mirroring = Vector2( 576, 216 )
 
-[node name="Sprite" type="Sprite" parent="ParallaxBackground/fg00"]
+[node name="Sprite" type="Sprite" parent="RealLevelArea/ParallaxBackground/fg00"]
 light_mask = 0
 texture = ExtResource( 9 )
 centered = false
 
-[node name="goshray_a" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="goshray_a" type="ParallaxLayer" parent="RealLevelArea/ParallaxBackground"]
 z_index = 2
 motion_scale = Vector2( 0.22, 0 )
 motion_offset = Vector2( 288, -108 )
 motion_mirroring = Vector2( 576, 216 )
 
-[node name="Sprite" type="Sprite" parent="ParallaxBackground/goshray_a"]
+[node name="Sprite" type="Sprite" parent="RealLevelArea/ParallaxBackground/goshray_a"]
 light_mask = 0
 texture = ExtResource( 16 )
 centered = false
 
-[node name="fg02" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="fg02" type="ParallaxLayer" parent="RealLevelArea/ParallaxBackground"]
 z_index = 2
 motion_scale = Vector2( 0.24, 0 )
 motion_offset = Vector2( 288, -108 )
 motion_mirroring = Vector2( 576, 216 )
 
-[node name="Sprite" type="Sprite" parent="ParallaxBackground/fg02"]
+[node name="Sprite" type="Sprite" parent="RealLevelArea/ParallaxBackground/fg02"]
 light_mask = 0
 texture = ExtResource( 10 )
 centered = false
 
-[node name="gosh_ray_c" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="gosh_ray_c" type="ParallaxLayer" parent="RealLevelArea/ParallaxBackground"]
 z_index = 2
 motion_scale = Vector2( 0.26, 0 )
 motion_offset = Vector2( 288, -108 )
 motion_mirroring = Vector2( 576, 216 )
 
-[node name="Sprite" type="Sprite" parent="ParallaxBackground/gosh_ray_c"]
+[node name="Sprite" type="Sprite" parent="RealLevelArea/ParallaxBackground/gosh_ray_c"]
 light_mask = 0
 texture = ExtResource( 19 )
 centered = false
 
-[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="RealLevelArea/ParallaxBackground"]
 modulate = Color( 1, 1, 1, 0.635294 )
 z_index = 1
 motion_scale = Vector2( 0, 0 )
 motion_offset = Vector2( 192, 108 )
 motion_mirroring = Vector2( 640, 400 )
 
-[node name="sunset" type="Sprite" parent="ParallaxBackground/ParallaxLayer3"]
+[node name="sunset" type="Sprite" parent="RealLevelArea/ParallaxBackground/ParallaxLayer3"]
 visible = false
 modulate = Color( 1, 1, 1, 0.831373 )
 texture = ExtResource( 8 )
 centered = false
 
-[node name="mist" type="Sprite" parent="ParallaxBackground/ParallaxLayer3"]
+[node name="mist" type="Sprite" parent="RealLevelArea/ParallaxBackground/ParallaxLayer3"]
 visible = false
 modulate = Color( 0.27451, 0.27451, 0.27451, 1 )
 texture = ExtResource( 15 )
 centered = false
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( 99 )
+[node name="Player" parent="RealLevelArea" instance=ExtResource( 3 )]
+light_mask = 0
+position = Vector2( 288, 60 )
 
-[editable path="Room"]
-[editable path="Room2"]
+[node name="Light2D" type="Light2D" parent="RealLevelArea/Player"]
+texture = ExtResource( 11 )
+texture_scale = 3.21
+range_layer_min = -1
+shadow_enabled = true
+
+[node name="Room" parent="RealLevelArea" instance=ExtResource( 2 )]
+
+[node name="FGTileMap" parent="RealLevelArea/Room" index="0"]
+tile_data = PoolIntArray( 262127, 1, 262149, 262128, 1, 327690, 327663, 1, 458757, 327664, 1, 589834, 327667, 1, 262149, 327668, 1, 262154, 393199, 1, 458757, 393200, 1, 262145, 393201, 1, 262155, 393203, 1, 393221, 393204, 1, 262145, 393205, 1, 327691, 327685, 1, 262148, 327686, 1, 262154, 458735, 1, 458757, 458736, 1, 0, 458737, 1, 262145, 458738, 1, 327687, 458739, 1, 262146, 458740, 1, 0, 458741, 1, 458762, 393218, 1, 327685, 393219, 1, 327686, 393220, 1, 327688, 393221, 1, 262146, 393222, 1, 524298, 524271, 1, 524293, 524272, 1, 0, 524273, 1, 0, 524274, 1, 0, 524275, 1, 0, 524276, 1, 0, 524277, 1, 262145, 524278, 1, 327686, 524279, 1, 327686, 524280, 1, 327689, 524281, 1, 327687, 524282, 1, 327687, 524283, 1, 327687, 524284, 1, 327688, 524285, 1, 327688, 524286, 1, 327687, 524287, 1, 327689, 458752, 1, 327689, 458753, 1, 327689, 458754, 1, 262146, 458755, 1, 0, 458756, 1, 0, 458757, 1, 0, 458758, 1, 262145, 458759, 1, 327689, 458760, 1, 327686, 458761, 1, 327687, 458762, 1, 327689, 458763, 1, 327687, 458764, 1, 327689, 458765, 1, 327688, 458766, 1, 327686, 458767, 1, 262155, 589807, 1, 393221, 589808, 1, 0, 589809, 1, 0, 589810, 1, 0, 589811, 1, 0, 589812, 1, 0, 589813, 1, 0, 589814, 1, 0, 589815, 1, 0, 589816, 1, 0, 589817, 1, 0, 589818, 1, 0, 589819, 1, 0, 589820, 1, 0, 589821, 1, 0, 589822, 1, 0, 589823, 1, 0, 524288, 1, 0, 524289, 1, 0, 524290, 1, 0, 524291, 1, 0, 524292, 1, 0, 524293, 1, 0, 524294, 1, 0, 524295, 1, 0, 524296, 1, 0, 524297, 1, 0, 524298, 1, 0, 524299, 1, 0, 524300, 1, 0, 524301, 1, 0, 524302, 1, 0, 524303, 1, 524298, 655343, 1, 720901, 655344, 1, 655369, 655345, 1, 655369, 655346, 1, 655368, 655347, 1, 655368, 655348, 1, 655369, 655349, 1, 655367, 655350, 1, 655368, 655351, 1, 655369, 655352, 1, 655368, 655353, 1, 655368, 655354, 1, 655368, 655355, 1, 655369, 655356, 1, 655368, 655357, 1, 655366, 655358, 1, 655369, 655359, 1, 655369, 589824, 1, 655367, 589825, 1, 655366, 589826, 1, 655369, 589827, 1, 655369, 589828, 1, 655368, 589829, 1, 655369, 589830, 1, 655369, 589831, 1, 655369, 589832, 1, 655366, 589833, 1, 655369, 589834, 1, 655369, 589835, 1, 655367, 589836, 1, 655368, 589837, 1, 655367, 589838, 1, 655368, 589839, 1, 655371 )
+
+[node name="BGTileMap" parent="RealLevelArea/Room" index="1"]
+tile_data = PoolIntArray( 131086, 0, 327684, 131087, 0, 262154, 196622, 0, 458757, 196623, 0, 589834, 262158, 0, 720901, 262159, 0, 655370 )
+
+[node name="FGDecal" parent="RealLevelArea/Room" index="2"]
+tile_data = PoolIntArray( 1573038, 3, 0, 2359780, 1, 0 )
+
+[node name="CollisionShape2D" parent="RealLevelArea/Room" index="5"]
+shape = SubResource( 97 )
+
+[node name="SpawnPoint" parent="RealLevelArea/Room" instance=ExtResource( 5 )]
+position = Vector2( -72, 84 )
+
+[node name="Room2" parent="RealLevelArea" instance=ExtResource( 2 )]
+position = Vector2( 576, 0 )
+
+[node name="FGTileMap" parent="RealLevelArea/Room2" index="0"]
+tile_data = PoolIntArray( 262129, 3, 65544, 262131, 3, 262149, 262132, 3, 327688, 262133, 3, 327689, 262134, 3, 262155, 196608, 1, 262148, 196609, 1, 327687, 196610, 1, 327689, 196611, 1, 327688, 196612, 1, 327688, 196613, 1, 327688, 196614, 1, 327686, 196615, 1, 262155, 327665, 3, 720902, 327666, 3, 458754, 327667, 3, 458756, 327668, 3, 0, 327669, 3, 0, 327670, 3, 524298, 327672, 3, 65544, 262144, 1, 720901, 262145, 1, 655369, 262146, 1, 655366, 262147, 1, 655366, 262148, 1, 655367, 262149, 1, 655368, 262150, 1, 655366, 262151, 1, 655371, 393203, 3, 589829, 393204, 3, 0, 393205, 3, 0, 393206, 3, 458763, 393207, 3, 393218, 393208, 3, 720905, 458739, 3, 524293, 458740, 3, 0, 458741, 3, 0, 458742, 3, 393226, 524256, 1, 262149, 524257, 1, 327687, 524258, 1, 327687, 524259, 1, 327687, 524260, 1, 327689, 524261, 1, 327688, 524262, 1, 327688, 524263, 1, 327688, 524264, 1, 327686, 524265, 1, 327688, 524266, 1, 327686, 524267, 1, 327689, 524268, 1, 327689, 524269, 1, 327688, 524270, 1, 327688, 524271, 1, 327686, 524272, 1, 327689, 524273, 1, 327689, 524274, 1, 327687, 524275, 1, 327687, 524276, 1, 327689, 524277, 1, 327687, 524278, 1, 327687, 524279, 1, 327687, 524280, 1, 327687, 524281, 1, 327689, 524282, 1, 327688, 524283, 1, 327689, 524284, 1, 327688, 524285, 1, 327686, 524286, 1, 327689, 524287, 1, 327686, 458752, 1, 327688, 458753, 1, 327687, 458754, 1, 327689, 458755, 1, 327686, 458756, 1, 327686, 458757, 1, 327688, 458758, 1, 327687, 458759, 1, 327686, 458760, 1, 327686, 458761, 1, 327687, 458762, 1, 327686, 458763, 1, 327689, 458764, 1, 327687, 458765, 1, 327688, 458766, 1, 327688, 458767, 1, 327686, 458768, 1, 327687, 458769, 1, 327688, 458770, 1, 327686, 458771, 1, 327686, 458772, 1, 327689, 458773, 1, 327688, 458774, 1, 327689, 458775, 1, 327688, 458776, 1, 327688, 458777, 1, 327686, 458778, 1, 327686, 458779, 1, 327688, 458780, 1, 327687, 458781, 1, 327687, 458782, 1, 327686, 458783, 1, 327687, 458784, 1, 262154, 589792, 1, 589829, 589793, 1, 0, 589794, 1, 0, 589795, 1, 0, 589796, 1, 0, 589797, 1, 0, 589798, 1, 0, 589799, 1, 0, 589800, 1, 0, 589801, 1, 0, 589802, 1, 0, 589803, 1, 0, 589804, 1, 0, 589805, 1, 0, 589806, 1, 0, 589807, 1, 0, 589808, 1, 0, 589809, 1, 0, 589810, 1, 0, 589811, 1, 0, 589812, 1, 0, 589813, 1, 0, 589814, 1, 0, 589815, 1, 0, 589816, 1, 0, 589817, 1, 0, 589818, 1, 0, 589819, 1, 0, 589820, 1, 0, 589821, 1, 0, 589822, 1, 0, 589823, 1, 0, 524288, 1, 0, 524289, 1, 0, 524290, 1, 0, 524291, 1, 0, 524292, 1, 0, 524293, 1, 0, 524294, 1, 0, 524295, 1, 0, 524296, 1, 0, 524297, 1, 0, 524298, 1, 0, 524299, 1, 0, 524300, 1, 0, 524301, 1, 0, 524302, 1, 0, 524303, 1, 0, 524304, 1, 0, 524305, 1, 0, 524306, 1, 0, 524307, 1, 0, 524308, 1, 0, 524309, 1, 0, 524310, 1, 0, 524311, 1, 0, 524312, 1, 0, 524313, 1, 0, 524314, 1, 0, 524315, 1, 0, 524316, 1, 0, 524317, 1, 0, 524318, 1, 0, 524319, 1, 0, 524320, 1, 589834, 655328, 1, 720900, 655329, 1, 655368, 655330, 1, 655367, 655331, 1, 655366, 655332, 1, 655367, 655333, 1, 655367, 655334, 1, 655366, 655335, 1, 655369, 655336, 1, 655366, 655337, 1, 655366, 655338, 1, 655368, 655339, 1, 655367, 655340, 1, 655369, 655341, 1, 655368, 655342, 1, 655367, 655343, 1, 655368, 655344, 1, 655368, 655345, 1, 655369, 655346, 1, 655367, 655347, 1, 655366, 655348, 1, 655366, 655349, 1, 655367, 655350, 1, 655369, 655351, 1, 655368, 655352, 1, 655367, 655353, 1, 655369, 655354, 1, 655368, 655355, 1, 655369, 655356, 1, 655366, 655357, 1, 655366, 655358, 1, 655366, 655359, 1, 655367, 589824, 1, 655366, 589825, 1, 655369, 589826, 1, 655368, 589827, 1, 655369, 589828, 1, 655366, 589829, 1, 655369, 589830, 1, 655369, 589831, 1, 655369, 589832, 1, 655368, 589833, 1, 655369, 589834, 1, 655368, 589835, 1, 655368, 589836, 1, 655367, 589837, 1, 655366, 589838, 1, 655366, 589839, 1, 655367, 589840, 1, 655369, 589841, 1, 655366, 589842, 1, 655367, 589843, 1, 655367, 589844, 1, 655369, 589845, 1, 655369, 589846, 1, 655368, 589847, 1, 655368, 589848, 1, 655368, 589849, 1, 655367, 589850, 1, 655369, 589851, 1, 655369, 589852, 1, 655369, 589853, 1, 655369, 589854, 1, 655366, 589855, 1, 655369, 589856, 1, 655371 )
+
+[node name="BGTileMap" parent="RealLevelArea/Room2" index="1"]
+tile_data = PoolIntArray( 196576, 0, 65545, 131072, 0, 262149, 131073, 0, 327687, 131074, 0, 327686, 131075, 0, 327688, 131076, 0, 327688, 131077, 0, 327687, 131078, 0, 327688, 131079, 0, 327690, 262112, 0, 131080, 196608, 0, 655365, 196609, 0, 196610, 196610, 0, 0, 196611, 0, 196609, 196612, 0, 655368, 196613, 0, 655366, 196614, 0, 655366, 196615, 0, 720906, 327648, 0, 196614, 262145, 0, 720900, 262146, 0, 655369, 262147, 0, 655370 )
+
+[node name="FGDecal" parent="RealLevelArea/Room2" index="2"]
+tile_data = PoolIntArray( -65535, 0, 0, 327653, 3, 0 )
+
+[node name="BGDecal" parent="RealLevelArea/Room2" index="3"]
+tile_data = PoolIntArray( -65532, 5, 0, 65524, 3, 0, 327650, 1, 0, 327657, 1, 0 )
+
+[node name="CollisionShape2D" parent="RealLevelArea/Room2" index="5"]
+shape = SubResource( 98 )
+
+[editable path="RealLevelArea/Room"]
+[editable path="RealLevelArea/Room2"]

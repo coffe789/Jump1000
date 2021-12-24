@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/shroom_b.png-a0abdc0796cfc720e790b229fde4e838.stex"
+path="res://.import/00-geo_grass.png-f1de467b5ba56eaa41e52501f1f36133.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Decals/Forest/shroom_b.png"
-dest_files=[ "res://.import/shroom_b.png-a0abdc0796cfc720e790b229fde4e838.stex" ]
+source_file="res://Art/Decals/Forest/00-geo_grass.png"
+dest_files=[ "res://.import/00-geo_grass.png-f1de467b5ba56eaa41e52501f1f36133.stex" ]
 
 [params]
 

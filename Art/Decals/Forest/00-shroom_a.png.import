@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/fruit_plant_b.png-51c889481e23c8a63f704161a5d41b99.stex"
+path="res://.import/00-shroom_a.png-a15a9926dc57ea71945f015c3653e71d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Decals/Forest/fruit_plant_b.png"
-dest_files=[ "res://.import/fruit_plant_b.png-51c889481e23c8a63f704161a5d41b99.stex" ]
+source_file="res://Art/Decals/Forest/00-shroom_a.png"
+dest_files=[ "res://.import/00-shroom_a.png-a15a9926dc57ea71945f015c3653e71d.stex" ]
 
 [params]
 

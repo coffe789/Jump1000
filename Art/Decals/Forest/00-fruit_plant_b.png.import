@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/fruit_plant_a.png-614c48135322c2438bcaeff4ed9cc0a3.stex"
+path="res://.import/00-fruit_plant_b.png-743b5eb455a88c4a98bf440dbf1aec14.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Decals/Forest/fruit_plant_a.png"
-dest_files=[ "res://.import/fruit_plant_a.png-614c48135322c2438bcaeff4ed9cc0a3.stex" ]
+source_file="res://Art/Decals/Forest/00-fruit_plant_b.png"
+dest_files=[ "res://.import/00-fruit_plant_b.png-743b5eb455a88c4a98bf440dbf1aec14.stex" ]
 
 [params]
 

@@ -1,6 +1,21 @@
-[gd_resource type="TileSet" load_steps=2 format=2]
+[gd_resource type="TileSet" load_steps=3 format=2]
 
 [ext_resource path="res://Art/Tilesets/bgStone.png" type="Texture" id=1]
+
+[sub_resource type="GDScript" id=1]
+script/source = "tool
+extends TileSet
+
+var binds = {
+	0 : [],		# Stone
+	1 : [],		# Nothing
+}
+
+func _is_tile_bound(drawn_id, neighbor_id):
+	if drawn_id in binds:
+		return neighbor_id in binds[drawn_id]
+	return false
+"
 
 [resource]
 0/name = "bgStone.png 0"
@@ -26,3 +41,4 @@
 0/shape_one_way_margin = 0.0
 0/shapes = [  ]
 0/z_index = 0
+script = SubResource( 1 )

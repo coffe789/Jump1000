@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Scene/Levels/MasterTileMap.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Script/Class/LevelArea.gd" type="Script" id=2]
+[ext_resource path="res://Resource/Tileset/bgTileset.tres" type="TileSet" id=3]
+
+[node name="LevelArea" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="MasterTileMap" parent="." instance=ExtResource( 1 )]
+z_index = 200
+
+[node name="BgMasterTileMap" parent="." instance=ExtResource( 1 )]
+z_index = -200
+tile_set = ExtResource( 3 )
+group_to_merge = "bg_join_tile"
