@@ -4,6 +4,8 @@ class_name PaddedTileMap
 const SIZE = 12
 const PAD_RANGE = 5
 
+export var is_self_padded = false
+
 var used_cells = get_used_cells()
 
 var padded_coords = PoolVector2Array()
@@ -58,14 +60,14 @@ func index2coord(index,grid_size):
 	return v
 
 
-# Creates grid around tile and checks if there is air in the grid
+# Creates grid around tile and checks if there is air/non-connectable tiles in the grid
 func check_for_air(x, y, tile_id, grid_range = PAD_RANGE):
 	assert(grid_range % 2 != 0) # Must be odd number
 	var start_x = x - grid_range / 2
 	var start_y = y - grid_range / 2
 	for i in range(start_x, start_x + grid_range):
 		for j in range(start_y, start_y + grid_range):
-			if get_cell(i,j) != tile_id:
+			if get_cell(i,j) != tile_id && !(get_cell(i,j) in tile_set.binds[tile_id]):
 				return true
 	return false
 
@@ -80,5 +82,6 @@ func do_paddings():
 				set_cell(cell.x, cell.y, get_cellv(cell), 0,0,0, rand_center(cell.x,cell.y))
 
 func _ready():
-	do_paddings()
+	if is_self_padded: # Otherwise a master tileset will do padding to support inter-room padding
+		do_paddings()
 
