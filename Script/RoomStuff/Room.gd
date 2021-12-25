@@ -1,7 +1,8 @@
+tool
 extends Area2D
+
 var Boundary = preload("res://Scene/Entities/Room/Boundary.tscn") 
 var Killbox = preload("res://Scene/Entities/Room/RoomKillBox.tscn")
-
 
 var left_x
 var right_x
@@ -15,15 +16,22 @@ var cutout_shape_internal = [0,0,0,0]
 
 var resetable_scene
 
+
 func _ready():
-	add_to_group("room")
-	init_boundaries()
-	spawn_boundary_rectangle()
-	init_cutout_shape()
-	init_killbox()
-	
-	set_resetable_scene()
-	$ResetableNodes.queue_free()
+	if Engine.editor_hint:
+		connect("mouse_entered", self, "_on_mouse_entered")
+		connect("mouse_exited", self, "_on_mouse_exited")
+	elif !Engine.editor_hint:
+		add_to_group("room")
+		init_boundaries()
+		spawn_boundary_rectangle()
+		init_cutout_shape()
+		init_killbox()
+		
+		set_resetable_scene()
+		$ResetableNodes.queue_free()
+		connect("mouse_entered", self, "_on_mouse_entered")
+		connect("mouse_exited", self, "_on_mouse_exited")
 
 
 func set_resetable_scene():
@@ -146,3 +154,14 @@ func cutout_killboxes():
 				add_child(new_killbox)
 		elif new_killbox_shape == []:
 			killbox.get_child(0).polygon = new_killbox_shape
+
+func _on_mouse_entered():
+	print("mouse entered ", self)
+
+func _on_mouse_exited():
+	print("mouse exited ", self)
+
+
+
+func _on_Room_input_event(viewport, event, shape_idx):
+	print(event)

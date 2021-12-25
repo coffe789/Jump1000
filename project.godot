@@ -77,7 +77,7 @@ window/stretch/aspect="keep"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/CommandPalettePopup/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/CoffePlugin/plugin.cfg", "res://addons/CommandPalettePopup/plugin.cfg" )
 
 [global]
 
@@ -189,6 +189,6 @@ common/enable_pause_aware_picking=true
 [rendering]
 
 2d/snapping/use_gpu_pixel_snap=true
-environment/default_clear_color=Color( 0.384314, 0.643137, 0.796078, 1 )
+environment/default_clear_color=Color( 0.32549, 0.537255, 0.658824, 1 )
 environment/default_environment="res://default_env.tres"
 quality/dynamic_fonts/use_oversampling=false
