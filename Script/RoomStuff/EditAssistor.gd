@@ -1,13 +1,13 @@
 tool
-extends Control
+extends Node2D
 
 var edi # for caching EditorInterface
 var selected_room = null
 var selected_extents
 
-const SIDE_WIDTH = 10000
-const SIDE_HEIGHT = 20000
-const VERT_HEIGHT = 10000
+const SIDE_WIDTH = 10000.0
+const SIDE_HEIGHT = 20000.0
+const VERT_HEIGHT = 10000.0
 
 var rec_left
 var rec_top
@@ -34,10 +34,10 @@ func _process(_delta):
 func _draw():
 	if Engine.editor_hint:
 		if selected_room != null:
-			draw_rect(rec_left,Color(0.2,0.2,0.2,0.8))
-			draw_rect(rec_right,Color(0.2,0.2,0.2,0.8))
-			draw_rect(rec_bottom,Color(0.2,0.2,0.2,0.8))
-			draw_rect(rec_top,Color(0.2,0.2,0.2,0.8))
+			draw_rect(rec_left,Color(0.2,0.2,0.4,0.8))
+			draw_rect(rec_right,Color(0.2,0.2,0.4,0.8))
+			draw_rect(rec_bottom,Color(0.2,0.2,0.4,0.8))
+			draw_rect(rec_top,Color(0.2,0.2,0.4,0.8))
 		
 		for room in get_tree().get_nodes_in_group("editor_room"):
 			draw_rect(extent2rect(room), Color(0.8,0.8,0.9,0.3), false, 2.0)
@@ -55,6 +55,3 @@ func set_border_rects():
 func extent2rect(room):
 	var extent = room.get_node("CollisionShape2D").shape.extents
 	return Rect2(room.global_position-extent,extent*2)
-
-func _input(event):
-	print("input", event.as_text())

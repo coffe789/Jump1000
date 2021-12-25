@@ -50,6 +50,7 @@ format = 1
 script = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource( 1 )
 
 [node name="Boundary" parent="." instance=ExtResource( 2 )]
@@ -58,5 +59,3 @@ shape = SubResource( 1 )
 input_pickable = false
 
 [node name="SpawnPoint" parent="." instance=ExtResource( 9 )]
-
-[connection signal="input_event" from="." to="." method="_on_Room_input_event"]

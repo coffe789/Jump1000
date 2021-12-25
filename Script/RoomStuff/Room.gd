@@ -160,8 +160,3 @@ func _on_mouse_entered():
 
 func _on_mouse_exited():
 	print("mouse exited ", self)
-
-
-
-func _on_Room_input_event(viewport, event, shape_idx):
-	print(event)

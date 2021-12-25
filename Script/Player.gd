@@ -75,10 +75,6 @@ func _ready():
 	Globals.connect("damage_player", self, "_take_damage")
 
 
-func _process(delta):
-	pass
-
-
 # Controls every aspect of player physics
 func _physics_process(delta) -> void:
 	previous_position = position
