@@ -4,6 +4,8 @@ extends Area2D
 var Boundary = preload("res://Scene/Entities/Room/Boundary.tscn") 
 var Killbox = preload("res://Scene/Entities/Room/RoomKillBox.tscn")
 
+var resetable_scene
+
 var left_x
 var right_x
 var top_y
@@ -14,7 +16,7 @@ var extra_space_above = 32
 var cutout_shape = [0,0,0,0]
 var cutout_shape_internal = [0,0,0,0]
 
-var resetable_scene
+
 
 
 func _ready():
@@ -32,6 +34,9 @@ func _ready():
 		$ResetableNodes.queue_free()
 		connect("mouse_entered", self, "_on_mouse_entered")
 		connect("mouse_exited", self, "_on_mouse_exited")
+		
+		if $CollisionShape2D.position != Vector2.ZERO:
+			push_error(str(self) + "Collision shape is offset")
 
 
 func set_resetable_scene():
@@ -40,12 +45,7 @@ func set_resetable_scene():
 
 func enter_room():
 	enable_bounds(true)
-#	for child in Globals.get_player().current_room.get_children():
-#		if child.is_in_group("room_killbox"):
-#			child.set_deferred("monitoring",false)
-#	for child in get_children():
-#		if child.is_in_group("room_killbox"):
-#			child.set_deferred("monitoring",true)
+	
 	var scene_instance = resetable_scene.instance()
 	call_deferred("add_child",scene_instance)
 	Globals.get_player().call_deferred("set_spawn")
@@ -54,9 +54,6 @@ func enter_room():
 
 func exit_room():
 	enable_bounds(false)
-#	for child in get_children():
-#		if child.is_in_group("room_killbox"):
-#			child.set_deferred("monitoring",false)
 	$ResetableNodes.queue_free()
 
 
@@ -69,9 +66,10 @@ func init_boundaries():
 	right_x = left_x + room_size.x
 	bottom_y = top_y + room_size.y
 
+
 const KILLBOX_HEIGHT = 10.0
 func init_killbox():
-	$KillBox.position.y = bottom_y + KILLBOX_HEIGHT / 2 + 5
+	$KillBox.position.y = bottom_y + KILLBOX_HEIGHT / 2 + 16
 #	$KillBox/CollisionShape2D.shape.extents.x = (right_x - left_x) / 2
 	
 	$KillBox/CollisionPolygon2D.polygon[0].x = left_x
@@ -136,6 +134,7 @@ func cutout_shapes():
 		for i in range(1,new_poly.size()):
 			add_boundary(new_poly[i])
 
+
 func cutout_killboxes():
 	for killbox in get_tree().get_nodes_in_group("room_killbox"):
 		var pos_dif = global_position - killbox.global_position
@@ -155,8 +154,10 @@ func cutout_killboxes():
 		elif new_killbox_shape == []:
 			killbox.get_child(0).polygon = new_killbox_shape
 
+
 func _on_mouse_entered():
 	print("mouse entered ", self)
+
 
 func _on_mouse_exited():
 	print("mouse exited ", self)

@@ -49,6 +49,10 @@ format = 1
 [node name="ResetableNodes" type="Node2D" parent="."]
 script = ExtResource( 3 )
 
+[node name="Entities" type="Node2D" parent="ResetableNodes"]
+
+[node name="Triggers" type="Node2D" parent="ResetableNodes"]
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 shape = SubResource( 1 )

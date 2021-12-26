@@ -3,6 +3,7 @@ class_name LevelArea
 
 const FREEZE_TIME = 0.6 # When room transitioning
 const UP_TRANSITION_BOOST = -230
+const TRANSITION_CAMERA_SPEED = 7
 
 func _init():
 	self.add_to_group("area")
@@ -14,7 +15,8 @@ func _ready():
 	Globals.get_player().collision_mask = Globals.get_player().collision_mask | 16 # enable room boundary collision after boundaries are created
 
 func get_cam():
-	return Globals.get_player().get_node("PlayerCamera")
+	assert(get_tree().get_nodes_in_group("player_camera") != [])
+	return get_tree().get_nodes_in_group("player_camera")[0]
 
 # Shapes the boundaries for all rooms based on their relative positions
 func initialise_rooms():
@@ -52,6 +54,7 @@ func do_room_transition(area):
 		check_transition_type()
 		
 		var room_collision_shape = area.get_node("CollisionShape2D")
+		get_cam().smoothing_speed = TRANSITION_CAMERA_SPEED
 		get_cam().set_camera_limits(room_collision_shape)
 		
 		snap_player_to_room()
@@ -61,7 +64,7 @@ func do_room_transition(area):
 		Globals.get_player().current_area.do_transition_pause()
 		yield(get_tree().create_timer(FREEZE_TIME), "timeout")
 		old_room.exit_room()
-#		area.get_node("KillBox").set_deferred("monitoring",true)
+		get_cam().smoothing_speed = get_cam().DEFAULT_SMOOTH_SPEED
 
 
 # Momentarily pauses the game while transitioning rooms

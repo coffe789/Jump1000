@@ -72,7 +72,11 @@ onready var state_list = {
 
 
 func _ready():
+	state_list[current_state].set_player_sprite_direction()
+	
 	Globals.connect("damage_player", self, "_take_damage")
+	yield(get_tree(), "idle_frame") # Wait for camera to instance
+	Globals.emit_signal("player_connect_cam", self)
 
 
 # Controls every aspect of player physics
@@ -153,6 +157,8 @@ func respawn():
 	
 	queue_free()
 
+func _exit_tree():
+	Globals.emit_signal("player_freed")
 
 # Signals
 #=================================#

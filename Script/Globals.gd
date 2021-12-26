@@ -2,6 +2,8 @@ extends Node
 
 signal damage_player(damage)
 signal enter_room_killbox
+signal player_connect_cam(player)
+signal player_freed
 #signal editor_mouse_click
 
 # Types of attacks the player can do

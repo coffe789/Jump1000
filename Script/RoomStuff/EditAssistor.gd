@@ -25,11 +25,14 @@ func _init():
 func _process(_delta):
 	if Engine.editor_hint && edi.get_selection().get_selected_nodes().size() > 0:
 		if edi.get_selection().get_selected_nodes()[0].is_in_group("editor_room"):
-			if selected_room != edi.get_selection().get_selected_nodes()[0]:
-				selected_room = edi.get_selection().get_selected_nodes()[0]
-				selected_extents = selected_room.get_node("CollisionShape2D").shape.extents
-				set_border_rects()
-				update()
+			selected_room = edi.get_selection().get_selected_nodes()[0]
+		if selected_room:
+			update_graphics()
+
+func update_graphics():
+	selected_extents = selected_room.get_node("CollisionShape2D").shape.extents
+	set_border_rects()
+	update()
 
 func _draw():
 	if Engine.editor_hint:
@@ -45,13 +48,13 @@ func _draw():
 			draw_rect(extent2rect(selected_room), Color(0.8,0.8,0.9,0.8), false, 2.0)
 
 func set_border_rects():
-	rec_left = Rect2(selected_room.global_position - Vector2(selected_extents.x + SIDE_WIDTH, SIDE_HEIGHT / 2),Vector2(SIDE_WIDTH,SIDE_HEIGHT))
-	rec_right = Rect2(selected_room.global_position - Vector2(-selected_extents.x, SIDE_HEIGHT / 2),Vector2(SIDE_WIDTH,SIDE_HEIGHT))
+	rec_left = Rect2(selected_room.get_node("CollisionShape2D").global_position - Vector2(selected_extents.x + SIDE_WIDTH, SIDE_HEIGHT / 2),Vector2(SIDE_WIDTH,SIDE_HEIGHT))
+	rec_right = Rect2(selected_room.get_node("CollisionShape2D").global_position - Vector2(-selected_extents.x, SIDE_HEIGHT / 2),Vector2(SIDE_WIDTH,SIDE_HEIGHT))
 	
-	rec_top = Rect2(selected_room.global_position - Vector2(selected_extents.x, selected_extents.y + VERT_HEIGHT), Vector2(selected_extents.x * 2,VERT_HEIGHT))
-	rec_bottom = Rect2(selected_room.global_position - Vector2(selected_extents.x, -selected_extents.y), Vector2(selected_extents.x * 2,VERT_HEIGHT))
+	rec_top = Rect2(selected_room.get_node("CollisionShape2D").global_position - Vector2(selected_extents.x, selected_extents.y + VERT_HEIGHT), Vector2(selected_extents.x * 2,VERT_HEIGHT))
+	rec_bottom = Rect2(selected_room.get_node("CollisionShape2D").global_position - Vector2(selected_extents.x, -selected_extents.y), Vector2(selected_extents.x * 2,VERT_HEIGHT))
 
 
 func extent2rect(room):
 	var extent = room.get_node("CollisionShape2D").shape.extents
-	return Rect2(room.global_position-extent,extent*2)
+	return Rect2(room.get_node("CollisionShape2D").global_position-extent,extent*2)
