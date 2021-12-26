@@ -4,7 +4,8 @@ signal damage_player(damage)
 signal enter_room_killbox
 signal player_connect_cam(player)
 signal player_freed
-#signal editor_mouse_click
+
+signal set_camera_offset(offset, ignore_X_or_Y) # Second parameter is a Vector2 with 1/0 masks
 
 # Types of attacks the player can do
 enum \

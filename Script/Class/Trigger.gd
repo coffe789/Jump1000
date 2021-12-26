@@ -9,14 +9,14 @@ enum P_mode {
 	RIGHT_TO_LEFT,
 }
 
-onready var col_shape = get_child(0) as CollisionShape2D
-
 export(int, 
 "no effect",
 "top to bottom",
 "bottom to top",
 "left to right",
 "right to left") var position_mode = 0
+
+onready var col_shape = get_child(0) as CollisionShape2D
 
 var p_mult := 1.0
 var is_oneshot := false
@@ -27,8 +27,11 @@ var right_bound
 var top_bound
 var bottom_bound
 
+var is_player_inside = false
+
 func _ready():
 	connect("body_entered", self, "_on_body_entered")
+	connect("body_exited", self, "_on_body_exited")
 	set_bounds()
 	on_ready()
 
@@ -37,11 +40,17 @@ func _ready():
 func on_ready():
 	pass
 
+func _process(delta):
+	if is_player_inside:
+		activate()
 
 func _on_body_entered(_body:Node):
 	if _body.is_in_group("player"):
-		activate()
+		is_player_inside = true
 
+func _on_body_exited(_body:Node):
+	if _body.is_in_group("player"):
+		is_player_inside = false
 
 # Set bound parameters for convenience 
 func set_bounds():

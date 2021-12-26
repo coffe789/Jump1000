@@ -1,4 +1,4 @@
-tool
+#tool
 extends Area2D
 
 var Boundary = preload("res://Scene/Entities/Room/Boundary.tscn") 
@@ -20,10 +20,7 @@ var cutout_shape_internal = [0,0,0,0]
 
 
 func _ready():
-	if Engine.editor_hint:
-		connect("mouse_entered", self, "_on_mouse_entered")
-		connect("mouse_exited", self, "_on_mouse_exited")
-	elif !Engine.editor_hint:
+	if !Engine.editor_hint:
 		add_to_group("room")
 		init_boundaries()
 		spawn_boundary_rectangle()
@@ -32,8 +29,6 @@ func _ready():
 		
 		set_resetable_scene()
 		$ResetableNodes.queue_free()
-		connect("mouse_entered", self, "_on_mouse_entered")
-		connect("mouse_exited", self, "_on_mouse_exited")
 		
 		if $CollisionShape2D.position != Vector2.ZERO:
 			push_error(str(self) + "Collision shape is offset")
