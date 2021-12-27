@@ -51,6 +51,10 @@ func get_player():
 	return get_tree().get_nodes_in_group("player")[0]
 
 func get_all_descendants(node, array):
+	#These lines turn all scenes into local branches to prevent a duplication bug
+	node.set_filename("") 
+	node.owner=get_tree().get_edited_scene_root()
+	
 	if node.get_child_count() > 0:
 		for child in node.get_children():
 			array.append(child)

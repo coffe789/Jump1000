@@ -39,6 +39,7 @@ func set_resetable_scene():
 
 
 func enter_room():
+	Globals.emit_signal("set_camera_offset",Vector2(0,0),Vector2(0,0)) # Reset offset
 	enable_bounds(true)
 	
 	var scene_instance = resetable_scene.instance()

@@ -152,6 +152,7 @@ func respawn():
 		push_error("Failed to respawn in " + current_room.name)
 		assert(false)
 	
+	Globals.emit_signal("set_camera_offset",Vector2(0,0),Vector2(0,0)) # Reset offset
 	current_room.exit_room()
 	spawn_point.spawn_player()
 	

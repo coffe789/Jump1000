@@ -33,12 +33,12 @@ func _on_player_connected(player):
 
 
 # Using physics because I had a bug earlier that was solved by syncing camera to physics
-func _physics_process(delta):
+func _physics_process(_delta):
 	if is_player_connected:
 		global_position = Player.global_position + cam_offset
 
 
-func _process(delta):
+func _process(_delta):
 	if Engine.editor_hint:
 		if get_tree().get_nodes_in_group("player") != []:
 			global_position = get_tree().get_nodes_in_group("player")[0].global_position

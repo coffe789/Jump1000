@@ -30,6 +30,7 @@ var bottom_bound
 var is_player_inside = false
 
 func _ready():
+	self.add_to_group("trigger")
 	connect("body_entered", self, "_on_body_entered")
 	connect("body_exited", self, "_on_body_exited")
 	set_bounds()
@@ -40,7 +41,7 @@ func _ready():
 func on_ready():
 	pass
 
-func _process(delta):
+func _process(_delta):
 	if is_player_inside:
 		activate()
 
