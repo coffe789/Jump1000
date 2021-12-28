@@ -3,6 +3,7 @@ extends Node
 signal damage_player(damage)
 signal enter_room_killbox
 signal player_connect_cam(player)
+signal set_cam_limit(which_limit, limit_pos)
 signal player_freed
 
 signal set_camera_offset(offset, ignore_X_or_Y) # Second parameter is a Vector2 with 1/0 masks
@@ -48,7 +49,14 @@ func clear_console():
 		print("\n")
 
 func get_player():
-	return get_tree().get_nodes_in_group("player")[0]
+	if get_tree().get_nodes_in_group("player") != []:
+		return get_tree().get_nodes_in_group("player")[0]
+	return null
+
+func get_cam():
+	if get_tree().get_nodes_in_group("player_camera") != []:
+		return get_tree().get_nodes_in_group("player_camera")[0]
+	return null
 
 func get_all_descendants(node, array):
 	#These lines turn all scenes into local branches to prevent a duplication bug

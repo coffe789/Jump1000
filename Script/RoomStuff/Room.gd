@@ -64,8 +64,9 @@ func init_boundaries():
 
 
 const KILLBOX_HEIGHT = 10.0
+const KILLBOX_OFFSET = 16.0
 func init_killbox():
-	$KillBox.position.y = bottom_y + KILLBOX_HEIGHT / 2 + 16
+	$KillBox.position.y = bottom_y + KILLBOX_HEIGHT / 2 + KILLBOX_OFFSET
 #	$KillBox/CollisionShape2D.shape.extents.x = (right_x - left_x) / 2
 	
 	$KillBox/CollisionPolygon2D.polygon[0].x = left_x

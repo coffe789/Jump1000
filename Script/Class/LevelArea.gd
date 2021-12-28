@@ -45,21 +45,21 @@ func initialise_rooms():
 		Globals.get_player().current_room.enable_bounds(true)
 
 
-# Called when player enters a room area
-func do_room_transition(area):
+# Called when player enters a room
+func do_room_transition(room):
 	if Globals.get_player().current_room == null:
-		set_player_room(area)
-	elif area != Globals.get_player().current_room:
+		set_player_room(room)
+	elif room != Globals.get_player().current_room:
 		var old_room = Globals.get_player().current_room
 		check_transition_type()
 		
-		var room_collision_shape = area.get_node("CollisionShape2D")
+		var room_collision_shape = room.get_node("CollisionShape2D")
 		get_cam().smoothing_speed = TRANSITION_CAMERA_SPEED
 		get_cam().set_camera_limits(room_collision_shape)
 		
 		snap_player_to_room()
-		area.enter_room()
-		Globals.get_player().current_room = area
+		room.enter_room()
+		Globals.get_player().current_room = room
 		
 		Globals.get_player().current_area.do_transition_pause()
 		yield(get_tree().create_timer(FREEZE_TIME), "timeout")

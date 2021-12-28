@@ -14,6 +14,7 @@ func _ready():
 		Globals.connect("player_connect_cam", self, "_on_player_connected")
 		Globals.connect("player_freed", self, "_on_player_disconnected")
 		Globals.connect("set_camera_offset", self, "_set_offset")
+		Globals.connect("set_cam_limit", self, "_set_limits")
 
 
 func set_camera_limits(room_shape):
@@ -54,3 +55,12 @@ func _set_offset(new_offset, ignore_X_or_Y):
 	if !ignore_X_or_Y.y:
 		cam_offset.y = new_offset.y
 
+func _set_limits(limit_type, limit_pos):
+	if limit_type == 0: # let cam go left
+		limit_right = limit_pos
+	elif limit_type == 1: # let cam go right
+		limit_left = limit_pos
+	elif limit_type == 2: # above
+		limit_bottom = limit_pos
+	elif limit_type == 3: #below
+		limit_top = limit_pos

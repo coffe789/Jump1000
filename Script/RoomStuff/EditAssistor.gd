@@ -14,6 +14,11 @@ var rec_top
 var rec_right
 var rec_bottom
 
+export var border_width = 3
+export var unfocus_color = Color(0.2,0.2,0.4,0.8)
+export var active_border_color = Color(0.8,0.8,0.9,0.8)
+export var inactive_border_color = Color(0.8,0.8,0.9,0.3)
+
 func _init():
 	if Engine.editor_hint:
 		set_process_input(true);
@@ -37,18 +42,15 @@ func update_graphics():
 func _draw():
 	if Engine.editor_hint:
 		if selected_room != null:
-			draw_rect(rec_left,Color(0.2,0.2,0.4,0.8))
-			draw_rect(rec_right,Color(0.2,0.2,0.4,0.8))
-			draw_rect(rec_bottom,Color(0.2,0.2,0.4,0.8))
-			draw_rect(rec_top,Color(0.2,0.2,0.4,0.8))
-		
-		for trigger in get_tree().get_nodes_in_group("trigger"):
-			draw_char(Font.new(), trigger.global_position, trigger.name,"")
+			draw_rect(rec_left, unfocus_color)
+			draw_rect(rec_right, unfocus_color)
+			draw_rect(rec_bottom, unfocus_color)
+			draw_rect(rec_top, unfocus_color)
 		
 		for room in get_tree().get_nodes_in_group("editor_room"):
-			draw_rect(extent2rect(room), Color(0.8,0.8,0.9,0.3), false, 2.0)
+			draw_rect(extent2rect(room), inactive_border_color, false, border_width)
 		if selected_room != null:
-			draw_rect(extent2rect(selected_room), Color(0.8,0.8,0.9,0.8), false, 2.0)
+			draw_rect(extent2rect(selected_room), active_border_color, false, border_width)
 
 func set_border_rects():
 	rec_left = Rect2(selected_room.get_node("CollisionShape2D").global_position - Vector2(selected_extents.x + SIDE_WIDTH, SIDE_HEIGHT / 2),Vector2(SIDE_WIDTH,SIDE_HEIGHT))

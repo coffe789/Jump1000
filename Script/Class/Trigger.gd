@@ -1,3 +1,4 @@
+tool
 extends Area2D
 class_name Trigger
 
@@ -30,28 +31,38 @@ var bottom_bound
 var is_player_inside = false
 
 func _ready():
-	self.add_to_group("trigger")
-	connect("body_entered", self, "_on_body_entered")
-	connect("body_exited", self, "_on_body_exited")
-	set_bounds()
-	on_ready()
+	if !Engine.editor_hint:
+		self.add_to_group("trigger")
+		connect("body_entered", self, "_on_body_entered")
+		connect("body_exited", self, "_on_body_exited")
+		set_bounds()
+		on_ready()
 
 
 # Used so I don't have to overwrite _ready() in inherited objects
 func on_ready():
 	pass
 
+
 func _process(_delta):
-	if is_player_inside:
-		activate()
+	if !Engine.editor_hint:
+		if is_player_inside:
+			activate()
+	else:
+		update()
+
 
 func _on_body_entered(_body:Node):
 	if _body.is_in_group("player"):
 		is_player_inside = true
+		on_enter()
+
 
 func _on_body_exited(_body:Node):
 	if _body.is_in_group("player"):
 		is_player_inside = false
+		on_leave()
+
 
 # Set bound parameters for convenience 
 func set_bounds():
@@ -90,7 +101,19 @@ func lerp_from_position(lerp_from, lerp_to):
 #	set_position_ratio()
 #	print(lerp_from_position(0,10))
 
+var font = Control.new().get_font("font")
+func _draw():
+	if Engine.editor_hint:
+		draw_string(font, Vector2.ZERO - Vector2(get_child(0).shape.extents.x,0), name, Color(1,1,1))
+
+
+func on_enter():
+	pass
+
 
 func activate():
 	pass
 
+
+func on_leave():
+	pass
