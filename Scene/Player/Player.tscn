@@ -407,7 +407,6 @@ anims/jumping = SubResource( 7 )
 anims/running = SubResource( 8 )
 
 [node name="Sprite" type="Sprite" parent="."]
-modulate = Color( 0.803922, 0.803922, 0.803922, 1 )
 light_mask = 0
 position = Vector2( 0, -8 )
 texture = ExtResource( 1 )
