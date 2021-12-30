@@ -5,7 +5,8 @@ func _ready():
 	unset_dash_target = false
 
 func enter(init_arg):
-	Animation_Player.play("falling")
+	Animation_Player.play("floating")
+	Animation_Player.queue("falling")
 	if init_arg != null:
 		if init_arg.has(init_args.ROLLING_FALL):
 			is_rolling_fall = true

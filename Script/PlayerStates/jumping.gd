@@ -7,14 +7,16 @@ func _ready():
 	unset_dash_target = false
 
 func enter(init_arg):
-	Animation_Player.play("jumping")
 	Player.stop_jump_rise = false
 	Player.isJumpBuffered = false
 	Player.canCoyoteJump = false
 	Player.velocity.y = -JUMP_SPEED #jump
 	play_jump_audio()
+	Animation_Player.play("jumping")
 	if init_arg != null:
 		if init_arg.has(init_args.ROLLING_JUMP):
+			Animation_Player.play("super jumping")
+			Animation_Player.queue("jumping")
 			can_roll_fall = true
 	emit_jump_particles()
 

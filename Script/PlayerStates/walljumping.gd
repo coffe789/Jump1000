@@ -6,6 +6,8 @@ func _ready():
 	unset_dash_target = false
 
 func enter(_init_arg):
+	Animation_Player.play("super jumping")
+	Animation_Player.queue("jumping")
 	Player.stop_jump_rise = false
 	Player.isJumpBuffered = false
 	Player.canCoyoteJump = false
