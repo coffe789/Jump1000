@@ -469,7 +469,7 @@ position = Vector2( 0, -8 )
 texture = ExtResource( 1 )
 hframes = 6
 vframes = 5
-frame = 11
+frame = 4
 
 [node name="StateMachine" type="Node" parent="."]
 
@@ -594,10 +594,10 @@ light_mask = 0
 position = Vector2( 0, -13 )
 
 [node name="CapeL" type="Position2D" parent="Cape"]
-position = Vector2( -4, 3 )
+position = Vector2( -4, 4 )
 
 [node name="CapeR" type="Position2D" parent="Cape"]
-position = Vector2( 4, 3 )
+position = Vector2( 4, 4 )
 
 [node name="Particles" type="Node2D" parent="."]
 

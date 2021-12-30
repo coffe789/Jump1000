@@ -5,7 +5,7 @@ var entered_body = false;
 var is_pin = false
 var collision_factor = 0.5 #Read docs for what this does
 var dampen_factor = 0.9
-var fill_color = PoolColorArray()
+var fill_color = PoolColorArray([Color(207/255.0,83/255.0,226/255.0)])
 var constant_accel = Vector2() #Constantly applied on top of regular acceleration
 
 var drawto = [self]
@@ -15,7 +15,6 @@ func _ready():
 	if !is_pin:
 		add_to_group("cape_point")
 	set_as_toplevel(true)
-	fill_color.append(Color(213/255.0,39/255.0,64/255.0))
 
 func _draw():
 	if drawto.size() == 4:

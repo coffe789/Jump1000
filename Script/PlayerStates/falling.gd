@@ -10,6 +10,7 @@ func enter(init_arg):
 	if init_arg != null:
 		if init_arg.has(init_args.ROLLING_FALL):
 			is_rolling_fall = true
+			Animation_Player.play("rolling")
 
 var is_exit_roll_jump = false
 func exit():

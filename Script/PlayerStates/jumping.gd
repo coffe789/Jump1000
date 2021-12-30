@@ -12,10 +12,10 @@ func enter(init_arg):
 	Player.canCoyoteJump = false
 	Player.velocity.y = -JUMP_SPEED #jump
 	play_jump_audio()
-	Animation_Player.play("jumping")
+	Animation_Player.play("super jumping")
 	if init_arg != null:
 		if init_arg.has(init_args.ROLLING_JUMP):
-			Animation_Player.play("super jumping")
+			Animation_Player.play("rolling")
 			Animation_Player.queue("jumping")
 			can_roll_fall = true
 	emit_jump_particles()
