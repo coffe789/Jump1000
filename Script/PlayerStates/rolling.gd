@@ -2,6 +2,7 @@ extends PlayerState
 var roll_direction
 
 func enter(_init_arg):
+	Animation_Player.play("rolling")
 	if get_input_direction() == 0:
 		roll_direction = Player.facing
 	else:
