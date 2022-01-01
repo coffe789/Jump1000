@@ -50,6 +50,7 @@ func do_room_transition(room):
 	if Globals.get_player().current_room == null:
 		set_player_room(room)
 	elif room != Globals.get_player().current_room:
+		Globals.emit_signal("room_transitioned")
 		var old_room = Globals.get_player().current_room
 		check_transition_type()
 		
@@ -71,6 +72,7 @@ func do_room_transition(room):
 func do_transition_pause():
 	get_cam().pause_mode = Node.PAUSE_MODE_PROCESS
 	get_tree().paused = true
+	Physics2DServer.set_active(true)
 	var timers_to_pause = get_tree().get_nodes_in_group("reset_on_room_transition")
 	for i in timers_to_pause.size():
 		timers_to_pause[i].start(0) # maybe stops timer

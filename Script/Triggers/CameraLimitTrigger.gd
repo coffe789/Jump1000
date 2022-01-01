@@ -16,7 +16,6 @@ var old_limit_pos
 
 func on_ready():
 	set_limit_pos()
-	get_old_limit()
 
 
 func on_enter():
@@ -25,10 +24,12 @@ func on_enter():
 
 func activate():
 	Globals.emit_signal("set_cam_limit",limit_direction,limit_pos)
+	print("active")
 
 
 func on_leave():
 	if Globals.get_cam() && unset_on_leave:
+		get_old_limit()
 		Globals.emit_signal("set_cam_limit",limit_direction,old_limit_pos)
 
 
@@ -36,8 +37,6 @@ func get_old_limit():
 	if Globals.get_player().current_room:
 		var room = Globals.get_player().current_room
 		match limit_direction:
-			Limit_dirs.LEFT_LIMIT:
-				old_limit_pos = room.right_x + room.global_position.x
 			Limit_dirs.LEFT_LIMIT:
 				old_limit_pos = room.right_x + room.global_position.x
 			Limit_dirs.RIGHT_LIMIT:
@@ -57,4 +56,4 @@ func set_limit_pos():
 		Limit_dirs.ABOVE_LIMIT:
 			limit_pos = bottom_bound
 		Limit_dirs.BELOW_LIMIT:
-			limit_pos = right_bound
+			limit_pos = top_bound

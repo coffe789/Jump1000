@@ -7,6 +7,7 @@ resource_local_to_scene = true
 extents = Vector2( 24, 24 )
 
 [node name="CameraBorderTrigger" type="Area2D"]
+pause_mode = 2
 collision_layer = 0
 collision_mask = 2
 script = ExtResource( 1 )

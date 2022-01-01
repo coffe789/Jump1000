@@ -60,6 +60,7 @@ func _set_limits(limit_type, limit_pos):
 		limit_right = limit_pos
 	elif limit_type == 1: # let cam go right
 		limit_left = limit_pos
+		limit_left = limit_pos
 	elif limit_type == 2: # above
 		limit_bottom = limit_pos
 	elif limit_type == 3: #below

@@ -2,6 +2,8 @@ tool
 extends Area2D
 class_name Trigger
 
+export var target_group = "player"
+
 enum P_mode {
 	NO_EFFECT,
 	TOP_TO_BOTTOM,
@@ -37,6 +39,7 @@ func _ready():
 		connect("body_exited", self, "_on_body_exited")
 		set_bounds()
 		on_ready()
+		assert(target_group!=null)
 
 
 # Used so I don't have to overwrite _ready() in inherited objects
@@ -53,13 +56,13 @@ func _process(_delta):
 
 
 func _on_body_entered(_body:Node):
-	if _body.is_in_group("player"):
+	if _body.is_in_group(target_group):
 		is_player_inside = true
 		on_enter()
 
 
 func _on_body_exited(_body:Node):
-	if _body.is_in_group("player"):
+	if _body.is_in_group(target_group):
 		is_player_inside = false
 		on_leave()
 

@@ -19,8 +19,10 @@ var limit_to_above
 var limit_to_below
 
 func on_ready():
-	$Timer.start(0.1)
+	$Timer.start(0.01)
 
+func _on_Timer_timeout():
+	init_subtriggers()
 
 func on_enter():
 	if on_inside:
@@ -64,5 +66,4 @@ func init_subtriggers():
 		add_child(subtrig)
 
 
-func _on_Timer_timeout():
-	init_subtriggers()
+

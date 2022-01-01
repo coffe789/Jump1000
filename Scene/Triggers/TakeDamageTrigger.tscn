@@ -4,7 +4,7 @@
 
 [sub_resource type="RectangleShape2D" id=1]
 
-[node name="Trigger" type="Area2D"]
+[node name="DamageTrigger" type="Area2D"]
 collision_layer = 0
 collision_mask = 2
 monitorable = false

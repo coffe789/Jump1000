@@ -51,7 +51,7 @@ const WALLBOUNCE_MULTIPLIER = 1.35
 
 const NO_DASH_TIME = 0.3
 const DASH_TIME = 0.2
-const ROLL_TIME = 0.3
+const ROLL_TIME = 0.4
 const BUFFERED_DASH_TIME = 6.0/60.0
 
 const INVINCIBLE_TIME = 2.5

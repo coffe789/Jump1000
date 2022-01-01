@@ -5,6 +5,7 @@ signal enter_room_killbox
 signal player_connect_cam(player)
 signal set_cam_limit(which_limit, limit_pos)
 signal player_freed
+signal room_transitioned
 
 signal set_camera_offset(offset, ignore_X_or_Y) # Second parameter is a Vector2 with 1/0 masks
 
