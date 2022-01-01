@@ -1,9 +1,6 @@
 extends PlayerState
 var ledge_behaviour
 
-func exit():
-	return [init_args.ROLLING_JUMP]
-
 
 func do_state_transition():
 	pass
@@ -48,6 +45,7 @@ func check_for_new_state() -> String:
 		return Player.PS_IDLE
 	if (Input.is_action_just_pressed("jump") || Player.isJumpBuffered):
 		Timers.get_node("PostClingJumpTimer").start(0.12)
+		init_arg_list.append(init_args.ENTER_ROLLING)
 		return Player.PS_JUMPING
 	if ledge_behaviour == Globals.LEDGE_EXIT:
 		if Player.velocity.y < 10:

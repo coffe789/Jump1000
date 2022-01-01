@@ -12,7 +12,9 @@ func set_facing_direction():
 
 func exit():
 	stop_attack()
-	return [init_args.ROLLING_FALL]
+	
+	init_arg_list.append(init_args.ENTER_ROLLING)
+	return init_arg_list
 
 func set_attack_hitbox():
 	Attack_Box.get_child(0).get_shape().extents = DASH_ATTACK_SIZE

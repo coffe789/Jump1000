@@ -100,9 +100,6 @@ func lerp_from_position(lerp_from, lerp_to):
 		P_mode.BOTTOM_TO_TOP:
 			return lerp(lerp_to,lerp_from, pos_ratio.y)
 
-#func _physics_process(delta):
-#	set_position_ratio()
-#	print(lerp_from_position(0,10))
 
 var font = Control.new().get_font("font")
 func _draw():

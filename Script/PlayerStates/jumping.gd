@@ -13,11 +13,14 @@ func enter(init_arg):
 	Player.velocity.y = -JUMP_SPEED #jump
 	play_jump_audio()
 	Animation_Player.play("super jumping")
-	if init_arg != null:
-		if init_arg.has(init_args.ROLLING_JUMP):
-			Animation_Player.play("rolling")
-			Animation_Player.queue("jumping")
-			can_roll_fall = true
+	
+	if init_arg.has(init_args.ENTER_SUPER_JUMP):
+		Player.velocity.x = \
+			set_if_lesser(Player.velocity.x, get_node("../rolling").roll_direction*260)
+	if init_arg.has(init_args.ENTER_ROLLING):
+		Animation_Player.play("rolling")
+		Animation_Player.queue("jumping")
+		can_roll_fall = true
 	emit_jump_particles()
 
 var is_exit_roll_jump = false
@@ -25,10 +28,10 @@ func exit():
 	var to_return = []
 	if can_roll_fall:
 		can_roll_fall = false
-		to_return.append(init_args.ROLLING_FALL)
+		to_return.append(init_args.ENTER_ROLLING)
 	if is_exit_roll_jump:
 		is_exit_roll_jump = false
-		to_return.append(init_args.ROLLING_JUMP)
+		to_return.append(init_args.ENTER_ROLLING)
 	return to_return
 
 func do_state_logic(delta):

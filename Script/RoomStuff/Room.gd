@@ -150,11 +150,3 @@ func cutout_killboxes():
 				add_child(new_killbox)
 		elif new_killbox_shape == []:
 			killbox.get_child(0).polygon = new_killbox_shape
-
-
-func _on_mouse_entered():
-	print("mouse entered ", self)
-
-
-func _on_mouse_exited():
-	print("mouse exited ", self)

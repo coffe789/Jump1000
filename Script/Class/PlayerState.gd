@@ -28,21 +28,21 @@ const DASH_SPEED_X = 180
 const DASH_SPEED_Y = 150
 const PLAYER_HEIGHT = 18.0
 const PLAYER_WIDTH = 8
-const GRAVITY = 500
+const GRAVITY = 530
 const ACCELERATE_WALK = 1500/1.5
 const FLOOR_DRAG = 1
 const DUCK_FLOOR_DRAG = 0.6
 const AIR_DRAG = 0.2
 const MAX_X_SPEED = 100
-const JUMP_SPEED = 400/1.75
+const JUMP_SPEED = 237
 const MAX_FALL_SPEED = 250
 const UP_DIRECTION = Vector2(0,-1)
 const JUMP_BUFFER_DURATION = 0.13
 const COYOTE_TIME = 0.07
 const AFTER_JUMP_SLOWDOWN_FACTOR = 2
 const WALL_GRAVITY_FACTOR = 0.075
-const WALLJUMP_X_SPEED_MULTIPLIER = 1.3
-const WALLJUMP_SLOWDOWN_MULTIPLIER = 0.245
+const WALLJUMP_X_SPEED_MULTIPLIER = 1.35
+const WALLJUMP_SLOWDOWN_MULTIPLIER = 0.233
 const NORMAL_COLLISION_EXTENT = Vector2(3.5,8)
 const DUCKING_COLLISION_EXTENT = Vector2(3.5,4)
 const NORMAL_ATTACK_SIZE = Vector2(15,5)
@@ -58,9 +58,13 @@ const INVINCIBLE_TIME = 2.5
 # State Initialisation Parameters
 #=============================================#
 enum init_args {
-	ROLLING_FALL,
-	ROLLING_JUMP
+	FROM_DUCKING,
+	ENTER_ROLLING,
+	ENTER_SUPER_JUMP
 }
+
+var init_arg_list = []
+
 #=============================================#
 
 # Variables
@@ -76,9 +80,9 @@ func enter(_init_arg):
 	pass
 
 
-# Called when state is exited. May return a list of strings
+# Called when state is exited. May return a list of init_arg enums
 func exit():
-	return []
+	return init_arg_list
 
 
 # Called every physics frame a state is active

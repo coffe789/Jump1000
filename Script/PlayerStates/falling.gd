@@ -7,17 +7,16 @@ func _ready():
 func enter(init_arg):
 	Animation_Player.play("floating")
 	Animation_Player.queue("falling")
+	print(init_arg)
 	if init_arg != null:
-		if init_arg.has(init_args.ROLLING_FALL):
+		if init_arg.has(init_args.ENTER_ROLLING):
 			is_rolling_fall = true
 			Animation_Player.play("rolling")
 
-var is_exit_roll_jump = false
 func exit():
 	is_rolling_fall = false
-	if is_exit_roll_jump:
-		is_exit_roll_jump = false
-		return [init_args.ROLLING_JUMP]
+	
+	return init_arg_list
 
 func do_state_logic(delta):
 	set_dash_target()
@@ -45,6 +44,8 @@ func check_for_new_state() -> String:
 		else:
 			return Player.PS_IDLE
 	if (Input.is_action_just_pressed("jump") && Player.canCoyoteJump):
+		if is_rolling_fall:
+			init_arg_list.append(init_args.ENTER_SUPER_JUMP)
 		return Player.PS_JUMPING
 	if can_wall_jump():
 		if (Input.is_action_just_pressed("jump") or Player.isJumpBuffered):
@@ -52,7 +53,7 @@ func check_for_new_state() -> String:
 				return Player.PS_WALLBOUNCING
 			elif (get_ledge_behaviour() != Globals.LEDGE_EXIT) && can_wall_jump():
 				Timers.get_node("PostClingJumpTimer").start(0.12)
-				is_exit_roll_jump = true
+				init_arg_list.append(init_args.ENTER_ROLLING)
 				return Player.PS_JUMPING#will maybe change later?
 			else:
 				return Player.PS_WALLJUMPING

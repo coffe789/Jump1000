@@ -1,11 +1,17 @@
 extends PlayerState
 
+func enter(init_arg):
+	if init_arg != null:
+		if !init_arg.has(init_args.FROM_DUCKING):
+			Animation_Player.play("ducking")
+	else:
+		Animation_Player.play("ducking")
+
 func set_attack_hitbox():
 	$"../ducking".set_attack_hitbox()
 
 func do_state_logic(delta):
 	do_attack()
-	Animation_Player.play("ducking")
 	Collision_Body.get_shape().extents = DUCKING_COLLISION_EXTENT
 	Collision_Body.position.y = -4
 	check_buffered_jump_input()
@@ -26,3 +32,6 @@ func check_for_new_state() -> String:
 func exit():
 	Collision_Body.get_shape().extents = NORMAL_COLLISION_EXTENT
 	Collision_Body.position.y = -8
+	
+	init_arg_list.append(init_args.FROM_DUCKING)
+	return init_arg_list
