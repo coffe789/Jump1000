@@ -32,7 +32,7 @@ const GRAVITY = 530
 const ACCELERATE_WALK = 1500/1.5
 const FLOOR_DRAG = 1
 const DUCK_FLOOR_DRAG = 0.6
-const AIR_DRAG = 0.2
+const AIR_DRAG = 0.14
 const MAX_X_SPEED = 100
 const JUMP_SPEED = 237
 const MAX_FALL_SPEED = 250
@@ -257,7 +257,7 @@ func approach(to_change, maximum, change_by):
 	return to_change
 
 
-# sets value to maximum if maximum has a greater magnitude
+# sets value to maximum only if maximum has a greater magnitude
 # Is used such that speed boosts can't slow you down
 func set_if_lesser(to_set, maximum):
 	if abs(to_set) > abs(maximum) && Globals.is_same_sign(to_set,maximum):

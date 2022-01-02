@@ -11,9 +11,9 @@ func enter(_init_arg):
 	Player.stop_jump_rise = false
 	Player.isJumpBuffered = false
 	Player.canCoyoteJump = false
-	#Player.velocity.y = -JUMP_SPEED #jump
+
 	Player.velocity.y = -JUMP_SPEED
-	Player.velocity.x = MAX_X_SPEED*(-Player.wall_direction) * WALLJUMP_X_SPEED_MULTIPLIER
+	Player.velocity.x = set_if_lesser(Player.velocity.x, MAX_X_SPEED*(-Player.wall_direction) * WALLJUMP_X_SPEED_MULTIPLIER)
 	play_jump_audio()
 	emit_jump_particles()
 
