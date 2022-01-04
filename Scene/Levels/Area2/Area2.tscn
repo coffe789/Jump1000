@@ -28,12 +28,12 @@ glow_hdr_threshold = 1.5
 resource_local_to_scene = true
 extents = Vector2( 192, 108 )
 
+[sub_resource type="RectangleShape2D" id=101]
+extents = Vector2( 35, 24 )
+
 [sub_resource type="RectangleShape2D" id=100]
 resource_local_to_scene = true
 extents = Vector2( 84, 36 )
-
-[sub_resource type="RectangleShape2D" id=101]
-extents = Vector2( 35, 24 )
 
 [sub_resource type="RectangleShape2D" id=98]
 resource_local_to_scene = true
@@ -185,6 +185,19 @@ tile_data = PoolIntArray( 65531, 1, 0, 196578, 2, 0, 196595, 6, 0, 196598, 7, 0,
 [node name="FGDecal" parent="RealLevelArea/Room2" index="3"]
 position = Vector2( 0, 108 )
 
+[node name="DamageHurtbox" type="Area2D" parent="RealLevelArea/Room2/ResetableNodes/Entities" index="0"]
+position = Vector2( -60, 0 )
+script = ExtResource( 13 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="RealLevelArea/Room2/ResetableNodes/Entities/DamageHurtbox"]
+shape = SubResource( 101 )
+
+[node name="DamageHitbox" type="Area2D" parent="RealLevelArea/Room2/ResetableNodes/Entities" index="1"]
+script = ExtResource( 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RealLevelArea/Room2/ResetableNodes/Entities/DamageHitbox"]
+shape = SubResource( 101 )
+
 [node name="CameraBorderTrigger2" parent="RealLevelArea/Room2/ResetableNodes/Triggers" index="0" instance=ExtResource( 6 )]
 position = Vector2( -300, -36 )
 position_mode = "player"
@@ -197,24 +210,11 @@ shape = SubResource( 100 )
 position = Vector2( 96, 168 )
 target_group = "player_hurtbox"
 
-[node name="DamageHitbox" type="Area2D" parent="RealLevelArea/Room2/ResetableNodes" index="2"]
-script = ExtResource( 5 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RealLevelArea/Room2/ResetableNodes/DamageHitbox"]
-shape = SubResource( 101 )
-
 [node name="CollisionShape2D" parent="RealLevelArea/Room2" index="5"]
 shape = SubResource( 98 )
 
 [node name="SpawnPoint" parent="RealLevelArea/Room2" index="8"]
 position = Vector2( -132, 144 )
-
-[node name="DamageHurtbox" type="Area2D" parent="RealLevelArea/Room2"]
-position = Vector2( -60, 0 )
-script = ExtResource( 13 )
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="RealLevelArea/Room2/DamageHurtbox"]
-shape = SubResource( 101 )
 
 [node name="EditAssistor" type="Node2D" parent="." groups=["edit_assistor"]]
 z_index = 100

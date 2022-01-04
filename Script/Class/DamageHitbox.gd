@@ -15,7 +15,6 @@ func _ready():
 func _process(_delta):
 	# Signal is received by connected hurtboxes, or if parent wants to know fsr
 	emit_signal("damage_anything", damage_amount, damage_properties, damage_source)
-#	global_position.x = Globals.get_player().global_position.x
 
 
 func _on_DamageHitbox_area_entered(area):
@@ -25,4 +24,5 @@ func _on_DamageHitbox_area_entered(area):
 
 func _on_DamageHitbox_area_exited(area):
 	if area is DamageHurtbox:
-		disconnect("damage_anything", area, "_on_DamageHitbox_area_exited")
+		disconnect("damage_anything", area, "_on_DamageHitbox_entered")
+		print("actually disconnect")
