@@ -30,7 +30,7 @@ const PLAYER_HEIGHT = 18.0
 const PLAYER_WIDTH = 8
 const GRAVITY = 530
 const ACCELERATE_WALK = 1500/1.5
-const FLOOR_DRAG = 1
+const FLOOR_DRAG = 1.5
 const DUCK_FLOOR_DRAG = 0.6
 const AIR_DRAG = 0.14
 const MAX_X_SPEED = 100
@@ -71,7 +71,7 @@ var init_arg_list = []
 #===============================================#
 var is_dashing = false
 var unset_dash_target = true
-var state_attack_type = Globals.NORMAL_ATTACK
+var state_attack_type = Globals.Dmg_properties.PLAYER_ATTACK
 
 #Base class functions
 #================================================#
@@ -186,6 +186,7 @@ func stop_attack():
 
 
 # What the player does after attacking (dependent on target)
+# I think this should be deleted and I can just use a global signal?
 func attack_response(response_id, attackable):
 	match response_id:
 		Globals.NORMAL_STAGGER:

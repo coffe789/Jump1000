@@ -30,7 +30,7 @@ var is_attacking = false
 var current_attack_id = 0 # Used so enemies don't get hit twice by same attack
 var dash_direction = 0
 var dash_target_node = null
-var last_attack_type = Globals.NORMAL_ATTACK
+var last_attack_type = Globals.Dmg_properties.PLAYER_ATTACK
 
 enum {
 	PS_PREVIOUS,
@@ -191,9 +191,9 @@ func _on_BetweenAttackTimer_timeout():
 	get_node("CollisionChecks/AttackBox/CollisionShape2D").disabled = true
 
 
-func _on_RoomDetection_area_entered(area):
-	if area.is_in_group("room"):
-		current_area.do_room_transition(area)
+func _on_RoomDetection_area_entered(maybe_room):
+	if maybe_room.is_in_group("room") and current_area:
+		current_area.do_room_transition(maybe_room)
 
 
 func _on_BodyArea_area_entered(_area):

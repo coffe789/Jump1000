@@ -2,7 +2,7 @@ extends PlayerState
 
 func _ready():
 	is_dashing = true
-	state_attack_type = Globals.DASH_ATTACK_DOWN
+	state_attack_type = Globals.Dmg_properties.DASH_ATTACK_DOWN
 
 func set_player_sprite_direction():
 	pass

@@ -15,6 +15,9 @@
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Grid_Container" type="Control" parent="."]
 anchor_right = 1.0
@@ -22,7 +25,7 @@ anchor_bottom = 1.0
 rect_clip_content = true
 
 [node name="Tile" type="Sprite" parent="Grid_Container"]
-position = Vector2( 582, 288 )
+position = Vector2( 838, 288 )
 centered = false
 region_enabled = true
 
@@ -36,7 +39,7 @@ size = Vector2( 64, 64 )
 sub_cells = Vector2( 2, 2 )
 grid_color = Color( 0.737255, 0.819608, 1, 0.25098 )
 sub_cell_color = Color( 0.737255, 0.819608, 1, 0.12549 )
-origin = Vector2( 582, 288 )
+origin = Vector2( 838, 288 )
 
 [node name="Sprite_Container" type="Control" parent="Grid_Container/Grid"]
 anchor_left = 0.5

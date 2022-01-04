@@ -19,6 +19,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/Tile_Cleaner/Bitmask_Edges_Data.gd"
 }, {
+"base": "Area2D",
+"class": "DamageHitbox",
+"language": "GDScript",
+"path": "res://Script/Class/DamageHitbox.gd"
+}, {
+"base": "Area2D",
+"class": "DamageHurtbox",
+"language": "GDScript",
+"path": "res://Script/Class/DamageHurtbox.gd"
+}, {
 "base": "Node2D",
 "class": "LevelArea",
 "language": "GDScript",
@@ -47,6 +57,8 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "Attackable": "",
 "BitmaskEdgesData": "res://addons/Tile_Cleaner/Icons/Bitmask_Edges_Icon.png",
+"DamageHitbox": "",
+"DamageHurtbox": "",
 "LevelArea": "",
 "PaddedTileMap": "",
 "PlayerState": "",

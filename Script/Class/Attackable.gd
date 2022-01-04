@@ -16,11 +16,11 @@ func _ready():
 func _on_AttackableArea_area_entered(area):
 	if area.is_in_group("player_attack") && Globals.get_player().current_attack_id != last_seen_attack_id:
 		last_seen_attack_id = Globals.get_player().current_attack_id
-		if Globals.get_player().last_attack_type == Globals.DASH_ATTACK_DOWN || Globals.get_player().last_attack_type == Globals.DASH_ATTACK_UP:
+		if Globals.get_player().last_attack_type == Globals.Dmg_properties.DASH_ATTACK_DOWN || Globals.get_player().last_attack_type == Globals.Dmg_properties.DASH_ATTACK_UP:
 			get_tree().call_group("player", "attack_response", Globals.NO_RESPONSE, self)
 		else:
 			get_tree().call_group("player", "attack_response", Globals.NO_RESPONSE, self)
-			print(Globals.get_player().last_attack_type)
+		print(Globals.get_player().last_attack_type)
 
 func make_dashable():
 	if Attackable_Area.is_in_group("undashable"):

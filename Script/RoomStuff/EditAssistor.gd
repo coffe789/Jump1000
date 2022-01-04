@@ -27,6 +27,7 @@ func _init():
 		plugin.queue_free()
 
 
+
 func _process(_delta):
 	if Engine.editor_hint && edi.get_selection().get_selected_nodes().size() > 0:
 		if edi.get_selection().get_selected_nodes()[0].is_in_group("editor_room"):

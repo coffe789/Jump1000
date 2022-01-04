@@ -19,7 +19,7 @@ var limit_to_above
 var limit_to_below
 
 func on_ready():
-	$Timer.start(0.01)
+	$Timer.start(0.02)
 
 func _on_Timer_timeout():
 	init_subtriggers()
