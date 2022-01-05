@@ -1,6 +1,4 @@
-[gd_scene load_steps=3 format=2]
-
-[ext_resource path="res://Script/Triggers/DamageTrigger.gd" type="Script" id=1]
+[gd_scene load_steps=2 format=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 resource_local_to_scene = true
@@ -10,9 +8,6 @@ extents = Vector2( 24, 24 )
 collision_layer = 0
 collision_mask = 2
 monitorable = false
-script = ExtResource( 1 )
-target_group = "player_damage_hitbox"
-target_type = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )

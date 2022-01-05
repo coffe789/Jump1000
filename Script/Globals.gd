@@ -1,7 +1,6 @@
 extends Node
 
-signal damage_player(damage)
-signal enter_room_killbox
+signal enter_room_killbox #why is this global?
 signal player_connect_cam(player)
 signal set_cam_limit(which_limit, limit_pos)
 signal player_freed
