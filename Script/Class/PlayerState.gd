@@ -71,7 +71,7 @@ var init_arg_list = []
 #===============================================#
 var is_dashing = false
 var unset_dash_target = true
-var state_attack_type = Globals.Dmg_properties.PLAYER_ATTACK
+var state_damage_properties = [Globals.Dmg_properties.FROM_PLAYER]
 
 #Base class functions
 #================================================#
@@ -96,12 +96,16 @@ func check_for_new_state() -> String:
 #Shared utility functions
 #===============================================#
 
-func take_damage(amount):
+
+func take_damage_logic(amount, properties, damage_source):
 	if !Player.is_invincible:
-		Player.health -= amount
-		do_iframes()
-		if Player.health <= 0:
-			Player.respawn()
+		if properties.has(Globals.Dmg_properties.FROM_PLAYER):
+			pass
+		else:
+			Player.health -= amount
+			do_iframes()
+			if Player.health <= 0:
+				Player.respawn()
 
 
 func heal(amount):
@@ -113,13 +117,6 @@ func heal(amount):
 
 func do_iframes():
 	Timers.get_node("IFrameTimer").play("invincible")
-	
-
-
-func set_attack_hitbox():
-	Attack_Box.get_child(0).get_shape().extents = NORMAL_ATTACK_SIZE
-	Attack_Box.position.y = -8
-	Player.attack_box_x_distance = 11
 
 
 const DASH_DIR_UP = -1
@@ -159,6 +156,12 @@ func set_dash_direction():
 		return
 
 
+func set_attack_hitbox():
+	Attack_Box.get_child(0).get_shape().extents = NORMAL_ATTACK_SIZE
+	Attack_Box.position.y = -8
+	Player.attack_box_x_distance = 11
+
+
 # Performs attack if button is pressed/is buffered. Returns success status
 func do_attack():
 	if (Input.is_action_just_pressed("attack") && !Player.is_attacking)\
@@ -171,8 +174,8 @@ func do_attack():
 
 # Player attacks regardless of input or whatever
 func force_attack():
-	Player.last_attack_type = state_attack_type
-	Player.current_attack_id += 1
+	Attack_Box.damage_properties = state_damage_properties
+	#TODO delete Player's previous_attack_type
 	Attack_Box.get_child(0).disabled = false
 	Player.is_attacking = true
 	Timers.get_node("BetweenAttackTimer").start(0.4)

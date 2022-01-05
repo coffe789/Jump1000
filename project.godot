@@ -9,11 +9,6 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Node2D",
-"class": "Attackable",
-"language": "GDScript",
-"path": "res://Script/Class/Attackable.gd"
-}, {
 "base": "Resource",
 "class": "BitmaskEdgesData",
 "language": "GDScript",
@@ -28,6 +23,11 @@ _global_script_classes=[ {
 "class": "DamageHurtbox",
 "language": "GDScript",
 "path": "res://Script/Class/DamageHurtbox.gd"
+}, {
+"base": "Area2D",
+"class": "DashTarget",
+"language": "GDScript",
+"path": "res://Script/Class/DashTarget.gd"
 }, {
 "base": "Node2D",
 "class": "LevelArea",
@@ -55,10 +55,10 @@ _global_script_classes=[ {
 "path": "res://Script/Class/Trigger.gd"
 } ]
 _global_script_class_icons={
-"Attackable": "",
 "BitmaskEdgesData": "res://addons/Tile_Cleaner/Icons/Bitmask_Edges_Icon.png",
 "DamageHitbox": "",
 "DamageHurtbox": "",
+"DashTarget": "",
 "LevelArea": "",
 "PaddedTileMap": "",
 "PlayerState": "",
@@ -190,8 +190,8 @@ clear_console={
 
 2d_physics/layer_1="Tiles"
 2d_physics/layer_2="Player"
-2d_physics/layer_3="Attackable"
-2d_physics/layer_4="Attack"
+2d_physics/layer_3="Damage"
+2d_physics/layer_4="Entity"
 2d_physics/layer_5="Room"
 
 [physics]

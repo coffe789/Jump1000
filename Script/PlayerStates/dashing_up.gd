@@ -2,7 +2,10 @@ extends PlayerState
 
 func _ready():
 	is_dashing = true
-	state_attack_type = Globals.Dmg_properties.DASH_ATTACK_UP
+	state_damage_properties = [
+		Globals.Dmg_properties.FROM_PLAYER,
+		Globals.Dmg_properties.DASH_ATTACK_UP
+		]
 
 func set_player_sprite_direction():
 	pass

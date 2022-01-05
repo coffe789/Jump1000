@@ -7,7 +7,6 @@ func _ready():
 func enter(init_arg):
 	Animation_Player.play("floating")
 	Animation_Player.queue("falling")
-	print(init_arg)
 	if init_arg != null:
 		if init_arg.has(init_args.ENTER_ROLLING):
 			is_rolling_fall = true
@@ -37,10 +36,10 @@ func check_for_new_state() -> String:
 	if (Player.is_on_floor()):
 		if is_rolling_fall && get_input_direction() != 0:
 			return Player.PS_ROLLING
-		if (Input.is_action_pressed("left") || Input.is_action_pressed("right")):
-			return Player.PS_RUNNING
 		if (Input.is_action_pressed("down")):
 			return Player.PS_DUCKING
+		if (Input.is_action_pressed("left") || Input.is_action_pressed("right")):
+			return Player.PS_RUNNING
 		else:
 			return Player.PS_IDLE
 	if (Input.is_action_just_pressed("jump") && Player.canCoyoteJump):

@@ -44,7 +44,7 @@ extents = Vector2( 384, 216 )
 [node name="RealLevelArea" parent="." instance=ExtResource( 1 )]
 
 [node name="PlayerCamera" parent="RealLevelArea" index="2"]
-position = Vector2( -84, -36 )
+position = Vector2( -60, -36 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="RealLevelArea"]
 environment = SubResource( 99 )
@@ -140,7 +140,7 @@ centered = false
 
 [node name="Player" parent="RealLevelArea" instance=ExtResource( 3 )]
 light_mask = 0
-position = Vector2( -84, -36 )
+position = Vector2( -60, -36 )
 
 [node name="Light2D" type="Light2D" parent="RealLevelArea/Player"]
 texture = ExtResource( 11 )
@@ -180,19 +180,24 @@ position = Vector2( 0, 108 )
 
 [node name="BGDecal" parent="RealLevelArea/Room2" index="2"]
 position = Vector2( 0, 108 )
-tile_data = PoolIntArray( 65531, 1, 0, 196578, 2, 0, 196595, 6, 0, 196598, 7, 0, 327658, 3, 0, 327673, 3, 0, 393198, 1, 0 )
+tile_data = PoolIntArray( 65531, 1, 0, 196578, 2, 0, 196595, 6, 0, 196598, 7, 0, 262118, 5, 0, 327658, 3, 0, 393198, 1, 0, 458745, 4, 0 )
 
 [node name="FGDecal" parent="RealLevelArea/Room2" index="3"]
 position = Vector2( 0, 108 )
 
 [node name="DamageHurtbox" type="Area2D" parent="RealLevelArea/Room2/ResetableNodes/Entities" index="0"]
 position = Vector2( -60, 0 )
+collision_layer = 4
+collision_mask = 4
 script = ExtResource( 13 )
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="RealLevelArea/Room2/ResetableNodes/Entities/DamageHurtbox"]
 shape = SubResource( 101 )
 
 [node name="DamageHitbox" type="Area2D" parent="RealLevelArea/Room2/ResetableNodes/Entities" index="1"]
+position = Vector2( 60, 96 )
+collision_layer = 4
+collision_mask = 4
 script = ExtResource( 5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RealLevelArea/Room2/ResetableNodes/Entities/DamageHitbox"]

@@ -27,10 +27,8 @@ var last_wall_direction = 1 # Last value that wasn't zero
 var can_unduck = true
 var attack_box_x_distance = 14
 var is_attacking = false
-var current_attack_id = 0 # Used so enemies don't get hit twice by same attack
 var dash_direction = 0
 var dash_target_node = null
-var last_attack_type = Globals.Dmg_properties.PLAYER_ATTACK
 
 enum {
 	PS_PREVIOUS,
@@ -199,5 +197,6 @@ func _on_RoomDetection_area_entered(maybe_room):
 func _on_BodyArea_area_entered(_area):
 	pass
 
-func _take_damage(amount):
-	state_list[current_state].take_damage(amount)
+
+func _on_HurtBox_damage_received(amount, properties, damage_source):
+	state_list[current_state].take_damage_logic(amount, properties, damage_source)
