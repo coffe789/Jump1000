@@ -29,6 +29,7 @@ func spawn_player():
 	new_player.position = global_position
 	new_player.collision_mask = Globals.get_player().collision_mask | 16 # enable room boundaries
 	new_player.facing = spawn_direction
+	new_player.spawn_point = self
 	area.call_deferred("add_child",new_player)
 	
 #	Player.position = position

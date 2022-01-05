@@ -97,14 +97,17 @@ func check_for_new_state() -> String:
 #===============================================#
 
 
-func take_damage_logic(amount, properties, damage_source):
+func take_damage_logic(amount, properties, _damage_source):
 	if !Player.is_invincible:
 		if properties.has(Globals.Dmg_properties.FROM_PLAYER):
 			pass
 		else:
 			Player.health -= amount
+			#Animation unreliably sets invincible to true fast enough
+			Player.is_invincible = true
 			do_iframes()
 			if Player.health <= 0:
+				Player.is_invincible = true # Prevent respawning twice
 				Player.respawn()
 
 
@@ -175,7 +178,6 @@ func do_attack():
 # Player attacks regardless of input or whatever
 func force_attack():
 	Attack_Box.damage_properties = state_damage_properties
-	#TODO delete Player's previous_attack_type
 	Attack_Box.get_child(0).disabled = false
 	Player.is_attacking = true
 	Timers.get_node("BetweenAttackTimer").start(0.4)

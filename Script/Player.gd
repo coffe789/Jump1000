@@ -155,6 +155,7 @@ func respawn():
 	current_room.exit_room()
 	spawn_point.spawn_player()
 	
+	print("respawn")
 	queue_free()
 
 func _exit_tree():

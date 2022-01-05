@@ -8,8 +8,7 @@ func _ready():
 
 func create_scene():
 	var packed_scene = PackedScene.new()
-	for child in Globals.get_all_descendants(self,[]):
-		child.owner = self
+	recursive_set_owner(self)
 	packed_scene.pack(self)
 #	ResourceSaver.save(
 #		"user://" # Can't write to res:// during runtime
@@ -18,3 +17,13 @@ func create_scene():
 #		+ ".tscn",
 #		packed_scene)
 	return packed_scene
+
+func recursive_set_owner(node):
+	#This line turns all scenes into local branches to prevent a duplication bug
+	node.set_filename("")
+	
+	if node != self:
+		node.set_owner(self)
+	for child in node.get_children():
+		recursive_set_owner(child)
+	return

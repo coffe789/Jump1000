@@ -63,16 +63,3 @@ func get_cam():
 	if get_tree().get_nodes_in_group("player_camera") != []:
 		return get_tree().get_nodes_in_group("player_camera")[0]
 	return null
-
-
-# Return a list of all node descendants of a given node
-func get_all_descendants(node, array):
-	#These 2 lines turn all scenes into local branches to prevent a duplication bug
-	node.set_filename("") 
-	node.owner=get_tree().get_edited_scene_root()
-	
-	if node.get_child_count() > 0:
-		for child in node.get_children():
-			array.append(child)
-			array.append_array(get_all_descendants(child, array))
-	return array

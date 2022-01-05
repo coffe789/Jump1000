@@ -472,7 +472,6 @@ position = Vector2( 0, -8 )
 texture = ExtResource( 1 )
 hframes = 6
 vframes = 5
-frame = 4
 
 [node name="StateMachine" type="Node" parent="."]
 
@@ -613,7 +612,6 @@ local_coords = false
 process_material = SubResource( 9 )
 
 [node name="DebugLabel" type="Label" parent="."]
-visible = false
 margin_left = -31.0
 margin_top = -55.0
 margin_right = 9.0
