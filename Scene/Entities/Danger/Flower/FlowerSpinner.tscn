@@ -7,7 +7,7 @@
 [sub_resource type="CircleShape2D" id=1]
 radius = 5.5
 
-[node name="FlowerSpinner" type="Area2D"]
+[node name="FlowerSpinner" type="Area2D" groups=["flower_spinner"]]
 collision_layer = 0
 collision_mask = 4
 monitorable = false
