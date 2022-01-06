@@ -42,7 +42,7 @@ func update_graphics():
 
 func _draw():
 	if Engine.editor_hint:
-		if selected_room != null:
+		if selected_room:
 			draw_rect(rec_left, unfocus_color)
 			draw_rect(rec_right, unfocus_color)
 			draw_rect(rec_bottom, unfocus_color)

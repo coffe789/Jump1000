@@ -13,13 +13,13 @@ collision_mask = 4
 monitorable = false
 script = ExtResource( 3 )
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="FlowerSprite" type="Sprite" parent="."]
 light_mask = 0
 texture = ExtResource( 2 )
 hframes = 5
 vframes = 5
 
-[node name="Sprite2" type="Sprite" parent="."]
+[node name="OutlineSprite" type="Sprite" parent="."]
 light_mask = 0
 z_index = -1
 texture = ExtResource( 1 )
