@@ -3,7 +3,7 @@ extends Node
 signal player_connect_cam(player)
 signal set_cam_limit(which_limit, limit_pos)
 signal player_freed
-signal room_transitioned
+signal room_transitioned(from_room, to_room)
 
 signal set_camera_offset(offset, ignore_X_or_Y) # Second parameter is a Vector2 with 1/0 masks
 
@@ -33,6 +33,7 @@ enum {
 	LEDGE_LENIENCY_RISE,
 }
 
+var is_resetables_packaged = false
 
 # Util
 func is_same_sign(num1,num2):

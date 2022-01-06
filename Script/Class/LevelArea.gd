@@ -43,14 +43,17 @@ func initialise_rooms():
 			node.get_child(0).call_deferred("set_disabled",true)
 	if Globals.get_player().current_room:
 		Globals.get_player().current_room.enable_bounds(true)
+		
+		Globals.is_resetables_packaged = true
 
 
 # Called when player enters a room
 func do_room_transition(room):
 	if Globals.get_player().current_room == null:
 		set_player_room(room)
+		Globals.emit_signal("room_transitioned", null, room)
 	elif room != Globals.get_player().current_room:
-		Globals.emit_signal("room_transitioned")
+		Globals.emit_signal("room_transitioned", Globals.get_player().current_room, room)
 		var old_room = Globals.get_player().current_room
 		check_transition_type()
 		

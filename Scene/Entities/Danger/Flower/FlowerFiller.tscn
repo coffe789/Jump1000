@@ -4,13 +4,14 @@
 [ext_resource path="res://Art/Entity/Danger/Flower/flower.png" type="Texture" id=2]
 
 [node name="FlowerFiller" type="Sprite"]
-modulate = Color( 0.831373, 0.831373, 0.831373, 1 )
+light_mask = 0
 scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 2 )
 hframes = 5
 vframes = 5
 
 [node name="FlowerFillerOutline" type="Sprite" parent="."]
+light_mask = 0
 z_index = -1
 texture = ExtResource( 1 )
 hframes = 5
