@@ -9,6 +9,7 @@ var previous_state = PS_FALLING
 var current_room
 onready var current_area = get_tree().get_nodes_in_group("area").pop_front()
 var previous_position
+var previous_velocity
 var spawn_point
 
 
@@ -79,13 +80,20 @@ func _ready():
 # Controls every aspect of player physics
 func _physics_process(delta) -> void:
 	previous_position = position
+	
 	if Input.is_action_just_pressed("clear_console"):
 		Globals.clear_console()
 	state_list[current_state].set_facing_direction()
 	directionX = sign(velocity.x)
 	directionY = -sign(velocity.y)
-	execute_state(delta)
+	
+	previous_velocity = velocity
+	execute_state(delta) # Physics and logic occurs here
 	try_state_transition()
+	if velocity.x == 0 and previous_velocity.x != 0 and state_list[current_state].get_input_direction() == directionX:
+		velocity.x = previous_velocity.x * 0.95 # Retain a bit of velocity after hitting a wall
+	
+	
 	#$DebugLabel.text = "State: " + str(state_list[current_state].name) + "\nPrevious:" + str(state_list[previous_state].name)
 	$DebugLabel.text = str(health) + "hp"
 	return
@@ -107,7 +115,7 @@ func try_state_transition():
 
 # Saves putting the same code in every single enter() function
 func execute_upon_transition():
-	print(state_list[current_state].name)
+#	print(state_list[current_state].name)
 	state_list[previous_state].init_arg_list.clear()
 	state_list[current_state].set_attack_hitbox()
 	if state_list[current_state].unset_dash_target:

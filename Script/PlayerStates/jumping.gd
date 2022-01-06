@@ -23,16 +23,11 @@ func enter(init_arg):
 		can_roll_fall = true
 	emit_jump_particles()
 
-var is_exit_roll_jump = false
 func exit():
-	var to_return = []
 	if can_roll_fall:
 		can_roll_fall = false
-		to_return.append(init_args.ENTER_ROLLING)
-	if is_exit_roll_jump:
-		is_exit_roll_jump = false
-		to_return.append(init_args.ENTER_ROLLING)
-	return to_return
+		init_arg_list.append(init_args.ENTER_ROLLING)
+	return init_arg_list
 
 func do_state_logic(delta):
 	set_dash_target()
@@ -52,10 +47,12 @@ func check_for_new_state() -> String:
 		return Player.PS_IDLE
 	if (Input.is_action_just_pressed("jump") || Player.isJumpBuffered)\
 	and ledge_behaviour != Globals.LEDGE_EXIT && can_wall_jump():
-		get_parent().get_node("ledgeclinging").exit()
-		is_exit_roll_jump = true
+		Timers.get_node("PostClingJumpTimer").start(0.12)
+		exit()
+		init_arg_list.append(init_args.ENTER_ROLLING)
+		enter(init_arg_list)
 		return Player.PS_JUMPING #may change
-	if (ledge_behaviour != Globals.LEDGE_EXIT) && Timers.get_node("PostClingJumpTimer").time_left == 0:
+	if (ledge_behaviour != Globals.LEDGE_EXIT) && Timers.get_node("PostClingJumpTimer").time_left == 0 and Player.velocity.y > 0:
 		return Player.PS_LEDGECLINGING
 	if can_wall_jump():
 		if (Input.is_action_just_pressed("jump") or Player.isJumpBuffered):

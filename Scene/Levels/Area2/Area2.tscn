@@ -183,30 +183,36 @@ position = Vector2( 0, 108 )
 [node name="FlowerSpinner" parent="RealLevelArea/Room2/ResetableNodes/Entities" index="0" instance=ExtResource( 14 )]
 position = Vector2( -96, 132 )
 
-[node name="FlowerSpinner3" parent="RealLevelArea/Room2/ResetableNodes/Entities" index="1" instance=ExtResource( 14 )]
+[node name="FlowerSpinner2" parent="RealLevelArea/Room2/ResetableNodes/Entities" index="1" instance=ExtResource( 14 )]
+position = Vector2( -90, 108 )
+
+[node name="FlowerSpinner3" parent="RealLevelArea/Room2/ResetableNodes/Entities" index="2" instance=ExtResource( 14 )]
 position = Vector2( -108, 132 )
 
-[node name="FlowerSpinner4" parent="RealLevelArea/Room2/ResetableNodes/Entities" index="2" instance=ExtResource( 14 )]
+[node name="FlowerSpinner4" parent="RealLevelArea/Room2/ResetableNodes/Entities" index="3" instance=ExtResource( 14 )]
 position = Vector2( -120, 132 )
 
-[node name="FlowerSpinner5" parent="RealLevelArea/Room2/ResetableNodes/Entities" index="3" instance=ExtResource( 14 )]
-position = Vector2( -108, 120 )
+[node name="FlowerSpinner5" parent="RealLevelArea/Room2/ResetableNodes/Entities" index="4" instance=ExtResource( 14 )]
+position = Vector2( -114, 108 )
 
-[node name="FlowerSpinner6" parent="RealLevelArea/Room2/ResetableNodes/Entities" index="4" instance=ExtResource( 14 )]
-position = Vector2( -120, 120 )
+[node name="FlowerSpinner6" parent="RealLevelArea/Room2/ResetableNodes/Entities" index="5" instance=ExtResource( 14 )]
+position = Vector2( -112, 98 )
 
-[node name="FlowerSpinner7" parent="RealLevelArea/Room2/ResetableNodes/Entities" index="5" instance=ExtResource( 14 )]
-position = Vector2( -116, 108 )
+[node name="FlowerSpinner7" parent="RealLevelArea/Room2/ResetableNodes/Entities" index="6" instance=ExtResource( 14 )]
+position = Vector2( -90, 96 )
 
-[node name="FlowerSpinner8" parent="RealLevelArea/Room2/ResetableNodes/Entities" index="6" instance=ExtResource( 14 )]
-position = Vector2( -96, 116 )
+[node name="FlowerSpinner8" parent="RealLevelArea/Room2/ResetableNodes/Entities" index="7" instance=ExtResource( 14 )]
+position = Vector2( -104, 110 )
 
-[node name="FlowerSpinner9" parent="RealLevelArea/Room2/ResetableNodes/Entities" index="7" instance=ExtResource( 14 )]
-position = Vector2( -108, 108 )
+[node name="FlowerSpinner9" parent="RealLevelArea/Room2/ResetableNodes/Entities" index="8" instance=ExtResource( 14 )]
+position = Vector2( -102, 102 )
 
 [node name="CameraBorderTrigger2" parent="RealLevelArea/Room2/ResetableNodes/Triggers" index="0" instance=ExtResource( 6 )]
 position = Vector2( -300, -36 )
 position_mode = "player"
+on_left = false
+on_right = false
+on_above = false
 on_inside = true
 
 [node name="CollisionShape2D" parent="RealLevelArea/Room2/ResetableNodes/Triggers/CameraBorderTrigger2" index="0"]
