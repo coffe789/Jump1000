@@ -52,6 +52,8 @@ func do_room_transition(room):
 	if Globals.get_player().current_room == null:
 		set_player_room(room)
 		Globals.emit_signal("room_transitioned", null, room)
+		yield(get_tree(), "idle_frame") # Ensure all rooms are initialised at this point
+		room.enter_room()
 	elif room != Globals.get_player().current_room:
 		Globals.emit_signal("room_transitioned", Globals.get_player().current_room, room)
 		var old_room = Globals.get_player().current_room

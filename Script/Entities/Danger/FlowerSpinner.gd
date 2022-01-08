@@ -1,5 +1,5 @@
 extends DamageHitbox
-export var frame_count = 5
+export var frame_count = 6
 var Filler = preload("res://Scene/Entities/Danger/Flower/FlowerFiller.tscn")
 var is_filled = false
 
@@ -10,7 +10,7 @@ func _ready():
 	
 	
 	seed((int(global_position.x) << 10) + int(global_position.y))
-	var used_frame = randi()%5
+	var used_frame = randi()%frame_count
 	$FlowerSprite.frame = used_frame
 	$OutlineSprite.frame = used_frame
 	
@@ -22,7 +22,6 @@ func place_all_fillers():
 	is_filled = true
 	for flower in get_tree().get_nodes_in_group("flower_spinner"):
 		if self.get_instance_id() > flower.get_instance_id() and (flower.position - position).length_squared() < 200:
-			print("dewit")
 			spawn_filler((global_position + flower.global_position) / 2 - global_position)
 
 

@@ -6,7 +6,6 @@ func _ready():
 	unset_dash_target = false
 
 func enter(_init_arg):
-	Animation_Player.play("rolling")
 	stop_rising = false
 	Player.isJumpBuffered = false
 	Player.canCoyoteJump = false

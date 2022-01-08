@@ -48,6 +48,7 @@ enum {
 	PS_WALLBOUNCE_SLIDING,
 	PS_WALLBOUNCING,
 	PS_LEDGECLINGING,
+	PS_HURT,
 }
 
 onready var state_list = {
@@ -66,7 +67,8 @@ onready var state_list = {
 	PS_ROLLING : $StateMachine/rolling,
 	PS_WALLBOUNCE_SLIDING : $StateMachine/wallbounce_sliding,
 	PS_WALLBOUNCING : $StateMachine/wallbouncing,
-	PS_LEDGECLINGING : $StateMachine/ledgeclinging
+	PS_LEDGECLINGING : $StateMachine/ledgeclinging,
+	PS_HURT : $StateMachine/hurt,
 }
 
 
@@ -90,7 +92,7 @@ func _physics_process(delta) -> void:
 	previous_velocity = velocity
 	execute_state(delta) # Physics and logic occurs here
 	try_state_transition()
-	if velocity.x == 0 and previous_velocity.x != 0 and state_list[current_state].get_input_direction() == directionX:
+	if velocity.x == 0 and previous_velocity.x != 0 and state_list[current_state].get_input_direction() == directionX && !is_on_floor():
 		velocity.x = previous_velocity.x * 0.95 # Retain a bit of velocity after hitting a wall
 	
 	
@@ -136,6 +138,13 @@ func execute_state(delta):
 func attack_response(response_id, attackable):
 	state_list[current_state].attack_response(response_id, attackable)
 
+func set_state(state, init_args):
+	if state == current_state:
+		pass
+	else:
+		state_list[current_state].exit()
+		current_state = state
+		state_list[current_state].enter(init_args)
 
 # Sets spawn point to the closest in the room
 func set_spawn():

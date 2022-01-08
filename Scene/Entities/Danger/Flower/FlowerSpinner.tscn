@@ -12,6 +12,7 @@ collision_layer = 0
 collision_mask = 4
 monitorable = false
 script = ExtResource( 3 )
+frame_count = 5
 
 [node name="FlowerSprite" type="Sprite" parent="."]
 light_mask = 0
@@ -20,6 +21,7 @@ hframes = 5
 vframes = 5
 
 [node name="OutlineSprite" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0.705882 )
 light_mask = 0
 z_index = -1
 texture = ExtResource( 1 )

@@ -106,6 +106,7 @@ func take_damage_logic(amount, properties, _damage_source):
 			#Animation unreliably sets invincible to true fast enough
 			Player.is_invincible = true
 			do_iframes()
+			Player.set_state(Player.PS_HURT, [])
 			if Player.health <= 0:
 				Player.is_invincible = true # Prevent respawning twice
 				Player.respawn()
