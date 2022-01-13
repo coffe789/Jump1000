@@ -60,7 +60,7 @@ func check_for_new_state() -> String:
 			return Player.PS_WALLBOUNCE_SLIDING
 		elif (get_ledge_behaviour() != Globals.LEDGE_EXIT):
 			return Player.PS_LEDGECLINGING
-		elif Player.wall_direction == get_input_direction() && Player.wall_direction != 0:
+		elif Player.wall_direction == get_input_direction() && Player.wall_direction != 0 && Player.directionY < 0:
 			return Player.PS_WALLSLIDING
 	if (Input.is_action_just_pressed("attack") || Timers.get_node("BufferedRedashTimer").time_left > 0 || Timers.get_node("BufferedDashTimer").time_left > 0) && Timers.get_node("NoDashTimer").time_left == 0:
 		if Player.dash_direction == -1:

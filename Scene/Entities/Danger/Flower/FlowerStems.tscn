@@ -618,6 +618,7 @@ points = PoolVector2Array( 11.0594, 0.0753555, 8.13863, 7.02024, 8.20354, 8.8375
 
 [node name="FlowerStems" type="Area2D"]
 light_mask = 0
+z_index = 145
 collision_layer = 0
 collision_mask = 4
 script = ExtResource( 1 )

@@ -319,9 +319,17 @@ func _update_wall_direction():
 	var is_near_wall_left2 = _check_is_valid_wall(left_wall_raycast2)
 	var is_near_wall_right2 = _check_is_valid_wall(right_wall_raycast2)
 	
-	# If the player is sandwiched between two walls, set the wall direction to whatever they face
+	# If the player is sandwiched between two walls, check which wall is closer
 	if (is_near_wall_left || is_near_wall_left2) && (is_near_wall_right || is_near_wall_right2):
-		Player.wall_direction = Player.facing
+		if left_wall_raycast.get_collision_point() && right_wall_raycast.get_collision_point():
+			var left_len = abs(Player.global_position.x - left_wall_raycast.get_collision_point().x)
+			var right_len = abs(Player.global_position.x - right_wall_raycast.get_collision_point().x)
+			if left_len > right_len:
+				Player.wall_direction = 1
+			else:
+				Player.wall_direction = -1
+		else:
+			Player.wall_direction = Player.facing
 	# If we're near a left wall, wall_direction will be -(1)+(0), right wall will be -(0)+(1), neither is 0
 	else:
 		Player.wall_direction = -int(is_near_wall_left||is_near_wall_left2) + int(is_near_wall_right||is_near_wall_right2)

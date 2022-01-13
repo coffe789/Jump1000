@@ -145,6 +145,7 @@ func set_state(state, init_args):
 		state_list[current_state].exit()
 		current_state = state
 		state_list[current_state].enter(init_args)
+		execute_upon_transition()
 
 # Sets spawn point to the closest in the room
 func set_spawn():

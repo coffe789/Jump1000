@@ -6,6 +6,7 @@
 [node name="FlowerFiller" type="Sprite"]
 light_mask = 0
 scale = Vector2( 0.5, 0.5 )
+z_index = -1
 texture = ExtResource( 2 )
 hframes = 5
 vframes = 5
