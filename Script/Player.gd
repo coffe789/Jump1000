@@ -96,8 +96,8 @@ func _physics_process(delta) -> void:
 		velocity.x = previous_velocity.x * 0.95 # Retain a bit of velocity after hitting a wall
 	
 	
-	#$DebugLabel.text = "State: " + str(state_list[current_state].name) + "\nPrevious:" + str(state_list[previous_state].name)
-	$DebugLabel.text = str(health) + "hp"
+#	$DebugLabel.text = "State: " + str(state_list[current_state].name) + "\nPrevious:" + str(state_list[previous_state].name)
+#	$DebugLabel.text = str(health) + "hp"
 	return
 
 # Changes state if the current state wants to
@@ -138,10 +138,12 @@ func execute_state(delta):
 func attack_response(response_id, attackable):
 	state_list[current_state].attack_response(response_id, attackable)
 
+# Force state transition. Does not carry init args from previous state by default
 func set_state(state, init_args):
 	if state == current_state:
 		pass
 	else:
+		previous_state = current_state
 		state_list[current_state].exit()
 		current_state = state
 		state_list[current_state].enter(init_args)

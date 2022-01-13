@@ -53,6 +53,11 @@ _global_script_classes=[ {
 "class": "Trigger",
 "language": "GDScript",
 "path": "res://Script/Class/Trigger.gd"
+}, {
+"base": "TileMap",
+"class": "VariedTileMap",
+"language": "GDScript",
+"path": "res://Script/Class/VariedTileMap.gd"
 } ]
 _global_script_class_icons={
 "BitmaskEdgesData": "res://addons/Tile_Cleaner/Icons/Bitmask_Edges_Icon.png",
@@ -63,7 +68,8 @@ _global_script_class_icons={
 "PaddedTileMap": "",
 "PlayerState": "",
 "TilePattern": "res://addons/Tile_Cleaner/Icons/Tile_Pattern_Icon.png",
-"Trigger": ""
+"Trigger": "",
+"VariedTileMap": ""
 }
 
 [application]
