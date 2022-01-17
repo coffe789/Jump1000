@@ -10,8 +10,6 @@ func _ready():
 	set_random_tiles()
 	for cell in get_used_cells():
 		set_cell(cell.x ,cell.y, get_cellv(cell), 0,0,0, get_random_tile(cell.x,cell.y))
-		if name == "MiniFlower":
-			print("herehere")
 	on_ready()
 
 func on_ready():
@@ -23,5 +21,4 @@ func set_random_tiles():
 
 func get_random_tile(x:int,y:int):
 	seed((x << 10) + y)
-	print(random_tiles[randi()%(variations)])
 	return random_tiles[randi()%(variations)]

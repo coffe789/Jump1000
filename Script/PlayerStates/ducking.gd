@@ -6,8 +6,7 @@ func set_attack_hitbox():
 	Player.attack_box_x_distance = 11
 
 func enter(init_arg):
-	Collision_Body.get_shape().extents = DUCKING_COLLISION_EXTENT
-	Collision_Body.position.y = -4
+	set_y_collision(DUCKING_COLLISION_EXTENT,-4)
 	
 	if init_arg != null:
 		if !init_arg.has(init_args.FROM_DUCKING):
@@ -33,8 +32,8 @@ func check_for_new_state() -> String:
 	return Player.PS_DUCKING
 
 func exit():
+	set_y_collision(NORMAL_COLLISION_EXTENT,-8)
 	Collision_Body.get_shape().extents = NORMAL_COLLISION_EXTENT
-	Collision_Body.position.y = -8
 	
 	init_arg_list.append(init_args.FROM_DUCKING)
 	return init_arg_list

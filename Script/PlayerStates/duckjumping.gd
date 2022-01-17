@@ -4,8 +4,7 @@ var stop_rising = false
 var rng = RandomNumberGenerator.new()
 
 func enter(init_arg):
-	Collision_Body.get_shape().extents = DUCKING_COLLISION_EXTENT
-	Collision_Body.position.y = -4
+	set_y_collision(DUCKING_COLLISION_EXTENT,-4)
 	stop_rising = false
 	Player.isJumpBuffered = false
 	Player.canCoyoteJump = false
@@ -48,8 +47,7 @@ func play_jump_audio():
 	Audio.get_node("JumpAudio").play(0.001) # Hide stupid audio artifact
 
 func exit():
-	Collision_Body.get_shape().extents = NORMAL_COLLISION_EXTENT
-	Collision_Body.position.y = -8
+	set_y_collision(NORMAL_COLLISION_EXTENT,-8)
 	
 	init_arg_list.append(init_args.FROM_DUCKING)
 	var buffer = init_arg_list.duplicate()

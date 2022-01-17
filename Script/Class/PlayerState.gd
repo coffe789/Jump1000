@@ -32,7 +32,7 @@ const GRAVITY = 530
 const ACCELERATE_WALK = 1500/1.5
 const FLOOR_DRAG = 1.5
 const DUCK_FLOOR_DRAG = 0.6
-const AIR_DRAG = 0.14
+const AIR_DRAG = 0.14 * 1.5
 const MAX_X_SPEED = 100
 const JUMP_SPEED = 237
 const MAX_FALL_SPEED = 250
@@ -101,7 +101,10 @@ func take_damage_logic(amount, properties, _damage_source):
 	if !Player.is_invincible:
 		if properties.has(Globals.Dmg_properties.FROM_PLAYER):
 			pass
-		else:
+		elif not (Player.velocity.y < 0 and properties.has(Globals.Dmg_properties.IMMUNE_UP))\
+			and not (Player.velocity.y > 0 and properties.has(Globals.Dmg_properties.IMMUNE_DOWN))\
+			and not (Player.velocity.x < 0 and properties.has(Globals.Dmg_properties.IMMUNE_LEFT))\
+			and not (Player.velocity.x > 0 and properties.has(Globals.Dmg_properties.IMMUNE_RIGHT)):
 			Player.health -= amount
 			#Animation unreliably sets invincible to true fast enough
 			Player.is_invincible = true
@@ -232,8 +235,8 @@ func get_input_direction():
 
 
 func do_normal_x_movement(delta, friction_constant, walk_acceleration):
-	if (abs(Player.velocity.x)>MAX_X_SPEED && Player.directionX != -get_input_direction()): #going too fast
-		Player.velocity.x = approach(Player.velocity.x, get_input_direction() * MAX_X_SPEED, delta * friction_constant * 1000)
+	if (abs(Player.velocity.x)>MAX_X_SPEED && Player.directionX == get_input_direction()): #going too fast
+		Player.velocity.x = approach(Player.velocity.x, get_input_direction() * MAX_X_SPEED, delta * friction_constant * 1000 / 1.5 /1.5)
 	elif (get_input_direction()!=0 && walk_acceleration > 0): # move player
 		Player.velocity.x = approach(Player.velocity.x, get_input_direction() * MAX_X_SPEED, delta * walk_acceleration)
 	else:	#normal friction
@@ -351,7 +354,7 @@ func _check_is_valid_wall(raycast):
 
 func get_ledge_behaviour():
 	_update_wall_direction()
-	if get_input_direction() != 0:
+	if get_input_direction() == Player.wall_direction:
 		if _check_is_valid_wall(ledge_cast_mid) \
 		and !_check_is_valid_wall(ledge_cast_top) && Player.velocity.y >= 0:
 			return Globals.LEDGE_REST
@@ -368,6 +371,12 @@ func emit_jump_particles():
 	Player.get_node("Particles/JumpCloud").process_material.direction.x = -Player.directionX
 	yield(get_tree().create_timer(0.04), "timeout")
 	Player.get_node("Particles/JumpCloud").emitting = false
+
+# Sets position and extents of player physics and hitbox collision
+func set_y_collision(extents,y_position):
+	Collision_Body.get_shape().extents = extents
+	Collision_Body.position.y = y_position
+	get_node("../../CollisionChecks/HurtBox/CollisionBody").position.y = y_position
 
 # Buffered inputs
 #==================================================================#

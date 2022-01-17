@@ -16,6 +16,11 @@ enum Dmg_properties {
 	PLAYER_ATTACK,
 	DASH_ATTACK_UP,
 	DASH_ATTACK_DOWN,
+	
+	IMMUNE_UP, # Spikes don't harm you when your velocity faces their direction
+	IMMUNE_DOWN,
+	IMMUNE_LEFT,
+	IMMUNE_RIGHT,
 }
 
 # Ways player can react after attacking an object
