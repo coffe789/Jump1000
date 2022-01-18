@@ -41,8 +41,6 @@ func do_state_logic(delta):
 
 func check_for_new_state() -> String:
 	var ledge_behaviour = get_ledge_behaviour()
-	if (Player.velocity.y > 0):
-		return Player.PS_FALLING
 	if (Player.is_on_floor()):
 		return Player.PS_IDLE
 	if (Input.is_action_just_pressed("jump") || Player.isJumpBuffered)\
@@ -64,6 +62,8 @@ func check_for_new_state() -> String:
 		return Player.PS_DASHING_UP
 	if Player.dash_direction == 1 && (Input.is_action_just_pressed("attack") || Timers.get_node("BufferedDashTimer").time_left > 0):
 		return Player.PS_DASHING_DOWN
+	if (Player.velocity.y > 0):
+		return Player.PS_FALLING
 	return Player.current_state
 
 func check_buffered_inputs():

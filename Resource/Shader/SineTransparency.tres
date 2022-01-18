@@ -5,25 +5,16 @@ code = "shader_type canvas_item;
 const float PI = 3.141592;
 uniform float speed = 0.2;
 uniform float offset = 0.0;
-
-float cubicPulse( float c, float w, float x )
-{
-    x = abs(x - c);
-    if( x>w ) return 0.0;
-    x /= w;
-    return 1.0 - x*x*(3.0-2.0*x);
-}
+uniform float min_alpha = 0.714;
 
 void fragment(){
-	vec4 color_a = vec4(1.0);
 	vec4 tex = texture(TEXTURE,UV);
-//	vec4 color_b = vec4(1.0,0.)
-	float alpha = mix(tex.a/1.4,tex.a,mix(0.,1.,sin(2.*PI*(TIME*speed+offset))));
+	float alpha = mix(tex.a*min_alpha,tex.a,mix(0.,1.,sin(2.*PI*(TIME*speed+offset))));
 	COLOR = vec4(tex.rgb, alpha);
-	
 }"
 
 [resource]
 shader = SubResource( 117 )
-shader_param/speed = 0.3
+shader_param/speed = 0.4
 shader_param/offset = 0.66
+shader_param/min_alpha = 0.714

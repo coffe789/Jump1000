@@ -38,7 +38,7 @@ const JUMP_SPEED = 237
 const MAX_FALL_SPEED = 250
 const UP_DIRECTION = Vector2(0,-1)
 const JUMP_BUFFER_DURATION = 0.13
-const COYOTE_TIME = 0.07
+const COYOTE_TIME = 0.05
 const AFTER_JUMP_SLOWDOWN_FACTOR = 2
 const WALL_GRAVITY_FACTOR = 0.075
 const WALLJUMP_X_SPEED_MULTIPLIER = 1.35
@@ -356,11 +356,11 @@ func get_ledge_behaviour():
 	_update_wall_direction()
 	if get_input_direction() == Player.wall_direction:
 		if _check_is_valid_wall(ledge_cast_mid) \
-		and !_check_is_valid_wall(ledge_cast_top) && Player.velocity.y >= 0:
+		and !_check_is_valid_wall(ledge_cast_top) && Player.velocity.y > 0:
 			return Globals.LEDGE_REST
 		elif (_check_is_valid_wall(ledge_cast_bottom) || _check_is_valid_wall(ledge_cast_mid)) && !_check_is_valid_wall(ledge_cast_top):
 			return Globals.LEDGE_NO_ACTION
-		elif(_check_is_valid_wall(ledge_cast_top) && !_check_is_valid_wall(ledge_cast_lenient) && !(Player.velocity.y < 0 && Player.current_state==Player.PS_WALLSLIDING))\
+		elif(_check_is_valid_wall(ledge_cast_top) && !_check_is_valid_wall(ledge_cast_lenient) && Player.current_state!=Player.PS_WALLSLIDING)\
 		and Player.velocity.y >= -10:
 			return Globals.LEDGE_LENIENCY_RISE
 	return Globals.LEDGE_EXIT
