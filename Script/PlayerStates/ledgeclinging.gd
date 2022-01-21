@@ -49,9 +49,9 @@ func check_for_new_state() -> String:
 		init_arg_list.append(init_args.ENTER_ROLLING)
 		return Player.PS_JUMPING
 	if ledge_behaviour == Globals.LEDGE_EXIT:
-		if Player.velocity.y < 10:
-			return Player.PS_PREVIOUS
-		else:
+#		if Player.velocity.y < 10:
+#			return Player.PS_PREVIOUS
+#		else:
 			return Player.PS_FALLING
 	else:
 		return Player.PS_LEDGECLINGING

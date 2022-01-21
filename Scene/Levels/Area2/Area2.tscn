@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=2]
+[gd_scene load_steps=73 format=2]
 
 [ext_resource path="res://Scene/Levels/LevelArea.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scene/Levels/Room.tscn" type="PackedScene" id=2]
@@ -8,19 +8,27 @@
 [ext_resource path="res://Scene/Triggers/CameraBorderTrigger.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scene/Entities/Util/DamageHitbox.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Art/Styleground/Testing/vignette.png" type="Texture" id=8]
-[ext_resource path="res://Art/Styleground/Testing/forest/fg00.png" type="Texture" id=9]
-[ext_resource path="res://Art/Styleground/Testing/forest/fg02.png" type="Texture" id=10]
+[ext_resource path="res://Art/Styleground/forest/fg00.png" type="Texture" id=9]
+[ext_resource path="res://Art/Styleground/forest/fg02.png" type="Texture" id=10]
 [ext_resource path="res://Art/FX/krlight.png" type="Texture" id=11]
 [ext_resource path="res://Scene/Entities/Enemies/Pongus.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Art/Entity/Danger/Spikes/Bramble/bramble_spikes_outline.png" type="Texture" id=13]
 [ext_resource path="res://Resource/Shader/SineTransparency.tres" type="Material" id=14]
 [ext_resource path="res://Art/Styleground/Testing/mist.png" type="Texture" id=15]
-[ext_resource path="res://Art/Styleground/Testing/forest/goshray_a.png" type="Texture" id=16]
-[ext_resource path="res://Art/Styleground/Testing/forest/sky.png" type="Texture" id=17]
-[ext_resource path="res://Art/Styleground/Testing/forest/goshray_b.png" type="Texture" id=18]
-[ext_resource path="res://Art/Styleground/Testing/forest/gosh_ray_c.png" type="Texture" id=19]
+[ext_resource path="res://Art/Styleground/forest/goshray_a.png" type="Texture" id=16]
+[ext_resource path="res://Art/Styleground/forest/sky.png" type="Texture" id=17]
+[ext_resource path="res://Art/Styleground/forest/goshray_b.png" type="Texture" id=18]
+[ext_resource path="res://Art/Styleground/forest/gosh_ray_c.png" type="Texture" id=19]
 [ext_resource path="res://Art/Entity/Danger/Spikes/Bramble/bramble_spikes.png" type="Texture" id=20]
 [ext_resource path="res://Art/FX/Particle/leaf.png" type="Texture" id=21]
+[ext_resource path="res://Scene/Particles/Leaf/AngleCurve.tres" type="Curve" id=22]
+[ext_resource path="res://Resource/Shader/Fog.tres" type="Material" id=23]
+[ext_resource path="res://Script/FX/mist.gd" type="Script" id=24]
+[ext_resource path="res://Art/Styleground/fogNoise.png" type="Texture" id=25]
+[ext_resource path="res://Art/FX/Particle/dustCircleMaterial_albedo.png" type="Texture" id=26]
+[ext_resource path="res://Art/FX/Particle/dustCircleSmall.png" type="Texture" id=27]
+[ext_resource path="res://Script/FX/follow_cam.gd" type="Script" id=28]
+[ext_resource path="res://Art/Decals/Forest/top_grass.png" type="Texture" id=29]
 
 [sub_resource type="Gradient" id=101]
 colors = PoolColorArray( 0, 0, 0.0196078, 1, 0.980392, 1, 1, 1 )
@@ -30,24 +38,18 @@ gradient = SubResource( 101 )
 
 [sub_resource type="Environment" id=99]
 background_mode = 4
-glow_blend_mode = 1
 glow_hdr_threshold = 1.5
 adjustment_enabled = true
 adjustment_color_correction = SubResource( 102 )
 
-[sub_resource type="Curve" id=121]
-min_value = -90.0
-max_value = 90.0
-_data = [ Vector2( 0, -90 ), 0.0, 0.0, 0, 0, Vector2( 0.060274, 90 ), 0.0, 0.0, 0, 0, Vector2( 0.120548, -90 ), 0.0, 0.0, 0, 0, Vector2( 0.189041, 90 ), 0.0, 0.0, 0, 0, Vector2( 0.249315, -90 ), 0.0, 0.0, 0, 0, Vector2( 0.323288, 90 ), 0.0, 0.0, 0, 0, Vector2( 0.386301, -90 ), 0.0, 0.0, 0, 0, Vector2( 0.441096, 90 ), 0.0, 0.0, 0, 0, Vector2( 0.49589, -90 ), 0.0, 0.0, 0, 0, Vector2( 0.572603, 89.3864 ), 0.0, 0.0, 0, 0, Vector2( 0.630137, -90 ), 0.0, 0.0, 0, 0, Vector2( 0.673973, 90 ), 0.0, 0.0, 0, 0, Vector2( 0.753425, -90 ), 0.0, 0.0, 0, 0, Vector2( 0.808219, 90 ), 0.0, 0.0, 0, 0, Vector2( 0.865753, -90 ), 0.0, 0.0, 0, 0, Vector2( 0.917808, 90 ), 0.0, 0.0, 0, 0, Vector2( 1, -90 ), 0.0, 0.0, 0, 0 ]
-
 [sub_resource type="CurveTexture" id=122]
-curve = SubResource( 121 )
+curve = ExtResource( 22 )
 
 [sub_resource type="ParticlesMaterial" id=120]
 emission_shape = 2
-emission_box_extents = Vector3( 400, 10, 1 )
+emission_box_extents = Vector3( 400, 5, 1 )
 flag_disable_z = true
-direction = Vector3( -0.5, 1, 0 )
+direction = Vector3( -0.7, 1, 0 )
 gravity = Vector3( 0, 0, 0 )
 initial_velocity = 7.0
 initial_velocity_random = 0.3
@@ -55,15 +57,15 @@ orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 angle_random = 0.3
 angle_curve = SubResource( 122 )
-scale = 0.25
+scale = 0.2
 scale_random = 0.05
 hue_variation = 1.0
 
 [sub_resource type="ParticlesMaterial" id=123]
 emission_shape = 2
-emission_box_extents = Vector3( 400, 10, 1 )
+emission_box_extents = Vector3( 400, 5, 1 )
 flag_disable_z = true
-direction = Vector3( -0.5, 1, 0 )
+direction = Vector3( -0.6, 1, 0 )
 spread = 30.0
 gravity = Vector3( 0, 0, 0 )
 initial_velocity = 8.0
@@ -108,6 +110,52 @@ shader_param/offset = 0.0
 shader = SubResource( 117 )
 shader_param/speed = 0.4
 shader_param/offset = 0.33
+
+[sub_resource type="Gradient" id=125]
+offsets = PoolRealArray( 0.032967, 0.230769, 1 )
+colors = PoolColorArray( 0, 0.921569, 1, 0, 0.478431, 1, 0.937255, 0.0784314, 0, 0.921569, 1, 0 )
+
+[sub_resource type="GradientTexture" id=126]
+gradient = SubResource( 125 )
+
+[sub_resource type="ParticlesMaterial" id=124]
+lifetime_randomness = 0.1
+emission_shape = 2
+emission_box_extents = Vector3( 516, 516, 1 )
+flag_disable_z = true
+direction = Vector3( -0.7, 1, 0 )
+spread = 0.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 3.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+angle = 408.4
+scale = 0.07
+scale_random = 0.04
+color_ramp = SubResource( 126 )
+
+[sub_resource type="Gradient" id=128]
+offsets = PoolRealArray( 0.032967, 0.373626, 1 )
+colors = PoolColorArray( 0, 0.921569, 1, 0, 0.478431, 1, 0.937255, 0.176471, 0, 0.921569, 1, 0 )
+
+[sub_resource type="GradientTexture" id=129]
+gradient = SubResource( 128 )
+
+[sub_resource type="ParticlesMaterial" id=127]
+lifetime_randomness = 0.1
+emission_shape = 2
+emission_box_extents = Vector3( 200, 200, 1 )
+flag_disable_z = true
+direction = Vector3( -0.7, 1, 0 )
+spread = 0.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 4.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 0.7
+scale_random = 0.1
+color = Color( 0.36665, 0.978172, 0.998535, 1 )
+color_ramp = SubResource( 129 )
 
 [sub_resource type="RectangleShape2D" id=97]
 resource_local_to_scene = true
@@ -507,10 +555,10 @@ centered = false
 [node name="Particles2D" type="Particles2D" parent="RealLevelArea/ParallaxBackground/ParallaxLayer"]
 modulate = Color( 0, 0.153, 0.18, 1 )
 light_mask = 0
-position = Vector2( 0, -200 )
-amount = 60
-lifetime = 40.0
-preprocess = 15.0
+position = Vector2( 0, -250 )
+amount = 80
+lifetime = 50.0
+preprocess = 30.0
 process_material = SubResource( 120 )
 texture = ExtResource( 21 )
 
@@ -540,10 +588,10 @@ centered = false
 [node name="Particles2D" type="Particles2D" parent="RealLevelArea/ParallaxBackground/fg00"]
 modulate = Color( 0, 0.204, 0.24, 1 )
 light_mask = 0
-position = Vector2( 0, -200 )
+position = Vector2( 0, -250 )
 amount = 40
-lifetime = 40.0
-preprocess = 15.0
+lifetime = 50.0
+preprocess = 30.0
 process_material = SubResource( 123 )
 texture = ExtResource( 21 )
 
@@ -583,8 +631,6 @@ texture = ExtResource( 19 )
 centered = false
 
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="RealLevelArea/ParallaxBackground"]
-modulate = Color( 1, 1, 1, 0.635294 )
-z_index = 1
 motion_scale = Vector2( 0, 0 )
 motion_offset = Vector2( 192, 108 )
 motion_mirroring = Vector2( 640, 400 )
@@ -597,9 +643,50 @@ centered = false
 
 [node name="mist" type="Sprite" parent="RealLevelArea/ParallaxBackground/ParallaxLayer3"]
 visible = false
-modulate = Color( 0.27451, 0.27451, 0.27451, 1 )
+material = ExtResource( 23 )
+z_index = 4096
 texture = ExtResource( 15 )
+
+[node name="ParallaxForeground" type="ParallaxBackground" parent="RealLevelArea"]
+layer = 1
+
+[node name="Mist" type="ParallaxLayer" parent="RealLevelArea/ParallaxForeground"]
+material = ExtResource( 14 )
+motion_scale = Vector2( 1.2, 1.2 )
+motion_mirroring = Vector2( 516, 516 )
+script = ExtResource( 24 )
+
+[node name="mist" type="Sprite" parent="RealLevelArea/ParallaxForeground/Mist"]
+modulate = Color( 0.741176, 1, 0.984314, 0.235294 )
+z_index = 1000
+texture = ExtResource( 25 )
 centered = false
+
+[node name="DustGradient" type="ParallaxLayer" parent="RealLevelArea/ParallaxForeground"]
+motion_scale = Vector2( 1.3, 1.3 )
+motion_mirroring = Vector2( 516, 516 )
+
+[node name="dustgradient" type="Particles2D" parent="RealLevelArea/ParallaxForeground/DustGradient"]
+amount = 18
+lifetime = 8.0
+preprocess = 16.0
+randomness = 0.78
+visibility_rect = Rect2( -100, -100, 400, 400 )
+process_material = SubResource( 124 )
+texture = ExtResource( 26 )
+
+[node name="DustSmall" type="ParallaxLayer" parent="RealLevelArea/ParallaxForeground"]
+motion_scale = Vector2( 1.4, 1.4 )
+motion_mirroring = Vector2( 516, 516 )
+
+[node name="dustsmall" type="Particles2D" parent="RealLevelArea/ParallaxForeground/DustSmall"]
+lifetime = 4.0
+preprocess = 8.0
+randomness = 0.78
+visibility_rect = Rect2( -100, -100, 400, 400 )
+process_material = SubResource( 127 )
+texture = ExtResource( 27 )
+script = ExtResource( 28 )
 
 [node name="Player" parent="RealLevelArea" instance=ExtResource( 3 )]
 light_mask = 0
@@ -647,12 +734,16 @@ shape = SubResource( 97 )
 [node name="SpawnPoint" parent="RealLevelArea/Room" index="8"]
 position = Vector2( -144, 48 )
 
+[node name="Sprite" type="Sprite" parent="RealLevelArea/Room"]
+position = Vector2( 48, 66 )
+texture = ExtResource( 29 )
+
 [node name="Room2" parent="RealLevelArea" instance=ExtResource( 2 )]
 position = Vector2( 576, -108 )
 
 [node name="FGTileMap" parent="RealLevelArea/Room2" index="0"]
 position = Vector2( 0, 108 )
-tile_data = PoolIntArray( -655336, 1, 65544, -589800, 1, 131079, -524264, 1, 131080, -458728, 1, 131080, -393192, 1, 131080, -327656, 1, 131080, -262120, 1, 131079, -196584, 1, 131081, -131048, 1, 131079, -65512, 1, 131078, 2, 1, 327684, 3, 1, 327689, 4, 1, 327690, 24, 1, 131081, 65538, 1, 393221, 65539, 1, 0, 65540, 1, 393226, 65560, 1, 131078, 196603, 1, 589825, 196604, 1, 655362, 196605, 1, 327689, 196606, 1, 262154, 131073, 1, 327684, 131074, 1, 262146, 131075, 1, 0, 131076, 1, 524298, 131096, 1, 131081, 262129, 3, 65544, 262131, 3, 262149, 262132, 3, 327688, 262133, 3, 327689, 262134, 3, 262155, 262140, 1, 655365, 262141, 1, 655367, 262142, 1, 720906, 196609, 1, 393221, 196610, 1, 0, 196611, 1, 0, 196612, 1, 262145, 196613, 1, 262154, 196632, 1, 131081, 327651, 1, 65544, 327665, 3, 720902, 327666, 3, 458754, 327667, 3, 458756, 327668, 3, 0, 327669, 3, 0, 327670, 3, 524298, 327672, 3, 65544, 262145, 1, 458757, 262146, 1, 0, 262147, 1, 0, 262148, 1, 0, 262149, 1, 458762, 262168, 1, 131079, 393187, 1, 131082, 393188, 1, 262154, 393203, 3, 589829, 393204, 3, 0, 393205, 3, 0, 393206, 3, 458763, 393207, 3, 393218, 393208, 3, 720905, 327681, 1, 589829, 327682, 1, 0, 327683, 1, 0, 327684, 1, 0, 327685, 1, 393226, 327704, 1, 131080, 458721, 1, 262148, 458722, 1, 327688, 458723, 1, 262146, 458724, 1, 262145, 458725, 1, 327686, 458726, 1, 327686, 458727, 1, 327687, 458728, 1, 327691, 458735, 1, 327685, 458736, 1, 327687, 458737, 1, 327690, 458739, 3, 589829, 458740, 3, 0, 458741, 3, 0, 458742, 3, 393226, 458748, 1, 327684, 458749, 1, 327689, 458750, 1, 327686, 458751, 1, 327686, 393216, 1, 327687, 393217, 1, 262146, 393218, 1, 0, 393219, 1, 0, 393220, 1, 0, 393221, 1, 458762, 393240, 1, 131078, 524256, 1, 327685, 524257, 1, 262146, 524258, 1, 0, 524259, 1, 0, 524260, 1, 0, 524261, 1, 0, 524262, 1, 0, 524263, 1, 0, 524264, 1, 262145, 524265, 1, 327688, 524266, 1, 327686, 524267, 1, 327689, 524268, 1, 327689, 524269, 1, 327688, 524270, 1, 327689, 524271, 1, 262146, 524272, 1, 0, 524273, 1, 262145, 524274, 1, 327686, 524275, 1, 327687, 524276, 1, 327689, 524277, 1, 327687, 524278, 1, 327687, 524279, 1, 327687, 524280, 1, 327687, 524281, 1, 327689, 524282, 1, 327688, 524283, 1, 327688, 524284, 1, 262146, 524285, 1, 0, 524286, 1, 0, 524287, 1, 0, 458752, 1, 0, 458753, 1, 0, 458754, 1, 0, 458755, 1, 0, 458756, 1, 0, 458757, 1, 262145, 458758, 1, 327687, 458759, 1, 327686, 458760, 1, 327686, 458761, 1, 327687, 458762, 1, 327686, 458763, 1, 327689, 458764, 1, 327687, 458765, 1, 327688, 458766, 1, 327688, 458767, 1, 327686, 458768, 1, 327687, 458769, 1, 327688, 458770, 1, 327686, 458771, 1, 327686, 458772, 1, 327689, 458773, 1, 327688, 458774, 1, 655361, 458775, 1, 589826, 458776, 1, 262152, 458777, 1, 393218, 458778, 1, 589826, 458779, 1, 655362, 458780, 1, 327687, 458781, 1, 327687, 458782, 1, 327686, 458783, 1, 327687, 458784, 1, 262154, 589792, 1, 589829, 589793, 1, 0, 589794, 1, 0, 589795, 1, 0, 589796, 1, 0, 589797, 1, 0, 589798, 1, 0, 589799, 1, 0, 589800, 1, 0, 589801, 1, 0, 589802, 1, 0, 589803, 1, 0, 589804, 1, 0, 589805, 1, 0, 589806, 1, 0, 589807, 1, 0, 589808, 1, 0, 589809, 1, 0, 589810, 1, 0, 589811, 1, 0, 589812, 1, 0, 589813, 1, 0, 589814, 1, 0, 589815, 1, 0, 589816, 1, 0, 589817, 1, 0, 589818, 1, 0, 589819, 1, 0, 589820, 1, 0, 589821, 1, 0, 589822, 1, 0, 589823, 1, 0, 524288, 1, 0, 524289, 1, 0, 524290, 1, 0, 524291, 1, 0, 524292, 1, 0, 524293, 1, 0, 524294, 1, 0, 524295, 1, 0, 524296, 1, 0, 524297, 1, 0, 524298, 1, 0, 524299, 1, 0, 524300, 1, 0, 524301, 1, 0, 524302, 1, 0, 524303, 1, 0, 524304, 1, 0, 524305, 1, 0, 524306, 1, 0, 524307, 1, 0, 524308, 1, 0, 524309, 1, 0, 524310, 1, 589834, 524315, 1, 458757, 524316, 1, 0, 524317, 1, 0, 524318, 1, 0, 524319, 1, 0, 524320, 1, 589834, 655328, 1, 589829, 655329, 1, 0, 655330, 1, 0, 655331, 1, 0, 655332, 1, 0, 655333, 1, 0, 655334, 1, 0, 655335, 1, 0, 655336, 1, 0, 655337, 1, 0, 655338, 1, 0, 655339, 1, 0, 655340, 1, 0, 655341, 1, 0, 655342, 1, 0, 655343, 1, 0, 655344, 1, 0, 655345, 1, 0, 655346, 1, 0, 655347, 1, 0, 655348, 1, 0, 655349, 1, 0, 655350, 1, 0, 655351, 1, 0, 655352, 1, 0, 655353, 1, 0, 655354, 1, 0, 655355, 1, 0, 655356, 1, 0, 655357, 1, 0, 655358, 1, 0, 655359, 1, 0, 589824, 1, 0, 589825, 1, 0, 589826, 1, 0, 589827, 1, 0, 589828, 1, 0, 589829, 1, 0, 589830, 1, 0, 589831, 1, 0, 589832, 1, 0, 589833, 1, 0, 589834, 1, 0, 589835, 1, 0, 589836, 1, 0, 589837, 1, 0, 589838, 1, 0, 589839, 1, 0, 589840, 1, 0, 589841, 1, 0, 589842, 1, 0, 589843, 1, 0, 589844, 1, 0, 589845, 1, 0, 589846, 1, 524298, 589851, 1, 720900, 589852, 1, 655369, 589853, 1, 655369, 589854, 1, 655366, 589855, 1, 655369, 589856, 1, 655371, 720864, 1, 720900, 720865, 1, 655367, 720866, 1, 655367, 720867, 1, 655368, 720868, 1, 655369, 720869, 1, 655369, 720870, 1, 655366, 720871, 1, 655367, 720872, 1, 655368, 720873, 1, 655367, 720874, 1, 655369, 720875, 1, 655367, 720876, 1, 655366, 720877, 1, 655367, 720878, 1, 655366, 720879, 1, 655366, 720880, 1, 655367, 720881, 1, 655369, 720882, 1, 655368, 720883, 1, 655369, 720884, 1, 655368, 720885, 1, 655367, 720886, 1, 655368, 720887, 1, 655368, 720888, 1, 655369, 720889, 1, 655366, 720890, 1, 655369, 720891, 1, 655367, 720892, 1, 655368, 720893, 1, 655366, 720894, 1, 655368, 720895, 1, 655368, 655360, 1, 655366, 655361, 1, 655369, 655362, 1, 655369, 655363, 1, 655366, 655364, 1, 655367, 655365, 1, 655367, 655366, 1, 655369, 655367, 1, 655367, 655368, 1, 655366, 655369, 1, 655368, 655370, 1, 655369, 655371, 1, 655367, 655372, 1, 655369, 655373, 1, 655368, 655374, 1, 655368, 655375, 1, 655368, 655376, 1, 655369, 655377, 1, 655367, 655378, 1, 655367, 655379, 1, 655367, 655380, 1, 655367, 655381, 1, 655369, 655382, 1, 655371 )
+tile_data = PoolIntArray( -655336, 1, 65544, -589800, 1, 131079, -524264, 1, 131080, -458728, 1, 131080, -393192, 1, 131080, -327656, 1, 131080, -262120, 1, 131079, -196584, 1, 131081, -131048, 1, 131079, -65512, 1, 131078, 2, 1, 327684, 3, 1, 327689, 4, 1, 327690, 24, 1, 131081, 65538, 1, 393221, 65539, 1, 0, 65540, 1, 393226, 65560, 1, 131078, 196603, 1, 589825, 196604, 1, 655362, 196605, 1, 327689, 196606, 1, 262154, 131073, 1, 327684, 131074, 1, 262146, 131075, 1, 0, 131076, 1, 524298, 131096, 1, 131081, 262129, 3, 65544, 262131, 3, 262149, 262132, 3, 327686, 262133, 3, 327686, 262134, 3, 327690, 262140, 1, 655365, 262141, 1, 655367, 262142, 1, 720906, 196609, 1, 393221, 196610, 1, 0, 196611, 1, 0, 196612, 1, 262145, 196613, 1, 262154, 196632, 1, 131081, 327651, 1, 65544, 327665, 3, 720902, 327666, 3, 458754, 327667, 3, 458756, 327668, 3, 0, 327669, 3, 0, 327670, 3, 524298, 327672, 3, 65544, 262145, 1, 458757, 262146, 1, 0, 262147, 1, 0, 262148, 1, 0, 262149, 1, 458762, 262168, 1, 131079, 393187, 1, 131082, 393188, 1, 262154, 393203, 3, 589829, 393204, 3, 0, 393205, 3, 0, 393206, 3, 458763, 393207, 3, 393218, 393208, 3, 720905, 327681, 1, 589829, 327682, 1, 0, 327683, 1, 0, 327684, 1, 0, 327685, 1, 393226, 327704, 1, 131080, 458721, 1, 262148, 458722, 1, 327688, 458723, 1, 262146, 458724, 1, 262145, 458725, 1, 327686, 458726, 1, 327686, 458727, 1, 327687, 458728, 1, 327691, 458735, 1, 327685, 458736, 1, 327687, 458737, 1, 327690, 458739, 3, 589829, 458740, 3, 0, 458741, 3, 0, 458742, 3, 393226, 458748, 1, 327684, 458749, 1, 327689, 458750, 1, 327686, 458751, 1, 327686, 393216, 1, 327687, 393217, 1, 262146, 393218, 1, 0, 393219, 1, 0, 393220, 1, 0, 393221, 1, 458762, 393240, 1, 131078, 524256, 1, 327685, 524257, 1, 262146, 524258, 1, 0, 524259, 1, 0, 524260, 1, 0, 524261, 1, 0, 524262, 1, 0, 524263, 1, 0, 524264, 1, 262145, 524265, 1, 327688, 524266, 1, 327686, 524267, 1, 327689, 524268, 1, 327689, 524269, 1, 327688, 524270, 1, 327689, 524271, 1, 262146, 524272, 1, 0, 524273, 1, 262145, 524274, 1, 327686, 524275, 1, 327687, 524276, 1, 327689, 524277, 1, 327687, 524278, 1, 327687, 524279, 1, 327687, 524280, 1, 327687, 524281, 1, 327689, 524282, 1, 327688, 524283, 1, 327688, 524284, 1, 262146, 524285, 1, 0, 524286, 1, 0, 524287, 1, 0, 458752, 1, 0, 458753, 1, 0, 458754, 1, 0, 458755, 1, 0, 458756, 1, 0, 458757, 1, 262145, 458758, 1, 327687, 458759, 1, 327686, 458760, 1, 327686, 458761, 1, 327687, 458762, 1, 327686, 458763, 1, 327689, 458764, 1, 327687, 458765, 1, 327688, 458766, 1, 327688, 458767, 1, 327686, 458768, 1, 327687, 458769, 1, 327688, 458770, 1, 327686, 458771, 1, 327686, 458772, 1, 327689, 458773, 1, 327688, 458774, 1, 655361, 458775, 1, 589826, 458776, 1, 262152, 458777, 1, 393218, 458778, 1, 589826, 458779, 1, 655362, 458780, 1, 327687, 458781, 1, 327687, 458782, 1, 327686, 458783, 1, 327687, 458784, 1, 262154, 589792, 1, 589829, 589793, 1, 0, 589794, 1, 0, 589795, 1, 0, 589796, 1, 0, 589797, 1, 0, 589798, 1, 0, 589799, 1, 0, 589800, 1, 0, 589801, 1, 0, 589802, 1, 0, 589803, 1, 0, 589804, 1, 0, 589805, 1, 0, 589806, 1, 0, 589807, 1, 0, 589808, 1, 0, 589809, 1, 0, 589810, 1, 0, 589811, 1, 0, 589812, 1, 0, 589813, 1, 0, 589814, 1, 0, 589815, 1, 0, 589816, 1, 0, 589817, 1, 0, 589818, 1, 0, 589819, 1, 0, 589820, 1, 0, 589821, 1, 0, 589822, 1, 0, 589823, 1, 0, 524288, 1, 0, 524289, 1, 0, 524290, 1, 0, 524291, 1, 0, 524292, 1, 0, 524293, 1, 0, 524294, 1, 0, 524295, 1, 0, 524296, 1, 0, 524297, 1, 0, 524298, 1, 0, 524299, 1, 0, 524300, 1, 0, 524301, 1, 0, 524302, 1, 0, 524303, 1, 0, 524304, 1, 0, 524305, 1, 0, 524306, 1, 0, 524307, 1, 0, 524308, 1, 0, 524309, 1, 0, 524310, 1, 589834, 524315, 1, 458757, 524316, 1, 0, 524317, 1, 0, 524318, 1, 0, 524319, 1, 0, 524320, 1, 589834, 655328, 1, 589829, 655329, 1, 0, 655330, 1, 0, 655331, 1, 0, 655332, 1, 0, 655333, 1, 0, 655334, 1, 0, 655335, 1, 0, 655336, 1, 0, 655337, 1, 0, 655338, 1, 0, 655339, 1, 0, 655340, 1, 0, 655341, 1, 0, 655342, 1, 0, 655343, 1, 0, 655344, 1, 0, 655345, 1, 0, 655346, 1, 0, 655347, 1, 0, 655348, 1, 0, 655349, 1, 0, 655350, 1, 0, 655351, 1, 0, 655352, 1, 0, 655353, 1, 0, 655354, 1, 0, 655355, 1, 0, 655356, 1, 0, 655357, 1, 0, 655358, 1, 0, 655359, 1, 0, 589824, 1, 0, 589825, 1, 0, 589826, 1, 0, 589827, 1, 0, 589828, 1, 0, 589829, 1, 0, 589830, 1, 0, 589831, 1, 0, 589832, 1, 0, 589833, 1, 0, 589834, 1, 0, 589835, 1, 0, 589836, 1, 0, 589837, 1, 0, 589838, 1, 0, 589839, 1, 0, 589840, 1, 0, 589841, 1, 0, 589842, 1, 0, 589843, 1, 0, 589844, 1, 0, 589845, 1, 0, 589846, 1, 524298, 589851, 1, 720900, 589852, 1, 655369, 589853, 1, 655369, 589854, 1, 655366, 589855, 1, 655369, 589856, 1, 655371, 720864, 1, 720900, 720865, 1, 655367, 720866, 1, 655367, 720867, 1, 655368, 720868, 1, 655369, 720869, 1, 655369, 720870, 1, 655366, 720871, 1, 655367, 720872, 1, 655368, 720873, 1, 655367, 720874, 1, 655369, 720875, 1, 655367, 720876, 1, 655366, 720877, 1, 655367, 720878, 1, 655366, 720879, 1, 655366, 720880, 1, 655367, 720881, 1, 655369, 720882, 1, 655368, 720883, 1, 655369, 720884, 1, 655368, 720885, 1, 655367, 720886, 1, 655368, 720887, 1, 655368, 720888, 1, 655369, 720889, 1, 655366, 720890, 1, 655369, 720891, 1, 655367, 720892, 1, 655368, 720893, 1, 655366, 720894, 1, 655368, 720895, 1, 655368, 655360, 1, 655366, 655361, 1, 655369, 655362, 1, 655369, 655363, 1, 655366, 655364, 1, 655367, 655365, 1, 655367, 655366, 1, 655369, 655367, 1, 655367, 655368, 1, 655366, 655369, 1, 655368, 655370, 1, 655369, 655371, 1, 655367, 655372, 1, 655369, 655373, 1, 655368, 655374, 1, 655368, 655375, 1, 655368, 655376, 1, 655369, 655377, 1, 655367, 655378, 1, 655367, 655379, 1, 655367, 655380, 1, 655367, 655381, 1, 655369, 655382, 1, 655371 )
 
 [node name="BGTileMap" parent="RealLevelArea/Room2" index="1"]
 position = Vector2( 0, 108 )
@@ -720,7 +811,6 @@ shape = SubResource( 98 )
 position = Vector2( -174, 144 )
 
 [node name="EditAssistor" type="Node2D" parent="." groups=["edit_assistor"]]
-visible = false
 z_index = 4096
 script = ExtResource( 4 )
 

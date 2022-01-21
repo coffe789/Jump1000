@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/fg01.png-9594caf3f203765c7c89d05aa697d729.stex"
+path="res://.import/fg00.png-d4ad727b69a8a06aa899ad958eceb8ff.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Styleground/Testing/forest/fg01.png"
-dest_files=[ "res://.import/fg01.png-9594caf3f203765c7c89d05aa697d729.stex" ]
+source_file="res://Art/Styleground/forest/fg00.png"
+dest_files=[ "res://.import/fg00.png-d4ad727b69a8a06aa899ad958eceb8ff.stex" ]
 
 [params]
 

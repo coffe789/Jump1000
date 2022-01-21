@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/goshray_b.png-5f20324311ed669e2803059513d39b2c.stex"
+path="res://.import/fg02.png-a34b251850e8cc1a3609c56f01dca35b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Styleground/Testing/forest/goshray_b.png"
-dest_files=[ "res://.import/goshray_b.png-5f20324311ed669e2803059513d39b2c.stex" ]
+source_file="res://Art/Styleground/forest/fg02.png"
+dest_files=[ "res://.import/fg02.png-a34b251850e8cc1a3609c56f01dca35b.stex" ]
 
 [params]
 
