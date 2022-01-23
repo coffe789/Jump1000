@@ -27,7 +27,6 @@ func _init():
 		plugin.queue_free()
 
 
-
 func _process(_delta):
 	if Engine.editor_hint && edi.get_selection().get_selected_nodes().size() > 0:
 		if edi.get_selection().get_selected_nodes()[0].is_in_group("editor_room"):
@@ -35,10 +34,12 @@ func _process(_delta):
 		if selected_room:
 			update_graphics()
 
+
 func update_graphics():
 	selected_extents = selected_room.get_node("CollisionShape2D").shape.extents
 	set_border_rects()
 	update()
+
 
 func _draw():
 	if Engine.editor_hint:
@@ -47,11 +48,11 @@ func _draw():
 			draw_rect(rec_right, unfocus_color)
 			draw_rect(rec_bottom, unfocus_color)
 			draw_rect(rec_top, unfocus_color)
+			draw_rect(extent2rect(selected_room), active_border_color, false, border_width)
 		
 		for room in get_tree().get_nodes_in_group("editor_room"):
 			draw_rect(extent2rect(room), inactive_border_color, false, border_width)
-		if selected_room != null:
-			draw_rect(extent2rect(selected_room), active_border_color, false, border_width)
+
 
 func set_border_rects():
 	rec_left = Rect2(selected_room.get_node("CollisionShape2D").global_position - Vector2(selected_extents.x + SIDE_WIDTH, SIDE_HEIGHT / 2),Vector2(SIDE_WIDTH,SIDE_HEIGHT))

@@ -1,4 +1,4 @@
-[gd_scene load_steps=74 format=2]
+[gd_scene load_steps=66 format=2]
 
 [ext_resource path="res://Scene/Levels/LevelArea.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scene/Levels/Room.tscn" type="PackedScene" id=2]
@@ -10,7 +10,6 @@
 [ext_resource path="res://Art/Styleground/Testing/vignette.png" type="Texture" id=8]
 [ext_resource path="res://Art/Styleground/forest/fg00.png" type="Texture" id=9]
 [ext_resource path="res://Art/Styleground/forest/fg02.png" type="Texture" id=10]
-[ext_resource path="res://Script/Class/VariedTileMap.gd" type="Script" id=11]
 [ext_resource path="res://Scene/Entities/Enemies/Pongus.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Art/Entity/Danger/Spikes/Bramble/bramble_spikes_outline.png" type="Texture" id=13]
 [ext_resource path="res://Resource/Shader/SineTransparency.tres" type="Material" id=14]
@@ -28,7 +27,6 @@
 [ext_resource path="res://Art/FX/Particle/dustCircleMaterial_albedo.png" type="Texture" id=26]
 [ext_resource path="res://Art/FX/Particle/dustCircleSmall.png" type="Texture" id=27]
 [ext_resource path="res://Scene/Entities/Danger/Flower/FlowerSpinner.tscn" type="PackedScene" id=28]
-[ext_resource path="res://Art/Decals/Forest/top_grass.png" type="Texture" id=29]
 
 [sub_resource type="Gradient" id=101]
 colors = PoolColorArray( 0, 0, 0.0196078, 1, 0.980392, 1, 1, 1 )
@@ -160,68 +158,6 @@ color_ramp = SubResource( 129 )
 [sub_resource type="RectangleShape2D" id=97]
 resource_local_to_scene = true
 extents = Vector2( 192, 108 )
-
-[sub_resource type="ConvexPolygonShape2D" id=10]
-points = PoolVector2Array( 13, 14, 1, 14, 1, 12, 13, 12 )
-
-[sub_resource type="ConvexPolygonShape2D" id=11]
-points = PoolVector2Array( 13, 14, 1, 14, 1, 12, 13, 12 )
-
-[sub_resource type="ConvexPolygonShape2D" id=12]
-points = PoolVector2Array( 13, 14, 1, 14, 1, 12, 13, 12 )
-
-[sub_resource type="ConvexPolygonShape2D" id=13]
-points = PoolVector2Array( 13, 14, 1, 14, 1, 12, 13, 12 )
-
-[sub_resource type="TileSet" id=1]
-0/name = "bramble_spikes.png 0"
-0/texture = ExtResource( 20 )
-0/tex_offset = Vector2( 0, 0 )
-0/modulate = Color( 1, 1, 1, 1 )
-0/region = Rect2( 14, 14, 84, 14 )
-0/tile_mode = 1
-0/autotile/bitmask_mode = 0
-0/autotile/bitmask_flags = [  ]
-0/autotile/icon_coordinate = Vector2( 0, 0 )
-0/autotile/tile_size = Vector2( 14, 14 )
-0/autotile/spacing = 0
-0/autotile/occluder_map = [  ]
-0/autotile/navpoly_map = [  ]
-0/autotile/priority_map = [  ]
-0/autotile/z_index_map = [  ]
-0/occluder_offset = Vector2( 0, 0 )
-0/navigation_offset = Vector2( 0, 0 )
-0/shape_offset = Vector2( 0, 0 )
-0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-0/shape = SubResource( 10 )
-0/shape_one_way = false
-0/shape_one_way_margin = 1.0
-0/shapes = [ {
-"autotile_coord": Vector2( 2, 0 ),
-"one_way": false,
-"one_way_margin": 1.0,
-"shape": SubResource( 10 ),
-"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
-}, {
-"autotile_coord": Vector2( 3, 0 ),
-"one_way": false,
-"one_way_margin": 1.0,
-"shape": SubResource( 11 ),
-"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
-}, {
-"autotile_coord": Vector2( 4, 0 ),
-"one_way": false,
-"one_way_margin": 1.0,
-"shape": SubResource( 12 ),
-"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
-}, {
-"autotile_coord": Vector2( 1, 0 ),
-"one_way": false,
-"one_way_margin": 1.0,
-"shape": SubResource( 13 ),
-"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
-} ]
-0/z_index = 0
 
 [sub_resource type="GDScript" id=104]
 script/source = "extends VariedTileMap
@@ -527,37 +463,12 @@ extents = Vector2( 84, 36 )
 resource_local_to_scene = true
 extents = Vector2( 384, 216 )
 
-[sub_resource type="TileSet" id=130]
-0/name = "top_grass.png 0"
-0/texture = ExtResource( 29 )
-0/tex_offset = Vector2( 0, 0 )
-0/modulate = Color( 1, 1, 1, 1 )
-0/region = Rect2( 0, 0, 60, 12 )
-0/tile_mode = 1
-0/autotile/bitmask_mode = 0
-0/autotile/bitmask_flags = [  ]
-0/autotile/icon_coordinate = Vector2( 0, 0 )
-0/autotile/tile_size = Vector2( 12, 12 )
-0/autotile/spacing = 0
-0/autotile/occluder_map = [  ]
-0/autotile/navpoly_map = [  ]
-0/autotile/priority_map = [  ]
-0/autotile/z_index_map = [  ]
-0/occluder_offset = Vector2( 0, 0 )
-0/navigation_offset = Vector2( 0, 0 )
-0/shape_offset = Vector2( 0, 0 )
-0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-0/shape_one_way = false
-0/shape_one_way_margin = 0.0
-0/shapes = [  ]
-0/z_index = 0
-
 [node name="Buffer" type="Node2D"]
 
 [node name="RealLevelArea" parent="." instance=ExtResource( 1 )]
 
 [node name="PlayerCamera" parent="RealLevelArea" index="2"]
-position = Vector2( 138, 24 )
+position = Vector2( 138, 78 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="RealLevelArea"]
 environment = SubResource( 99 )
@@ -735,7 +646,7 @@ texture = ExtResource( 27 )
 
 [node name="Player" parent="RealLevelArea" instance=ExtResource( 3 )]
 light_mask = 0
-position = Vector2( 138, 24 )
+position = Vector2( 138, 78 )
 
 [node name="Room" parent="RealLevelArea" instance=ExtResource( 2 )]
 
@@ -746,8 +657,7 @@ tile_data = PoolIntArray( -131080, 1, 262150, -131079, 1, 393218, -131078, 1, 45
 tile_data = PoolIntArray( 196609, 0, 0, 327671, 3, 0, 327677, 3, 0, 327688, 2, 0 )
 
 [node name="FGDecal" parent="RealLevelArea/Room" index="3"]
-tile_data = PoolIntArray( 2359780, 1, 0 )
-script = ExtResource( 11 )
+tile_data = PoolIntArray( -196616, 8, 0, -196615, 9, 0, -196612, 8, 0, -196611, 8, 0, -196609, 8, 0, 196592, 9, 0, 262131, 8, 0, 262132, 8, 0, 327665, 8, 0, 327669, 8, 0, 327683, 8, 0, 327684, 8, 0, 458742, 8, 0, 393216, 9, 0, 393217, 8, 0, 393227, 8, 0, 393228, 8, 0, 393230, 9, 0, 2359780, 1, 0 )
 
 [node name="KingPongus" parent="RealLevelArea/Room/ResetableNodes/Entities" index="0" instance=ExtResource( 12 )]
 position = Vector2( 0, -60 )
@@ -790,6 +700,7 @@ tile_data = PoolIntArray( 196578, 2, 0, 196595, 6, 0, 262118, 5, 0, 327658, 3, 0
 
 [node name="FGDecal" parent="RealLevelArea/Room2" index="3"]
 position = Vector2( 0, 108 )
+tile_data = PoolIntArray( -65534, 8, 0, -65533, 9, 0, -65532, 8, 0, 131067, 8, 0, 131068, 8, 0, 131070, 9, 0, 65537, 8, 0, 327652, 9, 0, 393185, 8, 0, 393189, 8, 0, 393200, 8, 0, 393201, 8, 0, 393213, 8, 0, 393214, 8, 0, 327690, 8, 0, 327691, 8, 0, 458729, 8, 0, 458733, 9, 0, 458734, 8, 0, 458743, 8, 0, 458744, 8, 0, 393223, 8, 0, 393231, 8, 0 )
 
 [node name="ForestDanger" parent="RealLevelArea/Room2/ResetableNodes/Entities" index="0" instance=ExtResource( 5 )]
 
@@ -797,8 +708,7 @@ position = Vector2( 0, 108 )
 monitorable = true
 
 [node name="SpikeUp" parent="RealLevelArea/Room2/ResetableNodes/Entities/ForestDanger/SpikeUpBox" index="0"]
-tile_set = SubResource( 1 )
-tile_data = PoolIntArray( 851993, 0, 0, 851994, 0, 0, 917527, 0, 0, 917528, 0, 0 )
+tile_data = PoolIntArray( 851993, 0, 0, 851994, 0, 0, 917526, 0, 0, 917527, 0, 0, 917528, 0, 0, 983060, 0, 0, 983061, 0, 0 )
 script = SubResource( 104 )
 
 [node name="Outline" parent="RealLevelArea/Room2/ResetableNodes/Entities/ForestDanger/SpikeUpBox/SpikeUp" index="0"]
@@ -859,14 +769,6 @@ position = Vector2( -174, 144 )
 [node name="EditAssistor" type="Node2D" parent="." groups=["edit_assistor"]]
 z_index = 4096
 script = ExtResource( 4 )
-
-[node name="VariedTileMap" type="TileMap" parent="."]
-tile_set = SubResource( 130 )
-cell_size = Vector2( 12, 12 )
-format = 1
-tile_data = PoolIntArray( -196615, 0, 0, -196614, 0, 0, -196610, 0, 0, 196592, 0, 0, 196598, 0, 0, 262132, 0, 0, 393202, 0, 0, 327682, 0, 0, 327684, 0, 0, 458742, 0, 0, 458743, 0, 0, 458746, 0, 0, 393216, 0, 0, 393217, 0, 0, 393223, 0, 0, 393225, 0, 0, 393226, 0, 0, 393228, 0, 0, 393229, 0, 0, 393230, 0, 0 )
-script = ExtResource( 11 )
-variations = 7
 
 [editable path="RealLevelArea"]
 [editable path="RealLevelArea/Room"]
