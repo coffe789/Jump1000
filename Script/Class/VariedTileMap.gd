@@ -9,7 +9,8 @@ var random_tiles = PoolVector2Array()
 func _ready():
 	set_random_tiles()
 	for cell in get_used_cells():
-		set_cell(cell.x ,cell.y, get_cellv(cell), 0,0,0, get_random_tile(cell.x,cell.y))
+		if tile_set.tile_get_tile_mode(get_cellv(cell)) == tile_set.AUTO_TILE:
+			set_cell(cell.x ,cell.y, get_cellv(cell), 0,0,0, get_random_tile(cell.x,cell.y))
 	on_ready()
 
 func on_ready():

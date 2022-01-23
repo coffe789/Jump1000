@@ -17,8 +17,7 @@ func get_ledge_Y():
 
 
 func do_state_logic(delta):
-	if Player.velocity.y < 0:
-		check_if_finish_jump()
+	check_if_finish_jump()
 	ledge_behaviour = get_ledge_behaviour()
 	if ledge_behaviour == Globals.LEDGE_REST:
 		if get_ledge_Y()-ledge_cast_top.global_position.y < 2:

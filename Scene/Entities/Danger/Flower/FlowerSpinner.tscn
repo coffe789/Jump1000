@@ -22,7 +22,6 @@ hframes = 5
 vframes = 5
 
 [node name="OutlineSprite" type="Sprite" parent="."]
-modulate = Color( 1, 1, 1, 0.705882 )
 light_mask = 0
 z_index = -1
 texture = ExtResource( 1 )
