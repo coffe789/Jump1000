@@ -23,7 +23,6 @@ func set_camera_limits(room_shape):
 	limit_top = room_shape.global_position.y - room_size.y / 2
 	limit_right = limit_left + room_size.x
 	limit_bottom = limit_top + room_size.y - LOWER_OFFSCREEN_MARGIN
-	print(limit_right)
 
 
 func _on_player_connected(player):
@@ -59,6 +58,7 @@ func _set_limits(limit_type, limit_pos):
 	if limit_type == 0: # let cam go left
 		limit_right = limit_pos
 	elif limit_type == 1: # let cam go right
+		limit_left = limit_pos
 		limit_left = limit_pos
 	elif limit_type == 2: # above
 		limit_bottom = limit_pos

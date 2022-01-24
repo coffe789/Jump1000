@@ -28,21 +28,21 @@ const DASH_SPEED_X = 180
 const DASH_SPEED_Y = 150
 const PLAYER_HEIGHT = 18.0
 const PLAYER_WIDTH = 8
-const GRAVITY = 500
+const GRAVITY = 530
 const ACCELERATE_WALK = 1500/1.5
-const FLOOR_DRAG = 1
+const FLOOR_DRAG = 1.5
 const DUCK_FLOOR_DRAG = 0.6
-const AIR_DRAG = 0.2
+const AIR_DRAG = 0.14 * 1.5
 const MAX_X_SPEED = 100
-const JUMP_SPEED = 400/1.75
+const JUMP_SPEED = 237
 const MAX_FALL_SPEED = 250
 const UP_DIRECTION = Vector2(0,-1)
-const JUMP_BUFFER_DURATION = 0.15
-const COYOTE_TIME = 0.12
+const JUMP_BUFFER_DURATION = 0.13
+const COYOTE_TIME = 0.06
 const AFTER_JUMP_SLOWDOWN_FACTOR = 2
 const WALL_GRAVITY_FACTOR = 0.075
-const WALLJUMP_X_SPEED_MULTIPLIER = 1.3
-const WALLJUMP_SLOWDOWN_MULTIPLIER = 0.245
+const WALLJUMP_X_SPEED_MULTIPLIER = 1.35
+const WALLJUMP_SLOWDOWN_MULTIPLIER = 0.233
 const NORMAL_COLLISION_EXTENT = Vector2(3.5,8)
 const DUCKING_COLLISION_EXTENT = Vector2(3.5,4)
 const NORMAL_ATTACK_SIZE = Vector2(15,5)
@@ -51,23 +51,27 @@ const WALLBOUNCE_MULTIPLIER = 1.35
 
 const NO_DASH_TIME = 0.3
 const DASH_TIME = 0.2
-const ROLL_TIME = 0.3
+const ROLL_TIME = 0.4
 const BUFFERED_DASH_TIME = 6.0/60.0
 
 const INVINCIBLE_TIME = 2.5
 # State Initialisation Parameters
 #=============================================#
 enum init_args {
-	ROLLING_FALL,
-	ROLLING_JUMP
+	FROM_DUCKING,
+	ENTER_ROLLING,
+	ENTER_SUPER_JUMP
 }
+
+var init_arg_list = []
+
 #=============================================#
 
 # Variables
 #===============================================#
 var is_dashing = false
 var unset_dash_target = true
-var state_attack_type = Globals.NORMAL_ATTACK
+var state_damage_properties = [Globals.Dmg_properties.FROM_PLAYER]
 
 #Base class functions
 #================================================#
@@ -76,9 +80,9 @@ func enter(_init_arg):
 	pass
 
 
-# Called when state is exited. May return a list of strings
+# Called when state is exited. May return a list of init_arg enums
 func exit():
-	return []
+	return init_arg_list
 
 
 # Called every physics frame a state is active
@@ -92,12 +96,23 @@ func check_for_new_state() -> String:
 #Shared utility functions
 #===============================================#
 
-func take_damage(amount):
+
+func take_damage_logic(amount, properties, _damage_source):
 	if !Player.is_invincible:
-		Player.health -= amount
-		do_iframes()
-		if Player.health <= 0:
-			Player.respawn()
+		if properties.has(Globals.Dmg_properties.FROM_PLAYER):
+			pass
+		elif not (Player.velocity.y < 0 and properties.has(Globals.Dmg_properties.IMMUNE_UP))\
+			and not (Player.velocity.y > 0 and properties.has(Globals.Dmg_properties.IMMUNE_DOWN))\
+			and not (Player.velocity.x < 0 and properties.has(Globals.Dmg_properties.IMMUNE_LEFT))\
+			and not (Player.velocity.x > 0 and properties.has(Globals.Dmg_properties.IMMUNE_RIGHT)):
+			Player.health -= amount
+			#Animation unreliably sets invincible to true fast enough
+			Player.is_invincible = true
+			do_iframes()
+			Player.set_state(Player.PS_HURT, [])
+			if Player.health <= 0:
+				Player.is_invincible = true # Prevent respawning twice
+				Player.respawn()
 
 
 func heal(amount):
@@ -109,13 +124,6 @@ func heal(amount):
 
 func do_iframes():
 	Timers.get_node("IFrameTimer").play("invincible")
-	
-
-
-func set_attack_hitbox():
-	Attack_Box.get_child(0).get_shape().extents = NORMAL_ATTACK_SIZE
-	Attack_Box.position.y = -8
-	Player.attack_box_x_distance = 11
 
 
 const DASH_DIR_UP = -1
@@ -155,6 +163,12 @@ func set_dash_direction():
 		return
 
 
+func set_attack_hitbox():
+	Attack_Box.get_child(0).get_shape().extents = NORMAL_ATTACK_SIZE
+	Attack_Box.position.y = -8
+	Player.attack_box_x_distance = 11
+
+
 # Performs attack if button is pressed/is buffered. Returns success status
 func do_attack():
 	if (Input.is_action_just_pressed("attack") && !Player.is_attacking)\
@@ -167,8 +181,7 @@ func do_attack():
 
 # Player attacks regardless of input or whatever
 func force_attack():
-	Player.last_attack_type = state_attack_type
-	Player.current_attack_id += 1
+	Attack_Box.damage_properties = state_damage_properties
 	Attack_Box.get_child(0).disabled = false
 	Player.is_attacking = true
 	Timers.get_node("BetweenAttackTimer").start(0.4)
@@ -182,6 +195,7 @@ func stop_attack():
 
 
 # What the player does after attacking (dependent on target)
+# I think this should be deleted and I can just use a global signal?
 func attack_response(response_id, attackable):
 	match response_id:
 		Globals.NORMAL_STAGGER:
@@ -221,8 +235,8 @@ func get_input_direction():
 
 
 func do_normal_x_movement(delta, friction_constant, walk_acceleration):
-	if (abs(Player.velocity.x)>MAX_X_SPEED && Player.directionX != -get_input_direction()): #going too fast
-		Player.velocity.x = approach(Player.velocity.x, get_input_direction() * MAX_X_SPEED, delta * friction_constant * 1000)
+	if (abs(Player.velocity.x)>MAX_X_SPEED && Player.directionX == get_input_direction()): #going too fast
+		Player.velocity.x = approach(Player.velocity.x, get_input_direction() * MAX_X_SPEED, delta * friction_constant * 1000 / 1.5 /1.5)
 	elif (get_input_direction()!=0 && walk_acceleration > 0): # move player
 		Player.velocity.x = approach(Player.velocity.x, get_input_direction() * MAX_X_SPEED, delta * walk_acceleration)
 	else:	#normal friction
@@ -253,7 +267,7 @@ func approach(to_change, maximum, change_by):
 	return to_change
 
 
-# sets value to maximum if maximum has a greater magnitude
+# sets value to maximum only if maximum has a greater magnitude
 # Is used such that speed boosts can't slow you down
 func set_if_lesser(to_set, maximum):
 	if abs(to_set) > abs(maximum) && Globals.is_same_sign(to_set,maximum):
@@ -308,9 +322,17 @@ func _update_wall_direction():
 	var is_near_wall_left2 = _check_is_valid_wall(left_wall_raycast2)
 	var is_near_wall_right2 = _check_is_valid_wall(right_wall_raycast2)
 	
-	# If the player is sandwiched between two walls, set the wall direction to whatever they face
+	# If the player is sandwiched between two walls, check which wall is closer
 	if (is_near_wall_left || is_near_wall_left2) && (is_near_wall_right || is_near_wall_right2):
-		Player.wall_direction = Player.facing
+		if left_wall_raycast.get_collision_point() && right_wall_raycast.get_collision_point():
+			var left_len = abs(Player.global_position.x - left_wall_raycast.get_collision_point().x)
+			var right_len = abs(Player.global_position.x - right_wall_raycast.get_collision_point().x)
+			if left_len > right_len:
+				Player.wall_direction = 1
+			else:
+				Player.wall_direction = -1
+		else:
+			Player.wall_direction = Player.facing
 	# If we're near a left wall, wall_direction will be -(1)+(0), right wall will be -(0)+(1), neither is 0
 	else:
 		Player.wall_direction = -int(is_near_wall_left||is_near_wall_left2) + int(is_near_wall_right||is_near_wall_right2)
@@ -332,13 +354,13 @@ func _check_is_valid_wall(raycast):
 
 func get_ledge_behaviour():
 	_update_wall_direction()
-	if get_input_direction() != 0:
+	if get_input_direction() == Player.wall_direction:
 		if _check_is_valid_wall(ledge_cast_mid) \
-		and !_check_is_valid_wall(ledge_cast_top) && Player.velocity.y >= 0:
+		and !_check_is_valid_wall(ledge_cast_top) && Player.velocity.y > 0:
 			return Globals.LEDGE_REST
 		elif (_check_is_valid_wall(ledge_cast_bottom) || _check_is_valid_wall(ledge_cast_mid)) && !_check_is_valid_wall(ledge_cast_top):
 			return Globals.LEDGE_NO_ACTION
-		elif(_check_is_valid_wall(ledge_cast_top) && !_check_is_valid_wall(ledge_cast_lenient) && !(Player.velocity.y < 0 && Player.current_state==Player.PS_WALLSLIDING))\
+		elif(_check_is_valid_wall(ledge_cast_top) && !_check_is_valid_wall(ledge_cast_lenient) && Player.current_state!=Player.PS_WALLSLIDING)\
 		and Player.velocity.y >= -10:
 			return Globals.LEDGE_LENIENCY_RISE
 	return Globals.LEDGE_EXIT
@@ -349,6 +371,12 @@ func emit_jump_particles():
 	Player.get_node("Particles/JumpCloud").process_material.direction.x = -Player.directionX
 	yield(get_tree().create_timer(0.04), "timeout")
 	Player.get_node("Particles/JumpCloud").emitting = false
+
+# Sets position and extents of player physics and hitbox collision
+func set_y_collision(extents,y_position):
+	Collision_Body.get_shape().extents = extents
+	Collision_Body.position.y = y_position
+	get_node("../../CollisionChecks/HurtBox/CollisionBody").position.y = y_position
 
 # Buffered inputs
 #==================================================================#

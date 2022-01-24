@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Script/RoomStuff/Room.gd" type="Script" id=1]
 [ext_resource path="res://Scene/Entities/Room/Boundary.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Resource/Tileset/Tileset.tres" type="TileSet" id=7]
 [ext_resource path="res://Resource/Tileset/DecalTileset.tres" type="TileSet" id=8]
 [ext_resource path="res://Scene/Entities/Room/SpawnPoint.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Script/Class/VariedTileMap.gd" type="Script" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 resource_local_to_scene = true
@@ -38,6 +39,7 @@ tile_set = ExtResource( 8 )
 cell_size = Vector2( 12, 12 )
 cell_quadrant_size = 12
 format = 1
+script = ExtResource( 10 )
 
 [node name="FGDecal" type="TileMap" parent="."]
 z_index = 250
@@ -45,6 +47,7 @@ tile_set = ExtResource( 8 )
 cell_size = Vector2( 12, 12 )
 cell_quadrant_size = 12
 format = 1
+script = ExtResource( 10 )
 
 [node name="ResetableNodes" type="Node2D" parent="."]
 script = ExtResource( 3 )

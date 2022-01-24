@@ -17,12 +17,13 @@ func do_state_logic(delta):
 
 func check_for_new_state() -> String:
 	if (!Player.is_on_floor()):
+		init_arg_list.append(init_args.ENTER_ROLLING)
 		return Player.PS_FALLING
 	if (Input.is_action_pressed("down") && Input.is_action_just_pressed("jump")) \
 	or Input.is_action_pressed("down") && Player.isJumpBuffered:
 		return Player.PS_DUCKJUMPING
 	if (Input.is_action_just_pressed("jump") || Player.isJumpBuffered):
-		Player.velocity.x = set_if_lesser(Player.velocity.x, roll_direction*260)
+		init_arg_list.append(init_args.ENTER_SUPER_JUMP)
 		return Player.PS_JUMPING
 	if Input.is_action_pressed("down"):
 		return Player.PS_DUCKING

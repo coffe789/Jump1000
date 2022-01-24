@@ -1,0 +1,36 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+uniform vec3 color = vec3(0.7,0.7,0.8);
+uniform vec2 direction = vec2(-1.,0.);
+uniform float speed = 0.01;
+
+
+float rand(vec2 coord){
+	return fract(sin(dot(coord,vec2(73.,28.))*1000.)*1000.0);
+}
+
+float noise(vec2 coord){
+	vec2 i = floor(coord);
+	vec2 f = fract(coord);
+	
+	vec2 cubic = f*f *(3.-2.*f);
+	
+	float a = rand(i);
+	float b = rand(i+vec2(1.,0.));
+	float c = rand(i+vec2(0.,1.));
+	float d = rand(i+vec2(1.,1.));
+	return mix(a,b,cubic.x)+(c-a)*cubic.y*(1.0-cubic.x)+(d-b) * cubic.x * cubic.y;
+}
+
+void fragment(){
+	vec2 coord = (UV + direction * TIME * speed) * 20.;
+	COLOR = vec4(color,noise(coord));
+}"
+
+[resource]
+shader = SubResource( 1 )
+shader_param/color = Vector3( 0.7, 0.7, 0.8 )
+shader_param/direction = Vector2( -1, 0 )
+shader_param/speed = 0.01

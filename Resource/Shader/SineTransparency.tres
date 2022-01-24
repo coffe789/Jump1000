@@ -1,0 +1,20 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=117]
+code = "shader_type canvas_item;
+const float PI = 3.141592;
+uniform float speed = 0.2;
+uniform float offset = 0.0;
+uniform float min_alpha = 0.714;
+
+void fragment(){
+	vec4 tex = texture(TEXTURE,UV);
+	float alpha = mix(tex.a*min_alpha,tex.a*1.4,mix(0.,1.,sin(2.*PI*(TIME*speed+offset))));
+	COLOR = vec4(tex.rgb, alpha);
+}"
+
+[resource]
+shader = SubResource( 117 )
+shader_param/speed = 0.4
+shader_param/offset = 0.0
+shader_param/min_alpha = 0.8

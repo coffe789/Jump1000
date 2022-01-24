@@ -12,7 +12,7 @@ var PM_spacing_y = 6
 var grid_size = 3
 var accel = Vector2(5,8)
 
-var outline_color = Color8(33,39,58)
+var outline_color = Color(11/255.0,17/255.0,43/255.0)
 # Fill colour is set in PM script, couldn't figure out how to do it from here.
 var PM_outline = []
 

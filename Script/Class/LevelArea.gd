@@ -43,13 +43,19 @@ func initialise_rooms():
 			node.get_child(0).call_deferred("set_disabled",true)
 	if Globals.get_player().current_room:
 		Globals.get_player().current_room.enable_bounds(true)
+		
+		Globals.is_resetables_packaged = true
 
 
 # Called when player enters a room
 func do_room_transition(room):
 	if Globals.get_player().current_room == null:
 		set_player_room(room)
+		yield(get_tree(), "idle_frame") # Ensure all rooms are initialised at this point
+		room.enter_room()
+		Globals.emit_signal("room_transitioned", null, room)
 	elif room != Globals.get_player().current_room:
+		Globals.emit_signal("room_transitioned", Globals.get_player().current_room, room)
 		var old_room = Globals.get_player().current_room
 		check_transition_type()
 		
@@ -71,6 +77,7 @@ func do_room_transition(room):
 func do_transition_pause():
 	get_cam().pause_mode = Node.PAUSE_MODE_PROCESS
 	get_tree().paused = true
+	Physics2DServer.set_active(true)
 	var timers_to_pause = get_tree().get_nodes_in_group("reset_on_room_transition")
 	for i in timers_to_pause.size():
 		timers_to_pause[i].start(0) # maybe stops timer
@@ -124,7 +131,7 @@ func snap_player_to_room():
 # Forcibly sets room. Used on the first room upon spawning so that the camera locks instantly
 func set_player_room(area):
 	Globals.get_player().current_room = area
-	Globals.get_player().current_room.enter_room()
+#	Globals.get_player().current_room.enter_room()
 	
 	# Set camera limits/position
 	var room_collision_shape = area.get_node("CollisionShape2D")

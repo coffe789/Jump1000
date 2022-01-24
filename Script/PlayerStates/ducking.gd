@@ -5,10 +5,15 @@ func set_attack_hitbox():
 	Attack_Box.position.y = -5
 	Player.attack_box_x_distance = 11
 
-func enter(_init_arg):
-	Collision_Body.get_shape().extents = DUCKING_COLLISION_EXTENT
-	Collision_Body.position.y = -4
-	Animation_Player.play("ducking")
+func enter(init_arg):
+	set_y_collision(DUCKING_COLLISION_EXTENT,-4)
+	
+	if init_arg != null:
+		if !init_arg.has(init_args.FROM_DUCKING):
+			Animation_Player.play("ducking")
+	else:
+		Animation_Player.play("ducking")
+		
 
 func do_state_logic(delta):
 	do_attack()
@@ -27,5 +32,8 @@ func check_for_new_state() -> String:
 	return Player.PS_DUCKING
 
 func exit():
+	set_y_collision(NORMAL_COLLISION_EXTENT,-8)
 	Collision_Body.get_shape().extents = NORMAL_COLLISION_EXTENT
-	Collision_Body.position.y = -8
+	
+	init_arg_list.append(init_args.FROM_DUCKING)
+	return init_arg_list

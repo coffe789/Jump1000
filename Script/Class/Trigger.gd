@@ -2,6 +2,7 @@ tool
 extends Area2D
 class_name Trigger
 
+
 enum P_mode {
 	NO_EFFECT,
 	TOP_TO_BOTTOM,
@@ -10,6 +11,13 @@ enum P_mode {
 	RIGHT_TO_LEFT,
 }
 
+enum Target_types {
+	BODY,
+	AREA,
+}
+
+export var target_group = "player"
+export(Target_types) var target_type = Target_types.BODY
 export(int, 
 "no effect",
 "top to bottom",
@@ -33,10 +41,15 @@ var is_player_inside = false
 func _ready():
 	if !Engine.editor_hint:
 		self.add_to_group("trigger")
-		connect("body_entered", self, "_on_body_entered")
-		connect("body_exited", self, "_on_body_exited")
+		if target_type == Target_types.BODY:
+			connect("body_entered", self, "_on_target_entered")
+			connect("body_exited", self, "_on_target_exited")
+		elif target_type == Target_types.AREA:
+			connect("area_entered", self, "_on_target_entered")
+			connect("area_exited", self, "_on_target_exited")
 		set_bounds()
 		on_ready()
+		assert(target_group!=null)
 
 
 # Used so I don't have to overwrite _ready() in inherited objects
@@ -52,14 +65,14 @@ func _process(_delta):
 		update()
 
 
-func _on_body_entered(_body:Node):
-	if _body.is_in_group("player"):
+func _on_target_entered(target:Node):
+	if target.is_in_group(target_group):
 		is_player_inside = true
 		on_enter()
 
 
-func _on_body_exited(_body:Node):
-	if _body.is_in_group("player"):
+func _on_target_exited(target:Node):
+	if target.is_in_group(target_group):
 		is_player_inside = false
 		on_leave()
 
@@ -97,9 +110,6 @@ func lerp_from_position(lerp_from, lerp_to):
 		P_mode.BOTTOM_TO_TOP:
 			return lerp(lerp_to,lerp_from, pos_ratio.y)
 
-#func _physics_process(delta):
-#	set_position_ratio()
-#	print(lerp_from_position(0,10))
 
 var font = Control.new().get_font("font")
 func _draw():

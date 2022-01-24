@@ -9,6 +9,7 @@ var previous_state = PS_FALLING
 var current_room
 onready var current_area = get_tree().get_nodes_in_group("area").pop_front()
 var previous_position
+var previous_velocity
 var spawn_point
 
 
@@ -27,10 +28,8 @@ var last_wall_direction = 1 # Last value that wasn't zero
 var can_unduck = true
 var attack_box_x_distance = 14
 var is_attacking = false
-var current_attack_id = 0 # Used so enemies don't get hit twice by same attack
 var dash_direction = 0
 var dash_target_node = null
-var last_attack_type = Globals.NORMAL_ATTACK
 
 enum {
 	PS_PREVIOUS,
@@ -49,6 +48,7 @@ enum {
 	PS_WALLBOUNCE_SLIDING,
 	PS_WALLBOUNCING,
 	PS_LEDGECLINGING,
+	PS_HURT,
 }
 
 onready var state_list = {
@@ -67,14 +67,14 @@ onready var state_list = {
 	PS_ROLLING : $StateMachine/rolling,
 	PS_WALLBOUNCE_SLIDING : $StateMachine/wallbounce_sliding,
 	PS_WALLBOUNCING : $StateMachine/wallbouncing,
-	PS_LEDGECLINGING : $StateMachine/ledgeclinging
+	PS_LEDGECLINGING : $StateMachine/ledgeclinging,
+	PS_HURT : $StateMachine/hurt,
 }
 
 
 func _ready():
 	state_list[current_state].set_player_sprite_direction()
 	
-	Globals.connect("damage_player", self, "_take_damage")
 	yield(get_tree(), "idle_frame") # Wait for camera to instance
 	Globals.emit_signal("player_connect_cam", self)
 
@@ -82,15 +82,22 @@ func _ready():
 # Controls every aspect of player physics
 func _physics_process(delta) -> void:
 	previous_position = position
+	
 	if Input.is_action_just_pressed("clear_console"):
 		Globals.clear_console()
 	state_list[current_state].set_facing_direction()
 	directionX = sign(velocity.x)
 	directionY = -sign(velocity.y)
-	execute_state(delta)
+	
+	previous_velocity = velocity
+	execute_state(delta) # Physics and logic occurs here
 	try_state_transition()
-	#$DebugLabel.text = "State: " + str(state_list[current_state].name) + "\nPrevious:" + str(state_list[previous_state].name)
-	$DebugLabel.text = str(health) + "hp"
+	if velocity.x == 0 and previous_velocity.x != 0 and state_list[current_state].get_input_direction() == directionX && !is_on_floor():
+		velocity.x = previous_velocity.x * 0.95 # Retain a bit of velocity after hitting a wall
+	
+	
+#	$DebugLabel.text = "State: " + str(state_list[current_state].name) + "\nPrevious:" + str(state_list[previous_state].name)
+#	$DebugLabel.text = str(health) + "hp"
 	return
 
 # Changes state if the current state wants to
@@ -110,7 +117,8 @@ func try_state_transition():
 
 # Saves putting the same code in every single enter() function
 func execute_upon_transition():
-	print(state_list[current_state].name)
+#	print(state_list[current_state].name)
+	state_list[previous_state].init_arg_list.clear()
 	state_list[current_state].set_attack_hitbox()
 	if state_list[current_state].unset_dash_target:
 		dash_target_node = null
@@ -130,6 +138,16 @@ func execute_state(delta):
 func attack_response(response_id, attackable):
 	state_list[current_state].attack_response(response_id, attackable)
 
+# Force state transition. Does not carry init args from previous state by default
+func set_state(state, init_args):
+	if state == current_state:
+		pass
+	else:
+		previous_state = current_state
+		state_list[current_state].exit()
+		current_state = state
+		state_list[current_state].enter(init_args)
+		execute_upon_transition()
 
 # Sets spawn point to the closest in the room
 func set_spawn():
@@ -156,6 +174,7 @@ func respawn():
 	current_room.exit_room()
 	spawn_point.spawn_player()
 	
+	print("respawn")
 	queue_free()
 
 func _exit_tree():
@@ -190,13 +209,14 @@ func _on_BetweenAttackTimer_timeout():
 	get_node("CollisionChecks/AttackBox/CollisionShape2D").disabled = true
 
 
-func _on_RoomDetection_area_entered(area):
-	if area.is_in_group("room"):
-		current_area.do_room_transition(area)
+func _on_RoomDetection_area_entered(maybe_room):
+	if maybe_room.is_in_group("room") and current_area:
+		current_area.do_room_transition(maybe_room)
 
 
 func _on_BodyArea_area_entered(_area):
 	pass
 
-func _take_damage(amount):
-	state_list[current_state].take_damage(amount)
+
+func _on_HurtBox_damage_received(amount, properties, damage_source):
+	state_list[current_state].take_damage_logic(amount, properties, damage_source)

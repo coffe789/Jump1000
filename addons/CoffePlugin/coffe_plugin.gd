@@ -14,22 +14,36 @@ func _process(delta):
 
 func _input(event):
 	# Mouse in viewport coordinates
-	if event is InputEventMouseButton && event.button_index == 3 && event.doubleclick && Engine.editor_hint && selected_room != null:
-		if get_tree().get_nodes_in_group("editor_room").size() != 0:
-			for room in get_tree().get_nodes_in_group("editor_room"):
-				var is_mouse_in_room = extent2rect(room).has_point(get_tree().get_nodes_in_group("editor_room")[0].get_viewport().get_mouse_position())
-				if is_mouse_in_room:
-					selected_room = room
-					
-					var editor_selection = null
-					if edi.get_selection().get_selected_nodes().size() > 0:
-						editor_selection = edi.get_selection().get_selected_nodes()[0]
-					
-					edi.get_selection().clear()
-					edi.get_selection().add_node(room)
-					yield(get_tree(), "idle_frame")
-					yield(get_tree(), "idle_frame")
-					set_equivalent_child(editor_selection)
+	if Engine.editor_hint:
+		if event is InputEventMouseButton && event.button_index == 3 && event.doubleclick && Engine.editor_hint:
+			if get_tree().get_nodes_in_group("editor_room").size() != 0:
+				for room in get_tree().get_nodes_in_group("editor_room"):
+					var is_mouse_in_room = extent2rect(room).has_point(get_tree().get_nodes_in_group("editor_room")[0].get_viewport().get_mouse_position())
+					if is_mouse_in_room:
+						selected_room = room
+						
+						var editor_selection = null
+						if edi.get_selection().get_selected_nodes().size() > 0:
+							editor_selection = edi.get_selection().get_selected_nodes()[0]
+						
+						select_node(room)
+						yield(get_tree(), "idle_frame")
+						yield(get_tree(), "idle_frame")
+						set_equivalent_child(editor_selection)
+		
+		if !(event is InputEventMouseMotion) and event.pressed and selected_room:
+			if event.as_text() == "Control+T":
+				select_node(selected_room.get_node("ResetableNodes/Triggers"))
+			if event.as_text() == "Control+R":
+				select_node(selected_room.get_node("ResetableNodes/Entities"))
+			if event.as_text() == "Alt+1":
+				select_node(selected_room.get_node("FGTileMap"))
+			if event.as_text() == "Alt+2":
+				select_node(selected_room.get_node("BGTileMap"))
+			if event.as_text() == "Alt+3":
+				select_node(selected_room.get_node("BGDecal"))
+			if event.as_text() == "Alt+4":
+				select_node(selected_room.get_node("FGDecal"))
 
 func extent2rect(room):
 	var extent = room.get_node("CollisionShape2D").shape.extents
@@ -40,6 +54,11 @@ func change_selected_room():
 		if edi.get_selection().get_selected_nodes()[0].is_in_group("editor_room"):
 			if selected_room != edi.get_selection().get_selected_nodes()[0]:
 				selected_room = edi.get_selection().get_selected_nodes()[0]
+
+func select_node(node:Node):
+	edi.get_selection().clear()
+	edi.get_selection().add_node(node)
+	edi.get_selection().emit_signal("selection_changed")
 
 func set_equivalent_child(selected_node):
 	if selected_node == null:

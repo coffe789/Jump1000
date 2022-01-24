@@ -8,15 +8,14 @@ func enter(init_arg):
 	Animation_Player.play("floating")
 	Animation_Player.queue("falling")
 	if init_arg != null:
-		if init_arg.has(init_args.ROLLING_FALL):
+		if init_arg.has(init_args.ENTER_ROLLING):
 			is_rolling_fall = true
+			Animation_Player.play("rolling")
 
-var is_exit_roll_jump = false
 func exit():
 	is_rolling_fall = false
-	if is_exit_roll_jump:
-		is_exit_roll_jump = false
-		return [init_args.ROLLING_JUMP]
+	
+	return init_arg_list
 
 func do_state_logic(delta):
 	set_dash_target()
@@ -37,13 +36,15 @@ func check_for_new_state() -> String:
 	if (Player.is_on_floor()):
 		if is_rolling_fall && get_input_direction() != 0:
 			return Player.PS_ROLLING
-		if (Input.is_action_pressed("left") || Input.is_action_pressed("right")):
-			return Player.PS_RUNNING
 		if (Input.is_action_pressed("down")):
 			return Player.PS_DUCKING
+		if (Input.is_action_pressed("left") || Input.is_action_pressed("right")):
+			return Player.PS_RUNNING
 		else:
 			return Player.PS_IDLE
 	if (Input.is_action_just_pressed("jump") && Player.canCoyoteJump):
+		if is_rolling_fall:
+			init_arg_list.append(init_args.ENTER_SUPER_JUMP)
 		return Player.PS_JUMPING
 	if can_wall_jump():
 		if (Input.is_action_just_pressed("jump") or Player.isJumpBuffered):
@@ -51,7 +52,7 @@ func check_for_new_state() -> String:
 				return Player.PS_WALLBOUNCING
 			elif (get_ledge_behaviour() != Globals.LEDGE_EXIT) && can_wall_jump():
 				Timers.get_node("PostClingJumpTimer").start(0.12)
-				is_exit_roll_jump = true
+				init_arg_list.append(init_args.ENTER_ROLLING)
 				return Player.PS_JUMPING#will maybe change later?
 			else:
 				return Player.PS_WALLJUMPING
@@ -59,7 +60,7 @@ func check_for_new_state() -> String:
 			return Player.PS_WALLBOUNCE_SLIDING
 		elif (get_ledge_behaviour() != Globals.LEDGE_EXIT):
 			return Player.PS_LEDGECLINGING
-		elif Player.wall_direction == get_input_direction() && Player.wall_direction != 0:
+		elif Player.wall_direction == get_input_direction() && Player.wall_direction != 0 && Player.directionY < 0:
 			return Player.PS_WALLSLIDING
 	if (Input.is_action_just_pressed("attack") || Timers.get_node("BufferedRedashTimer").time_left > 0 || Timers.get_node("BufferedDashTimer").time_left > 0) && Timers.get_node("NoDashTimer").time_left == 0:
 		if Player.dash_direction == -1:

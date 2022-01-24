@@ -3,16 +3,20 @@ extends PlayerState
 var stop_rising = false
 var rng = RandomNumberGenerator.new()
 
-func enter(_init_arg):
-	Collision_Body.get_shape().extents = DUCKING_COLLISION_EXTENT
-	Collision_Body.position.y = -4
-	Animation_Player.play("ducking")
+func enter(init_arg):
+	set_y_collision(DUCKING_COLLISION_EXTENT,-4)
 	stop_rising = false
 	Player.isJumpBuffered = false
 	Player.canCoyoteJump = false
 	Player.velocity.y = -JUMP_SPEED #jump
 	play_jump_audio()
 	emit_jump_particles()
+	
+	if init_arg != null:
+		if !init_arg.has(init_args.FROM_DUCKING):
+			Animation_Player.play("ducking")
+	else:
+		Animation_Player.play("ducking")
 
 func do_state_logic(delta):
 	do_attack()
@@ -43,8 +47,12 @@ func play_jump_audio():
 	Audio.get_node("JumpAudio").play(0.001) # Hide stupid audio artifact
 
 func exit():
-	Collision_Body.get_shape().extents = NORMAL_COLLISION_EXTENT
-	Collision_Body.position.y = -8
+	set_y_collision(NORMAL_COLLISION_EXTENT,-8)
+	
+	init_arg_list.append(init_args.FROM_DUCKING)
+	var buffer = init_arg_list.duplicate()
+	init_arg_list.clear()
+	return buffer
 
 func set_attack_hitbox():
 	$"../ducking".set_attack_hitbox()
