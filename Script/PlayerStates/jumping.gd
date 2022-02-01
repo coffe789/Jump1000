@@ -44,7 +44,7 @@ func check_for_new_state() -> String:
 	if (Player.is_on_floor()):
 		return Player.PS_IDLE
 	if (Input.is_action_just_pressed("jump") || Player.isJumpBuffered)\
-	and ledge_behaviour != Globals.LEDGE_EXIT && can_wall_jump():
+	and ledge_behaviour != Globals.LEDGE_EXIT && can_wall_jump() && Player.velocity.y <= 0:
 		Timers.get_node("PostClingJumpTimer").start(0.12)
 		exit()
 		init_arg_list.append(init_args.ENTER_ROLLING)

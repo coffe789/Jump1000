@@ -6,6 +6,8 @@ func do_state_transition():
 	pass
 
 
+# Makes sure the player always rests at the same height
+# Method desparately needs optimisation lol
 func get_ledge_Y():
 	for i in 8: #(-5--13)
 		ledge_cast_top.position.y += 1

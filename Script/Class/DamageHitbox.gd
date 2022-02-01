@@ -20,6 +20,7 @@ func _process(_delta):
 func _on_DamageHitbox_area_entered(area):
 	if area is DamageHurtbox:
 		connect("damage_anything", area, "_on_DamageHitbox_entered")
+		emit_signal("damage_anything", damage_amount, damage_properties, damage_source)
 
 
 func _on_DamageHitbox_area_exited(area):

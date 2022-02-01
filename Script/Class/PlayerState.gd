@@ -28,13 +28,13 @@ const DASH_SPEED_X = 180
 const DASH_SPEED_Y = 150
 const PLAYER_HEIGHT = 18.0
 const PLAYER_WIDTH = 8
-const GRAVITY = 530
+const GRAVITY = 600
 const ACCELERATE_WALK = 1500/1.5
 const FLOOR_DRAG = 1.5
 const DUCK_FLOOR_DRAG = 0.6
 const AIR_DRAG = 0.14 * 1.5
 const MAX_X_SPEED = 100
-const JUMP_SPEED = 237
+const JUMP_SPEED = 238
 const MAX_FALL_SPEED = 250
 const UP_DIRECTION = Vector2(0,-1)
 const JUMP_BUFFER_DURATION = 0.13
@@ -236,7 +236,7 @@ func get_input_direction():
 
 func do_normal_x_movement(delta, friction_constant, walk_acceleration):
 	if (abs(Player.velocity.x)>MAX_X_SPEED && Player.directionX == get_input_direction()): #going too fast
-		Player.velocity.x = approach(Player.velocity.x, get_input_direction() * MAX_X_SPEED, delta * friction_constant * 1000 / 1.5 /1.5)
+		Player.velocity.x = approach(Player.velocity.x, get_input_direction() * MAX_X_SPEED, delta * friction_constant * 1000 / 1.5 /1.5/1.5)
 	elif (get_input_direction()!=0 && walk_acceleration > 0): # move player
 		Player.velocity.x = approach(Player.velocity.x, get_input_direction() * MAX_X_SPEED, delta * walk_acceleration)
 	else:	#normal friction

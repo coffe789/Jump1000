@@ -58,7 +58,7 @@ func check_for_new_state() -> String:
 				return Player.PS_WALLJUMPING
 		elif Timers.get_node("WallBounceTimer").time_left > 0 && Player.velocity.y < 0:
 			return Player.PS_WALLBOUNCE_SLIDING
-		elif (get_ledge_behaviour() != Globals.LEDGE_EXIT):
+		elif (get_ledge_behaviour() != Globals.LEDGE_EXIT && Player.velocity.y <= 0):
 			return Player.PS_LEDGECLINGING
 		elif Player.wall_direction == get_input_direction() && Player.wall_direction != 0 && Player.directionY < 0:
 			return Player.PS_WALLSLIDING
