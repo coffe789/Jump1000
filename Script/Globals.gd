@@ -42,15 +42,13 @@ var is_resetables_packaged = false
 
 # Util
 func is_same_sign(num1,num2):
-	return sign(num1) == sign(num2)
-#	if num1 == 0 || num2 == 0:
-#		return true
-#	if num1 > 0 && num2 > 0:
-#		return true
-#	if num1 < 0 && num2 < 0:
-#		return true
-#	return false
-	pass
+	if num1 == 0 || num2 == 0:
+		return true
+	if num1 > 0 && num2 > 0:
+		return true
+	if num1 < 0 && num2 < 0:
+		return true
+	return false
 
 
 # For debug
