@@ -12,12 +12,13 @@ func enter(init_arg):
 	Player.canCoyoteJump = false
 	Player.velocity.y = -JUMP_SPEED #jump
 	play_jump_audio()
-	Animation_Player.play("super jumping")
+	Animation_Player.play("jumping")
 	
 	if init_arg.has(init_args.ENTER_SUPER_JUMP):
 		Player.velocity.x = \
 			set_if_lesser(Player.velocity.x, get_node("../rolling").roll_direction*260)
 	if init_arg.has(init_args.ENTER_ROLLING):
+		Timers.get_node("PostClingJumpTimer").start(0.12)
 		Animation_Player.play("rolling")
 		Animation_Player.queue("jumping")
 		can_roll_fall = true
@@ -41,8 +42,6 @@ func do_state_logic(delta):
 
 func check_for_new_state() -> String:
 	var ledge_behaviour = get_ledge_behaviour()
-	if (Player.is_on_floor()):
-		return Player.PS_IDLE
 	if (Input.is_action_just_pressed("jump") || Player.isJumpBuffered)\
 	and ledge_behaviour != Globals.LEDGE_EXIT && can_wall_jump() && Player.velocity.y <= 0:
 		Timers.get_node("PostClingJumpTimer").start(0.12)
@@ -64,6 +63,9 @@ func check_for_new_state() -> String:
 		return Player.PS_DASHING_DOWN
 	if (Player.velocity.y > 0):
 		return Player.PS_FALLING
+#	if (Player.is_on_floor()):
+#		print("here")
+#		return Player.PS_IDLE
 	return Player.current_state
 
 func check_buffered_inputs():

@@ -358,7 +358,7 @@ shape = SubResource( 1 )
 [node name="WallRaycasts" type="Node2D" parent="CollisionChecks"]
 
 [node name="RightWallRaycast" type="RayCast2D" parent="CollisionChecks/WallRaycasts"]
-position = Vector2( 0.5, 0 )
+position = Vector2( 0.5, -1 )
 enabled = true
 cast_to = Vector2( 8.25, 0 )
 
@@ -368,7 +368,7 @@ enabled = true
 cast_to = Vector2( 8.25, 0 )
 
 [node name="LeftWallRaycast" type="RayCast2D" parent="CollisionChecks/WallRaycasts"]
-position = Vector2( 0.5, 0 )
+position = Vector2( 0.5, -1 )
 enabled = true
 cast_to = Vector2( -8.25, 0 )
 collide_with_areas = true
@@ -382,13 +382,13 @@ collide_with_areas = true
 [node name="LedgeRaycasts" type="Node2D" parent="CollisionChecks"]
 
 [node name="LedgeRayLenient" type="RayCast2D" parent="CollisionChecks/LedgeRaycasts"]
-position = Vector2( 0.5, -16 )
+position = Vector2( 0.5, -17 )
 enabled = true
 cast_to = Vector2( -9.5, 0 )
 collide_with_areas = true
 
 [node name="LedgeRayTop" type="RayCast2D" parent="CollisionChecks/LedgeRaycasts"]
-position = Vector2( 0.5, -13 )
+position = Vector2( 0.5, -12 )
 enabled = true
 cast_to = Vector2( -9.5, 0 )
 collide_with_areas = true
@@ -476,6 +476,7 @@ position = Vector2( 0, -8 )
 texture = ExtResource( 1 )
 hframes = 6
 vframes = 5
+frame = 4
 
 [node name="StateMachine" type="Node" parent="."]
 
@@ -606,10 +607,10 @@ light_mask = 0
 position = Vector2( 0, -13 )
 
 [node name="CapeL" type="Position2D" parent="Cape"]
-position = Vector2( -4, 4 )
+position = Vector2( -4, 6 )
 
 [node name="CapeR" type="Position2D" parent="Cape"]
-position = Vector2( 4, 4 )
+position = Vector2( 4, 6 )
 
 [node name="Particles" type="Node2D" parent="."]
 

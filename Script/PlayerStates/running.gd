@@ -19,12 +19,12 @@ func check_for_new_state() -> String:
 		return Player.PS_FALLING
 	if (Input.is_action_pressed("down")):
 		return Player.PS_DUCKING
-	if (get_input_direction()==0):
-		return Player.PS_IDLE
 	if can_wall_jump() and not Player.is_on_floor():
 		if (Input.is_action_just_pressed("jump") or Player.isJumpBuffered):
 			return Player.PS_WALLJUMPING
 		else:
 			return Player.PS_WALLSLIDING
+	if (get_input_direction()==0):
+		return Player.PS_IDLE
 	return Player.PS_RUNNING
 

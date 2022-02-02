@@ -9,16 +9,16 @@
 [ext_resource path="res://Script/Entities/Danger/Spikes/SpikeLeftBox.gd" type="Script" id=7]
 
 [sub_resource type="ConvexPolygonShape2D" id=10]
-points = PoolVector2Array( 13, 14, 1, 14, 1, 10, 13, 10 )
+points = PoolVector2Array( 13, 14, 1, 14, 1, 12, 13, 12 )
 
 [sub_resource type="ConvexPolygonShape2D" id=11]
-points = PoolVector2Array( 13, 14, 1, 14, 1, 10, 13, 10 )
+points = PoolVector2Array( 13, 14, 1, 14, 1, 12, 13, 12 )
 
 [sub_resource type="ConvexPolygonShape2D" id=12]
-points = PoolVector2Array( 13, 14, 1, 14, 1, 10, 13, 10 )
+points = PoolVector2Array( 13, 14, 1, 14, 1, 12, 13, 12 )
 
 [sub_resource type="ConvexPolygonShape2D" id=13]
-points = PoolVector2Array( 13, 14, 1, 14, 1, 10, 13, 10 )
+points = PoolVector2Array( 13, 14, 1, 14, 1, 12, 13, 12 )
 
 [sub_resource type="TileSet" id=1]
 0/name = "bramble_spikes.png 0"
@@ -96,16 +96,16 @@ points = PoolVector2Array( 13, 14, 1, 14, 1, 10, 13, 10 )
 0/z_index = 0
 
 [sub_resource type="ConvexPolygonShape2D" id=14]
-points = PoolVector2Array( 4, 13, 0, 13, 0, 1, 4, 1 )
+points = PoolVector2Array( 2, 13, 0, 13, 0, 1, 2, 1 )
 
 [sub_resource type="ConvexPolygonShape2D" id=15]
-points = PoolVector2Array( 4, 13, 0, 13, 0, 1, 4, 1 )
+points = PoolVector2Array( 2, 13, 0, 13, 0, 1, 2, 1 )
 
 [sub_resource type="ConvexPolygonShape2D" id=16]
-points = PoolVector2Array( 4, 13, 0, 13, 0, 1, 4, 1 )
+points = PoolVector2Array( 2, 13, 0, 13, 0, 1, 2, 1 )
 
 [sub_resource type="ConvexPolygonShape2D" id=17]
-points = PoolVector2Array( 4, 13, 0, 13, 0, 1, 4, 1 )
+points = PoolVector2Array( 2, 13, 0, 13, 0, 1, 2, 1 )
 
 [sub_resource type="TileSet" id=2]
 0/name = "bramble_spikes.png 0"
@@ -183,16 +183,16 @@ points = PoolVector2Array( 4, 13, 0, 13, 0, 1, 4, 1 )
 0/z_index = 0
 
 [sub_resource type="ConvexPolygonShape2D" id=18]
-points = PoolVector2Array( 1, 0, 13, 0, 13, 4, 1, 4 )
+points = PoolVector2Array( 1, 0, 13, 0, 13, 2, 1, 2 )
 
 [sub_resource type="ConvexPolygonShape2D" id=19]
-points = PoolVector2Array( 13, 4, 1, 4, 1, 0, 13, 0 )
+points = PoolVector2Array( 13, 2, 1, 2, 1, 0, 13, 0 )
 
 [sub_resource type="ConvexPolygonShape2D" id=20]
-points = PoolVector2Array( 13, 4, 1, 4, 1, 0, 13, 0 )
+points = PoolVector2Array( 13, 2, 1, 2, 1, 0, 13, 0 )
 
 [sub_resource type="ConvexPolygonShape2D" id=21]
-points = PoolVector2Array( 13, 4, 1, 4, 1, 0, 13, 0 )
+points = PoolVector2Array( 13, 2, 1, 2, 1, 0, 13, 0 )
 
 [sub_resource type="TileSet" id=3]
 0/name = "bramble_spikes.png 0"
@@ -270,16 +270,16 @@ points = PoolVector2Array( 13, 4, 1, 4, 1, 0, 13, 0 )
 0/z_index = 0
 
 [sub_resource type="ConvexPolygonShape2D" id=22]
-points = PoolVector2Array( 14, 13, 10, 13, 10, 1, 14, 1 )
+points = PoolVector2Array( 14, 13, 12, 13, 12, 1, 14, 1 )
 
 [sub_resource type="ConvexPolygonShape2D" id=23]
-points = PoolVector2Array( 10, 1, 14, 1, 14, 13, 10, 13 )
+points = PoolVector2Array( 12, 1, 14, 1, 14, 13, 12, 13 )
 
 [sub_resource type="ConvexPolygonShape2D" id=24]
-points = PoolVector2Array( 14, 13, 10, 13, 10, 1, 14, 1 )
+points = PoolVector2Array( 14, 13, 12, 13, 12, 1, 14, 1 )
 
 [sub_resource type="ConvexPolygonShape2D" id=25]
-points = PoolVector2Array( 14, 13, 10, 13, 10, 1, 14, 1 )
+points = PoolVector2Array( 14, 13, 12, 13, 12, 1, 14, 1 )
 
 [sub_resource type="TileSet" id=4]
 0/name = "bramble_spikes.png 0"

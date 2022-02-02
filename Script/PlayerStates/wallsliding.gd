@@ -14,10 +14,11 @@ func check_for_new_state() -> String:
 		return Player.PS_IDLE
 	if (Input.is_action_just_pressed("jump") || Player.isJumpBuffered):
 		if ledge_behaviour != Globals.LEDGE_EXIT:
+			init_arg_list.append(init_args.ENTER_ROLLING)
 			return Player.PS_JUMPING #may change
 		else:
 			return Player.PS_WALLJUMPING
-	if (ledge_behaviour != Globals.LEDGE_EXIT):
+	if (ledge_behaviour != Globals.LEDGE_EXIT) && Player.velocity.y > 0 && Timers.get_node("PostClingJumpTimer").time_left == 0:
 			return Player.PS_LEDGECLINGING
 	if Player.wall_direction == get_input_direction() && Player.wall_direction != 0:
 		return Player.PS_WALLSLIDING

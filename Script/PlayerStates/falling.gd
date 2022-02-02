@@ -42,26 +42,25 @@ func check_for_new_state() -> String:
 			return Player.PS_RUNNING
 		else:
 			return Player.PS_IDLE
-	if (Input.is_action_just_pressed("jump") && Player.canCoyoteJump):
-		if is_rolling_fall:
-			init_arg_list.append(init_args.ENTER_SUPER_JUMP)
-		return Player.PS_JUMPING
+	if (get_ledge_behaviour() != Globals.LEDGE_EXIT) && (Input.is_action_just_pressed("jump") or Player.isJumpBuffered):
+		init_arg_list.append(init_args.ENTER_ROLLING)
+		return Player.PS_JUMPING#will maybe change later?
+	if (get_ledge_behaviour() != Globals.LEDGE_EXIT && Player.velocity.y >= 0 && Timers.get_node("PostClingJumpTimer").time_left == 0):
+			return Player.PS_LEDGECLINGING
 	if can_wall_jump():
 		if (Input.is_action_just_pressed("jump") or Player.isJumpBuffered):
 			if Timers.get_node("WallBounceTimer").time_left > 0 && Player.velocity.y < 0:
 				return Player.PS_WALLBOUNCING
-			elif (get_ledge_behaviour() != Globals.LEDGE_EXIT) && can_wall_jump():
-				Timers.get_node("PostClingJumpTimer").start(0.12)
-				init_arg_list.append(init_args.ENTER_ROLLING)
-				return Player.PS_JUMPING#will maybe change later?
 			else:
 				return Player.PS_WALLJUMPING
 		elif Timers.get_node("WallBounceTimer").time_left > 0 && Player.velocity.y < 0:
 			return Player.PS_WALLBOUNCE_SLIDING
-		elif (get_ledge_behaviour() != Globals.LEDGE_EXIT && Player.velocity.y <= 0):
-			return Player.PS_LEDGECLINGING
-		elif Player.wall_direction == get_input_direction() && Player.wall_direction != 0 && Player.directionY < 0:
+		elif Player.wall_direction == get_input_direction() && Player.wall_direction != 0 && Player.directionY < 0 && Timers.get_node("PostClingJumpTimer").time_left == 0:
 			return Player.PS_WALLSLIDING
+	if (Input.is_action_just_pressed("jump") && Player.canCoyoteJump):
+		if is_rolling_fall:
+			init_arg_list.append(init_args.ENTER_SUPER_JUMP)
+		return Player.PS_JUMPING
 	if (Input.is_action_just_pressed("attack") || Timers.get_node("BufferedRedashTimer").time_left > 0 || Timers.get_node("BufferedDashTimer").time_left > 0) && Timers.get_node("NoDashTimer").time_left == 0:
 		if Player.dash_direction == -1:
 			return Player.PS_DASHING_UP
