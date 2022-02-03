@@ -16,7 +16,7 @@ func enter(init_arg):
 	
 	if init_arg.has(init_args.ENTER_SUPER_JUMP):
 		Player.velocity.x = \
-			set_if_lesser(Player.velocity.x, get_node("../rolling").roll_direction*260)
+			set_if_lesser(Player.velocity.x, get_node("../rolling").roll_direction*250)
 	if init_arg.has(init_args.ENTER_ROLLING):
 		Timers.get_node("PostClingJumpTimer").start(0.12)
 		Animation_Player.play("rolling")

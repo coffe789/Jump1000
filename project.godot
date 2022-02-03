@@ -199,6 +199,7 @@ clear_console={
 2d_physics/layer_3="Damage"
 2d_physics/layer_4="Entity"
 2d_physics/layer_5="Room"
+2d_physics/layer_6="OtherTiles"
 
 [physics]
 
