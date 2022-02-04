@@ -38,7 +38,14 @@ func do_state_logic(delta):
 	check_if_finish_jump()
 	do_gravity(delta, MAX_FALL_SPEED, GRAVITY)
 	do_normal_x_movement(delta,AIR_DRAG, ACCELERATE_WALK)
+	
+	var Y_before = Player.velocity.y # This is recorded to hardcode fix a rare collision bug when ledgejumping
 	Player.velocity = Player.move_and_slide(Player.velocity,UP_DIRECTION)
+	if Player.velocity.y == 0:
+		for i in Player.get_slide_count():
+			if Player.get_slide_collision(i).normal == Vector2(0,-1):
+				Player.velocity.y = Y_before
+
 
 func check_for_new_state() -> String:
 	var ledge_behaviour = get_ledge_behaviour()
@@ -55,17 +62,14 @@ func check_for_new_state() -> String:
 		if (Input.is_action_just_pressed("jump") or Player.isJumpBuffered):
 			get_parent().get_node("walljumping").enter([]) # If it ain't broke
 			return Player.PS_WALLJUMPING
-#		elif get_input_direction() == Player.wall_direction && Timers.get_node("PostClingJumpTimer").time_left == 0:
-#			return Player.PS_WALLSLIDING
 	if Player.dash_direction == -1 && (Input.is_action_just_pressed("attack") || Timers.get_node("BufferedDashTimer").time_left > 0):
 		return Player.PS_DASHING_UP
 	if Player.dash_direction == 1 && (Input.is_action_just_pressed("attack") || Timers.get_node("BufferedDashTimer").time_left > 0):
 		return Player.PS_DASHING_DOWN
 	if (Player.velocity.y > 0):
 		return Player.PS_FALLING
-#	if (Player.is_on_floor()):
-#		print("here")
-#		return Player.PS_IDLE
+	if (Player.is_on_floor()):
+		return Player.PS_IDLE
 	return Player.current_state
 
 func check_buffered_inputs():

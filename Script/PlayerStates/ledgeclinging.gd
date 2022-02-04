@@ -7,15 +7,8 @@ func do_state_transition():
 
 
 # Makes sure the player always rests at the same height
-# Method desparately needs optimisation lol
 func get_ledge_Y():
-	for i in 7: #(-5--12)
-		ledge_cast_top.position.y += 1
-		ledge_cast_top.force_raycast_update()
-		if _check_is_valid_wall(ledge_cast_top):
-			var ledge_pos = ledge_cast_top.global_position.y
-			ledge_cast_top.position.y = -12 # Initial value
-			return ledge_pos
+	return ledge_cast_height_search.get_collision_point().y
 
 
 func do_state_logic(delta):

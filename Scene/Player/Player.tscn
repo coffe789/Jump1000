@@ -388,6 +388,12 @@ enabled = true
 cast_to = Vector2( -9.5, 0 )
 collide_with_areas = true
 
+[node name="LedgeRayHeightSearch" type="RayCast2D" parent="CollisionChecks/LedgeRaycasts"]
+position = Vector2( -11, -17 )
+enabled = true
+cast_to = Vector2( 0, 17 )
+collide_with_areas = true
+
 [node name="LedgeRayTop" type="RayCast2D" parent="CollisionChecks/LedgeRaycasts"]
 position = Vector2( 0.5, -12 )
 enabled = true

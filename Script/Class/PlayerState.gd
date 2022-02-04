@@ -18,6 +18,7 @@ onready var ledge_cast_lenient = Player.get_node("CollisionChecks/LedgeRaycasts/
 onready var ledge_cast_top = Player.get_node("CollisionChecks/LedgeRaycasts/LedgeRayTop")
 onready var ledge_cast_mid = Player.get_node("CollisionChecks/LedgeRaycasts/LedgeRayMid")
 onready var ledge_cast_bottom = Player.get_node("CollisionChecks/LedgeRaycasts/LedgeRayBottom")
+onready var ledge_cast_height_search = Player.get_node("CollisionChecks/LedgeRaycasts/LedgeRayHeightSearch")
 onready var Attack_Box = Player.get_node("CollisionChecks/AttackBox")
 onready var Dash_Check_Up = Player.get_node("CollisionChecks/DashCheckUp")
 onready var Dash_Check_Down = Player.get_node("CollisionChecks/DashCheckDown")
@@ -220,6 +221,7 @@ func set_ledge_ray_direction():
 	ledge_cast_mid.scale.x = -Player.facing
 	ledge_cast_top.scale.x = -Player.facing
 	ledge_cast_lenient.scale.x = -Player.facing
+	ledge_cast_height_search.position.x = Player.facing * 11
 
 
 # Get intended x movement direction
