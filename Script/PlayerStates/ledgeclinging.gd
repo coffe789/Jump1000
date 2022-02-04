@@ -10,6 +10,13 @@ func do_state_transition():
 func get_ledge_Y():
 	return ledge_cast_height_search.get_collision_point().y
 
+# Tell what you're clinging to that it is being clung to
+# Useful for certain entities
+func report_collision():
+	var col = ledge_cast_height_search.get_collider()
+	if col && col.has_method("collide_with"):
+		col.collide_with(ledge_cast_height_search.get_collision_normal(),Player)
+
 
 func do_state_logic(delta):
 	check_if_finish_jump()
@@ -28,6 +35,8 @@ func do_state_logic(delta):
 			Player.velocity.y = -10
 		do_normal_x_movement(delta,AIR_DRAG, ACCELERATE_WALK)
 		Player.velocity = Player.move_and_slide(Player.velocity, UP_DIRECTION)
+	
+	report_collision()
 
 
 func set_cape_acceleration():

@@ -428,6 +428,7 @@ disabled = true
 position = Vector2( -18, -26 )
 collision_layer = 0
 collision_mask = 4
+monitorable = false
 script = ExtResource( 14 )
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="CollisionChecks/DashCheckUp"]
@@ -437,6 +438,7 @@ polygon = PoolVector2Array( -17, -20, 19, 1, 19, 20, -17, 14 )
 position = Vector2( -18, 10 )
 collision_layer = 0
 collision_mask = 4
+monitorable = false
 script = ExtResource( 14 )
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="CollisionChecks/DashCheckDown"]

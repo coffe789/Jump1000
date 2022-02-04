@@ -68,8 +68,8 @@ func check_for_new_state() -> String:
 		return Player.PS_DASHING_DOWN
 	if (Player.velocity.y > 0):
 		return Player.PS_FALLING
-	if (Player.is_on_floor()):
-		return Player.PS_IDLE
+#	if (Player.is_on_floor()):
+#		return Player.PS_IDLE
 	return Player.current_state
 
 func check_buffered_inputs():

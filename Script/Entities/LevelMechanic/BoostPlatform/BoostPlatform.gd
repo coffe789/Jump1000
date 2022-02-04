@@ -50,4 +50,8 @@ func set_direction(value):
 	dir = value
 	$Arrow1.frame = dir
 	$Arrow2.frame = dir
-		
+
+func collide_with(normal,collider):
+	print("here")
+	if collider.is_in_group("player"):
+		print("omg player I'm your biggest fan")

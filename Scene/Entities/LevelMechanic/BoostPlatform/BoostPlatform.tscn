@@ -1,8 +1,26 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Script/Entities/LevelMechanic/BoostPlatform/BoostPlatform.gd" type="Script" id=1]
 [ext_resource path="res://Art/Entity/LevelMechanic/FallPlatform/platform_tilemap.png" type="Texture" id=2]
 [ext_resource path="res://Art/Entity/LevelMechanic/FallPlatform/platform_direction.png" type="Texture" id=3]
+
+[sub_resource type="OccluderPolygon2D" id=15]
+polygon = PoolVector2Array( 1, 1, 13, 1, 13, 13, 1, 13 )
+
+[sub_resource type="OccluderPolygon2D" id=16]
+polygon = PoolVector2Array( 13, 13, 1, 13, 1, 1, 13, 1 )
+
+[sub_resource type="OccluderPolygon2D" id=17]
+polygon = PoolVector2Array( 13, 13, 1, 13, 1, 1, 13, 1 )
+
+[sub_resource type="OccluderPolygon2D" id=18]
+polygon = PoolVector2Array( 13, 13, 1, 13, 1, 1, 13, 1 )
+
+[sub_resource type="OccluderPolygon2D" id=19]
+polygon = PoolVector2Array( 13, 1, 1, 1, 1, 13, 13, 13 )
+
+[sub_resource type="OccluderPolygon2D" id=20]
+polygon = PoolVector2Array( 13, 13, 1, 13, 1, 1, 13, 1 )
 
 [sub_resource type="ConvexPolygonShape2D" id=2]
 points = PoolVector2Array( 1, 1, 13, 1, 13, 13, 1, 13 )
@@ -55,7 +73,7 @@ points = PoolVector2Array( 13, 5, 1, 5, 1, 1, 13, 1 )
 0/autotile/icon_coordinate = Vector2( 0, 0 )
 0/autotile/tile_size = Vector2( 14, 14 )
 0/autotile/spacing = 0
-0/autotile/occluder_map = [  ]
+0/autotile/occluder_map = [ Vector2( 0, 0 ), SubResource( 15 ), Vector2( 1, 0 ), SubResource( 16 ), Vector2( 2, 0 ), SubResource( 17 ), Vector2( 3, 0 ), SubResource( 18 ), Vector2( 4, 0 ), SubResource( 19 ), Vector2( 5, 0 ), SubResource( 20 ) ]
 0/autotile/navpoly_map = [  ]
 0/autotile/priority_map = [  ]
 0/autotile/z_index_map = [  ]
@@ -112,7 +130,7 @@ points = PoolVector2Array( 13, 5, 1, 5, 1, 1, 13, 1 )
 1/tile_mode = 1
 1/autotile/bitmask_mode = 1
 1/autotile/bitmask_flags = [ Vector2( 0, 1 ), 48, Vector2( 1, 1 ), 56, Vector2( 2, 1 ), 56, Vector2( 3, 1 ), 56, Vector2( 4, 1 ), 56, Vector2( 5, 1 ), 24, Vector2( 6, 1 ), 16 ]
-1/autotile/icon_coordinate = Vector2( 0, 0 )
+1/autotile/icon_coordinate = Vector2( 6, 1 )
 1/autotile/tile_size = Vector2( 14, 14 )
 1/autotile/spacing = 0
 1/autotile/occluder_map = [  ]
@@ -183,7 +201,7 @@ cell_size = Vector2( 12, 12 )
 centered_textures = true
 collision_use_parent = true
 format = 1
-tile_data = PoolIntArray( 0, 0, 1, 3, 0, 1 )
+tile_data = PoolIntArray( 0, 0, 0, 3, 0, 0 )
 
 [node name="OneWayBody" type="KinematicBody2D" parent="."]
 collision_layer = 32
