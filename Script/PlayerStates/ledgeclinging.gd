@@ -9,12 +9,12 @@ func do_state_transition():
 # Makes sure the player always rests at the same height
 # Method desparately needs optimisation lol
 func get_ledge_Y():
-	for i in 8: #(-5--13)
+	for i in 7: #(-5--12)
 		ledge_cast_top.position.y += 1
 		ledge_cast_top.force_raycast_update()
 		if _check_is_valid_wall(ledge_cast_top):
 			var ledge_pos = ledge_cast_top.global_position.y
-			ledge_cast_top.position.y = -13 # Initial value
+			ledge_cast_top.position.y = -12 # Initial value
 			return ledge_pos
 
 

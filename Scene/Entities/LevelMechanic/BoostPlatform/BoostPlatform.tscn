@@ -1,7 +1,8 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Script/Entities/LevelMechanic/BoostPlatform/BoostPlatform.gd" type="Script" id=1]
 [ext_resource path="res://Art/Entity/LevelMechanic/FallPlatform/platform_tilemap.png" type="Texture" id=2]
+[ext_resource path="res://Art/Entity/LevelMechanic/FallPlatform/platform_direction.png" type="Texture" id=3]
 
 [sub_resource type="ConvexPolygonShape2D" id=2]
 points = PoolVector2Array( 1, 1, 13, 1, 13, 13, 1, 13 )
@@ -171,7 +172,8 @@ points = PoolVector2Array( 13, 5, 1, 5, 1, 1, 13, 1 )
 1/z_index = 0
 
 [node name="BoostPlatform" type="KinematicBody2D"]
-collision_mask = 0
+z_index = 201
+collision_mask = 2
 script = ExtResource( 1 )
 
 [node name="StumpTile" type="TileMap" parent="."]
@@ -181,7 +183,7 @@ cell_size = Vector2( 12, 12 )
 centered_textures = true
 collision_use_parent = true
 format = 1
-tile_data = PoolIntArray( 0, 0, 0, 3, 0, 0 )
+tile_data = PoolIntArray( 0, 0, 1, 3, 0, 1 )
 
 [node name="OneWayBody" type="KinematicBody2D" parent="."]
 collision_layer = 32
@@ -197,3 +199,19 @@ centered_textures = true
 collision_use_parent = true
 format = 1
 tile_data = PoolIntArray( 1, 1, 65536, 2, 1, 65541 )
+
+[node name="Arrow1" type="Sprite" parent="."]
+position = Vector2( 6, 7 )
+z_index = 2
+texture = ExtResource( 3 )
+hframes = 4
+vframes = 2
+region_rect = Rect2( 0, 0, 6, 6 )
+
+[node name="Arrow2" type="Sprite" parent="."]
+position = Vector2( 42, 7 )
+z_index = 2
+texture = ExtResource( 3 )
+hframes = 4
+vframes = 2
+region_rect = Rect2( 0, 0, 6, 6 )

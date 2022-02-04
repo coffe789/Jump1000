@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=2]
+[gd_scene load_steps=68 format=2]
 
 [ext_resource path="res://Scene/Levels/LevelArea.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scene/Levels/Room.tscn" type="PackedScene" id=2]
@@ -10,7 +10,6 @@
 [ext_resource path="res://Art/Styleground/Testing/vignette.png" type="Texture" id=8]
 [ext_resource path="res://Art/Styleground/forest/fg00.png" type="Texture" id=9]
 [ext_resource path="res://Art/Styleground/forest/fg02.png" type="Texture" id=10]
-[ext_resource path="res://Art/Entity/LevelMechanic/FallPlatform/platform.png" type="Texture" id=11]
 [ext_resource path="res://Scene/Entities/Enemies/Pongus.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Art/Entity/Danger/Spikes/Bramble/bramble_spikes_outline.png" type="Texture" id=13]
 [ext_resource path="res://Resource/Shader/SineTransparency.tres" type="Material" id=14]
@@ -28,7 +27,6 @@
 [ext_resource path="res://Art/FX/Particle/dustCircleMaterial_albedo.png" type="Texture" id=26]
 [ext_resource path="res://Art/FX/Particle/dustCircleSmall.png" type="Texture" id=27]
 [ext_resource path="res://Scene/Entities/Danger/Flower/FlowerSpinner.tscn" type="PackedScene" id=28]
-[ext_resource path="res://Art/Entity/LevelMechanic/FallPlatform/side_tile.png" type="Texture" id=29]
 [ext_resource path="res://Scene/Entities/LevelMechanic/BoostPlatform/BoostPlatform.tscn" type="PackedScene" id=30]
 
 [sub_resource type="Gradient" id=101]
@@ -785,27 +783,16 @@ tile_data = PoolIntArray( 327666, 3, 0, 262153, 5, 0, 327692, 1, 0 )
 [node name="FGDecal" parent="RealLevelArea/Room3" index="3"]
 tile_data = PoolIntArray( 262144, 9, 0, 393208, 9, 0, 393209, 8, 0, 393210, 8, 0, 458736, 9, 0, 458737, 8, 0, 458741, 9, 0, 458742, 8, 0, 458749, 8, 0, 458750, 8, 0, 393218, 8, 0, 393219, 8, 0, 393220, 9, 0, 393222, 8, 0, 393223, 8, 0, 393225, 8, 0, 393229, 8, 0, 393230, 8, 0 )
 
-[node name="Sprite" type="Sprite" parent="RealLevelArea/Room3/ResetableNodes/Entities" index="0"]
-position = Vector2( -36, -6 )
-texture = ExtResource( 11 )
-centered = false
-
-[node name="Sprite2" type="Sprite" parent="RealLevelArea/Room3/ResetableNodes/Entities" index="1"]
-position = Vector2( 30, -12 )
-texture = ExtResource( 29 )
-centered = false
-
-[node name="Sprite3" type="Sprite" parent="RealLevelArea/Room3/ResetableNodes/Entities" index="2"]
-position = Vector2( -54, -12 )
-texture = ExtResource( 29 )
-centered = false
-
-[node name="BoostPlatform" parent="RealLevelArea/Room3/ResetableNodes/Entities" index="3" instance=ExtResource( 30 )]
+[node name="BoostPlatform" parent="RealLevelArea/Room3/ResetableNodes/Entities" index="0" instance=ExtResource( 30 )]
 position = Vector2( -96, 30 )
-width = 7
+width = 6
+dir = 5
 
 [node name="CollisionShape2D" parent="RealLevelArea/Room3" index="5"]
 shape = SubResource( 130 )
+
+[node name="SpawnPoint" parent="RealLevelArea/Room3" index="8"]
+position = Vector2( -168, 84 )
 
 [node name="EditAssistor" type="Node2D" parent="." groups=["edit_assistor"]]
 z_index = 4096

@@ -343,7 +343,6 @@ collision_mask = 33
 script = ExtResource( 2 )
 
 [node name="CollisionChecks" type="Node2D" parent="."]
-visible = false
 
 [node name="FullBodyArea" type="Area2D" parent="CollisionChecks" groups=["player_area"]]
 position = Vector2( 0.5, -8 )
@@ -478,7 +477,6 @@ position = Vector2( 0, -8 )
 texture = ExtResource( 1 )
 hframes = 10
 vframes = 7
-frame = 4
 
 [node name="StateMachine" type="Node" parent="."]
 
