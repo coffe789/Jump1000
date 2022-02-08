@@ -797,6 +797,9 @@ position = Vector2( -168, 84 )
 [node name="EditAssistor" type="Node2D" parent="." groups=["edit_assistor"]]
 z_index = 4096
 script = ExtResource( 4 )
+unfocus_color = Color( 0, 0.141176, 0.145098, 0.631373 )
+active_border_color = Color( 0.8, 0.752941, 0.615686, 0.8 )
+inactive_border_color = Color( 0.760784, 0.717647, 0.603922, 0.301961 )
 
 [editable path="RealLevelArea"]
 [editable path="RealLevelArea/Room"]

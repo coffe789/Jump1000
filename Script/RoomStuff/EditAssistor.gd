@@ -51,8 +51,9 @@ func _draw():
 			draw_rect(extent2rect(selected_room), active_border_color, false, border_width)
 		
 		for room in get_tree().get_nodes_in_group("editor_room"):
-			draw_rect(extent2rect(room), inactive_border_color, false, border_width)
-
+			if room != selected_room:
+				draw_rect(extent2rect(room), inactive_border_color, false, border_width)
+				draw_rect(extent2rect(room), Color(1,1,1,0.1))
 
 func set_border_rects():
 	rec_left = Rect2(selected_room.get_node("CollisionShape2D").global_position - Vector2(selected_extents.x + SIDE_WIDTH, SIDE_HEIGHT / 2),Vector2(SIDE_WIDTH,SIDE_HEIGHT))

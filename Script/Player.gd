@@ -215,7 +215,7 @@ func _on_RoomDetection_area_entered(maybe_room):
 
 
 func _on_BodyArea_area_entered(_area):
-	pass
+	print(_area)
 
 
 func _on_HurtBox_damage_received(amount, properties, damage_source):

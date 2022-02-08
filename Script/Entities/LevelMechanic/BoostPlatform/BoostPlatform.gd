@@ -12,7 +12,7 @@ enum { # Matches the tileset IDs
 export var width = 4 setget set_width
 export(Directions) var dir = Directions.U setget set_direction
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	var pos1 = position
 	move_and_slide(Vector2(0,0))
 	position = pos1
@@ -51,7 +51,6 @@ func set_direction(value):
 	$Arrow1.frame = dir
 	$Arrow2.frame = dir
 
-func collide_with(normal,collider):
-	print("here")
+func collide_with(_normal,collider):
 	if collider.is_in_group("player"):
 		print("omg player I'm your biggest fan")

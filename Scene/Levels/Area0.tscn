@@ -73,36 +73,32 @@ texture = ExtResource( 1 )
 [node name="KingPongus" parent="." instance=ExtResource( 4 )]
 position = Vector2( 181, 44 )
 
-[node name="Sprite" parent="KingPongus" index="1"]
+[node name="Sprite" parent="KingPongus" index="0"]
 position = Vector2( 0.257141, 0.5 )
 scale = Vector2( 0.514286, 0.1 )
 
 [node name="KingPongus2" parent="." instance=ExtResource( 4 )]
 position = Vector2( 49, 109 )
 
-[node name="Sprite" parent="KingPongus2" index="1"]
+[node name="Sprite" parent="KingPongus2" index="0"]
 position = Vector2( 0.257141, 0.5 )
 scale = Vector2( 0.514286, 0.1 )
 
 [node name="KingPongus3" parent="." instance=ExtResource( 4 )]
 position = Vector2( 110, 10 )
 
-[node name="Sprite" parent="KingPongus3" index="1"]
+[node name="Sprite" parent="KingPongus3" index="0"]
 position = Vector2( 0.257141, 0.5 )
 scale = Vector2( 0.514286, 0.1 )
 
 [node name="KingPongus4" parent="." instance=ExtResource( 4 )]
 position = Vector2( 154, 120 )
 
-[node name="Sprite" parent="KingPongus4" index="1"]
+[node name="Sprite" parent="KingPongus4" index="0"]
 position = Vector2( 0.257141, 0.5 )
 scale = Vector2( 0.514286, 0.1 )
 
 [editable path="KingPongus"]
-[editable path="KingPongus/AttackableArea"]
 [editable path="KingPongus2"]
-[editable path="KingPongus2/AttackableArea"]
 [editable path="KingPongus3"]
-[editable path="KingPongus3/AttackableArea"]
 [editable path="KingPongus4"]
-[editable path="KingPongus4/AttackableArea"]

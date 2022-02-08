@@ -44,7 +44,7 @@ func initialise_rooms():
 	if Globals.get_player().current_room:
 		Globals.get_player().current_room.enable_bounds(true)
 		
-		Globals.is_resetables_packaged = true
+	Globals.is_resetables_packaged = true
 
 
 # Called when player enters a room
