@@ -3,10 +3,7 @@ var roll_direction
 
 func enter(_init_arg):
 	Animation_Player.play("rolling")
-	if get_input_direction() == 0:
-		roll_direction = Player.facing
-	else:
-		roll_direction = get_input_direction()
+	roll_direction = get_input_direction()
 	Timers.get_node("RollTimer").start(ROLL_TIME)
 
 func do_state_logic(delta):

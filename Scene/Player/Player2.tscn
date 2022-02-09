@@ -1,0 +1,747 @@
+[gd_scene load_steps=56 format=2]
+
+[ext_resource path="res://Script/PlayerStates/dashing_down.gd" type="Script" id=1]
+[ext_resource path="res://Script/PlayerStates/dashing_up.gd" type="Script" id=2]
+[ext_resource path="res://Script/PlayerStates/duckfalling.gd" type="Script" id=3]
+[ext_resource path="res://Script/PlayerStates/ducking.gd" type="Script" id=4]
+[ext_resource path="res://Script/Player/DashCheck.gd" type="Script" id=5]
+[ext_resource path="res://Art/Player/player.png" type="Texture" id=6]
+[ext_resource path="res://Art/FX/krlight.png" type="Texture" id=7]
+[ext_resource path="res://Audio/SFX/jump.wav" type="AudioStream" id=8]
+[ext_resource path="res://Scene/Entities/Verlet/VerletArea.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Script/Player2.gd" type="Script" id=10]
+[ext_resource path="res://Script/Class/DamageHitbox.gd" type="Script" id=11]
+[ext_resource path="res://Script/Class/DamageHurtbox.gd" type="Script" id=12]
+[ext_resource path="res://Script/PlayerStates/ledgeclinging.gd" type="Script" id=13]
+[ext_resource path="res://Script/PlayerStates/wallbouncing.gd" type="Script" id=14]
+[ext_resource path="res://Script/PlayerStates/duckjumping.gd" type="Script" id=15]
+[ext_resource path="res://Script/PlayerStates/rolling.gd" type="Script" id=16]
+[ext_resource path="res://Script/PlayerStates/wallsliding.gd" type="Script" id=17]
+[ext_resource path="res://Script/PlayerStates/running.gd" type="Script" id=18]
+[ext_resource path="res://Script/PlayerStates/wallbounce_sliding.gd" type="Script" id=19]
+[ext_resource path="res://Script/PlayerStates/idle.gd" type="Script" id=20]
+[ext_resource path="res://Script/PlayerStates/falling.gd" type="Script" id=21]
+[ext_resource path="res://Script/PlayerStates/hurt.gd" type="Script" id=22]
+[ext_resource path="res://Script/PlayerStates/jumping.gd" type="Script" id=23]
+[ext_resource path="res://Script/PlayerStates/walljumping.gd" type="Script" id=24]
+[ext_resource path="res://Script/Entities/Util/StateMachine/StateMachine.gd" type="Script" id=25]
+[ext_resource path="res://Script/Player/StateMachine/PlayerTransitConditions.gd" type="Script" id=26]
+[ext_resource path="res://Script/Player/StateMachine/RootState.gd" type="Script" id=27]
+[ext_resource path="res://Script/Player/StateMachine/GroundState.gd" type="Script" id=28]
+[ext_resource path="res://Script/Player/StateMachine/Idle.gd" type="Script" id=29]
+[ext_resource path="res://Script/Player/StateMachine/Roll.gd" type="Script" id=30]
+[ext_resource path="res://Script/Player/StateMachine/Duck.gd" type="Script" id=31]
+[ext_resource path="res://Script/Player/StateMachine/Run.gd" type="Script" id=32]
+[ext_resource path="res://Script/Player/StateMachine/NormalFall.gd" type="Script" id=33]
+[ext_resource path="res://Script/Player/StateMachine/FallState.gd" type="Script" id=34]
+[ext_resource path="res://Script/Player/StateMachine/DuckFall.gd" type="Script" id=35]
+[ext_resource path="res://Script/Player/StateMachine/WallSlide.gd" type="Script" id=36]
+[ext_resource path="res://Script/Player/StateMachine/SpinFall.gd" type="Script" id=37]
+[ext_resource path="res://Script/Player/StateMachine/AirState.gd" type="Script" id=38]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 3.5, 8 )
+
+[sub_resource type="RectangleShape2D" id=2]
+resource_local_to_scene = true
+extents = Vector2( 8, 5 )
+
+[sub_resource type="RectangleShape2D" id=12]
+extents = Vector2( 3.5, 1 )
+
+[sub_resource type="RectangleShape2D" id=3]
+resource_local_to_scene = true
+extents = Vector2( 3.5, 8 )
+
+[sub_resource type="Animation" id=13]
+length = 0.3
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 4, 5 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Cape/CapeR:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 4, 6 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Cape/CapeL:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -4, 6 ) ]
+}
+
+[sub_resource type="Animation" id=14]
+resource_name = "falling"
+length = 0.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 33, 34 ]
+}
+
+[sub_resource type="Animation" id=15]
+resource_name = "floating"
+length = 0.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 32 ]
+}
+
+[sub_resource type="Animation" id=16]
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4, 0.5, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Cape/CapeL:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.2 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -4, 4 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Cape/CapeR:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.2 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 4, 4 ) ]
+}
+
+[sub_resource type="Animation" id=17]
+length = 0.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 30, 31 ]
+}
+
+[sub_resource type="Animation" id=18]
+resource_name = "rolling"
+length = 0.45
+loop = true
+step = 0.025
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.075, 0.15, 0.225, 0.3, 0.375 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 50, 51, 52, 53, 54, 55 ]
+}
+
+[sub_resource type="Animation" id=19]
+length = 0.75
+loop = true
+step = 0.025
+tracks/0/type = "value"
+tracks/0/path = NodePath("Cape/CapeL:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.375, 0.575, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -4, 3 ), Vector2( -2, 5 ), Vector2( -4, 3 ), Vector2( -3, 5 ), Vector2( -4, 3 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Cape/CapeR:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.375, 0.575, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 4, 3 ), Vector2( 3, 5 ), Vector2( 4, 3 ), Vector2( 4, 5 ), Vector2( 4, 3 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.075, 0.125, 0.175, 0.225, 0.3, 0.375, 0.45, 0.5, 0.55, 0.6, 0.675 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21 ]
+}
+
+[sub_resource type="Animation" id=20]
+resource_name = "super jumping"
+length = 0.1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05, 0.1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 40, 41, 32 ]
+}
+
+[sub_resource type="Animation" id=21]
+resource_name = "invincible"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("..:is_invincible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("..:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 0 ),
+"update": 1,
+"values": [ Color( 1, 1, 1, 0.54902 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../CollisionChecks/HurtBox:monitoring")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+
+[sub_resource type="Animation" id=22]
+resource_name = "reset"
+tracks/0/type = "value"
+tracks/0/path = NodePath("..:is_invincible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../Sprite:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Gradient" id=10]
+offsets = PoolRealArray( 0, 0.801242, 1 )
+colors = PoolColorArray( 1, 1, 1, 0.784314, 1, 1, 1, 0.784314, 1, 1, 1, 0.0352941 )
+
+[sub_resource type="GradientTexture" id=11]
+gradient = SubResource( 10 )
+
+[sub_resource type="ParticlesMaterial" id=9]
+lifetime_randomness = 0.5
+emission_shape = 1
+emission_sphere_radius = 1.0
+flag_rotate_y = true
+flag_disable_z = true
+direction = Vector3( 0, -1, 0 )
+spread = 70.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 39.22
+initial_velocity_random = 0.8
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+tangential_accel_random = 1.0
+damping = 100.0
+angle_random = 1.0
+scale = 1.3
+color_ramp = SubResource( 11 )
+
+[node name="Player2" type="KinematicBody2D" groups=["player"]]
+collision_layer = 2
+collision_mask = 33
+script = ExtResource( 10 )
+
+[node name="CollisionChecks" type="Node2D" parent="."]
+
+[node name="FullBodyArea" type="Area2D" parent="CollisionChecks" groups=["player_area"]]
+position = Vector2( 0.5, -8 )
+collision_layer = 2
+collision_mask = 17
+__meta__ = {
+"_editor_description_": "Currently used for ducking detection"
+}
+
+[node name="CollisionBody2" type="CollisionShape2D" parent="CollisionChecks/FullBodyArea"]
+modulate = Color( 0.521569, 1, 0, 1 )
+shape = SubResource( 1 )
+
+[node name="WallRaycasts" type="Node2D" parent="CollisionChecks"]
+
+[node name="RightWallRaycast" type="RayCast2D" parent="CollisionChecks/WallRaycasts"]
+position = Vector2( 0.5, -1 )
+enabled = true
+cast_to = Vector2( 8.25, 0 )
+
+[node name="RightWallRaycast2" type="RayCast2D" parent="CollisionChecks/WallRaycasts"]
+position = Vector2( 0.5, -5 )
+enabled = true
+cast_to = Vector2( 8.25, 0 )
+
+[node name="LeftWallRaycast" type="RayCast2D" parent="CollisionChecks/WallRaycasts"]
+position = Vector2( 0.5, -1 )
+enabled = true
+cast_to = Vector2( -8.25, 0 )
+collide_with_areas = true
+
+[node name="LeftWallRaycast2" type="RayCast2D" parent="CollisionChecks/WallRaycasts"]
+position = Vector2( 0.5, -5 )
+enabled = true
+cast_to = Vector2( -8.25, 0 )
+collide_with_areas = true
+
+[node name="LedgeRaycasts" type="Node2D" parent="CollisionChecks"]
+
+[node name="LedgeRayLenient" type="RayCast2D" parent="CollisionChecks/LedgeRaycasts"]
+position = Vector2( 0.5, -17 )
+enabled = true
+cast_to = Vector2( -9.5, 0 )
+collide_with_areas = true
+
+[node name="LedgeRayHeightSearch" type="RayCast2D" parent="CollisionChecks/LedgeRaycasts"]
+position = Vector2( -11, -17 )
+enabled = true
+cast_to = Vector2( 0, 17 )
+collide_with_areas = true
+
+[node name="LedgeRayTop" type="RayCast2D" parent="CollisionChecks/LedgeRaycasts"]
+position = Vector2( 0.5, -12 )
+enabled = true
+cast_to = Vector2( -9.5, 0 )
+collide_with_areas = true
+
+[node name="LedgeRayMid" type="RayCast2D" parent="CollisionChecks/LedgeRaycasts"]
+position = Vector2( 0.5, -5 )
+enabled = true
+cast_to = Vector2( -9.5, 0 )
+collide_with_areas = true
+
+[node name="LedgeRayBottom" type="RayCast2D" parent="CollisionChecks/LedgeRaycasts"]
+position = Vector2( 0.5, 0 )
+enabled = true
+cast_to = Vector2( -9.5, 0 )
+collide_with_areas = true
+
+[node name="AttackBox" type="Area2D" parent="CollisionChecks"]
+position = Vector2( -14, -8 )
+collision_layer = 8
+collision_mask = 4
+script = ExtResource( 11 )
+damage_amount = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionChecks/AttackBox" groups=["player_attack"]]
+modulate = Color( 1, 0, 0, 1 )
+shape = SubResource( 2 )
+disabled = true
+
+[node name="DashCheckUp" type="Area2D" parent="CollisionChecks" groups=["dash_check"]]
+position = Vector2( -18, -26 )
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+script = ExtResource( 5 )
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="CollisionChecks/DashCheckUp"]
+polygon = PoolVector2Array( -17, -20, 19, 1, 19, 20, -17, 14 )
+
+[node name="DashCheckDown" type="Area2D" parent="CollisionChecks" groups=["dash_check"]]
+position = Vector2( -18, 10 )
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+script = ExtResource( 5 )
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="CollisionChecks/DashCheckDown"]
+polygon = PoolVector2Array( -17, 20, -17, -14, 19, -20, 19, -1 )
+
+[node name="RoomDetection" type="Area2D" parent="CollisionChecks"]
+position = Vector2( 0, -8 )
+collision_layer = 0
+collision_mask = 16
+monitorable = false
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionChecks/RoomDetection"]
+shape = SubResource( 12 )
+
+[node name="HurtBox" type="Area2D" parent="CollisionChecks"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource( 12 )
+
+[node name="CollisionBody" type="CollisionShape2D" parent="CollisionChecks/HurtBox"]
+position = Vector2( 0.5, -8 )
+shape = SubResource( 3 )
+
+[node name="CollisionBody" type="CollisionShape2D" parent="."]
+position = Vector2( 0.5, -8 )
+shape = SubResource( 3 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/ducking = SubResource( 13 )
+anims/falling = SubResource( 14 )
+anims/floating = SubResource( 15 )
+anims/idle = SubResource( 16 )
+anims/jumping = SubResource( 17 )
+anims/rolling = SubResource( 18 )
+anims/running = SubResource( 19 )
+"anims/super jumping" = SubResource( 20 )
+
+[node name="Sprite" type="Sprite" parent="."]
+light_mask = 0
+position = Vector2( 0, -8 )
+texture = ExtResource( 6 )
+hframes = 10
+vframes = 7
+
+[node name="StateMachineOld" type="Node" parent="."]
+
+[node name="jumping" type="Node" parent="StateMachineOld"]
+script = ExtResource( 23 )
+
+[node name="idle" type="Node" parent="StateMachineOld"]
+script = ExtResource( 20 )
+
+[node name="running" type="Node" parent="StateMachineOld"]
+script = ExtResource( 18 )
+
+[node name="falling" type="Node" parent="StateMachineOld"]
+script = ExtResource( 21 )
+
+[node name="walljumping" type="Node" parent="StateMachineOld"]
+script = ExtResource( 24 )
+
+[node name="wallsliding" type="Node" parent="StateMachineOld"]
+script = ExtResource( 17 )
+
+[node name="duckjumping" type="Node" parent="StateMachineOld"]
+script = ExtResource( 15 )
+
+[node name="duckfalling" type="Node" parent="StateMachineOld"]
+script = ExtResource( 3 )
+
+[node name="ducking" type="Node" parent="StateMachineOld"]
+script = ExtResource( 4 )
+
+[node name="dashing_up" type="Node" parent="StateMachineOld"]
+script = ExtResource( 2 )
+
+[node name="dashing_down" type="Node" parent="StateMachineOld"]
+script = ExtResource( 1 )
+
+[node name="rolling" type="Node" parent="StateMachineOld"]
+script = ExtResource( 16 )
+
+[node name="wallbounce_sliding" type="Node" parent="StateMachineOld"]
+script = ExtResource( 19 )
+
+[node name="wallbouncing" type="Node" parent="StateMachineOld"]
+script = ExtResource( 14 )
+
+[node name="ledgeclinging" type="Node" parent="StateMachineOld"]
+script = ExtResource( 13 )
+
+[node name="hurt" type="Node" parent="StateMachineOld"]
+script = ExtResource( 22 )
+
+[node name="Audio" type="Node" parent="."]
+pause_mode = 2
+
+[node name="JumpAudio" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource( 8 )
+volume_db = -3.0
+
+[node name="Timers" type="Node" parent="."]
+
+[node name="CoyoteTimer" type="Timer" parent="Timers" groups=["reset_on_room_transition"]]
+__meta__ = {
+"_editor_description_": "Coyote jump leniency"
+}
+
+[node name="PostClingJumpTimer" type="Timer" parent="Timers"]
+one_shot = true
+__meta__ = {
+"_editor_description_": "Can't cling again right after cling jumping to prevent cling->jump->cling->falling upward, as you can't control jump height when falling"
+}
+
+[node name="BufferedJumpTimer" type="Timer" parent="Timers" groups=["reset_on_room_transition"]]
+one_shot = true
+
+[node name="BetweenAttackTimer" type="Timer" parent="Timers"]
+
+[node name="BufferedAttackTimer" type="Timer" parent="Timers"]
+one_shot = true
+__meta__ = {
+"_editor_description_": "You can buffer an attack during your previous attack"
+}
+
+[node name="DashTimer" type="Timer" parent="Timers"]
+one_shot = true
+__meta__ = {
+"_editor_description_": "This is how long you're in the dash state for"
+}
+
+[node name="BufferedDashTimer" type="Timer" parent="Timers"]
+one_shot = true
+__meta__ = {
+"_editor_description_": "Works the same way as other buffers. This is extremely short (much shorter than the redash timer)"
+}
+
+[node name="NoDashTimer" type="Timer" parent="Timers"]
+one_shot = true
+__meta__ = {
+"_editor_description_": "You can't dash while this is active. It lasts a bit longer than the dash itself. This is to prevent dashing twice into the same object."
+}
+
+[node name="BufferedRedashTimer" type="Timer" parent="Timers"]
+one_shot = true
+__meta__ = {
+"_editor_description_": "If you try to dash while NoDashTimer is active, you can buffer a dash."
+}
+
+[node name="WallBounceTimer" type="Timer" parent="Timers"]
+one_shot = true
+__meta__ = {
+"_editor_description_": "While this timer is active (and the player is moving upward) you can wallbounce"
+}
+
+[node name="RollTimer" type="Timer" parent="Timers"]
+one_shot = true
+__meta__ = {
+"_editor_description_": "Length of roll"
+}
+
+[node name="IFrameTimer" type="AnimationPlayer" parent="Timers"]
+anims/invincible = SubResource( 21 )
+anims/reset = SubResource( 22 )
+
+[node name="HurtStateTimer" type="Timer" parent="Timers"]
+one_shot = true
+
+[node name="Cape" type="Node2D" parent="."]
+light_mask = 0
+position = Vector2( 0, -13 )
+
+[node name="CapeL" type="Position2D" parent="Cape"]
+position = Vector2( -4, 6 )
+
+[node name="CapeR" type="Position2D" parent="Cape"]
+position = Vector2( 4, 6 )
+
+[node name="Particles" type="Node2D" parent="."]
+
+[node name="JumpCloud" type="Particles2D" parent="Particles"]
+position = Vector2( 0, 3 )
+emitting = false
+amount = 500
+lifetime = 0.4
+local_coords = false
+process_material = SubResource( 9 )
+
+[node name="DebugLabel" type="Label" parent="."]
+margin_left = -31.0
+margin_top = -55.0
+margin_right = 9.0
+margin_bottom = -41.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VerletArea" parent="." instance=ExtResource( 9 )]
+light_mask = 0
+
+[node name="Light2D" type="Light2D" parent="."]
+position = Vector2( 0, -6 )
+texture = ExtResource( 7 )
+texture_scale = 3.21
+energy = 1.41
+range_height = 2048.0
+range_layer_min = -1
+shadow_enabled = true
+shadow_gradient_length = 8.0
+shadow_filter = 5
+shadow_filter_smooth = 8.6
+
+[node name="HFSM" type="Node" parent="."]
+script = ExtResource( 25 )
+
+[node name="TransitConditions" type="Node" parent="HFSM"]
+script = ExtResource( 26 )
+
+[node name="RootState" type="Node" parent="HFSM"]
+script = ExtResource( 27 )
+
+[node name="GroundState" type="Node" parent="HFSM/RootState"]
+script = ExtResource( 28 )
+
+[node name="Run" type="Node" parent="HFSM/RootState/GroundState"]
+script = ExtResource( 32 )
+
+[node name="Roll" type="Node" parent="HFSM/RootState/GroundState"]
+script = ExtResource( 30 )
+
+[node name="Duck" type="Node" parent="HFSM/RootState/GroundState"]
+script = ExtResource( 31 )
+
+[node name="Idle" type="Node" parent="HFSM/RootState/GroundState"]
+script = ExtResource( 29 )
+
+[node name="AirState" type="Node" parent="HFSM/RootState"]
+script = ExtResource( 38 )
+
+[node name="FallState" type="Node" parent="HFSM/RootState/AirState"]
+script = ExtResource( 34 )
+
+[node name="NormalFall" type="Node" parent="HFSM/RootState/AirState/FallState"]
+script = ExtResource( 33 )
+
+[node name="SpinFall" type="Node" parent="HFSM/RootState/AirState/FallState"]
+script = ExtResource( 37 )
+
+[node name="DuckFall" type="Node" parent="HFSM/RootState/AirState/FallState"]
+script = ExtResource( 35 )
+
+[node name="JumpState" type="Node" parent="HFSM/RootState/AirState"]
+
+[node name="NormalJump" type="Node" parent="HFSM/RootState/AirState/JumpState"]
+
+[node name="DuckJump" type="Node" parent="HFSM/RootState/AirState/JumpState"]
+
+[node name="SpinJump" type="Node" parent="HFSM/RootState/AirState/JumpState"]
+
+[node name="SuperJump" type="Node" parent="HFSM/RootState/AirState/JumpState"]
+
+[node name="WallJump" type="Node" parent="HFSM/RootState/AirState/JumpState"]
+
+[node name="WallBoost" type="Node" parent="HFSM/RootState/AirState/JumpState"]
+
+[node name="WallSlide" type="Node" parent="HFSM/RootState/AirState"]
+script = ExtResource( 36 )
+
+[node name="DashState" type="Node" parent="HFSM/RootState"]
+
+[node name="DashUp" type="Node" parent="HFSM/RootState/DashState"]
+
+[node name="DashDown" type="Node" parent="HFSM/RootState/DashState"]
+
+[node name="Hurt" type="Node" parent="HFSM/RootState"]
+
+[connection signal="area_entered" from="CollisionChecks/FullBodyArea" to="." method="_on_BodyArea_area_entered"]
+[connection signal="body_entered" from="CollisionChecks/FullBodyArea" to="." method="_on_UncrouchCheck_body_entered"]
+[connection signal="body_exited" from="CollisionChecks/FullBodyArea" to="." method="_on_UncrouchCheck_body_exited"]
+[connection signal="area_entered" from="CollisionChecks/DashCheckUp" to="CollisionChecks/DashCheckUp" method="_on_DashCheck_area_entered"]
+[connection signal="area_exited" from="CollisionChecks/DashCheckUp" to="CollisionChecks/DashCheckUp" method="_on_DashCheck_area_exited"]
+[connection signal="area_entered" from="CollisionChecks/DashCheckDown" to="CollisionChecks/DashCheckDown" method="_on_DashCheck_area_entered"]
+[connection signal="area_exited" from="CollisionChecks/DashCheckDown" to="CollisionChecks/DashCheckDown" method="_on_DashCheck_area_exited"]
+[connection signal="area_entered" from="CollisionChecks/RoomDetection" to="." method="_on_RoomDetection_area_entered"]
+[connection signal="damage_received" from="CollisionChecks/HurtBox" to="." method="_on_HurtBox_damage_received"]
+[connection signal="timeout" from="Timers/CoyoteTimer" to="." method="_on_CoyoteTimer_timeout"]
+[connection signal="timeout" from="Timers/PostClingJumpTimer" to="." method="_on_CoyoteTimer_timeout"]
+[connection signal="timeout" from="Timers/BufferedJumpTimer" to="." method="_on_BufferedJumpTimer_timeout"]
+[connection signal="timeout" from="Timers/BetweenAttackTimer" to="." method="_on_BetweenAttackTimer_timeout"]

@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Scene/Levels/LevelArea.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scene/Levels/Room.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Scene/Player/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scene/Player/Player2.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Script/RoomStuff/EditAssistor.gd" type="Script" id=4]
 [ext_resource path="res://Scene/Entities/Danger/Packaged/ForestDanger.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scene/Triggers/CameraBorderTrigger.tscn" type="PackedScene" id=6]
@@ -473,7 +473,7 @@ extents = Vector2( 192, 108 )
 [node name="RealLevelArea" parent="." instance=ExtResource( 1 )]
 
 [node name="PlayerCamera" parent="RealLevelArea" index="2"]
-position = Vector2( 1020, 84 )
+position = Vector2( -60, -36 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="RealLevelArea"]
 environment = SubResource( 99 )
@@ -649,10 +649,6 @@ visibility_rect = Rect2( -256, -256, 516, 516 )
 process_material = SubResource( 127 )
 texture = ExtResource( 27 )
 
-[node name="Player" parent="RealLevelArea" instance=ExtResource( 3 )]
-light_mask = 0
-position = Vector2( 1020, 84 )
-
 [node name="Room" parent="RealLevelArea" instance=ExtResource( 2 )]
 
 [node name="FGTileMap" parent="RealLevelArea/Room" index="0"]
@@ -800,6 +796,9 @@ script = ExtResource( 4 )
 unfocus_color = Color( 0, 0.141176, 0.145098, 0.631373 )
 active_border_color = Color( 0.8, 0.752941, 0.615686, 0.8 )
 inactive_border_color = Color( 0.760784, 0.717647, 0.603922, 0.301961 )
+
+[node name="Player2" parent="." instance=ExtResource( 3 )]
+position = Vector2( -60, -36 )
 
 [editable path="RealLevelArea"]
 [editable path="RealLevelArea/Room"]

@@ -1,12 +1,14 @@
 extends PlayerState
 
+
+func enter(_init):
+	Animation_Player.play("running")
+
 func do_state_logic(delta):
 	do_attack()
-	Animation_Player.play("running")
+	do_gravity(delta, MAX_FALL_SPEED, GRAVITY)
 	start_coyote_time()
-	Player.velocity.y = 0
 	do_normal_x_movement(delta,FLOOR_DRAG, ACCELERATE_WALK)
-	Player.velocity.y = 10
 	Player.velocity = Player.move_and_slide(Player.velocity,UP_DIRECTION)
 
 func check_for_new_state() -> String:
