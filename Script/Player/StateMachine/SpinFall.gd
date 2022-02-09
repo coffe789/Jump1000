@@ -1,16 +1,6 @@
 extends "res://Script/Player/StateMachine/FallState.gd"
 
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _update(delta):
+	get_parent()._udpate(delta)
+	set_dash_target()
+	Player.velocity = Player.move_and_slide(Player.velocity,UP_DIRECTION)

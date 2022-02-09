@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=2]
+[gd_scene load_steps=63 format=2]
 
 [ext_resource path="res://Script/PlayerStates/dashing_down.gd" type="Script" id=1]
 [ext_resource path="res://Script/PlayerStates/dashing_up.gd" type="Script" id=2]
@@ -38,6 +38,13 @@
 [ext_resource path="res://Script/Player/StateMachine/WallSlide.gd" type="Script" id=36]
 [ext_resource path="res://Script/Player/StateMachine/SpinFall.gd" type="Script" id=37]
 [ext_resource path="res://Script/Player/StateMachine/AirState.gd" type="Script" id=38]
+[ext_resource path="res://Script/Player/StateMachine/JumpState.gd" type="Script" id=39]
+[ext_resource path="res://Script/Player/StateMachine/SpinJump.gd" type="Script" id=40]
+[ext_resource path="res://Script/Player/StateMachine/NormalJump.gd" type="Script" id=41]
+[ext_resource path="res://Script/Player/StateMachine/WallJump.gd" type="Script" id=42]
+[ext_resource path="res://Script/Player/StateMachine/DuckJump.gd" type="Script" id=43]
+[ext_resource path="res://Script/Player/StateMachine/SuperJump.gd" type="Script" id=44]
+[ext_resource path="res://Script/Player/StateMachine/WallBoost.gd" type="Script" id=45]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 3.5, 8 )
@@ -708,18 +715,25 @@ script = ExtResource( 37 )
 script = ExtResource( 35 )
 
 [node name="JumpState" type="Node" parent="HFSM/RootState/AirState"]
+script = ExtResource( 39 )
 
 [node name="NormalJump" type="Node" parent="HFSM/RootState/AirState/JumpState"]
+script = ExtResource( 41 )
 
 [node name="DuckJump" type="Node" parent="HFSM/RootState/AirState/JumpState"]
+script = ExtResource( 43 )
 
 [node name="SpinJump" type="Node" parent="HFSM/RootState/AirState/JumpState"]
+script = ExtResource( 40 )
 
 [node name="SuperJump" type="Node" parent="HFSM/RootState/AirState/JumpState"]
+script = ExtResource( 44 )
 
 [node name="WallJump" type="Node" parent="HFSM/RootState/AirState/JumpState"]
+script = ExtResource( 42 )
 
 [node name="WallBoost" type="Node" parent="HFSM/RootState/AirState/JumpState"]
+script = ExtResource( 45 )
 
 [node name="WallSlide" type="Node" parent="HFSM/RootState/AirState"]
 script = ExtResource( 36 )
@@ -731,6 +745,14 @@ script = ExtResource( 36 )
 [node name="DashDown" type="Node" parent="HFSM/RootState/DashState"]
 
 [node name="Hurt" type="Node" parent="HFSM/RootState"]
+
+[node name="LedgeState" type="Node" parent="HFSM/RootState"]
+
+[node name="LedgeFall" type="Node" parent="HFSM/RootState/LedgeState"]
+
+[node name="LedgeRest" type="Node" parent="HFSM/RootState/LedgeState"]
+
+[node name="LedgeRise" type="Node" parent="HFSM/RootState/LedgeState"]
 
 [connection signal="area_entered" from="CollisionChecks/FullBodyArea" to="." method="_on_BodyArea_area_entered"]
 [connection signal="body_entered" from="CollisionChecks/FullBodyArea" to="." method="_on_UncrouchCheck_body_entered"]
