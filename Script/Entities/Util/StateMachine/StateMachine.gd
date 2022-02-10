@@ -1,7 +1,8 @@
 extends Node
 class_name StateMachine
-signal activate
-signal change_state(prev,current)
+signal activated
+signal updated
+signal changed_state(prev,current)
 
 onready var current_state = $RootState
 export var history_size = 3
@@ -14,11 +15,11 @@ func set_target(value):
 	target = value
 	initialise_states(self)
 	
-	emit_signal("activate")
+	emit_signal("activated")
 
 
 func init_conditions():
-	$TransitConditions.target = target
+	$TransitConditions.Target = target
 	$TransitConditions.root_state = $RootState
 	$TransitConditions.HFSM = self
 	
@@ -54,7 +55,7 @@ func change_state(new_state:State, allow_reenter=false):
 			current_state = new_state
 			
 			add_to_history(previous_state)
-			emit_signal("change_state",previous_state,current_state)
+			emit_signal("changed_state",previous_state,current_state)
 		else:
 			change_state(new_state._choose_substate(), allow_reenter) # Recurse until leaf state
 
@@ -65,7 +66,7 @@ func pop_state():
 		var new_state = state_history.pop_back()
 		new_state._enter()
 		current_state = new_state
-		emit_signal("change_state")
+		emit_signal("changed_state")
 
 
 # Periodically called by the owner/target of the machine,
@@ -74,10 +75,10 @@ func update(delta):
 	if current_state.is_leaf():
 		current_state._update(delta)
 		current_state.try_transition()
+		emit_signal("updated")
 	else:
 		change_state(current_state._choose_substate())
 		update(delta)
-
 
 func previous_state():
 	return state_history[state_history.size()-1]

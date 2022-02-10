@@ -1,8 +1,7 @@
 extends State
 
 func _choose_substate():
-	assert(false) # Override this function
-#	change_state($substate)
+	return $AirState
 
 
 
@@ -89,100 +88,100 @@ func check_for_new_state() -> String:
 
 
 func take_damage_logic(amount, properties, _damage_source):
-	if !Player.is_invincible:
+	if !Target.is_invincible:
 		if properties.has(Globals.Dmg_properties.FROM_PLAYER):
 			pass
-		elif not (Player.velocity.y < 0 and properties.has(Globals.Dmg_properties.IMMUNE_UP))\
-			and not (Player.velocity.y > 0 and properties.has(Globals.Dmg_properties.IMMUNE_DOWN))\
-			and not (Player.velocity.x < 0 and properties.has(Globals.Dmg_properties.IMMUNE_LEFT))\
-			and not (Player.velocity.x > 0 and properties.has(Globals.Dmg_properties.IMMUNE_RIGHT)):
-			Player.health -= amount
+		elif not (Target.velocity.y < 0 and properties.has(Globals.Dmg_properties.IMMUNE_UP))\
+			and not (Target.velocity.y > 0 and properties.has(Globals.Dmg_properties.IMMUNE_DOWN))\
+			and not (Target.velocity.x < 0 and properties.has(Globals.Dmg_properties.IMMUNE_LEFT))\
+			and not (Target.velocity.x > 0 and properties.has(Globals.Dmg_properties.IMMUNE_RIGHT)):
+			Target.health -= amount
 			#Animation unreliably sets invincible to true fast enough
-			Player.is_invincible = true
+			Target.is_invincible = true
 			do_iframes()
-			Player.set_state(Player.PS_HURT, [])
-			if Player.health <= 0:
-				Player.is_invincible = true # Prevent respawning twice
-				Player.respawn()
+			Target.set_state(Target.PS_HURT, [])
+			if Target.health <= 0:
+				Target.is_invincible = true # Prevent respawning twice
+				Target.respawn()
 
 
 func heal(amount):
-	if !(Player.health >= Player.max_health):
-		Player.health += amount
-		Player.health = clamp(Player.health, 0, Player.max_health)
-		print("healed ",Player.health)
+	if !(Target.health >= Target.max_health):
+		Target.health += amount
+		Target.health = clamp(Target.health, 0, Target.max_health)
+		print("healed ",Target.health)
 
 
 func do_iframes():
-	Player.Timers.get_node("IFrameTimer").play("invincible")
+	Target.Timers.get_node("IFrameTimer").play("invincible")
 
 
 const DASH_DIR_UP = -1
 const DASH_DIR_DOWN = 1
 const DASH_DIR_NONE = 0
-# Find closest node within dash hitboxes & set Player.dash_target_node
+# Find closest node within dash hitboxes & set Target.dash_target_node
 func set_dash_target():
 	var best_node = null
 	var best_distance = INF
-	for i in Player.Dash_Check_Up.area_list.size():
-		if ((Player.position.x - Player.Dash_Check_Up.area_list[i].position.x) < best_distance):
-			best_distance = Player.Dash_Check_Up.area_list[i].position.x
-			best_node = Player.Dash_Check_Up.area_list[i]
-	for i in Player.Dash_Check_Down.area_list.size():
-		if ((Player.position.x - Player.Dash_Check_Down.area_list[i].position.x) < best_distance):
-			best_distance = Player.Dash_Check_Down.area_list[i].position.x
-			best_node = Player.Dash_Check_Down.area_list[i]
-	Player.dash_target_node = best_node
+	for i in Target.Dash_Check_Up.area_list.size():
+		if ((Target.position.x - Target.Dash_Check_Up.area_list[i].position.x) < best_distance):
+			best_distance = Target.Dash_Check_Up.area_list[i].position.x
+			best_node = Target.Dash_Check_Up.area_list[i]
+	for i in Target.Dash_Check_Down.area_list.size():
+		if ((Target.position.x - Target.Dash_Check_Down.area_list[i].position.x) < best_distance):
+			best_distance = Target.Dash_Check_Down.area_list[i].position.x
+			best_node = Target.Dash_Check_Down.area_list[i]
+	Target.dash_target_node = best_node
 	if best_node != null:
-		Player.dash_target_node = best_node.get_parent()
+		Target.dash_target_node = best_node.get_parent()
 
 
-# Set dash direction based on position of Player.dash_target_node
+# Set dash direction based on position of Target.dash_target_node
 func set_dash_direction():
-	if Player.dash_target_node == null:
-		Player.dash_direction = DASH_DIR_NONE
+	if Target.dash_target_node == null:
+		Target.dash_direction = DASH_DIR_NONE
 		return 
 	var relative_position = (
-		Player.global_position.y 
+		Target.global_position.y 
 		- PLAYER_HEIGHT/2 
-		- Player.dash_target_node.global_position.y)
+		- Target.dash_target_node.global_position.y)
 	if relative_position < 0:
-		Player.dash_direction = DASH_DIR_DOWN
+		Target.dash_direction = DASH_DIR_DOWN
 		return
 	else:
-		Player.dash_direction =  DASH_DIR_UP
+		Target.dash_direction =  DASH_DIR_UP
 		return
 
 
 func set_attack_hitbox():
-	Player.Attack_Box.get_child(0).get_shape().extents = NORMAL_ATTACK_SIZE
-	Player.Attack_Box.position.y = -8
-	Player.attack_box_x_distance = 11
+	Target.Attack_Box.get_child(0).get_shape().extents = NORMAL_ATTACK_SIZE
+	Target.Attack_Box.position.y = -8
+	Target.attack_box_x_distance = 11
 
 
 # Performs attack if button is pressed/is buffered. Returns success status
 func do_attack():
-	if (Input.is_action_just_pressed("attack") && !Player.is_attacking)\
-	or (Player.Timers.get_node("BufferedAttackTimer").time_left > 0 && !Player.is_attacking):
-		if Player.dash_direction == 0:
+	if (Input.is_action_just_pressed("attack") && !Target.is_attacking)\
+	or (Target.Timers.get_node("BufferedAttackTimer").time_left > 0 && !Target.is_attacking):
+		if Target.dash_direction == 0:
 			force_attack()
 			return true
 	return false
 
 
-# Player attacks regardless of input or whatever
+# Target attacks regardless of input or whatever
 func force_attack():
-	Player.Attack_Box.damage_properties = state_damage_properties
-	Player.Attack_Box.get_child(0).disabled = false
-	Player.is_attacking = true
-	Player.Timers.get_node("BetweenAttackTimer").start(0.4)
-	Player.Timers.get_node("BufferedAttackTimer").stop()
+	Target.Attack_Box.damage_properties = state_damage_properties
+	Target.Attack_Box.get_child(0).disabled = false
+	Target.is_attacking = true
+	Target.Timers.get_node("BetweenAttackTimer").start(0.4)
+	Target.Timers.get_node("BufferedAttackTimer").stop()
 
 
 # If for whatever reason you want to cancel an attack (like entering another state)
 func stop_attack():
-	Player.Attack_Box.get_child(0).disabled = true
-	Player.is_attacking = false
+	Target.Attack_Box.get_child(0).disabled = true
+	Target.is_attacking = false
 
 
 # What the player does after attacking (dependent on target)
@@ -190,28 +189,28 @@ func stop_attack():
 func attack_response(response_id, attackable):
 	match response_id:
 		Globals.NORMAL_STAGGER:
-			Player.velocity.x = -Player.facing * 100 # recoil
+			Target.velocity.x = -Target.facing * 100 # recoil
 			attackable.on_attacked(2,Globals.NORMAL_ATTACK) #do damage or something
 		Globals.NO_RESPONSE:
 			pass
 		Globals.DASH_BONK:
-			Player.velocity = Vector2(-Player.facing * 70, -150)
+			Target.velocity = Vector2(-Target.facing * 70, -150)
 
 
 func set_attack_direction():
-	Player.Attack_Box.position.x = Player.attack_box_x_distance * Player.facing
-	Player.Dash_Check_Up.position.x = 18 * Player.facing
-	Player.Dash_Check_Down.position.x = 18 * Player.facing
-	Player.Dash_Check_Down.scale.x = -Player.facing
-	Player.Dash_Check_Up.scale.x = -Player.facing
+	Target.Attack_Box.position.x = Target.attack_box_x_distance * Target.facing
+	Target.Dash_Check_Up.position.x = 18 * Target.facing
+	Target.Dash_Check_Down.position.x = 18 * Target.facing
+	Target.Dash_Check_Down.scale.x = -Target.facing
+	Target.Dash_Check_Up.scale.x = -Target.facing
 
 
 func set_ledge_ray_direction():
-	Player.ledge_cast_bottom.scale.x = -Player.facing
-	Player.ledge_cast_mid.scale.x = -Player.facing
-	Player.ledge_cast_top.scale.x = -Player.facing
-	Player.ledge_cast_lenient.scale.x = -Player.facing
-	Player.ledge_cast_height_search.position.x = Player.facing * 11
+	Target.ledge_cast_bottom.scale.x = -Target.facing
+	Target.ledge_cast_mid.scale.x = -Target.facing
+	Target.ledge_cast_top.scale.x = -Target.facing
+	Target.ledge_cast_lenient.scale.x = -Target.facing
+	Target.ledge_cast_height_search.position.x = Target.facing * 11
 
 
 # Get intended x movement direction
@@ -227,20 +226,20 @@ func get_input_direction():
 
 
 func do_normal_x_movement(delta, friction_constant, walk_acceleration):
-	if (abs(Player.velocity.x)>MAX_X_SPEED && Player.directionX == get_input_direction()): #going too fast
-		Player.velocity.x = approach(Player.velocity.x, get_input_direction() * MAX_X_SPEED, delta * friction_constant * 1000 / 1.5 /1.5/1.5)
+	if (abs(Target.velocity.x)>MAX_X_SPEED && Target.directionX == get_input_direction()): #going too fast
+		Target.velocity.x = approach(Target.velocity.x, get_input_direction() * MAX_X_SPEED, delta * friction_constant * 1000 / 1.5 /1.5/1.5)
 	elif (get_input_direction()!=0 && walk_acceleration > 0): # move player
-		Player.velocity.x = approach(Player.velocity.x, get_input_direction() * MAX_X_SPEED, delta * walk_acceleration)
+		Target.velocity.x = approach(Target.velocity.x, get_input_direction() * MAX_X_SPEED, delta * walk_acceleration)
 	else:	#normal friction
-		Player.velocity.x = approach(Player.velocity.x, 0, delta * friction_constant * 1000)
+		Target.velocity.x = approach(Target.velocity.x, 0, delta * friction_constant * 1000)
 
 
 func do_unconcontrolled_movement(delta, desired_speed, acceleration):
-	Player.velocity.x = approach(Player.velocity.x, desired_speed, delta * acceleration)
+	Target.velocity.x = approach(Target.velocity.x, desired_speed, delta * acceleration)
 
 
 func do_gravity(delta, max_fall_speed, fall_acceleration):
-	Player.velocity.y = approach(Player.velocity.y, max_fall_speed, delta * fall_acceleration)
+	Target.velocity.y = approach(Target.velocity.y, max_fall_speed, delta * fall_acceleration)
 
 
 # Have a number approach another with a defined increment
@@ -268,68 +267,68 @@ func set_if_lesser(to_set, maximum):
 
 
 func start_coyote_time():
-	Player.canCoyoteJump = true
-	Player.Timers.get_node("CoyoteTimer").start(COYOTE_TIME)
+	Target.canCoyoteJump = true
+	Target.Timers.get_node("CoyoteTimer").start(COYOTE_TIME)
 
 
 # If you let go of jump, stop going up. Also handles buffered case.
 func check_if_finish_jump() -> void:
-	if ((!Input.is_action_pressed("jump") && !Player.stop_jump_rise)):
-		Player.velocity.y /= AFTER_JUMP_SLOWDOWN_FACTOR;
-		Player.stop_jump_rise = true;
+	if ((!Input.is_action_pressed("jump") && !Target.stop_jump_rise)):
+		Target.velocity.y /= AFTER_JUMP_SLOWDOWN_FACTOR;
+		Target.stop_jump_rise = true;
 
 
 #Changes facing direction if an input is pressed. Otherwise facing remains as is.
 func set_facing_direction():
 	if get_input_direction()==1:
-		Player.facing = 1
+		Target.facing = 1
 	if get_input_direction() == -1:
-		Player.facing = -1
+		Target.facing = -1
 
 
 func set_cape_acceleration():
-	Player.Cape.accel = Vector2(-Player.facing * 4, 8)
+	Target.Cape.accel = Vector2(-Target.facing * 4, 8)
 
 
 func set_player_sprite_direction():
-	if Player.facing == -1:
-		Player.Player_Sprite.flip_h = false
-		Player.Player_Sprite.position.x = 0
-	elif Player.facing == 1:
-		Player.Player_Sprite.flip_h = true
-		Player.Player_Sprite.position.x = 1
+	if Target.facing == -1:
+		Target.Player_Sprite.flip_h = false
+		Target.Player_Sprite.position.x = 0
+	elif Target.facing == 1:
+		Target.Player_Sprite.flip_h = true
+		Target.Player_Sprite.position.x = 1
 
 
 func can_wall_jump():
 	_update_wall_direction()
 	# If we're near a valid wall
-	if Player.wall_direction != 0:
+	if Target.wall_direction != 0:
 		return true
 	return false
 
 
 func _update_wall_direction():
-	var is_near_wall_left = _check_is_valid_wall(Player.left_wall_raycast)
-	var is_near_wall_right = _check_is_valid_wall(Player.right_wall_raycast)
-	var is_near_wall_left2 = _check_is_valid_wall(Player.left_wall_raycast2)
-	var is_near_wall_right2 = _check_is_valid_wall(Player.right_wall_raycast2)
+	var is_near_wall_left = _check_is_valid_wall(Target.left_wall_raycast)
+	var is_near_wall_right = _check_is_valid_wall(Target.right_wall_raycast)
+	var is_near_wall_left2 = _check_is_valid_wall(Target.left_wall_raycast2)
+	var is_near_wall_right2 = _check_is_valid_wall(Target.right_wall_raycast2)
 	
 	# If the player is sandwiched between two walls, check which wall is closer
 	if (is_near_wall_left || is_near_wall_left2) && (is_near_wall_right || is_near_wall_right2):
-		if Player.left_wall_raycast.get_collision_point() && Player.right_wall_raycast.get_collision_point():
-			var left_len = abs(Player.global_position.x - Player.left_wall_raycast.get_collision_point().x)
-			var right_len = abs(Player.global_position.x - Player.right_wall_raycast.get_collision_point().x)
+		if Target.left_wall_raycast.get_collision_point() && Target.right_wall_raycast.get_collision_point():
+			var left_len = abs(Target.global_position.x - Target.left_wall_raycast.get_collision_point().x)
+			var right_len = abs(Target.global_position.x - Target.right_wall_raycast.get_collision_point().x)
 			if left_len > right_len:
-				Player.wall_direction = 1
+				Target.wall_direction = 1
 			else:
-				Player.wall_direction = -1
+				Target.wall_direction = -1
 		else:
-			Player.wall_direction = Player.facing
+			Target.wall_direction = Target.facing
 	# If we're near a left wall, wall_direction will be -(1)+(0), right wall will be -(0)+(1), neither is 0
 	else:
-		Player.wall_direction = -int(is_near_wall_left||is_near_wall_left2) + int(is_near_wall_right||is_near_wall_right2)
-	if Player.wall_direction != 0:
-		Player.last_wall_direction = Player.wall_direction
+		Target.wall_direction = -int(is_near_wall_left||is_near_wall_left2) + int(is_near_wall_right||is_near_wall_right2)
+	if Target.wall_direction != 0:
+		Target.last_wall_direction = Target.wall_direction
 
 
 func _check_is_valid_wall(raycast):
@@ -344,30 +343,31 @@ func _check_is_valid_wall(raycast):
 	return false
 
 
+#TODO test if I still even need this timer
 func get_ledge_behaviour():
 	_update_wall_direction()
-	if get_input_direction() == Player.wall_direction && Player.wall_direction!=0:
-		if _check_is_valid_wall(Player.ledge_cast_mid) \
-		and !_check_is_valid_wall(Player.ledge_cast_top) && Player.velocity.y > 0:
+	if get_input_direction() == Target.wall_direction && Target.wall_direction!=0 && Target.Timers.get_node("PostClingJumpTimer").time_left == 0:
+		if _check_is_valid_wall(Target.ledge_cast_mid) \
+		and !_check_is_valid_wall(Target.ledge_cast_top) && Target.velocity.y > 0:
 			return Globals.LEDGE_REST
-		elif (_check_is_valid_wall(Player.ledge_cast_bottom) || _check_is_valid_wall(Player.ledge_cast_mid)) && !_check_is_valid_wall(Player.ledge_cast_top):
+		elif (_check_is_valid_wall(Target.ledge_cast_bottom) || _check_is_valid_wall(Target.ledge_cast_mid)) && !_check_is_valid_wall(Target.ledge_cast_top):
 			return Globals.LEDGE_NO_ACTION
-		elif(_check_is_valid_wall(Player.ledge_cast_top) && !_check_is_valid_wall(Player.ledge_cast_lenient) && Player.current_state!=Player.PS_WALLSLIDING)\
-		and Player.velocity.y >= -10:
+		elif(_check_is_valid_wall(Target.ledge_cast_top) && !_check_is_valid_wall(Target.ledge_cast_lenient) && Target.current_state!=Target.PS_WALLSLIDING)\
+		and Target.velocity.y >= -10:
 			return Globals.LEDGE_LENIENCY_RISE
 	return Globals.LEDGE_EXIT
 
 
 func emit_jump_particles():
-	Player.get_node("Particles/JumpCloud").emitting = true
-	Player.get_node("Particles/JumpCloud").process_material.direction.x = -Player.directionX
+	Target.get_node("Particles/JumpCloud").emitting = true
+	Target.get_node("Particles/JumpCloud").process_material.direction.x = -Target.directionX
 	yield(get_tree().create_timer(0.04), "timeout")
-	Player.get_node("Particles/JumpCloud").emitting = false
+	Target.get_node("Particles/JumpCloud").emitting = false
 
 # Sets position and extents of player physics and hitbox collision
 func set_y_collision(extents,y_position):
-	Player.Collision_Body.get_shape().extents = extents
-	Player.Collision_Body.position.y = y_position
+	Target.Collision_Body.get_shape().extents = extents
+	Target.Collision_Body.position.y = y_position
 	get_node("../../CollisionChecks/HurtBox/CollisionBody").position.y = y_position
 
 # Buffered inputs
@@ -380,23 +380,23 @@ func check_buffered_inputs():
 
 func check_buffered_attack_input():
 	if (Input.is_action_just_pressed("attack")):
-		Player.Timers.get_node("BufferedAttackTimer").start(0.2)
+		Target.Timers.get_node("BufferedAttackTimer").start(0.2)
 
 
 func check_buffered_jump_input():
 	if Input.is_action_just_pressed("jump"):
-		Player.isJumpBuffered = true;
-		Player.Timers.get_node("BufferedJumpTimer").start(JUMP_BUFFER_DURATION)
+		Target.isJumpBuffered = true;
+		Target.Timers.get_node("BufferedJumpTimer").start(JUMP_BUFFER_DURATION)
 
 
 # Used if you want to quickly dash again while in a dash state
 func check_buffered_redash_input():
 	if (Input.is_action_just_pressed("attack")):
-		Player.Timers.get_node("BufferedRedashTimer").start(0.1)
+		Target.Timers.get_node("BufferedRedashTimer").start(0.1)
 
 
 func check_buffered_dash_input():
 	if (Input.is_action_just_pressed("attack")):
-		Player.Timers.get_node("BufferedDashTimer").start(BUFFERED_DASH_TIME)
+		Target.Timers.get_node("BufferedDashTimer").start(BUFFERED_DASH_TIME)
 
 #==================================================================#

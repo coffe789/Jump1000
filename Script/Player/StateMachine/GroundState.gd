@@ -7,6 +7,12 @@ func _update(delta):
 	do_gravity(delta, MAX_FALL_SPEED, GRAVITY)
 	do_normal_x_movement(delta,FLOOR_DRAG, ACCELERATE_WALK)
 
-# TODO extend
+
 func _choose_substate():
-	return $Idle
+	if Input.is_action_pressed("down"):
+		return $Duck
+	if get_input_direction()==0:
+		return $Idle
+	if get_input_direction()!=0:
+		return $Run
+	# Roll is accessed directly

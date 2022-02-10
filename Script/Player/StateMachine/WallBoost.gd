@@ -6,7 +6,7 @@ func _ready():
 
 func _enter():
 	get_parent()._enter()
-	Player.velocity.y = -JUMP_SPEED * WALLBOUNCE_MULTIPLIER
+	Target.velocity.y = -JUMP_SPEED * WALLBOUNCE_MULTIPLIER
 	Target.Animation_Player.play("jumping")
 
 func _update(delta):

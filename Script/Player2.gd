@@ -32,7 +32,7 @@ var spawn_point
 
 var is_spinning = false #Player2
 var is_ducking = false
-
+var allow_dash_target = false
 
 
 
@@ -74,32 +74,15 @@ enum {
 	PS_HURT,
 }
 
-onready var state_list = {
-	PS_PREVIOUS : "",
-	PS_JUMPING : $StateMachineOld/jumping,
-	PS_IDLE : 	$StateMachineOld/idle,
-	PS_RUNNING : $StateMachineOld/running,
-	PS_FALLING : $StateMachineOld/falling,
-	PS_WALLJUMPING : $StateMachineOld/walljumping,
-	PS_WALLSLIDING : $StateMachineOld/wallsliding,
-	PS_DUCKING : $StateMachineOld/ducking,
-	PS_DUCKJUMPING : $StateMachineOld/duckjumping,
-	PS_DUCKFALLING : $StateMachineOld/duckfalling,
-	PS_DASHING_UP : $StateMachineOld/dashing_up,
-	PS_DASHING_DOWN : $StateMachineOld/dashing_down,
-	PS_ROLLING : $StateMachineOld/rolling,
-	PS_WALLBOUNCE_SLIDING : $StateMachineOld/wallbounce_sliding,
-	PS_WALLBOUNCING : $StateMachineOld/wallbouncing,
-	PS_LEDGECLINGING : $StateMachineOld/ledgeclinging,
-	PS_HURT : $StateMachineOld/hurt,
-}
+
 
 
 func _ready():
-	state_list[current_state].set_player_sprite_direction()
-	
+#	state_list[current_state].set_player_sprite_direction() #TODO test
 	yield(get_tree(), "idle_frame") # Wait for camera to instance
 	Globals.emit_signal("player_connect_cam", self)
+	
+	$HFSM.target = self
 
 
 # Controls every aspect of player physics
@@ -108,69 +91,58 @@ func _physics_process(delta) -> void:
 	
 	if Input.is_action_just_pressed("clear_console"):
 		Globals.clear_console()
-	state_list[current_state].set_facing_direction()
 	directionX = sign(velocity.x)
 	directionY = -sign(velocity.y)
 	
 	previous_velocity = velocity
-	execute_state(delta) # Physics and logic occurs here
-	try_state_transition()
-	if velocity.x == 0 and previous_velocity.x != 0 and state_list[current_state].get_input_direction() == directionX && !is_on_floor():
-		velocity.x = previous_velocity.x * 0.95 # Retain a bit of velocity after hitting a wall
+#	execute_state(delta) # Physics and logic occurs here
+#	try_state_transition()
+	if $HFSM.target:
+		$HFSM.update(delta)
+		if velocity.x == 0 and previous_velocity.x != 0 and $HFSM.current_state.get_input_direction() == directionX && !is_on_floor():
+			velocity.x = previous_velocity.x * 0.95 # Retain a bit of velocity after hitting a wall
 	
 	
 #	$DebugLabel.text = "State: " + str(state_list[current_state].name) + "\nPrevious:" + str(state_list[previous_state].name)
 #	$DebugLabel.text = str(health) + "hp"
 	return
 
-# Changes state if the current state wants to
-func try_state_transition():
-	var next_state = state_list[current_state].check_for_new_state()
-	if next_state == PS_PREVIOUS:
-		state_list[current_state].exit() # exit but don't enter
-		current_state = previous_state
-		execute_upon_transition()
-	elif next_state != current_state:
-		previous_state = current_state
-		var init_arg = state_list[current_state].exit()
-		state_list[next_state].enter(init_arg)
-		current_state = next_state
-		execute_upon_transition()
+
 
 
 # Saves putting the same code in every single enter() function
-func execute_upon_transition():
-#	print(state_list[current_state].name)
-	state_list[previous_state].init_arg_list.clear()
-	state_list[current_state].set_attack_hitbox()
-	if state_list[current_state].unset_dash_target:
-		dash_target_node = null
+#func execute_upon_transition():
+##	print(state_list[current_state].name)
+#	state_list[previous_state].init_arg_list.clear()
+#	state_list[current_state].set_attack_hitbox()
+#	if state_list[current_state].unset_dash_target:
+#		dash_target_node = null
 
 
-func execute_state(delta):
-	state_list[current_state].do_state_logic(delta) # always state specific
-	state_list[current_state].set_cape_acceleration() # everything here & below isn't state specific by default
-	state_list[current_state].set_player_sprite_direction()
-	state_list[current_state].set_attack_direction()
-	state_list[current_state].check_buffered_inputs()
-	state_list[current_state].set_ledge_ray_direction()
+#func execute_state(delta):
+#	state_list[current_state].do_state_logic(delta) # always state specific
+#	state_list[current_state].set_cape_acceleration() # everything here & below isn't state specific by default
+#	state_list[current_state].set_player_sprite_direction()
+#	state_list[current_state].set_attack_direction()
+#	state_list[current_state].check_buffered_inputs()
+#	state_list[current_state].set_ledge_ray_direction()
 
 
 # triggered by signal sent from attackable
 # response is dependent on the attackable's id & the player's state
 func attack_response(response_id, attackable):
-	state_list[current_state].attack_response(response_id, attackable)
+	$HFSM.current_state.attack_response(response_id, attackable)
 
-# Force state transition. Does not carry init args from previous state by default
-func set_state(state, init_args):
-	if state == current_state:
-		pass
-	else:
-		previous_state = current_state
-		state_list[current_state].exit()
-		current_state = state
-		state_list[current_state].enter(init_args)
-		execute_upon_transition()
+## Force state transition. Does not carry init args from previous state by default
+#func set_state(state, init_args):
+#	if state == current_state:
+#		pass
+#	else:
+#		previous_state = current_state
+#		state_list[current_state].exit()
+#		current_state = state
+#		state_list[current_state].enter(init_args)
+#		execute_upon_transition()
 
 # Sets spawn point to the closest in the room
 func set_spawn():
@@ -242,4 +214,4 @@ func _on_BodyArea_area_entered(_area):
 
 
 func _on_HurtBox_damage_received(amount, properties, damage_source):
-	state_list[current_state].take_damage_logic(amount, properties, damage_source)
+	$HFSM.current_state.take_damage_logic(amount, properties, damage_source)

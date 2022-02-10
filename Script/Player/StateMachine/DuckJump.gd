@@ -2,13 +2,13 @@ extends "res://Script/Player/StateMachine/JumpState.gd"
 
 #TODO remove these and do something neater shared by duck states
 func set_attack_ducking():
-	Player.Attack_Box.get_child(0).get_shape().extents = NORMAL_ATTACK_SIZE
-	Player.Attack_Box.position.y = -5
-	Player.attack_box_x_distance = 11
+	Target.Attack_Box.get_child(0).get_shape().extents = NORMAL_ATTACK_SIZE
+	Target.Attack_Box.position.y = -5
+	Target.attack_box_x_distance = 11
 func set_attack_normal():
-	Player.Attack_Box.get_child(0).get_shape().extents = NORMAL_ATTACK_SIZE
-	Player.Attack_Box.position.y = -8
-	Player.attack_box_x_distance = 11
+	Target.Attack_Box.get_child(0).get_shape().extents = NORMAL_ATTACK_SIZE
+	Target.Attack_Box.position.y = -8
+	Target.attack_box_x_distance = 11
 
 func _enter():
 	get_parent()._enter()
@@ -24,7 +24,7 @@ func _enter():
 
 func _update(delta):
 	get_parent()._update(delta)
-	Player.velocity = Player.move_and_slide(Player.velocity,UP_DIRECTION)
+	Target.velocity = Target.move_and_slide(Target.velocity,UP_DIRECTION)
 
 func _exit():
 	Target.is_ducking = false

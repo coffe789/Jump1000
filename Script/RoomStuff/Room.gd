@@ -1,4 +1,3 @@
-#tool
 extends Area2D
 
 var Boundary = preload("res://Scene/Entities/Room/Boundary.tscn") 
@@ -45,7 +44,7 @@ func enter_room():
 	var scene_instance = resetable_scene.instance()
 	call_deferred("add_child",scene_instance)
 	Globals.get_player().call_deferred("set_spawn")
-	Globals.get_player().state_list[Globals.get_player().current_state].heal(99)
+#	Globals.get_player().get_node("HFSM").current_state.heal(99) # TODO fix this
 
 
 func exit_room():

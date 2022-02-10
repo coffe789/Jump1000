@@ -8,4 +8,5 @@ func _enter():
 func _update(delta):
 	get_parent()._update(delta)
 	set_dash_target()
-	Player.velocity = Player.move_and_slide(Player.velocity,UP_DIRECTION)
+	Target.velocity = Target.move_and_slide(Target.velocity,UP_DIRECTION)
+	#TODO fix that ledge collision bug again

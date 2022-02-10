@@ -1,9 +1,5 @@
-[gd_scene load_steps=63 format=2]
+[gd_scene load_steps=55 format=2]
 
-[ext_resource path="res://Script/PlayerStates/dashing_down.gd" type="Script" id=1]
-[ext_resource path="res://Script/PlayerStates/dashing_up.gd" type="Script" id=2]
-[ext_resource path="res://Script/PlayerStates/duckfalling.gd" type="Script" id=3]
-[ext_resource path="res://Script/PlayerStates/ducking.gd" type="Script" id=4]
 [ext_resource path="res://Script/Player/DashCheck.gd" type="Script" id=5]
 [ext_resource path="res://Art/Player/player.png" type="Texture" id=6]
 [ext_resource path="res://Art/FX/krlight.png" type="Texture" id=7]
@@ -12,19 +8,7 @@
 [ext_resource path="res://Script/Player2.gd" type="Script" id=10]
 [ext_resource path="res://Script/Class/DamageHitbox.gd" type="Script" id=11]
 [ext_resource path="res://Script/Class/DamageHurtbox.gd" type="Script" id=12]
-[ext_resource path="res://Script/PlayerStates/ledgeclinging.gd" type="Script" id=13]
-[ext_resource path="res://Script/PlayerStates/wallbouncing.gd" type="Script" id=14]
-[ext_resource path="res://Script/PlayerStates/duckjumping.gd" type="Script" id=15]
-[ext_resource path="res://Script/PlayerStates/rolling.gd" type="Script" id=16]
-[ext_resource path="res://Script/PlayerStates/wallsliding.gd" type="Script" id=17]
-[ext_resource path="res://Script/PlayerStates/running.gd" type="Script" id=18]
-[ext_resource path="res://Script/PlayerStates/wallbounce_sliding.gd" type="Script" id=19]
-[ext_resource path="res://Script/PlayerStates/idle.gd" type="Script" id=20]
-[ext_resource path="res://Script/PlayerStates/falling.gd" type="Script" id=21]
-[ext_resource path="res://Script/PlayerStates/hurt.gd" type="Script" id=22]
-[ext_resource path="res://Script/PlayerStates/jumping.gd" type="Script" id=23]
-[ext_resource path="res://Script/PlayerStates/walljumping.gd" type="Script" id=24]
-[ext_resource path="res://Script/Entities/Util/StateMachine/StateMachine.gd" type="Script" id=25]
+[ext_resource path="res://Script/Player/StateMachine/PlayerStateMachine.gd" type="Script" id=25]
 [ext_resource path="res://Script/Player/StateMachine/PlayerTransitConditions.gd" type="Script" id=26]
 [ext_resource path="res://Script/Player/StateMachine/RootState.gd" type="Script" id=27]
 [ext_resource path="res://Script/Player/StateMachine/GroundState.gd" type="Script" id=28]
@@ -45,6 +29,14 @@
 [ext_resource path="res://Script/Player/StateMachine/DuckJump.gd" type="Script" id=43]
 [ext_resource path="res://Script/Player/StateMachine/SuperJump.gd" type="Script" id=44]
 [ext_resource path="res://Script/Player/StateMachine/WallBoost.gd" type="Script" id=45]
+[ext_resource path="res://Script/Player/StateMachine/DashState.gd" type="Script" id=46]
+[ext_resource path="res://Script/Player/StateMachine/LedgeState.gd" type="Script" id=47]
+[ext_resource path="res://Script/Player/StateMachine/LedgeRest.gd" type="Script" id=48]
+[ext_resource path="res://Script/Player/StateMachine/DashDown.gd" type="Script" id=49]
+[ext_resource path="res://Script/Player/StateMachine/DashUp.gd" type="Script" id=50]
+[ext_resource path="res://Script/Player/StateMachine/LedgeFall.gd" type="Script" id=51]
+[ext_resource path="res://Script/Player/StateMachine/LedgeRise.gd" type="Script" id=52]
+[ext_resource path="res://Script/Player/StateMachine/Hurt.gd" type="Script" id=53]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 3.5, 8 )
@@ -363,6 +355,93 @@ collision_layer = 2
 collision_mask = 33
 script = ExtResource( 10 )
 
+[node name="HFSM" type="Node" parent="."]
+script = ExtResource( 25 )
+
+[node name="TransitConditions" type="Node" parent="HFSM"]
+script = ExtResource( 26 )
+
+[node name="RootState" type="Node" parent="HFSM"]
+script = ExtResource( 27 )
+
+[node name="GroundState" type="Node" parent="HFSM/RootState"]
+script = ExtResource( 28 )
+
+[node name="Run" type="Node" parent="HFSM/RootState/GroundState"]
+script = ExtResource( 32 )
+
+[node name="Roll" type="Node" parent="HFSM/RootState/GroundState"]
+script = ExtResource( 30 )
+
+[node name="Duck" type="Node" parent="HFSM/RootState/GroundState"]
+script = ExtResource( 31 )
+
+[node name="Idle" type="Node" parent="HFSM/RootState/GroundState"]
+script = ExtResource( 29 )
+
+[node name="AirState" type="Node" parent="HFSM/RootState"]
+script = ExtResource( 38 )
+
+[node name="FallState" type="Node" parent="HFSM/RootState/AirState"]
+script = ExtResource( 34 )
+
+[node name="NormalFall" type="Node" parent="HFSM/RootState/AirState/FallState"]
+script = ExtResource( 33 )
+
+[node name="SpinFall" type="Node" parent="HFSM/RootState/AirState/FallState"]
+script = ExtResource( 37 )
+
+[node name="DuckFall" type="Node" parent="HFSM/RootState/AirState/FallState"]
+script = ExtResource( 35 )
+
+[node name="JumpState" type="Node" parent="HFSM/RootState/AirState"]
+script = ExtResource( 39 )
+
+[node name="NormalJump" type="Node" parent="HFSM/RootState/AirState/JumpState"]
+script = ExtResource( 41 )
+
+[node name="DuckJump" type="Node" parent="HFSM/RootState/AirState/JumpState"]
+script = ExtResource( 43 )
+
+[node name="SpinJump" type="Node" parent="HFSM/RootState/AirState/JumpState"]
+script = ExtResource( 40 )
+
+[node name="SuperJump" type="Node" parent="HFSM/RootState/AirState/JumpState"]
+script = ExtResource( 44 )
+
+[node name="WallJump" type="Node" parent="HFSM/RootState/AirState/JumpState"]
+script = ExtResource( 42 )
+
+[node name="WallBoost" type="Node" parent="HFSM/RootState/AirState/JumpState"]
+script = ExtResource( 45 )
+
+[node name="WallSlide" type="Node" parent="HFSM/RootState/AirState"]
+script = ExtResource( 36 )
+
+[node name="DashState" type="Node" parent="HFSM/RootState"]
+script = ExtResource( 46 )
+
+[node name="DashUp" type="Node" parent="HFSM/RootState/DashState"]
+script = ExtResource( 50 )
+
+[node name="DashDown" type="Node" parent="HFSM/RootState/DashState"]
+script = ExtResource( 49 )
+
+[node name="Hurt" type="Node" parent="HFSM/RootState"]
+script = ExtResource( 53 )
+
+[node name="LedgeState" type="Node" parent="HFSM/RootState"]
+script = ExtResource( 47 )
+
+[node name="LedgeFall" type="Node" parent="HFSM/RootState/LedgeState"]
+script = ExtResource( 51 )
+
+[node name="LedgeRest" type="Node" parent="HFSM/RootState/LedgeState"]
+script = ExtResource( 48 )
+
+[node name="LedgeRise" type="Node" parent="HFSM/RootState/LedgeState"]
+script = ExtResource( 52 )
+
 [node name="CollisionChecks" type="Node2D" parent="."]
 
 [node name="FullBodyArea" type="Area2D" parent="CollisionChecks" groups=["player_area"]]
@@ -507,56 +586,6 @@ texture = ExtResource( 6 )
 hframes = 10
 vframes = 7
 
-[node name="StateMachineOld" type="Node" parent="."]
-
-[node name="jumping" type="Node" parent="StateMachineOld"]
-script = ExtResource( 23 )
-
-[node name="idle" type="Node" parent="StateMachineOld"]
-script = ExtResource( 20 )
-
-[node name="running" type="Node" parent="StateMachineOld"]
-script = ExtResource( 18 )
-
-[node name="falling" type="Node" parent="StateMachineOld"]
-script = ExtResource( 21 )
-
-[node name="walljumping" type="Node" parent="StateMachineOld"]
-script = ExtResource( 24 )
-
-[node name="wallsliding" type="Node" parent="StateMachineOld"]
-script = ExtResource( 17 )
-
-[node name="duckjumping" type="Node" parent="StateMachineOld"]
-script = ExtResource( 15 )
-
-[node name="duckfalling" type="Node" parent="StateMachineOld"]
-script = ExtResource( 3 )
-
-[node name="ducking" type="Node" parent="StateMachineOld"]
-script = ExtResource( 4 )
-
-[node name="dashing_up" type="Node" parent="StateMachineOld"]
-script = ExtResource( 2 )
-
-[node name="dashing_down" type="Node" parent="StateMachineOld"]
-script = ExtResource( 1 )
-
-[node name="rolling" type="Node" parent="StateMachineOld"]
-script = ExtResource( 16 )
-
-[node name="wallbounce_sliding" type="Node" parent="StateMachineOld"]
-script = ExtResource( 19 )
-
-[node name="wallbouncing" type="Node" parent="StateMachineOld"]
-script = ExtResource( 14 )
-
-[node name="ledgeclinging" type="Node" parent="StateMachineOld"]
-script = ExtResource( 13 )
-
-[node name="hurt" type="Node" parent="StateMachineOld"]
-script = ExtResource( 22 )
-
 [node name="Audio" type="Node" parent="."]
 pause_mode = 2
 
@@ -674,85 +703,6 @@ shadow_enabled = true
 shadow_gradient_length = 8.0
 shadow_filter = 5
 shadow_filter_smooth = 8.6
-
-[node name="HFSM" type="Node" parent="."]
-script = ExtResource( 25 )
-
-[node name="TransitConditions" type="Node" parent="HFSM"]
-script = ExtResource( 26 )
-
-[node name="RootState" type="Node" parent="HFSM"]
-script = ExtResource( 27 )
-
-[node name="GroundState" type="Node" parent="HFSM/RootState"]
-script = ExtResource( 28 )
-
-[node name="Run" type="Node" parent="HFSM/RootState/GroundState"]
-script = ExtResource( 32 )
-
-[node name="Roll" type="Node" parent="HFSM/RootState/GroundState"]
-script = ExtResource( 30 )
-
-[node name="Duck" type="Node" parent="HFSM/RootState/GroundState"]
-script = ExtResource( 31 )
-
-[node name="Idle" type="Node" parent="HFSM/RootState/GroundState"]
-script = ExtResource( 29 )
-
-[node name="AirState" type="Node" parent="HFSM/RootState"]
-script = ExtResource( 38 )
-
-[node name="FallState" type="Node" parent="HFSM/RootState/AirState"]
-script = ExtResource( 34 )
-
-[node name="NormalFall" type="Node" parent="HFSM/RootState/AirState/FallState"]
-script = ExtResource( 33 )
-
-[node name="SpinFall" type="Node" parent="HFSM/RootState/AirState/FallState"]
-script = ExtResource( 37 )
-
-[node name="DuckFall" type="Node" parent="HFSM/RootState/AirState/FallState"]
-script = ExtResource( 35 )
-
-[node name="JumpState" type="Node" parent="HFSM/RootState/AirState"]
-script = ExtResource( 39 )
-
-[node name="NormalJump" type="Node" parent="HFSM/RootState/AirState/JumpState"]
-script = ExtResource( 41 )
-
-[node name="DuckJump" type="Node" parent="HFSM/RootState/AirState/JumpState"]
-script = ExtResource( 43 )
-
-[node name="SpinJump" type="Node" parent="HFSM/RootState/AirState/JumpState"]
-script = ExtResource( 40 )
-
-[node name="SuperJump" type="Node" parent="HFSM/RootState/AirState/JumpState"]
-script = ExtResource( 44 )
-
-[node name="WallJump" type="Node" parent="HFSM/RootState/AirState/JumpState"]
-script = ExtResource( 42 )
-
-[node name="WallBoost" type="Node" parent="HFSM/RootState/AirState/JumpState"]
-script = ExtResource( 45 )
-
-[node name="WallSlide" type="Node" parent="HFSM/RootState/AirState"]
-script = ExtResource( 36 )
-
-[node name="DashState" type="Node" parent="HFSM/RootState"]
-
-[node name="DashUp" type="Node" parent="HFSM/RootState/DashState"]
-
-[node name="DashDown" type="Node" parent="HFSM/RootState/DashState"]
-
-[node name="Hurt" type="Node" parent="HFSM/RootState"]
-
-[node name="LedgeState" type="Node" parent="HFSM/RootState"]
-
-[node name="LedgeFall" type="Node" parent="HFSM/RootState/LedgeState"]
-
-[node name="LedgeRest" type="Node" parent="HFSM/RootState/LedgeState"]
-
-[node name="LedgeRise" type="Node" parent="HFSM/RootState/LedgeState"]
 
 [connection signal="area_entered" from="CollisionChecks/FullBodyArea" to="." method="_on_BodyArea_area_entered"]
 [connection signal="body_entered" from="CollisionChecks/FullBodyArea" to="." method="_on_UncrouchCheck_body_entered"]

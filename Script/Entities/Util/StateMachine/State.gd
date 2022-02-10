@@ -56,7 +56,6 @@ func try_transition():
 			FSM.change_state(t.target_state)
 			return
 
-
 # Leaf in the context of a tree data structure
 func is_leaf():
 	return (get_child_count() == 0)

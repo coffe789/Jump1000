@@ -1,5 +1,8 @@
 extends "res://Script/Player/StateMachine/GroundState.gd"
 
+func _enter():
+	Target.Animation_Player.play("idle")
+
 func _update(delta):
-	get_parent()._update()
-	Player.velocity = Player.move_and_slide(Player.velocity,UP_DIRECTION)
+	get_parent()._update(delta)
+	Target.velocity = Target.move_and_slide(Target.velocity,UP_DIRECTION)
