@@ -7,5 +7,16 @@ func _ready():
 ]
 
 func _enter():
-	get_parent()._enter()
+	._enter()
+	Target.is_spinning = true
 	Target.velocity.y = +DASH_SPEED_Y
+
+func _add_transitions():
+	._add_transitions()
+	transitions.append(StateTransition.new(
+		+3,"to_superjump",SM.get_node("RootState/AirState/JumpState/SuperJump")
+		,funcref(conditions_lib,"is_grounded_jump")))
+
+func _exit():
+	._exit()
+	Target.is_spinning = false

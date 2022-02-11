@@ -99,7 +99,7 @@ func take_damage_logic(amount, properties, _damage_source):
 			#Animation unreliably sets invincible to true fast enough
 			Target.is_invincible = true
 			do_iframes()
-			Target.set_state(Target.PS_HURT, [])
+			Target.set_state(Target.PS_HURT, []) # TODO fix this
 			if Target.health <= 0:
 				Target.is_invincible = true # Prevent respawning twice
 				Target.respawn()
@@ -348,7 +348,7 @@ func get_ledge_behaviour():
 	_update_wall_direction()
 	if get_input_direction() == Target.wall_direction && Target.wall_direction!=0 && Target.Timers.get_node("PostClingJumpTimer").time_left == 0:
 		if _check_is_valid_wall(Target.ledge_cast_mid) \
-		and !_check_is_valid_wall(Target.ledge_cast_top) && Target.velocity.y > 0:
+		and !_check_is_valid_wall(Target.ledge_cast_top):
 			return Globals.LEDGE_REST
 		elif (_check_is_valid_wall(Target.ledge_cast_bottom) || _check_is_valid_wall(Target.ledge_cast_mid)) && !_check_is_valid_wall(Target.ledge_cast_top):
 			return Globals.LEDGE_NO_ACTION
@@ -368,7 +368,7 @@ func emit_jump_particles():
 func set_y_collision(extents,y_position):
 	Target.Collision_Body.get_shape().extents = extents
 	Target.Collision_Body.position.y = y_position
-	get_node("../../CollisionChecks/HurtBox/CollisionBody").position.y = y_position
+	Target.get_node("CollisionChecks/HurtBox/CollisionBody").position.y = y_position
 
 # Buffered inputs
 #==================================================================#

@@ -355,91 +355,91 @@ collision_layer = 2
 collision_mask = 33
 script = ExtResource( 10 )
 
-[node name="HFSM" type="Node" parent="."]
+[node name="SM" type="Node" parent="."]
 script = ExtResource( 25 )
 
-[node name="TransitConditions" type="Node" parent="HFSM"]
+[node name="TransitConditions" type="Node" parent="SM"]
 script = ExtResource( 26 )
 
-[node name="RootState" type="Node" parent="HFSM"]
+[node name="RootState" type="Node" parent="SM"]
 script = ExtResource( 27 )
 
-[node name="GroundState" type="Node" parent="HFSM/RootState"]
+[node name="GroundState" type="Node" parent="SM/RootState"]
 script = ExtResource( 28 )
 
-[node name="Run" type="Node" parent="HFSM/RootState/GroundState"]
+[node name="Run" type="Node" parent="SM/RootState/GroundState"]
 script = ExtResource( 32 )
 
-[node name="Roll" type="Node" parent="HFSM/RootState/GroundState"]
+[node name="Roll" type="Node" parent="SM/RootState/GroundState"]
 script = ExtResource( 30 )
 
-[node name="Duck" type="Node" parent="HFSM/RootState/GroundState"]
+[node name="Duck" type="Node" parent="SM/RootState/GroundState"]
 script = ExtResource( 31 )
 
-[node name="Idle" type="Node" parent="HFSM/RootState/GroundState"]
+[node name="Idle" type="Node" parent="SM/RootState/GroundState"]
 script = ExtResource( 29 )
 
-[node name="AirState" type="Node" parent="HFSM/RootState"]
+[node name="AirState" type="Node" parent="SM/RootState"]
 script = ExtResource( 38 )
 
-[node name="FallState" type="Node" parent="HFSM/RootState/AirState"]
+[node name="FallState" type="Node" parent="SM/RootState/AirState"]
 script = ExtResource( 34 )
 
-[node name="NormalFall" type="Node" parent="HFSM/RootState/AirState/FallState"]
+[node name="NormalFall" type="Node" parent="SM/RootState/AirState/FallState"]
 script = ExtResource( 33 )
 
-[node name="SpinFall" type="Node" parent="HFSM/RootState/AirState/FallState"]
+[node name="SpinFall" type="Node" parent="SM/RootState/AirState/FallState"]
 script = ExtResource( 37 )
 
-[node name="DuckFall" type="Node" parent="HFSM/RootState/AirState/FallState"]
+[node name="DuckFall" type="Node" parent="SM/RootState/AirState/FallState"]
 script = ExtResource( 35 )
 
-[node name="JumpState" type="Node" parent="HFSM/RootState/AirState"]
+[node name="JumpState" type="Node" parent="SM/RootState/AirState"]
 script = ExtResource( 39 )
 
-[node name="NormalJump" type="Node" parent="HFSM/RootState/AirState/JumpState"]
+[node name="NormalJump" type="Node" parent="SM/RootState/AirState/JumpState"]
 script = ExtResource( 41 )
 
-[node name="DuckJump" type="Node" parent="HFSM/RootState/AirState/JumpState"]
+[node name="DuckJump" type="Node" parent="SM/RootState/AirState/JumpState"]
 script = ExtResource( 43 )
 
-[node name="SpinJump" type="Node" parent="HFSM/RootState/AirState/JumpState"]
+[node name="SpinJump" type="Node" parent="SM/RootState/AirState/JumpState"]
 script = ExtResource( 40 )
 
-[node name="SuperJump" type="Node" parent="HFSM/RootState/AirState/JumpState"]
+[node name="SuperJump" type="Node" parent="SM/RootState/AirState/JumpState"]
 script = ExtResource( 44 )
 
-[node name="WallJump" type="Node" parent="HFSM/RootState/AirState/JumpState"]
+[node name="WallJump" type="Node" parent="SM/RootState/AirState/JumpState"]
 script = ExtResource( 42 )
 
-[node name="WallBoost" type="Node" parent="HFSM/RootState/AirState/JumpState"]
+[node name="WallBoost" type="Node" parent="SM/RootState/AirState/JumpState"]
 script = ExtResource( 45 )
 
-[node name="WallSlide" type="Node" parent="HFSM/RootState/AirState"]
+[node name="WallSlide" type="Node" parent="SM/RootState/AirState"]
 script = ExtResource( 36 )
 
-[node name="DashState" type="Node" parent="HFSM/RootState"]
-script = ExtResource( 46 )
-
-[node name="DashUp" type="Node" parent="HFSM/RootState/DashState"]
-script = ExtResource( 50 )
-
-[node name="DashDown" type="Node" parent="HFSM/RootState/DashState"]
-script = ExtResource( 49 )
-
-[node name="Hurt" type="Node" parent="HFSM/RootState"]
+[node name="Hurt" type="Node" parent="SM/RootState/AirState"]
 script = ExtResource( 53 )
 
-[node name="LedgeState" type="Node" parent="HFSM/RootState"]
+[node name="DashState" type="Node" parent="SM/RootState/AirState"]
+script = ExtResource( 46 )
+
+[node name="DashUp" type="Node" parent="SM/RootState/AirState/DashState"]
+script = ExtResource( 50 )
+
+[node name="DashDown" type="Node" parent="SM/RootState/AirState/DashState"]
+script = ExtResource( 49 )
+
+[node name="LedgeState" type="Node" parent="SM/RootState"]
 script = ExtResource( 47 )
 
-[node name="LedgeFall" type="Node" parent="HFSM/RootState/LedgeState"]
+[node name="LedgeFall" type="Node" parent="SM/RootState/LedgeState"]
 script = ExtResource( 51 )
 
-[node name="LedgeRest" type="Node" parent="HFSM/RootState/LedgeState"]
+[node name="LedgeRest" type="Node" parent="SM/RootState/LedgeState"]
 script = ExtResource( 48 )
 
-[node name="LedgeRise" type="Node" parent="HFSM/RootState/LedgeState"]
+[node name="LedgeRise" type="Node" parent="SM/RootState/LedgeState"]
 script = ExtResource( 52 )
 
 [node name="CollisionChecks" type="Node2D" parent="."]

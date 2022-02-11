@@ -1,4 +1,4 @@
-extends "res://Script/Player/StateMachine/RootState.gd"
+extends "res://Script/Player/StateMachine/AirState.gd"
 var rng = RandomNumberGenerator.new()
 var move_accel = ACCELERATE_WALK # Overriden in walljump
 
@@ -6,8 +6,9 @@ var move_accel = ACCELERATE_WALK # Overriden in walljump
 func _choose_substate():
 	if Input.is_action_pressed("down"):
 		return $DuckJump
-	else:
-		return $NormalJump
+	if Target.is_spinning:
+		return $SuperJump
+	return $NormalJump
 
 func play_jump_audio():
 	Target.Audio.get_node("JumpAudio").pitch_scale = rng.randf_range(1.2, 0.9)
@@ -29,3 +30,8 @@ func _update(delta):
 	check_if_finish_jump()
 	do_gravity(delta, MAX_FALL_SPEED, GRAVITY)
 	do_normal_x_movement(delta,AIR_DRAG, move_accel)
+
+func _add_transitions():
+	._add_transitions()
+	transitions.append(StateTransition.new(
+		-10,"to_fallstate",SM.get_node("RootState/AirState/FallState"),funcref(conditions_lib,"is_falling")))

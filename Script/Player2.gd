@@ -82,7 +82,7 @@ func _ready():
 	yield(get_tree(), "idle_frame") # Wait for camera to instance
 	Globals.emit_signal("player_connect_cam", self)
 	
-	$HFSM.target = self
+	$SM.target = self
 
 
 # Controls every aspect of player physics
@@ -97,9 +97,9 @@ func _physics_process(delta) -> void:
 	previous_velocity = velocity
 #	execute_state(delta) # Physics and logic occurs here
 #	try_state_transition()
-	if $HFSM.target:
-		$HFSM.update(delta)
-		if velocity.x == 0 and previous_velocity.x != 0 and $HFSM.current_state.get_input_direction() == directionX && !is_on_floor():
+	if $SM.target:
+		$SM.update(delta)
+		if velocity.x == 0 and previous_velocity.x != 0 and $SM.current_state.get_input_direction() == directionX && !is_on_floor():
 			velocity.x = previous_velocity.x * 0.95 # Retain a bit of velocity after hitting a wall
 	
 	
@@ -131,7 +131,7 @@ func _physics_process(delta) -> void:
 # triggered by signal sent from attackable
 # response is dependent on the attackable's id & the player's state
 func attack_response(response_id, attackable):
-	$HFSM.current_state.attack_response(response_id, attackable)
+	$SM.current_state.attack_response(response_id, attackable)
 
 ## Force state transition. Does not carry init args from previous state by default
 #func set_state(state, init_args):
@@ -214,4 +214,4 @@ func _on_BodyArea_area_entered(_area):
 
 
 func _on_HurtBox_damage_received(amount, properties, damage_source):
-	$HFSM.current_state.take_damage_logic(amount, properties, damage_source)
+	$SM.current_state.take_damage_logic(amount, properties, damage_source)

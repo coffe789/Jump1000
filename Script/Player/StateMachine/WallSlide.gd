@@ -11,3 +11,8 @@ func set_cape_acceleration():
 
 func _exit():
 	pass
+
+func _add_transitions():
+	._add_transitions()
+	transitions.append(StateTransition.new(
+		-10,"to_fallstate",SM.get_node("RootState/AirState/FallState"),funcref(conditions_lib,"is_falling")))

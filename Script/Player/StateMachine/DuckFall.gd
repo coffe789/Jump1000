@@ -1,32 +1,24 @@
 extends "res://Script/Player/StateMachine/FallState.gd"
+var DuckModule = preload("res://Script/Player/StateMachine/Module/DuckModule.gd")
 
-
-#TODO remove these and do something neater shared by duck states
-func set_attack_ducking():
-	Target.Attack_Box.get_child(0).get_shape().extents = NORMAL_ATTACK_SIZE
-	Target.Attack_Box.position.y = -5
-	Target.attack_box_x_distance = 11
-func set_attack_normal():
-	Target.Attack_Box.get_child(0).get_shape().extents = NORMAL_ATTACK_SIZE
-	Target.Attack_Box.position.y = -8
-	Target.attack_box_x_distance = 11
+func _on_activate():
+	DuckModule = DuckModule.new()
+	DuckModule.Target = Target
+	DuckModule.SM = SM
+	DuckModule.root_state = SM.get_node("RootState")
 
 
 func _enter():
-	Target.is_ducking = true
-	set_attack_ducking()
-	set_y_collision(DUCKING_COLLISION_EXTENT,-4)
-	if !Target.is_ducking:
-		Target.Animation_Player.play("ducking")
-	else:
-		Target.Animation_Player.play("ducking")
+	DuckModule.enter()
 
 
 func _update(delta):
-	get_parent()._udpate(delta)
+	._update(delta)
 	Target.velocity = Target.move_and_slide(Target.velocity,UP_DIRECTION)
 
+
 func _exit():
-	Target.is_ducking = false
-	set_attack_normal()
-	set_y_collision(DUCKING_COLLISION_EXTENT,-4)
+	DuckModule.exit()
+
+func _blacklist_transitions():
+	DuckModule.blacklist_transitions(self)

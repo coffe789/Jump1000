@@ -1,4 +1,4 @@
-extends "res://Script/Player/StateMachine/RootState.gd"
+extends "res://Script/Player/StateMachine/AirState.gd"
 
 # TODO get rid of the thing that used to call this every frame/transition or whatever
 func set_normal_hitbox():
@@ -10,6 +10,11 @@ func set_dash_hitbox():
 	Target.Attack_Box.get_child(0).get_shape().extents = NORMAL_ATTACK_SIZE
 	Target.Attack_Box.position.y = -8
 	Target.attack_box_x_distance = 11
+
+func _choose_substate():
+	if conditions_lib.is_dash_up():
+		return $DashUp
+	return $DashDown
 
 
 func _enter():
@@ -28,9 +33,17 @@ func _update(delta):
 	do_normal_x_movement(delta, 0, ACCELERATE_WALK)
 
 
+func _add_transitions():
+	._add_transitions()
+	transitions.append(StateTransition.new(
+		-10,"dash_timeout",SM.get_node("RootState/AirState/FallState")
+		,funcref(conditions_lib,"is_dash_timeout")))
+
+
 func _exit():
 	stop_attack()
 	set_normal_hitbox()
+	print(Target.Timers.get_node("DashTimer").time_left)
 
 
 func check_buffered_inputs():

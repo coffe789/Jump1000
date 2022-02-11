@@ -5,15 +5,16 @@ func _ready():
 
 
 func _enter():
-	get_parent()._enter()
+	._enter()
+	Target.velocity.y = -JUMP_SPEED
 	Target.Animation_Player.play("jumping")
 	Target.velocity.x = set_if_lesser(
 		Target.velocity.x, MAX_X_SPEED*(-Target.wall_direction) * WALLJUMP_X_SPEED_MULTIPLIER
 		)
+	play_walljump_audio()
 
 
 func _update(delta):
-	get_parent()._update(delta)
-	Target.velocity.y = -JUMP_SPEED
+	._update(delta)
 	set_dash_target()
 	Target.velocity = Target.move_and_slide(Target.velocity,UP_DIRECTION)

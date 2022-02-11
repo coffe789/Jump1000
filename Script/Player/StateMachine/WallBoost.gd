@@ -5,10 +5,11 @@ func _ready():
 	move_accel = ACCELERATE_WALK * WALLJUMP_SLOWDOWN_MULTIPLIER * 1.2
 
 func _enter():
-	get_parent()._enter()
+	._enter()
 	Target.velocity.y = -JUMP_SPEED * WALLBOUNCE_MULTIPLIER
 	Target.Animation_Player.play("jumping")
+	play_walljump_audio()
 
 func _update(delta):
-	get_parent()._update(delta)
+	._update(delta)
 	set_dash_target()

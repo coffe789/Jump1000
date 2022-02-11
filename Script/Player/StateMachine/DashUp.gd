@@ -7,5 +7,5 @@ func _ready():
 ]
 
 func _enter():
-	get_parent()._enter()
+	._enter()
 	Target.velocity.y = -DASH_SPEED_Y
