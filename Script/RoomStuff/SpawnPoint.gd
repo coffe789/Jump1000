@@ -3,7 +3,7 @@ extends Node2D
 
 onready var room = get_parent()
 onready var area = room.get_parent()
-onready var player_scene = preload("res://Scene/Player/Player.tscn")
+onready var player_scene = preload("res://Scene/Player/Player2.tscn")
 var spawn_direction
 
 func _ready():

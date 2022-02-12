@@ -10,10 +10,8 @@ func _on_activate():
 func _enter():
 	DuckModule.enter()
 
-
 func _exit():
 	DuckModule.exit()
-
 
 # Not inherited
 func _update(delta):

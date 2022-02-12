@@ -22,7 +22,6 @@ func _enter():
 	Target.stop_jump_rise = false
 	Target.isJumpBuffered = false
 	Target.canCoyoteJump = false
-	emit_jump_particles()
 
 func _update(delta):
 	set_dash_direction()

@@ -16,12 +16,12 @@ func _exit():
 
 func _add_transitions():
 	transitions.append(StateTransition.new(
+		+2,"to_spinjump",SM.get_node("RootState/AirState/JumpState/SpinJump"),funcref(conditions_lib,"is_ledge_jump"),
+		true))
+	transitions.append(StateTransition.new(
 		+1,"to_groundedjump",SM.get_node("RootState/AirState/JumpState"),funcref(conditions_lib,"is_grounded_jump")))
 	transitions.append(StateTransition.new(
 		0,"to_ground",SM.get_node("RootState/GroundState"),funcref(conditions_lib,"is_grounded")))
-	transitions.append(StateTransition.new(
-		-1,"to_spinjump",SM.get_node("RootState/AirState/JumpState/SpinJump"),funcref(conditions_lib,"is_ledge_jump"),
-		true))
 	transitions.append(StateTransition.new(
 		-2,"to_ledge",SM.get_node("RootState/LedgeState"),funcref(conditions_lib,"is_on_ledge")))
 	transitions.append(StateTransition.new(

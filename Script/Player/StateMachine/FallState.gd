@@ -5,7 +5,7 @@ func _update(delta):
 	do_gravity(delta, MAX_FALL_SPEED, GRAVITY)
 	do_attack()
 
-#TODO extend
+
 func _choose_substate():
 	if Target.is_ducking:
 		return $DuckFall
@@ -13,5 +13,7 @@ func _choose_substate():
 		return $SpinFall
 	return $NormalFall
 
-#func _add_transitions():
-#	pass
+func _add_transitions():
+	._add_transitions()
+	transitions.append(StateTransition.new(
+		+1,"to_coyote_jump",SM.get_node("RootState/AirState/JumpState"),funcref(conditions_lib,"is_coyote_jump")))

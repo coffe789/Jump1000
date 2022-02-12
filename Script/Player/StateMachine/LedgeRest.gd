@@ -1,6 +1,6 @@
 extends "res://Script/Player/StateMachine/LedgeState.gd"
 
-#TODO this has changed, make sure it works
+
 func _update(delta):
 	if get_ledge_Y()-Target.ledge_cast_top.global_position.y < 0:
 		Target.velocity.y = 0

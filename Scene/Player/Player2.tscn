@@ -471,13 +471,13 @@ cast_to = Vector2( 8.25, 0 )
 [node name="LeftWallRaycast" type="RayCast2D" parent="CollisionChecks/WallRaycasts"]
 position = Vector2( 0.5, -1 )
 enabled = true
-cast_to = Vector2( -8.25, 0 )
+cast_to = Vector2( -6.25, 0 )
 collide_with_areas = true
 
 [node name="LeftWallRaycast2" type="RayCast2D" parent="CollisionChecks/WallRaycasts"]
 position = Vector2( 0.5, -5 )
 enabled = true
-cast_to = Vector2( -8.25, 0 )
+cast_to = Vector2( -6.25, 0 )
 collide_with_areas = true
 
 [node name="LedgeRaycasts" type="Node2D" parent="CollisionChecks"]

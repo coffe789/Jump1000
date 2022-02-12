@@ -16,4 +16,5 @@ func on_update():
 	current_state.set_ledge_ray_direction()
 
 func on_change_state(_old,_new):
-	print(_old.name+"->"+_new.name)
+	pass
+#	print(_old.name+"->"+_new.name)

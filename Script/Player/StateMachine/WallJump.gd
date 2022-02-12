@@ -12,6 +12,7 @@ func _enter():
 		Target.velocity.x, MAX_X_SPEED*(-Target.wall_direction) * WALLJUMP_X_SPEED_MULTIPLIER
 		)
 	play_walljump_audio()
+	emit_jump_particles(true)
 
 
 func _update(delta):

@@ -27,7 +27,7 @@ const JUMP_SPEED = 238
 const MAX_FALL_SPEED = 250
 const UP_DIRECTION = Vector2(0,-1)
 const JUMP_BUFFER_DURATION = 0.13
-const COYOTE_TIME = 0.04
+const COYOTE_TIME = 0.065
 const AFTER_JUMP_SLOWDOWN_FACTOR = 2
 const WALL_GRAVITY_FACTOR = 0.075
 const WALLJUMP_X_SPEED_MULTIPLIER = 1.35
@@ -62,26 +62,7 @@ var is_dashing = false
 var unset_dash_target = true
 var state_damage_properties = [Globals.Dmg_properties.FROM_PLAYER]
 
-#Base class functions
 # TODO check which ones of these aren't used and delete them
-#================================================#
-# Called when state is entered. Can be given list of strings
-func enter(_init_arg):
-	pass
-
-
-# Called when state is exited. May return a list of init_arg enums
-func exit():
-	return init_arg_list
-
-
-# Called every physics frame a state is active
-func do_state_logic(_delta):
-	pass
-
-
-func check_for_new_state() -> String:
-	return "Error: State transitions are not defined"
 
 #Shared utility functions
 #===============================================#
@@ -89,9 +70,10 @@ func check_for_new_state() -> String:
 
 func take_damage_logic(amount, properties, _damage_source):
 	if !Target.is_invincible:
+		print(Target.velocity.y)
 		if properties.has(Globals.Dmg_properties.FROM_PLAYER):
 			pass
-		elif not (Target.velocity.y < 0 and properties.has(Globals.Dmg_properties.IMMUNE_UP))\
+		elif not (Target.previous_velocity.y < 0 and properties.has(Globals.Dmg_properties.IMMUNE_UP))\
 			and not (Target.velocity.y > 0 and properties.has(Globals.Dmg_properties.IMMUNE_DOWN))\
 			and not (Target.velocity.x < 0 and properties.has(Globals.Dmg_properties.IMMUNE_LEFT))\
 			and not (Target.velocity.x > 0 and properties.has(Globals.Dmg_properties.IMMUNE_RIGHT)):
@@ -99,7 +81,7 @@ func take_damage_logic(amount, properties, _damage_source):
 			#Animation unreliably sets invincible to true fast enough
 			Target.is_invincible = true
 			do_iframes()
-			Target.set_state(Target.PS_HURT, []) # TODO fix this
+			SM.change_state(SM.get_node("RootState/AirState/Hurt"))
 			if Target.health <= 0:
 				Target.is_invincible = true # Prevent respawning twice
 				Target.respawn()
@@ -211,6 +193,11 @@ func set_ledge_ray_direction():
 	Target.ledge_cast_top.scale.x = -Target.facing
 	Target.ledge_cast_lenient.scale.x = -Target.facing
 	Target.ledge_cast_height_search.position.x = Target.facing * 11
+	
+#	Target.left_wall_raycast.scale.x = -Target.facing
+#	Target.right_wall_raycast.scale.x = -Target.facing
+#	Target.left_wall_raycast2.scale.x = -Target.facing
+#	Target.right_wall_raycast2.scale.x = -Target.facing
 
 
 # Get intended x movement direction
@@ -358,9 +345,13 @@ func get_ledge_behaviour():
 	return Globals.LEDGE_EXIT
 
 
-func emit_jump_particles():
+func emit_jump_particles(is_walljump=false):
 	Target.get_node("Particles/JumpCloud").emitting = true
 	Target.get_node("Particles/JumpCloud").process_material.direction.x = -Target.directionX
+	if is_walljump:
+		Target.get_node("Particles/JumpCloud").position.x = +4*Target.directionX
+	else:
+		Target.get_node("Particles/JumpCloud").position.x = -4*Target.directionX
 	yield(get_tree().create_timer(0.04), "timeout")
 	Target.get_node("Particles/JumpCloud").emitting = false
 

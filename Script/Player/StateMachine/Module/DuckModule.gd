@@ -23,7 +23,7 @@ func exit():
 	set_attack_normal()
 	root_state.set_y_collision(root_state.NORMAL_COLLISION_EXTENT,-8)
 
-func blacklist_transitions(from_state):
+static func blacklist_transitions(from_state):
 	from_state.remove_transition("to_wallslide")
 	from_state.remove_transition("to_walljump")
 	from_state.remove_transition("to_ledge")

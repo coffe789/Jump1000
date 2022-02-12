@@ -9,6 +9,7 @@ func _enter():
 	Target.velocity.y = -JUMP_SPEED * WALLBOUNCE_MULTIPLIER
 	Target.Animation_Player.play("jumping")
 	play_walljump_audio()
+	emit_jump_particles(true)
 
 func _update(delta):
 	._update(delta)

@@ -5,6 +5,7 @@ func _enter():
 	Target.velocity.y = -JUMP_SPEED
 	play_jump_audio()
 	Target.Animation_Player.play("jumping")
+	emit_jump_particles()
 
 func _update(delta):
 	._update(delta)

@@ -9,11 +9,6 @@ func _update(delta):
 	set_dash_target()
 	Target.velocity = Target.move_and_slide(Target.velocity,UP_DIRECTION)
 
-func _add_transitions():
-	._add_transitions()
-	transitions.append(StateTransition.new(
-		0,"to_ground",SM.get_node("RootState/GroundState/Roll"),funcref(conditions_lib,"is_grounded")))
-
 func _exit():
-	.exit()
+	._exit()
 	Target.is_spinning = false

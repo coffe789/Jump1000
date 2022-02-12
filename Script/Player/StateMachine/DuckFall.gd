@@ -7,10 +7,8 @@ func _on_activate():
 	DuckModule.SM = SM
 	DuckModule.root_state = SM.get_node("RootState")
 
-
 func _enter():
 	DuckModule.enter()
-
 
 func _update(delta):
 	._update(delta)

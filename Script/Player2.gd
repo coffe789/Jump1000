@@ -133,16 +133,6 @@ func _physics_process(delta) -> void:
 func attack_response(response_id, attackable):
 	$SM.current_state.attack_response(response_id, attackable)
 
-## Force state transition. Does not carry init args from previous state by default
-#func set_state(state, init_args):
-#	if state == current_state:
-#		pass
-#	else:
-#		previous_state = current_state
-#		state_list[current_state].exit()
-#		current_state = state
-#		state_list[current_state].enter(init_args)
-#		execute_upon_transition()
 
 # Sets spawn point to the closest in the room
 func set_spawn():
@@ -183,6 +173,7 @@ func _on_BufferedJumpTimer_timeout():
 
 func _on_CoyoteTimer_timeout():
 	canCoyoteJump = false
+	print("coyotetimeout")
 
 
 var crouch_body_count = 0

@@ -17,6 +17,6 @@ func _update(delta):
 func _exit():
 	Target.allow_dash_target = false
 
-# TODO exit state if you touch the ground. Also maybe just make this an air state
+
 # TODO test this as an air state.
 #	 Might need to remove some transitions that give you control again

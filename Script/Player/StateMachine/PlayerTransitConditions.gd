@@ -38,6 +38,9 @@ func is_grounded_jump():
 	return (Input.is_action_just_pressed("jump") || Target.isJumpBuffered)\
 		&& Target.is_on_floor()
 
+func is_coyote_jump():
+	return Input.is_action_just_pressed("jump") && Target.canCoyoteJump
+
 func is_ledge_jump():
 	return (root_state.get_ledge_behaviour() != Globals.LEDGE_EXIT)\
 		&& ((Input.is_action_just_pressed("jump") or Target.isJumpBuffered))
@@ -68,3 +71,6 @@ func is_dash_down():
 
 func is_dash_timeout():
 	return Target.Timers.get_node("DashTimer").time_left == 0
+
+func is_roll_timeout():
+	return Target.Timers.get_node("RollTimer").time_left == 0

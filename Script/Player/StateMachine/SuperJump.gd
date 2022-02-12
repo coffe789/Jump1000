@@ -6,7 +6,8 @@ func _enter():
 	Target.velocity.y = -JUMP_SPEED
 	Target.Animation_Player.play("jumping")
 	var dir = Target.facing if get_input_direction()==0 else get_input_direction()
-	Target.velocity.x = set_if_lesser(Target.velocity.x, dir*230) # Previously used roll_direction. Not tested.
+	Target.velocity.x = set_if_lesser(Target.velocity.x, dir*230)
+	emit_jump_particles()
 
 func _update(delta):
 	._update(delta)
