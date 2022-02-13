@@ -17,4 +17,4 @@ func on_update():
 
 func on_change_state(_old,_new):
 	pass
-#	print(_old.name+"->"+_new.name)
+	print(_old.name+"->"+_new.name)

@@ -4,7 +4,7 @@ var move_accel = ACCELERATE_WALK # Overriden in walljump
 
 # Only use this for grounded jumps
 func _choose_substate():
-	if Input.is_action_pressed("down"):
+	if Input.is_action_pressed("down") || !Target.can_unduck:
 		return $DuckJump
 	if Target.is_spinning:
 		return $SuperJump
@@ -29,8 +29,3 @@ func _update(delta):
 	check_if_finish_jump()
 	do_gravity(delta, MAX_FALL_SPEED, GRAVITY)
 	do_normal_x_movement(delta,AIR_DRAG, move_accel)
-
-func _add_transitions():
-	._add_transitions()
-	transitions.append(StateTransition.new(
-		-10,"to_fallstate",SM.get_node("RootState/AirState/FallState"),funcref(conditions_lib,"is_falling")))

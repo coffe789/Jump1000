@@ -22,8 +22,6 @@ export var velocity = Vector2(0,0);
 var directionX = 0 # Direction player is currently moving
 var directionY = 0
 var facing = 1 # Either -1 or 1
-var current_state = PS_FALLING
-var previous_state = PS_FALLING
 var current_room
 onready var current_area = get_tree().get_nodes_in_group("area").pop_front()
 var previous_position
@@ -54,28 +52,6 @@ var is_attacking = false
 var dash_direction = 0
 var dash_target_node = null
 
-enum {
-	PS_PREVIOUS,
-	PS_JUMPING,
-	PS_IDLE,
-	PS_RUNNING,
-	PS_FALLING,
-	PS_WALLJUMPING,
-	PS_WALLSLIDING,
-	PS_DUCKING,
-	PS_DUCKJUMPING,
-	PS_DUCKFALLING,
-	PS_DASHING_UP,
-	PS_DASHING_DOWN,
-	PS_ROLLING,
-	PS_WALLBOUNCE_SLIDING,
-	PS_WALLBOUNCING,
-	PS_LEDGECLINGING,
-	PS_HURT,
-}
-
-
-
 
 func _ready():
 #	state_list[current_state].set_player_sprite_direction() #TODO test
@@ -95,37 +71,11 @@ func _physics_process(delta) -> void:
 	directionY = -sign(velocity.y)
 	
 	previous_velocity = velocity
-#	execute_state(delta) # Physics and logic occurs here
-#	try_state_transition()
 	if $SM.target:
 		$SM.update(delta)
 		if velocity.x == 0 and previous_velocity.x != 0 and $SM.current_state.get_input_direction() == directionX && !is_on_floor():
 			velocity.x = previous_velocity.x * 0.95 # Retain a bit of velocity after hitting a wall
-	
-	
-#	$DebugLabel.text = "State: " + str(state_list[current_state].name) + "\nPrevious:" + str(state_list[previous_state].name)
-#	$DebugLabel.text = str(health) + "hp"
 	return
-
-
-
-
-# Saves putting the same code in every single enter() function
-#func execute_upon_transition():
-##	print(state_list[current_state].name)
-#	state_list[previous_state].init_arg_list.clear()
-#	state_list[current_state].set_attack_hitbox()
-#	if state_list[current_state].unset_dash_target:
-#		dash_target_node = null
-
-
-#func execute_state(delta):
-#	state_list[current_state].do_state_logic(delta) # always state specific
-#	state_list[current_state].set_cape_acceleration() # everything here & below isn't state specific by default
-#	state_list[current_state].set_player_sprite_direction()
-#	state_list[current_state].set_attack_direction()
-#	state_list[current_state].check_buffered_inputs()
-#	state_list[current_state].set_ledge_ray_direction()
 
 
 # triggered by signal sent from attackable
@@ -173,7 +123,6 @@ func _on_BufferedJumpTimer_timeout():
 
 func _on_CoyoteTimer_timeout():
 	canCoyoteJump = false
-	print("coyotetimeout")
 
 
 var crouch_body_count = 0
@@ -201,7 +150,7 @@ func _on_RoomDetection_area_entered(maybe_room):
 
 
 func _on_BodyArea_area_entered(_area):
-	print(_area)
+	pass
 
 
 func _on_HurtBox_damage_received(amount, properties, damage_source):

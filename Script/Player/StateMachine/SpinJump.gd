@@ -6,7 +6,7 @@ func _enter():
 	Target.Animation_Player.play("rolling")
 	Target.velocity.y = -JUMP_SPEED
 	play_jump_audio()
-	emit_jump_particles(true)
+	emit_jump_particles(true,true)
 
 func _update(delta):
 	._update(delta)

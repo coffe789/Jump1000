@@ -32,3 +32,5 @@ func _add_transitions():
 		-5,"to_wallslide",SM.get_node("RootState/AirState/WallSlide"),funcref(conditions_lib,"is_wallslide")))
 	transitions.append(StateTransition.new(
 		-6,"to_dash",SM.get_node("RootState/AirState/DashState"),funcref(conditions_lib,"is_dash")))
+	transitions.append(StateTransition.new(
+		-10,"to_fallstate",SM.get_node("RootState/AirState/FallState"),funcref(conditions_lib,"is_falling")))

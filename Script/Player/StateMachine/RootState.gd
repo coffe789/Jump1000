@@ -44,15 +44,6 @@ const ROLL_TIME = 0.4
 const BUFFERED_DASH_TIME = 6.0/60.0
 
 const INVINCIBLE_TIME = 2.5
-# State Initialisation Parameters
-#=============================================#
-enum init_args {
-	FROM_DUCKING,
-	ENTER_ROLLING,
-	ENTER_SUPER_JUMP
-}
-
-var init_arg_list = []
 
 #=============================================#
 
@@ -70,7 +61,6 @@ var state_damage_properties = [Globals.Dmg_properties.FROM_PLAYER]
 
 func take_damage_logic(amount, properties, _damage_source):
 	if !Target.is_invincible:
-		print(Target.velocity.y)
 		if properties.has(Globals.Dmg_properties.FROM_PLAYER):
 			pass
 		elif not (Target.previous_velocity.y < 0 and properties.has(Globals.Dmg_properties.IMMUNE_UP))\
@@ -194,10 +184,10 @@ func set_ledge_ray_direction():
 	Target.ledge_cast_lenient.scale.x = -Target.facing
 	Target.ledge_cast_height_search.position.x = Target.facing * 11
 	
-#	Target.left_wall_raycast.scale.x = -Target.facing
-#	Target.right_wall_raycast.scale.x = -Target.facing
-#	Target.left_wall_raycast2.scale.x = -Target.facing
-#	Target.right_wall_raycast2.scale.x = -Target.facing
+	Target.left_wall_raycast.scale.x = -Target.facing
+	Target.right_wall_raycast.scale.x = -Target.facing
+	Target.left_wall_raycast2.scale.x = -Target.facing
+	Target.right_wall_raycast2.scale.x = -Target.facing
 
 
 # Get intended x movement direction
@@ -306,14 +296,15 @@ func _update_wall_direction():
 			var left_len = abs(Target.global_position.x - Target.left_wall_raycast.get_collision_point().x)
 			var right_len = abs(Target.global_position.x - Target.right_wall_raycast.get_collision_point().x)
 			if left_len > right_len:
-				Target.wall_direction = 1
+				Target.wall_direction = 1 * Target.facing
 			else:
-				Target.wall_direction = -1
+				Target.wall_direction = -1 * Target.facing
 		else:
 			Target.wall_direction = Target.facing
 	# If we're near a left wall, wall_direction will be -(1)+(0), right wall will be -(0)+(1), neither is 0
 	else:
 		Target.wall_direction = -int(is_near_wall_left||is_near_wall_left2) + int(is_near_wall_right||is_near_wall_right2)
+		Target.wall_direction *= -Target.facing
 	if Target.wall_direction != 0:
 		Target.last_wall_direction = Target.wall_direction
 
@@ -339,19 +330,25 @@ func get_ledge_behaviour():
 			return Globals.LEDGE_REST
 		elif (_check_is_valid_wall(Target.ledge_cast_bottom) || _check_is_valid_wall(Target.ledge_cast_mid)) && !_check_is_valid_wall(Target.ledge_cast_top):
 			return Globals.LEDGE_NO_ACTION
-		elif(_check_is_valid_wall(Target.ledge_cast_top) && !_check_is_valid_wall(Target.ledge_cast_lenient) && Target.current_state!=Target.PS_WALLSLIDING)\
-		and Target.velocity.y >= -10:
+		elif(_check_is_valid_wall(Target.ledge_cast_top) && !_check_is_valid_wall(Target.ledge_cast_lenient)
+		and Target.velocity.y >= -10):
 			return Globals.LEDGE_LENIENCY_RISE
 	return Globals.LEDGE_EXIT
 
 
-func emit_jump_particles(is_walljump=false):
+func emit_jump_particles(is_walljump=false,is_ledgejump=false):
 	Target.get_node("Particles/JumpCloud").emitting = true
-	Target.get_node("Particles/JumpCloud").process_material.direction.x = -Target.directionX
-	if is_walljump:
-		Target.get_node("Particles/JumpCloud").position.x = +4*Target.directionX
+	if is_ledgejump:
+		Target.get_node("Particles/JumpCloud").process_material.direction.y = 1
 	else:
-		Target.get_node("Particles/JumpCloud").position.x = -4*Target.directionX
+		Target.get_node("Particles/JumpCloud").process_material.direction.y = -1
+	if is_walljump:
+		var mult = Target.wall_direction
+		Target.get_node("Particles/JumpCloud").position.x = 4*mult
+		Target.get_node("Particles/JumpCloud").process_material.direction.x = -mult
+	else:
+		Target.get_node("Particles/JumpCloud").position.x = 4*sign(-Target.velocity.x)
+		Target.get_node("Particles/JumpCloud").process_material.direction.x = sign(-Target.velocity.x)
 	yield(get_tree().create_timer(0.04), "timeout")
 	Target.get_node("Particles/JumpCloud").emitting = false
 

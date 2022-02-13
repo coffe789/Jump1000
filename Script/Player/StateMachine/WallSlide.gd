@@ -10,9 +10,3 @@ func set_cape_acceleration():
 
 func _exit():
 	pass
-
-# TODO literally just add this to all fall states. Shit maybe even air states??
-func _add_transitions():
-	._add_transitions()
-	transitions.append(StateTransition.new(
-		-10,"to_fallstate",SM.get_node("RootState/AirState/FallState"),funcref(conditions_lib,"is_falling")))

@@ -2,12 +2,12 @@ extends "res://Script/Player/StateMachine/AirState.gd"
 
 # TODO get rid of the thing that used to call this every frame/transition or whatever
 func set_normal_hitbox():
-	Target.Attack_Box.get_child(0).get_shape().extents = DASH_ATTACK_SIZE
+	Target.Attack_Box.get_child(0).get_shape().extents = NORMAL_ATTACK_SIZE
 	Target.Attack_Box.position.y = -8
 	Target.attack_box_x_distance = 11
 
 func set_dash_hitbox():
-	Target.Attack_Box.get_child(0).get_shape().extents = NORMAL_ATTACK_SIZE
+	Target.Attack_Box.get_child(0).get_shape().extents = DASH_ATTACK_SIZE
 	Target.Attack_Box.position.y = -8
 	Target.attack_box_x_distance = 11
 
@@ -43,12 +43,10 @@ func _add_transitions():
 func _exit():
 	stop_attack()
 	set_normal_hitbox()
-	print(Target.Timers.get_node("DashTimer").time_left)
 
 
 func check_buffered_inputs():
-	check_buffered_jump_input()
-	check_buffered_attack_input()
+	.check_buffered_inputs()
 	check_buffered_redash_input()
 
 

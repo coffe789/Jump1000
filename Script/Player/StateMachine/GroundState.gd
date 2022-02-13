@@ -9,7 +9,7 @@ func _update(delta):
 
 
 func _choose_substate():
-	if Input.is_action_pressed("down"):
+	if Input.is_action_pressed("down") || !Target.can_unduck:
 		return $Duck
 	if conditions_lib.is_roll():
 		return $Roll

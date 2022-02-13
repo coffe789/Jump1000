@@ -462,11 +462,13 @@ shape = SubResource( 1 )
 position = Vector2( 0.5, -1 )
 enabled = true
 cast_to = Vector2( 8.25, 0 )
+collide_with_areas = true
 
 [node name="RightWallRaycast2" type="RayCast2D" parent="CollisionChecks/WallRaycasts"]
 position = Vector2( 0.5, -5 )
 enabled = true
 cast_to = Vector2( 8.25, 0 )
+collide_with_areas = true
 
 [node name="LeftWallRaycast" type="RayCast2D" parent="CollisionChecks/WallRaycasts"]
 position = Vector2( 0.5, -1 )
@@ -481,6 +483,7 @@ cast_to = Vector2( -6.25, 0 )
 collide_with_areas = true
 
 [node name="LedgeRaycasts" type="Node2D" parent="CollisionChecks"]
+visible = false
 
 [node name="LedgeRayLenient" type="RayCast2D" parent="CollisionChecks/LedgeRaycasts"]
 position = Vector2( 0.5, -17 )
@@ -525,6 +528,7 @@ shape = SubResource( 2 )
 disabled = true
 
 [node name="DashCheckUp" type="Area2D" parent="CollisionChecks" groups=["dash_check"]]
+visible = false
 position = Vector2( -18, -26 )
 collision_layer = 0
 collision_mask = 4
@@ -535,6 +539,7 @@ script = ExtResource( 5 )
 polygon = PoolVector2Array( -17, -20, 19, 1, 19, 20, -17, 14 )
 
 [node name="DashCheckDown" type="Area2D" parent="CollisionChecks" groups=["dash_check"]]
+visible = false
 position = Vector2( -18, 10 )
 collision_layer = 0
 collision_mask = 4
