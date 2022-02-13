@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=2]
+[gd_scene load_steps=65 format=2]
 
 [ext_resource path="res://Scene/Levels/LevelArea.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scene/Levels/Room.tscn" type="PackedScene" id=2]
@@ -7,13 +7,11 @@
 [ext_resource path="res://Scene/Entities/Danger/Packaged/ForestDanger.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scene/Triggers/CameraBorderTrigger.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scene/Entities/Util/DamageHitbox.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Art/Styleground/Testing/vignette.png" type="Texture" id=8]
 [ext_resource path="res://Art/Styleground/forest/fg00.png" type="Texture" id=9]
 [ext_resource path="res://Art/Styleground/forest/fg02.png" type="Texture" id=10]
 [ext_resource path="res://Scene/Entities/Enemies/Pongus.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Art/Entity/Danger/Spikes/Bramble/bramble_spikes_outline.png" type="Texture" id=13]
 [ext_resource path="res://Resource/Shader/SineTransparency.tres" type="Material" id=14]
-[ext_resource path="res://Art/Styleground/Testing/mist.png" type="Texture" id=15]
 [ext_resource path="res://Art/Styleground/forest/goshray_a.png" type="Texture" id=16]
 [ext_resource path="res://Art/Styleground/forest/sky.png" type="Texture" id=17]
 [ext_resource path="res://Art/Styleground/forest/goshray_b.png" type="Texture" id=18]
@@ -21,7 +19,6 @@
 [ext_resource path="res://Art/Entity/Danger/Spikes/Bramble/bramble_spikes.png" type="Texture" id=20]
 [ext_resource path="res://Art/FX/Particle/leaf.png" type="Texture" id=21]
 [ext_resource path="res://Scene/Particles/Leaf/AngleCurve.tres" type="Curve" id=22]
-[ext_resource path="res://Resource/Shader/Fog.tres" type="Material" id=23]
 [ext_resource path="res://Script/FX/ParallaxLayerScroll.gd" type="Script" id=24]
 [ext_resource path="res://Art/Styleground/fogNoise.png" type="Texture" id=25]
 [ext_resource path="res://Art/FX/Particle/dustCircleMaterial_albedo.png" type="Texture" id=26]
@@ -570,23 +567,6 @@ light_mask = 0
 material = SubResource( 119 )
 texture = ExtResource( 19 )
 centered = false
-
-[node name="ParallaxLayer3" type="ParallaxLayer" parent="RealLevelArea/ParallaxBackground"]
-motion_scale = Vector2( 0, 0 )
-motion_offset = Vector2( 192, 108 )
-motion_mirroring = Vector2( 640, 400 )
-
-[node name="sunset" type="Sprite" parent="RealLevelArea/ParallaxBackground/ParallaxLayer3"]
-visible = false
-modulate = Color( 1, 1, 1, 0.831373 )
-texture = ExtResource( 8 )
-centered = false
-
-[node name="mist" type="Sprite" parent="RealLevelArea/ParallaxBackground/ParallaxLayer3"]
-visible = false
-material = ExtResource( 23 )
-z_index = 4096
-texture = ExtResource( 15 )
 
 [node name="ParallaxForeground" type="ParallaxBackground" parent="RealLevelArea"]
 layer = 0
