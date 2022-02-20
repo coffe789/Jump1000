@@ -9,6 +9,7 @@ func on_before_update():
 	current_state.check_buffered_inputs()
 
 func on_update():
+	current_state._update_wall_direction()
 	current_state.set_facing_direction()
 	current_state.set_cape_acceleration()
 	current_state.set_player_sprite_direction()

@@ -28,11 +28,13 @@ func is_on_ledge():
 func is_ledge_exit():
 	return root_state.get_ledge_behaviour() == Globals.LEDGE_EXIT
 func is_ledge_rest():
-	return root_state.get_ledge_behaviour() == Globals.LEDGE_REST
+	return (root_state._check_is_valid_wall(Target.ledge_cast_bottom) || root_state._check_is_valid_wall(Target.ledge_cast_mid)) && !root_state._check_is_valid_wall(Target.ledge_cast_top)
 func is_ledge_fall():
-	return root_state.get_ledge_behaviour() == Globals.LEDGE_NO_ACTION
+	return root_state._check_is_valid_wall(Target.ledge_cast_mid) \
+		and !root_state._check_is_valid_wall(Target.ledge_cast_top)
 func is_ledge_rise():
-	return root_state.get_ledge_behaviour() == Globals.LEDGE_LENIENCY_RISE
+	return (root_state._check_is_valid_wall(Target.ledge_cast_top) && !root_state._check_is_valid_wall(Target.ledge_cast_lenient)
+		and Target.velocity.y >= -10)
 
 func is_grounded_jump():
 	return (Input.is_action_just_pressed("jump") || Target.isJumpBuffered)\
@@ -54,8 +56,7 @@ func is_wallbounce():
 
 func is_wallslide():
 	return Target.wall_direction == root_state.get_input_direction() && Target.wall_direction != 0\
-		&& Target.directionY < 0\
-		&& Target.Timers.get_node("PostClingJumpTimer").time_left == 0
+		&& Target.directionY < 0
 
 func is_dash():
 	return (Input.is_action_just_pressed("attack")\

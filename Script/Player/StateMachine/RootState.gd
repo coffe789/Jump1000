@@ -4,13 +4,6 @@ func _choose_substate():
 	return $AirState
 
 
-
-
-# Nodes of global interest
-#==================================================#
-var Player = Target
-
-
 # Constants
 #====================================================#
 const DASH_SPEED_X = 180
@@ -41,7 +34,7 @@ const WALLBOUNCE_MULTIPLIER = 1.35
 const NO_DASH_TIME = 0.3
 const DASH_TIME = 0.2
 const ROLL_TIME = 0.4
-const BUFFERED_DASH_TIME = 6.0/60.0
+const BUFFERED_DASH_TIME = 0.1
 
 const INVINCIBLE_TIME = 2.5
 
@@ -49,8 +42,6 @@ const INVINCIBLE_TIME = 2.5
 
 # Variables
 #===============================================#
-var is_dashing = false
-var unset_dash_target = true
 var state_damage_properties = [Globals.Dmg_properties.FROM_PLAYER]
 
 # TODO check which ones of these aren't used and delete them
@@ -203,16 +194,12 @@ func get_input_direction():
 
 
 func do_normal_x_movement(delta, friction_constant, walk_acceleration):
-	if (abs(Target.velocity.x)>MAX_X_SPEED && Target.directionX == get_input_direction()): #going too fast
+	if (abs(Target.velocity.x)>MAX_X_SPEED && sign(Target.velocity.x) == get_input_direction()): #going too fast
 		Target.velocity.x = approach(Target.velocity.x, get_input_direction() * MAX_X_SPEED, delta * friction_constant * 1000 / 1.5 /1.5/1.5)
 	elif (get_input_direction()!=0 && walk_acceleration > 0): # move player
 		Target.velocity.x = approach(Target.velocity.x, get_input_direction() * MAX_X_SPEED, delta * walk_acceleration)
 	else:	#normal friction
 		Target.velocity.x = approach(Target.velocity.x, 0, delta * friction_constant * 1000)
-
-
-func do_unconcontrolled_movement(delta, desired_speed, acceleration):
-	Target.velocity.x = approach(Target.velocity.x, desired_speed, delta * acceleration)
 
 
 func do_gravity(delta, max_fall_speed, fall_acceleration):
@@ -241,11 +228,6 @@ func set_if_lesser(to_set, maximum):
 	if abs(to_set) > abs(maximum) && Globals.is_same_sign(to_set,maximum):
 		return to_set
 	return maximum
-
-
-func start_coyote_time():
-	Target.canCoyoteJump = true
-	Target.Timers.get_node("CoyoteTimer").start(COYOTE_TIME)
 
 
 # If you let go of jump, stop going up. Also handles buffered case.
@@ -277,7 +259,6 @@ func set_player_sprite_direction():
 
 
 func can_wall_jump():
-	_update_wall_direction()
 	# If we're near a valid wall
 	if Target.wall_direction != 0:
 		return true
@@ -323,8 +304,7 @@ func _check_is_valid_wall(raycast):
 
 #TODO test if I still even need this timer
 func get_ledge_behaviour():
-	_update_wall_direction()
-	if get_input_direction() == Target.wall_direction && Target.wall_direction!=0 && Target.Timers.get_node("PostClingJumpTimer").time_left == 0:
+	if Target.facing == Target.wall_direction && Target.wall_direction!=0:
 		if _check_is_valid_wall(Target.ledge_cast_mid) \
 		and !_check_is_valid_wall(Target.ledge_cast_top):
 			return Globals.LEDGE_REST
@@ -336,12 +316,8 @@ func get_ledge_behaviour():
 	return Globals.LEDGE_EXIT
 
 
-func emit_jump_particles(is_walljump=false,is_ledgejump=false):
+func emit_jump_particles(is_walljump=false):
 	Target.get_node("Particles/JumpCloud").emitting = true
-	if is_ledgejump:
-		Target.get_node("Particles/JumpCloud").process_material.direction.y = 1
-	else:
-		Target.get_node("Particles/JumpCloud").process_material.direction.y = -1
 	if is_walljump:
 		var mult = Target.wall_direction
 		Target.get_node("Particles/JumpCloud").position.x = 4*mult
@@ -380,7 +356,7 @@ func check_buffered_jump_input():
 # Used if you want to quickly dash again while in a dash state
 func check_buffered_redash_input():
 	if (Input.is_action_just_pressed("attack")):
-		Target.Timers.get_node("BufferedRedashTimer").start(0.1)
+		Target.Timers.get_node("BufferedRedashTimer").start(0.15)
 
 
 func check_buffered_dash_input():

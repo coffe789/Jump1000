@@ -71,13 +71,19 @@ func pop_state():
 		emit_signal("changed_state")
 
 
+func try_transition():
+	for t in current_state.transitions:
+		if t.condition_func.call_func():
+			change_state(t.target_state,t.allow_reenter)
+			return
+
 # Periodically called by the owner/target of the machine,
 # from either _process or _physics_process
 func update(delta):
 	if current_state.is_leaf():
 		emit_signal("before_updated")
 		current_state._update(delta)
-		current_state.try_transition()
+		try_transition()
 		emit_signal("updated")
 	else:
 		change_state(current_state._choose_substate())

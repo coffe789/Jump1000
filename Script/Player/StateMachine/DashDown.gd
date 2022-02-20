@@ -9,7 +9,7 @@ func _ready():
 func _enter():
 	._enter()
 	Target.is_spinning = true
-	Target.velocity.y = +DASH_SPEED_Y
+	Target.velocity.y = +DASH_SPEED_Y/3
 
 func _add_transitions():
 	._add_transitions()

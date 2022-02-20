@@ -14,6 +14,11 @@ func _update(delta):
 func _exit():
 	Target.allow_dash_target = false
 
+func check_buffered_inputs():
+	.check_buffered_inputs()
+	check_buffered_dash_input()
+
+
 func _add_transitions():
 	transitions.append(StateTransition.new(
 		+2,"to_spinjump",SM.get_node("RootState/AirState/JumpState/SpinJump"),funcref(conditions_lib,"is_ledge_jump"),

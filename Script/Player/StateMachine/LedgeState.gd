@@ -4,6 +4,11 @@ extends "res://Script/Player/StateMachine/RootState.gd"
 func get_ledge_Y():
 	return Target.ledge_cast_height_search.get_collision_point().y
 
+
+func set_facing_direction():
+	pass
+
+
 # Tell what you're clinging to that it is being clung to
 # Useful for certain entities
 func report_collision():

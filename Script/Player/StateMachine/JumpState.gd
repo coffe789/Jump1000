@@ -6,7 +6,7 @@ var move_accel = ACCELERATE_WALK # Overriden in walljump
 func _choose_substate():
 	if Input.is_action_pressed("down") || !Target.can_unduck:
 		return $DuckJump
-	if Target.is_spinning:
+	if Target.is_spinning && get_input_direction() != 0:
 		return $SuperJump
 	return $NormalJump
 

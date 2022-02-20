@@ -4,9 +4,13 @@ func _enter():
 	._enter()
 	Target.is_spinning = true
 	Target.Animation_Player.play("rolling")
+	if get_input_direction()==0:
+		Target.velocity.x = set_if_lesser(-Target.velocity.x, -Target.facing * 100)
+	elif get_input_direction() == -Target.wall_direction:
+		Target.velocity.x = set_if_lesser(-Target.velocity.x, -Target.facing * WALLJUMP_X_SPEED_MULTIPLIER * MAX_X_SPEED)
 	Target.velocity.y = -JUMP_SPEED
 	play_jump_audio()
-	emit_jump_particles(true,true)
+	emit_jump_particles(true)
 
 func _update(delta):
 	._update(delta)

@@ -1,5 +1,10 @@
 extends "res://Script/Player/StateMachine/RootState.gd"
 
+func start_coyote_time():
+	Target.canCoyoteJump = true
+	Target.Timers.get_node("CoyoteTimer").start(COYOTE_TIME)
+
+
 # Only duck doesn't inherit
 func _update(delta):
 	do_attack()

@@ -47,12 +47,6 @@ func sort_transitions():
 		transitions.sort_custom(SortStateTransition,"sort_descending")
 
 
-func try_transition():
-	for t in transitions:
-		if t.condition_func.call_func():
-			SM.change_state(t.target_state,t.allow_reenter)
-			return
-
 # Leaf in the context of a tree data structure
 func is_leaf():
 	return (get_child_count() == 0)
