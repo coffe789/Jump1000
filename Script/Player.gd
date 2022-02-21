@@ -19,20 +19,13 @@ onready var Dash_Check_Up = get_node("CollisionChecks/DashCheckUp")
 onready var Dash_Check_Down = get_node("CollisionChecks/DashCheckDown")
 
 export var velocity = Vector2(0,0);
-var directionX = 0 setget ,get_dirX # Direction player is currently moving
-var directionY = 0 setget ,get_dirY
 var facing = 1 # Either -1 or 1
 var current_room
 onready var current_area = get_tree().get_nodes_in_group("area").pop_front()
 var previous_position
 var previous_velocity
 var spawn_point
-
-var is_spinning = false #Player2
-var is_ducking = false
 var allow_dash_target = false
-
-
 
 var max_health = 2
 var health = 2
@@ -48,7 +41,6 @@ var wall_direction = 0 # Walljump detection
 var last_wall_direction = 1 # Last value that wasn't zero
 var can_unduck = true
 var attack_box_x_distance = 14
-var is_attacking = false
 var dash_direction = 0
 var dash_target_node = null
 
@@ -113,12 +105,7 @@ func respawn():
 func _exit_tree():
 	Globals.emit_signal("player_freed")
 
-func get_dirX():
-	directionX =  sign(velocity.x)
-	return directionX
-func get_dirY():
-	directionY = -sign(velocity.y)
-	return directionY
+
 
 # Signals
 #=================================#
@@ -142,11 +129,6 @@ func _on_UncrouchCheck_body_exited(body):
 		crouch_body_count -= 1
 		if crouch_body_count == 0:
 			can_unduck = true
-
-
-func _on_BetweenAttackTimer_timeout():
-	is_attacking = false
-	get_node("CollisionChecks/AttackBox/CollisionShape2D").disabled = true
 
 
 func _on_RoomDetection_area_entered(maybe_room):

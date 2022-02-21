@@ -5,6 +5,10 @@ func get_ledge_Y():
 	return Target.ledge_cast_height_search.get_collision_point().y
 
 
+func check_buffered_inputs():
+	pass
+
+
 func set_facing_direction():
 	pass
 
@@ -25,6 +29,11 @@ func _choose_substate():
 	if conditions_lib.is_ledge_rise():
 		return $LedgeRise
 	return $LedgeFall
+
+
+func _enter():
+	SM.is_twirling = false
+
 
 func _add_transitions():
 	transitions.append(StateTransition.new(

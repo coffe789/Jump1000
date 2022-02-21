@@ -2,7 +2,7 @@ extends "res://Script/Player/StateMachine/JumpState.gd"
 
 func _enter():
 	._enter()
-	Target.is_spinning = true
+	SM.is_spinning = true
 	Target.Animation_Player.play("rolling")
 	if get_input_direction()==0:
 		Target.velocity.x = set_if_lesser(-Target.velocity.x, -Target.facing * 100)
@@ -24,4 +24,4 @@ func _update(delta):
 				Target.velocity.y = Y_before
 
 func _exit():
-	Target.is_spinning = false
+	SM.is_spinning = false

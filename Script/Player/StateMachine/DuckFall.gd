@@ -12,6 +12,7 @@ func _enter():
 
 func _update(delta):
 	._update(delta)
+	do_gravity(delta, MAX_FALL_SPEED, GRAVITY)
 	Target.velocity = Target.move_and_slide(Target.velocity,UP_DIRECTION)
 
 

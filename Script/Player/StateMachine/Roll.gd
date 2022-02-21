@@ -9,7 +9,7 @@ func _enter():
 	else:
 		roll_direction = get_input_direction()
 	Target.Timers.get_node("RollTimer").start(ROLL_TIME)
-	Target.is_spinning = true
+	SM.is_spinning = true
 
 func _update(delta):
 	._update(delta)
@@ -17,10 +17,10 @@ func _update(delta):
 	
 	if (Target.Timers.get_node("RollTimer").time_left == 0 
 	or get_input_direction() != roll_direction):
-		Target.is_spinning = false
+		SM.is_spinning = false
 
 func _exit():
-	Target.is_spinning = false
+	SM.is_spinning = false
 
 
 #TODO attacking cancels the roll

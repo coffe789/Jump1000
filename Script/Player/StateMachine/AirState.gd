@@ -14,8 +14,8 @@ func _update(delta):
 func _exit():
 	Target.allow_dash_target = false
 
-func check_buffered_inputs():
-	.check_buffered_inputs()
+func _check_buffered_inputs():
+	._check_buffered_inputs()
 	check_buffered_dash_input()
 
 
@@ -25,8 +25,6 @@ func _add_transitions():
 		true))
 	transitions.append(StateTransition.new(
 		+1,"to_groundedjump",SM.get_node("RootState/AirState/JumpState"),funcref(conditions_lib,"is_grounded_jump")))
-	transitions.append(StateTransition.new(
-		0,"to_ground",SM.get_node("RootState/GroundState"),funcref(conditions_lib,"is_grounded")))
 	transitions.append(StateTransition.new(
 		-2,"to_ledge",SM.get_node("RootState/LedgeState"),funcref(conditions_lib,"is_on_ledge")))
 	transitions.append(StateTransition.new(

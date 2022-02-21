@@ -19,7 +19,9 @@ func _choose_substate():
 
 func _enter():
 	set_dash_hitbox()
+	SM.is_dashing = true
 	force_attack()
+	SM.is_twirling = false
 	Target.Timers.get_node("DashTimer").start(DASH_TIME)
 	Target.Timers.get_node("NoDashTimer").start(NO_DASH_TIME)
 	Target.stop_jump_rise = false
@@ -42,11 +44,12 @@ func _add_transitions():
 
 func _exit():
 	stop_attack()
+	SM.is_dashing = false
 	set_normal_hitbox()
 
 
-func check_buffered_inputs():
-	.check_buffered_inputs()
+func _check_buffered_inputs():
+	._check_buffered_inputs()
 	check_buffered_redash_input()
 
 

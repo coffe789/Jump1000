@@ -16,7 +16,7 @@ const FLOOR_DRAG = 1.5
 const DUCK_FLOOR_DRAG = 0.6
 const AIR_DRAG = 0.14 * 1.5
 const MAX_X_SPEED = 100
-const JUMP_SPEED = 238
+const JUMP_SPEED = 220
 const MAX_FALL_SPEED = 250
 const UP_DIRECTION = Vector2(0,-1)
 const JUMP_BUFFER_DURATION = 0.13
@@ -28,7 +28,10 @@ const WALLJUMP_SLOWDOWN_MULTIPLIER = 0.233
 const NORMAL_COLLISION_EXTENT = Vector2(3.5,8)
 const DUCKING_COLLISION_EXTENT = Vector2(3.5,4)
 const NORMAL_ATTACK_SIZE = Vector2(15,5)
+const TWIRL_ATTACK_SIZE = Vector2(20,5)
 const DASH_ATTACK_SIZE = Vector2(5,15)
+const ATTACK_TIME = 0.4
+const BETWEEN_ATTACK_TIME = 0.55
 const WALLBOUNCE_MULTIPLIER = 1.35
 
 const NO_DASH_TIME = 0.3
@@ -117,15 +120,27 @@ func set_dash_direction():
 
 
 func set_attack_hitbox():
-	Target.Attack_Box.get_child(0).get_shape().extents = NORMAL_ATTACK_SIZE
-	Target.Attack_Box.position.y = -8
-	Target.attack_box_x_distance = 11
-
+	if !SM.is_twirling:
+		Target.Attack_Box.get_child(0).get_shape().extents = NORMAL_ATTACK_SIZE
+		Target.attack_box_x_distance = 11
+	else:
+		Target.Attack_Box.get_child(0).get_shape().extents = TWIRL_ATTACK_SIZE
+		Target.attack_box_x_distance = 0
+	if SM.is_ducking:
+		Target.Attack_Box.position.y = -5
+	else:
+		Target.Attack_Box.position.y = -8
 
 # Performs attack if button is pressed/is buffered. Returns success status
 func do_attack():
-	if (Input.is_action_just_pressed("attack") && !Target.is_attacking)\
-	or (Target.Timers.get_node("BufferedAttackTimer").time_left > 0 && !Target.is_attacking):
+	if (Input.is_action_just_pressed("twirl")
+	or (Target.Timers.get_node("BufferedTwirlTimer").time_left > 0)) && Target.Timers.get_node("BetweenAttackTimer").time_left == 0:
+		SM.is_twirling = true
+		Target.Timers.get_node("TwirlTimer").start(0.3)
+		force_attack()
+		return true
+	elif (Input.is_action_just_pressed("attack")
+	or (Target.Timers.get_node("BufferedAttackTimer").time_left > 0)) && Target.Timers.get_node("BetweenAttackTimer").time_left == 0:
 		if Target.dash_direction == 0:
 			force_attack()
 			return true
@@ -134,17 +149,34 @@ func do_attack():
 
 # Target attacks regardless of input or whatever
 func force_attack():
-	Target.Attack_Box.damage_properties = state_damage_properties
+	set_attack_hitbox()
+	SM.is_spinning = false
+	Target.Attack_Box.damage_properties = get_damage_properties()
 	Target.Attack_Box.get_child(0).disabled = false
-	Target.is_attacking = true
-	Target.Timers.get_node("BetweenAttackTimer").start(0.4)
+	SM.is_attacking = true
+	Target.Timers.get_node("AttackLengthTimer").start(ATTACK_TIME)
+	Target.Timers.get_node("BetweenAttackTimer").start(BETWEEN_ATTACK_TIME)
 	Target.Timers.get_node("BufferedAttackTimer").stop()
+
+func get_damage_properties():
+	var to_return = [Globals.Dmg_properties.FROM_PLAYER]
+	if SM.is_dashing:
+		if Target.dash_direction == -1:
+			to_return.append(Globals.Dmg_properties.DASH_ATTACK_UP)
+		elif Target.dash_direction == +1:
+			to_return.append(Globals.Dmg_properties.DASH_ATTACK_DOWN)
+	elif SM.is_twirling:
+		to_return.append(Globals.Dmg_properties.PLAYER_TWIRL)
+	else:
+		to_return.append(Globals.Dmg_properties.PLAYER_THRUST)
+	return to_return
 
 
 # If for whatever reason you want to cancel an attack (like entering another state)
 func stop_attack():
 	Target.Attack_Box.get_child(0).disabled = true
-	Target.is_attacking = false
+	SM.is_attacking = false
+	SM.is_twirling = false
 
 
 # What the player does after attacking (dependent on target)
@@ -304,7 +336,7 @@ func _check_is_valid_wall(raycast):
 
 #TODO test if I still even need this timer
 func get_ledge_behaviour():
-	if Target.facing == Target.wall_direction && Target.wall_direction!=0:
+	if Target.facing == Target.wall_direction:
 		if _check_is_valid_wall(Target.ledge_cast_mid) \
 		and !_check_is_valid_wall(Target.ledge_cast_top):
 			return Globals.LEDGE_REST
@@ -316,18 +348,6 @@ func get_ledge_behaviour():
 	return Globals.LEDGE_EXIT
 
 
-func emit_jump_particles(is_walljump=false):
-	Target.get_node("Particles/JumpCloud").emitting = true
-	if is_walljump:
-		var mult = Target.wall_direction
-		Target.get_node("Particles/JumpCloud").position.x = 4*mult
-		Target.get_node("Particles/JumpCloud").process_material.direction.x = -mult
-	else:
-		Target.get_node("Particles/JumpCloud").position.x = 4*sign(-Target.velocity.x)
-		Target.get_node("Particles/JumpCloud").process_material.direction.x = sign(-Target.velocity.x)
-	yield(get_tree().create_timer(0.04), "timeout")
-	Target.get_node("Particles/JumpCloud").emitting = false
-
 # Sets position and extents of player physics and hitbox collision
 func set_y_collision(extents,y_position):
 	Target.Collision_Body.get_shape().extents = extents
@@ -337,13 +357,15 @@ func set_y_collision(extents,y_position):
 # Buffered inputs
 #==================================================================#
 # Calls the others. Contents will differ per state
-func check_buffered_inputs():
+func _check_buffered_inputs():
 	check_buffered_jump_input()
 	check_buffered_attack_input()
 
 
 func check_buffered_attack_input():
-	if (Input.is_action_just_pressed("attack")):
+	if (Input.is_action_just_pressed("twirl")):
+		Target.Timers.get_node("BufferedTwirlTimer").start(0.2)
+	elif (Input.is_action_just_pressed("attack")):
 		Target.Timers.get_node("BufferedAttackTimer").start(0.2)
 
 

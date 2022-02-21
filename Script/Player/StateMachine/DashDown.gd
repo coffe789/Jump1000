@@ -8,7 +8,7 @@ func _ready():
 
 func _enter():
 	._enter()
-	Target.is_spinning = true
+	SM.is_spinning = true
 	Target.velocity.y = +DASH_SPEED_Y/3
 
 func _add_transitions():
@@ -19,4 +19,4 @@ func _add_transitions():
 
 func _exit():
 	._exit()
-	Target.is_spinning = false
+	SM.is_spinning = false

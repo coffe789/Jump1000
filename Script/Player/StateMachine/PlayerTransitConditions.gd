@@ -12,7 +12,7 @@ func is_grounded():
 
 
 func is_roll():
-	return Target.is_spinning && root_state.get_input_direction() != 0
+	return SM.is_spinning && root_state.get_input_direction() != 0
 
 
 func is_airborne():
@@ -56,7 +56,7 @@ func is_wallbounce():
 
 func is_wallslide():
 	return Target.wall_direction == root_state.get_input_direction() && Target.wall_direction != 0\
-		&& Target.directionY < 0
+		&& Target.velocity.y > 0
 
 func is_dash():
 	return (Input.is_action_just_pressed("attack")\

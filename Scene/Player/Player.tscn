@@ -483,7 +483,6 @@ cast_to = Vector2( -6.25, 0 )
 collide_with_areas = true
 
 [node name="LedgeRaycasts" type="Node2D" parent="CollisionChecks"]
-visible = false
 
 [node name="LedgeRayLenient" type="RayCast2D" parent="CollisionChecks/LedgeRaycasts"]
 position = Vector2( 0.5, -17 )
@@ -492,7 +491,7 @@ cast_to = Vector2( -9.5, 0 )
 collide_with_areas = true
 
 [node name="LedgeRayHeightSearch" type="RayCast2D" parent="CollisionChecks/LedgeRaycasts"]
-position = Vector2( -11, -17 )
+position = Vector2( -11, -16 )
 enabled = true
 cast_to = Vector2( 0, 17 )
 collide_with_areas = true
@@ -606,13 +605,25 @@ __meta__ = {
 [node name="BufferedJumpTimer" type="Timer" parent="Timers" groups=["reset_on_room_transition"]]
 one_shot = true
 
+[node name="AttackLengthTimer" type="Timer" parent="Timers"]
+__meta__ = {
+"_editor_description_": "How long an attack lasts for"
+}
+
 [node name="BetweenAttackTimer" type="Timer" parent="Timers"]
+one_shot = true
+__meta__ = {
+"_editor_description_": "How long after initiating an attack you can start the next attack."
+}
 
 [node name="BufferedAttackTimer" type="Timer" parent="Timers"]
 one_shot = true
 __meta__ = {
 "_editor_description_": "You can buffer an attack during your previous attack"
 }
+
+[node name="BufferedTwirlTimer" type="Timer" parent="Timers"]
+one_shot = true
 
 [node name="DashTimer" type="Timer" parent="Timers"]
 one_shot = true
@@ -657,15 +668,18 @@ anims/reset = SubResource( 22 )
 [node name="HurtStateTimer" type="Timer" parent="Timers"]
 one_shot = true
 
+[node name="TwirlTimer" type="Timer" parent="Timers"]
+one_shot = true
+
 [node name="Cape" type="Node2D" parent="."]
 light_mask = 0
 position = Vector2( 0, -13 )
 
 [node name="CapeL" type="Position2D" parent="Cape"]
-position = Vector2( -4, 6 )
+position = Vector2( -4, 4 )
 
 [node name="CapeR" type="Position2D" parent="Cape"]
-position = Vector2( 4, 6 )
+position = Vector2( 4, 4 )
 
 [node name="Particles" type="Node2D" parent="."]
 
@@ -712,4 +726,5 @@ shadow_filter_smooth = 8.6
 [connection signal="damage_received" from="CollisionChecks/HurtBox" to="." method="_on_HurtBox_damage_received"]
 [connection signal="timeout" from="Timers/CoyoteTimer" to="." method="_on_CoyoteTimer_timeout"]
 [connection signal="timeout" from="Timers/BufferedJumpTimer" to="." method="_on_BufferedJumpTimer_timeout"]
-[connection signal="timeout" from="Timers/BetweenAttackTimer" to="." method="_on_BetweenAttackTimer_timeout"]
+[connection signal="timeout" from="Timers/AttackLengthTimer" to="SM" method="_on_AttackLengthTimer_timeout"]
+[connection signal="timeout" from="Timers/TwirlTimer" to="SM" method="_on_TwirlTimer_timeout"]
