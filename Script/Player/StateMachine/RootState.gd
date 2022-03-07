@@ -354,6 +354,13 @@ func set_y_collision(extents,y_position):
 	Target.Collision_Body.position.y = y_position
 	Target.get_node("CollisionChecks/HurtBox/CollisionBody").position.y = y_position
 
+func report_collision():
+	for i in Target.get_slide_count():
+		var collision = Target.get_slide_collision(i)
+		if collision.normal == Vector2(0,-1) && collision.get_collider().has_method("collide_with"):
+			collision.get_collider().collide_with(collision.normal,Target)
+
+
 # Buffered inputs
 #==================================================================#
 # Calls the others. Contents will differ per state

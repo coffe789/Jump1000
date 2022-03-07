@@ -15,7 +15,7 @@ func set_facing_direction():
 
 # Tell what you're clinging to that it is being clung to
 # Useful for certain entities
-func report_collision():
+func report_ledge_collision():
 	var col = Target.ledge_cast_height_search.get_collider()
 	if col && col.has_method("collide_with"):
 		col.collide_with(Target.ledge_cast_height_search.get_collision_normal(),Target)
@@ -33,7 +33,10 @@ func _choose_substate():
 
 func _enter():
 	SM.is_twirling = false
+	SM.is_clinging = true
 
+func _exit():
+	SM.is_clinging = false
 
 func _add_transitions():
 	transitions.append(StateTransition.new(

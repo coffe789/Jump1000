@@ -5,6 +5,7 @@ var is_spinning = false
 var is_twirling = false # twirl attack
 var is_ducking = false
 var is_attacking = false
+var is_clinging = false
 
 func _ready():
 	self.connect("before_updated",self, "on_before_update")
@@ -13,6 +14,7 @@ func _ready():
 
 func on_before_update():
 	current_state._check_buffered_inputs()
+	current_state.report_collision()
 
 func on_update():
 	current_state._update_wall_direction()

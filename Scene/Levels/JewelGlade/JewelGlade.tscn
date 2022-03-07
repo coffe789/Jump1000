@@ -474,7 +474,7 @@ extents = Vector2( 192, 108 )
 [node name="RealLevelArea" parent="." instance=ExtResource( 1 )]
 
 [node name="PlayerCamera" parent="RealLevelArea" index="2"]
-position = Vector2( -48, -54 )
+position = Vector2( 1014, 60 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="RealLevelArea"]
 environment = SubResource( 99 )
@@ -791,7 +791,7 @@ active_border_color = Color( 0.8, 0.752941, 0.615686, 0.8 )
 inactive_border_color = Color( 0.760784, 0.717647, 0.603922, 0.301961 )
 
 [node name="Player2" parent="." instance=ExtResource( 3 )]
-position = Vector2( -48, -54 )
+position = Vector2( 1014, 60 )
 
 [editable path="RealLevelArea"]
 [editable path="RealLevelArea/Room"]

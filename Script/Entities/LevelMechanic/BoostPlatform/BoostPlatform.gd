@@ -11,16 +11,15 @@ enum { # Matches the tileset IDs
 
 export var width = 4 setget set_width
 export(Directions) var dir = Directions.U setget set_direction
+var velocity = Vector2.ZERO
 
-func _physics_process(_delta):
-	var pos1 = position
-	move_and_slide(Vector2(0,0))
-	position = pos1
-	for i in get_slide_count():
-		var collision = get_slide_collision(i)
-#	var touching = move_and_collide(Vector2.ZERO)
-#	if touching:
-#		print(touching.collider.name)
+func _ready():
+	if !Engine.editor_hint:
+		$SM.target = self
+
+func _physics_process(delta):
+	if !Engine.editor_hint:
+		$SM.update(delta)
 
 func set_width(value):
 	if Engine.editor_hint:
@@ -53,4 +52,4 @@ func set_direction(value):
 
 func collide_with(_normal,collider):
 	if collider.is_in_group("player"):
-		print("omg player I'm your biggest fan")
+		$SM.current_state._collide()

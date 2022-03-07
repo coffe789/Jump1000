@@ -1,8 +1,15 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://Script/Entities/LevelMechanic/BoostPlatform/BoostPlatform.gd" type="Script" id=1]
 [ext_resource path="res://Art/Entity/LevelMechanic/FallPlatform/platform_tilemap.png" type="Texture" id=2]
 [ext_resource path="res://Art/Entity/LevelMechanic/FallPlatform/platform_direction.png" type="Texture" id=3]
+[ext_resource path="res://script/Entities/LevelMechanic/BoostPlatform/Rumble.gd" type="Script" id=4]
+[ext_resource path="res://Script/Entities/Util/StateMachine/StateMachine.gd" type="Script" id=5]
+[ext_resource path="res://Script/Entities/Util/StateMachine/TransitConditions.gd" type="Script" id=6]
+[ext_resource path="res://script/Entities/LevelMechanic/BoostPlatform/RootState.gd" type="Script" id=7]
+[ext_resource path="res://Script/Entities/LevelMechanic/BoostPlatform/Idle.gd" type="Script" id=8]
+[ext_resource path="res://script/Entities/LevelMechanic/BoostPlatform/Active.gd" type="Script" id=9]
+[ext_resource path="res://script/Entities/LevelMechanic/BoostPlatform/Respawn.gd" type="Script" id=10]
 
 [sub_resource type="OccluderPolygon2D" id=15]
 polygon = PoolVector2Array( 1, 1, 13, 1, 13, 13, 1, 13 )
@@ -190,8 +197,8 @@ points = PoolVector2Array( 13, 5, 1, 5, 1, 1, 13, 1 )
 1/z_index = 0
 
 [node name="BoostPlatform" type="KinematicBody2D"]
-z_index = 201
-collision_mask = 2
+collision_mask = 0
+motion/sync_to_physics = true
 script = ExtResource( 1 )
 
 [node name="StumpTile" type="TileMap" parent="."]
@@ -204,6 +211,7 @@ format = 1
 tile_data = PoolIntArray( 0, 0, 0, 3, 0, 0 )
 
 [node name="OneWayBody" type="KinematicBody2D" parent="."]
+z_index = 1
 collision_layer = 32
 collision_mask = 0
 __meta__ = {
@@ -233,3 +241,27 @@ texture = ExtResource( 3 )
 hframes = 4
 vframes = 2
 region_rect = Rect2( 0, 0, 6, 6 )
+
+[node name="SM" type="Node" parent="."]
+script = ExtResource( 5 )
+
+[node name="RootState" type="Node" parent="SM"]
+script = ExtResource( 7 )
+
+[node name="Idle" type="Node" parent="SM/RootState"]
+script = ExtResource( 8 )
+
+[node name="Rumble" type="Node" parent="SM/RootState"]
+script = ExtResource( 4 )
+
+[node name="Active" type="Node" parent="SM/RootState"]
+script = ExtResource( 9 )
+
+[node name="Respawn" type="Node" parent="SM/RootState"]
+script = ExtResource( 10 )
+
+[node name="TransitConditions" type="Node" parent="SM"]
+script = ExtResource( 6 )
+
+[node name="Timer" type="Timer" parent="SM"]
+one_shot = true

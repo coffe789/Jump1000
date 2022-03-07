@@ -5,4 +5,4 @@ func _enter():
 
 func _update(delta):
 	._update(delta)
-	Target.velocity = Target.move_and_slide(Target.velocity,UP_DIRECTION)
+	Target.velocity = Target.move_and_slide_with_snap(Target.velocity,Vector2.DOWN * 3, Vector2.UP)

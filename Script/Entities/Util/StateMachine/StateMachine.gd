@@ -16,7 +16,7 @@ func set_target(value):
 	target = value
 	initialise_states(self)
 	init_conditions()
-	
+
 	emit_signal("activated")
 
 
