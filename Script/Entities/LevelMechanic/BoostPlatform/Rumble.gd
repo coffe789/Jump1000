@@ -7,6 +7,9 @@ func _on_activate():
 func _enter():
 	timer.start(0.3)
 
+func _exit():
+	Target.next = Vector2(10,-60)
+
 func _update(_delta):
 	if timer.time_left == 0:
 		SM.change_state(SM.get_node("RootState/Active"))

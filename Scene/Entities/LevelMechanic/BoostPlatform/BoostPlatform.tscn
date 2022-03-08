@@ -208,7 +208,7 @@ cell_size = Vector2( 12, 12 )
 centered_textures = true
 collision_use_parent = true
 format = 1
-tile_data = PoolIntArray( 0, 0, 0, 3, 0, 0 )
+tile_data = PoolIntArray( 0, 0, 0, 3, 0, 1 )
 
 [node name="OneWayBody" type="KinematicBody2D" parent="."]
 z_index = 1
