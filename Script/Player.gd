@@ -59,6 +59,7 @@ func _physics_process(delta) -> void:
 	if Input.is_action_just_pressed("clear_console"):
 		Globals.clear_console()
 	
+	Cape.update_cape(delta)
 	
 	previous_velocity = velocity
 	if $SM.target:

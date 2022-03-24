@@ -26,10 +26,12 @@ func set_camera_limits(room_shape):
 
 
 func _on_player_connected(player):
+	if !Player: # Only reset camera if new player is spawned
+		reset_smoothing()
 	is_player_connected = true
 	Player = player
 	global_position = Player.global_position
-	reset_smoothing()
+
 
 
 # Using physics because I had a bug earlier that was solved by syncing camera to physics

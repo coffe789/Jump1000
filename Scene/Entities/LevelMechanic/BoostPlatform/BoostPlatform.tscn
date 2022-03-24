@@ -197,6 +197,7 @@ points = PoolVector2Array( 13, 5, 1, 5, 1, 1, 13, 1 )
 1/z_index = 0
 
 [node name="BoostPlatform" type="KinematicBody2D"]
+z_index = 1
 collision_mask = 0
 motion/sync_to_physics = true
 script = ExtResource( 1 )
@@ -211,7 +212,6 @@ format = 1
 tile_data = PoolIntArray( 0, 0, 0, 3, 0, 1 )
 
 [node name="OneWayBody" type="KinematicBody2D" parent="."]
-z_index = 1
 collision_layer = 32
 collision_mask = 0
 __meta__ = {

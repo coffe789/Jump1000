@@ -8,6 +8,7 @@ func _update(delta):
 		Target.ledge_cast_height_search.get_collider().add_child(Target)
 		Target.global_position=pos
 		Globals.emit_signal("player_connect_cam",Target)
+		Target.Cape.set_physics_process(true)
 		if Target.ledge_cast_height_search.get_collider() && "velocity" in Target.ledge_cast_height_search.get_collider():
 			Target.velocity.y = Target.ledge_cast_height_search.get_collider().velocity.y
 			Target.global_position.y = get_ledge_Y()+12

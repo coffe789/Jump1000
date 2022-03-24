@@ -6,7 +6,7 @@ onready var CapeL = Player.get_node("Cape/CapeL")
 onready var CapeR = Player.get_node("Cape/CapeR")
 var PM_list = []
 var link_list = [] # Not a linked list lol
-onready var spawn_offset = Player.position
+onready var spawn_offset = Player.global_position
 var PM_spacing_x = 3 # Length of links between nodes
 var PM_spacing_y = 6
 var grid_size = 3
@@ -107,7 +107,7 @@ func attach_cape():
 	add_child(new_link)
 
 
-func _process(delta):
+func update_cape(delta):
 	#suck_to_mouse(delta)
 	for i in link_list.size():
 		link_list[i].constrain()

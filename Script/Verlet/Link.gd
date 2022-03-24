@@ -1,6 +1,5 @@
 extends Node2D
 
-onready var canvas = get_parent()
 var resting_distance = 30 #default value, can be overriden when instanced
 var PM_a #Point Mass
 var PM_b
