@@ -106,22 +106,22 @@ var snap_fatness = 5
 var snap_up_height = 2
 var snap_down_height = 14
 func snap_player_to_room():
-	var init_pos = Globals.get_player().position
-	if Globals.get_player().position.x - snap_fatness < get_cam().limit_left:
-		Globals.get_player().position.x = get_cam().limit_left + snap_fatness
-	elif Globals.get_player().position.x + snap_fatness > get_cam().limit_right:
-		Globals.get_player().position.x = get_cam().limit_right - snap_fatness
+	var init_pos = Globals.get_player().global_position
+	if Globals.get_player().global_position.x - snap_fatness < get_cam().limit_left:
+		Globals.get_player().global_position.x = get_cam().limit_left + snap_fatness
+	elif Globals.get_player().global_position.x + snap_fatness > get_cam().limit_right:
+		Globals.get_player().global_position.x = get_cam().limit_right - snap_fatness
 	
-	if Globals.get_player().position.y - snap_down_height < get_cam().limit_top:
-		Globals.get_player().position.y = get_cam().limit_top + snap_down_height
-	elif Globals.get_player().position.y + snap_up_height > (get_cam().limit_bottom + get_cam().LOWER_OFFSCREEN_MARGIN):
-		Globals.get_player().position.y = get_cam().limit_bottom - snap_up_height
+	if Globals.get_player().global_position.y - snap_down_height < get_cam().limit_top:
+		Globals.get_player().global_position.y = get_cam().limit_top + snap_down_height
+	elif Globals.get_player().global_position.y + snap_up_height > (get_cam().limit_bottom + get_cam().LOWER_OFFSCREEN_MARGIN):
+		Globals.get_player().global_position.y = get_cam().limit_bottom - snap_up_height
 		if Globals.get_player().velocity.y > UP_TRANSITION_BOOST:
 			Globals.get_player().velocity.y = UP_TRANSITION_BOOST
 			Globals.get_player().stop_jump_rise = true # Letting go of jump doesn't nullify new velocity
 	
 	# Move the cape too
-	var diff_pos = Globals.get_player().position - init_pos
+	var diff_pos = Globals.get_player().global_position - init_pos
 	Globals.get_player().Cape.position += diff_pos
 	for cape_point in get_tree().get_nodes_in_group("cape_point"):
 		cape_point.position += diff_pos

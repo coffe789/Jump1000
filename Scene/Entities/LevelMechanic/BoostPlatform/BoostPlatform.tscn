@@ -3,13 +3,13 @@
 [ext_resource path="res://Script/Entities/LevelMechanic/BoostPlatform/BoostPlatform.gd" type="Script" id=1]
 [ext_resource path="res://Art/Entity/LevelMechanic/FallPlatform/platform_tilemap.png" type="Texture" id=2]
 [ext_resource path="res://Art/Entity/LevelMechanic/FallPlatform/platform_direction.png" type="Texture" id=3]
-[ext_resource path="res://script/Entities/LevelMechanic/BoostPlatform/Rumble.gd" type="Script" id=4]
+[ext_resource path="res://Script/Entities/LevelMechanic/BoostPlatform/Rumble.gd" type="Script" id=4]
 [ext_resource path="res://Script/Entities/Util/StateMachine/StateMachine.gd" type="Script" id=5]
 [ext_resource path="res://Script/Entities/Util/StateMachine/TransitConditions.gd" type="Script" id=6]
-[ext_resource path="res://script/Entities/LevelMechanic/BoostPlatform/RootState.gd" type="Script" id=7]
+[ext_resource path="res://Script/Entities/LevelMechanic/BoostPlatform/RootState.gd" type="Script" id=7]
 [ext_resource path="res://Script/Entities/LevelMechanic/BoostPlatform/Idle.gd" type="Script" id=8]
-[ext_resource path="res://script/Entities/LevelMechanic/BoostPlatform/Active.gd" type="Script" id=9]
-[ext_resource path="res://script/Entities/LevelMechanic/BoostPlatform/Respawn.gd" type="Script" id=10]
+[ext_resource path="res://Script/Entities/LevelMechanic/BoostPlatform/Active.gd" type="Script" id=9]
+[ext_resource path="res://Script/Entities/LevelMechanic/BoostPlatform/Respawn.gd" type="Script" id=10]
 
 [sub_resource type="OccluderPolygon2D" id=15]
 polygon = PoolVector2Array( 1, 1, 13, 1, 13, 13, 1, 13 )

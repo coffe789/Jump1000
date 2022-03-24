@@ -107,7 +107,7 @@ func attach_cape():
 	add_child(new_link)
 
 
-func _physics_process(delta):
+func _process(delta):
 	#suck_to_mouse(delta)
 	for i in link_list.size():
 		link_list[i].constrain()
