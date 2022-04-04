@@ -58,6 +58,8 @@ func _physics_process(delta) -> void:
 	
 	if Input.is_action_just_pressed("clear_console"):
 		Globals.clear_console()
+	if Input.is_action_just_pressed("ui_cancel"):
+		current_room.reset_room()
 	
 	Cape.update_cape(delta)
 	

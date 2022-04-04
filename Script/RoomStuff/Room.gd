@@ -52,6 +52,12 @@ func exit_room():
 	$ResetableNodes.queue_free()
 
 
+func reset_room():
+	exit_room()
+	yield(get_tree(),"idle_frame")
+	enter_room()
+	
+
 # Sets coordinates of boundaries for if needed later
 func init_boundaries():
 	var room_collision_shape = get_node("CollisionShape2D")

@@ -2,7 +2,8 @@ extends "res://Script/Player/StateMachine/JumpState.gd"
 
 func _enter():
 	._enter()
-	Target.velocity.y = -JUMP_SPEED - Target.get_floor_velocity().y
+	Target.velocity.y = -JUMP_SPEED
+	Target.velocity += get_boost()
 	play_jump_audio()
 	Target.Animation_Player.play("jumping")
 	emit_jump_particles()

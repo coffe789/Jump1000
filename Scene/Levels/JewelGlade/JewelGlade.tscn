@@ -476,6 +476,9 @@ extents = Vector2( 192, 108 )
 [node name="PlayerCamera" parent="RealLevelArea" index="2"]
 position = Vector2( 1014, 60 )
 
+[node name="Player2" parent="RealLevelArea" instance=ExtResource( 3 )]
+position = Vector2( 1014, 60 )
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="RealLevelArea"]
 environment = SubResource( 99 )
 
@@ -782,9 +785,6 @@ shape = SubResource( 131 )
 
 [node name="SpawnPoint" parent="RealLevelArea/Room4" index="8"]
 position = Vector2( -174, 24 )
-
-[node name="Player2" parent="RealLevelArea" instance=ExtResource( 3 )]
-position = Vector2( 1014, 60 )
 
 [node name="EditAssistor" type="Node2D" parent="." groups=["edit_assistor"]]
 z_index = 4096

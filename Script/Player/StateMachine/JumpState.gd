@@ -46,3 +46,11 @@ func emit_jump_particles(is_walljump=false):
 		Target.get_node("Particles/JumpCloud").process_material.direction.x = sign(-Target.velocity.x)
 	yield(get_tree().create_timer(0.04), "timeout")
 	Target.get_node("Particles/JumpCloud").emitting = false
+
+func get_boost():
+	var boost = Vector2.ZERO
+#	if Target.is_on_floor():
+	var floor_v = Target.get_floor_velocity()
+	boost.x = floor_v.x
+	boost.y = -floor_v.y if floor_v.y > 0 else 0
+	return boost

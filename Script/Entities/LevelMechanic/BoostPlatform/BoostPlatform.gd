@@ -12,7 +12,7 @@ enum { # Matches the tileset IDs
 export var width = 4 setget set_width
 export(Directions) var dir = Directions.U setget set_direction
 var velocity=Vector2(0,0)
-var next = Vector2(10,-60)
+var next = Vector2(10,-240)
 
 func _ready():
 	if !Engine.editor_hint:
