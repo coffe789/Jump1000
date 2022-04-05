@@ -54,3 +54,4 @@ func get_boost():
 	boost.x = floor_v.x
 	boost.y = -floor_v.y if floor_v.y > 0 else 0
 	return boost
+

@@ -57,7 +57,7 @@ func do_room_transition(room):
 	elif room != Globals.get_player().current_room:
 		Globals.emit_signal("room_transitioned", Globals.get_player().current_room, room)
 		var old_room = Globals.get_player().current_room
-		check_transition_type()
+		
 		
 		var room_collision_shape = room.get_node("CollisionShape2D")
 		get_cam().smoothing_speed = TRANSITION_CAMERA_SPEED
@@ -86,20 +86,6 @@ func do_transition_pause():
 	yield(get_tree().create_timer(FREEZE_TIME), "timeout")
 	get_tree().paused = false
 	get_cam().pause_mode = Node.PAUSE_MODE_INHERIT
-
-
-func check_transition_type():
-	var player_center = Globals.get_player().get_node("CollisionChecks/RoomDetection")
-	if player_center.global_position.y < get_cam().limit_top + 1: # up transition
-		if Globals.get_player().velocity.y > UP_TRANSITION_BOOST:
-			Globals.get_player().velocity.y = UP_TRANSITION_BOOST
-			Globals.get_player().stop_jump_rise = true # Letting go of jump doesn't nullify new velocity
-	elif player_center.global_position.y > get_cam().limit_bottom - 1: # down transition
-		pass
-	elif player_center.global_position.x < get_cam().limit_left: # left transition
-		pass
-	elif player_center.global_position.x > get_cam().limit_right: # right transition
-		pass
 
 
 var snap_fatness = 5

@@ -548,7 +548,7 @@ script = ExtResource( 5 )
 polygon = PoolVector2Array( -17, 20, -17, -14, 19, -20, 19, -1 )
 
 [node name="RoomDetection" type="Area2D" parent="CollisionChecks"]
-position = Vector2( 0, -8 )
+position = Vector2( 0.5, -8 )
 collision_layer = 0
 collision_mask = 16
 monitorable = false

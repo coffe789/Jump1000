@@ -108,7 +108,13 @@ func respawn():
 func _exit_tree():
 	Globals.emit_signal("player_freed")
 
-
+func reparent(new_parent):
+	if new_parent:
+		var poso = global_position
+		get_parent().remove_child(self)
+		new_parent.add_child(self)
+		global_position = poso
+		Globals.emit_signal("player_connect_cam",self)
 
 # Signals
 #=================================#

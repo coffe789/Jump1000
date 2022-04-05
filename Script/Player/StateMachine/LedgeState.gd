@@ -34,9 +34,14 @@ func _choose_substate():
 func _enter():
 	SM.is_twirling = false
 	SM.is_clinging = true
+	Target.reparent(Target.ledge_cast_height_search.get_collider())
+
+func _update(_delta):
+	report_ledge_collision()
 
 func _exit():
 	SM.is_clinging = false
+	Target.reparent(Target.current_area)
 
 func _add_transitions():
 	transitions.append(StateTransition.new(
