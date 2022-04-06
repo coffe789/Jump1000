@@ -24,17 +24,19 @@ func is_falling():
 #TODO get rid of global stuff and maybe even this dumb function
 func is_on_ledge():
 	return root_state.get_ledge_behaviour() != Globals.LEDGE_EXIT\
-		&& Target.velocity.y > 0
+		&& Target.velocity.y > 0 && !is_let_go()
 func is_ledge_exit():
-	return root_state.get_ledge_behaviour() == Globals.LEDGE_EXIT
+	return root_state.get_ledge_behaviour() == Globals.LEDGE_EXIT || is_let_go()
 func is_ledge_rest():
-	return (root_state._check_is_valid_wall(Target.ledge_cast_bottom) || root_state._check_is_valid_wall(Target.ledge_cast_mid)) && !root_state._check_is_valid_wall(Target.ledge_cast_top)
+	return (root_state._check_is_valid_wall(Target.ledge_cast_bottom) || root_state._check_is_valid_wall(Target.ledge_cast_mid)) && !root_state._check_is_valid_wall(Target.ledge_cast_top) && !is_let_go()
 func is_ledge_fall():
 	return root_state._check_is_valid_wall(Target.ledge_cast_mid) \
 		and !root_state._check_is_valid_wall(Target.ledge_cast_top)
 func is_ledge_rise():
 	return (root_state._check_is_valid_wall(Target.ledge_cast_top) && !root_state._check_is_valid_wall(Target.ledge_cast_lenient)
 		and Target.velocity.y >= -10)
+func is_let_go():
+	return Target.Timers.get_node("LetGoTimer").time_left > 0
 
 func is_grounded_jump():
 	return (Input.is_action_just_pressed("jump") || Target.isJumpBuffered)\

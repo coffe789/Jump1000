@@ -1,4 +1,5 @@
 extends "res://Script/Player/StateMachine/RootState.gd"
+const LET_GO_TIME = 0.2
 
 # Makes sure the player always rests at the same height
 func get_ledge_Y():
@@ -38,6 +39,8 @@ func _enter():
 
 func _update(_delta):
 	report_ledge_collision()
+	if Input.is_action_just_pressed("down"):
+		Target.get_node("Timers/LetGoTimer").start(LET_GO_TIME)
 
 func _exit():
 	SM.is_clinging = false
