@@ -68,6 +68,7 @@ func _physics_process(delta) -> void:
 		$SM.update(delta)
 		if velocity.x == 0 and previous_velocity.x != 0 and $SM.current_state.get_input_direction() == sign(previous_velocity.x) && !is_on_floor():
 			velocity.x = previous_velocity.x * 0.95 # Retain a bit of velocity after hitting a wall
+	$DebugLabel.text = $SM.current_state.name
 	return
 
 

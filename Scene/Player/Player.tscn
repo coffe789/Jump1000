@@ -568,6 +568,18 @@ script = ExtResource( 12 )
 position = Vector2( 0.5, -8 )
 shape = SubResource( 3 )
 
+[node name="FloorRayLeft" type="RayCast2D" parent="CollisionChecks"]
+position = Vector2( -3, -2 )
+enabled = true
+cast_to = Vector2( 0, 4 )
+collision_mask = 33
+
+[node name="FloorRayRight" type="RayCast2D" parent="CollisionChecks"]
+position = Vector2( 4, -2 )
+enabled = true
+cast_to = Vector2( 0, 4 )
+collision_mask = 33
+
 [node name="CollisionBody" type="CollisionShape2D" parent="."]
 position = Vector2( 0.5, -8 )
 shape = SubResource( 3 )

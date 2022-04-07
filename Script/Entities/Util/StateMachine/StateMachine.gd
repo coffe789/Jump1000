@@ -9,6 +9,7 @@ onready var current_state = $RootState
 export var history_size = 3
 var target setget set_target
 var state_history = []
+var last_transition = ""
 
 # Machine starts once target is set
 func set_target(value):
@@ -48,7 +49,7 @@ func add_to_history(state:State):
 		state_history.pop_back()
 
 
-func change_state(new_state:State, allow_reenter=false):
+func change_state(new_state:State, allow_reenter=false, is_changed = false):
 	if current_state != new_state || allow_reenter:
 		if new_state.is_leaf():
 			current_state._exit()
@@ -58,8 +59,10 @@ func change_state(new_state:State, allow_reenter=false):
 			
 			add_to_history(previous_state)
 			emit_signal("changed_state",previous_state,current_state)
+			return true
 		else:
-			change_state(new_state._choose_substate(), allow_reenter) # Recurse until leaf state
+			is_changed = change_state(new_state._choose_substate(), allow_reenter, is_changed) # Recurse until leaf state
+	return is_changed
 
 
 # Change state to the previous state
@@ -74,7 +77,9 @@ func pop_state():
 func try_transition():
 	for t in current_state.transitions:
 		if t.condition_func.call_func():
-			change_state(t.target_state,t.allow_reenter)
+			if change_state(t.target_state,t.allow_reenter):
+				last_transition = t.id
+				print(t.id)
 			return
 
 # Periodically called by the owner/target of the machine,
@@ -90,4 +95,6 @@ func update(delta):
 		update(delta)
 
 func previous_state():
+	if state_history.size()==0:
+		return self
 	return state_history[state_history.size()-1]

@@ -36,8 +36,8 @@ func place_tiles():
 	$OneWayBody/PlatformTile.clear()
 	for i in range(1,width-1):
 		$OneWayBody/PlatformTile.set_cell(i,0,PLATFORM)
-	$StumpTile.set_cell(0,0,STUMP)
-	$StumpTile.set_cell(width-1,0,STUMP)
+	$OneWayBody/PlatformTile.set_cell(0,0,STUMP)
+	$OneWayBody/PlatformTile.set_cell(width-1,0,STUMP)
 	$StumpTile.update_bitmask_region()
 	$OneWayBody/PlatformTile.update_bitmask_region()
 	

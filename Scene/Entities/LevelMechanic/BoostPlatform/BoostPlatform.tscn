@@ -37,16 +37,16 @@ points = PoolVector2Array( 1, 1, 13, 1, 13, 13, 1, 13 )
 points = PoolVector2Array( 1, 1, 13, 1, 13, 13, 1, 13 )
 
 [sub_resource type="ConvexPolygonShape2D" id=4]
-points = PoolVector2Array( 14, 13, 2, 13, 2, 1, 14, 1 )
+points = PoolVector2Array( 13, 13, 1, 13, 1, 1, 13, 1 )
 
 [sub_resource type="ConvexPolygonShape2D" id=5]
-points = PoolVector2Array( 0, 1, 12, 1, 12, 13, 0, 13 )
+points = PoolVector2Array( 1, 1, 13, 1, 13, 13, 1, 13 )
 
 [sub_resource type="ConvexPolygonShape2D" id=6]
-points = PoolVector2Array( 14, 13, 2, 13, 2, 1, 14, 1 )
+points = PoolVector2Array( 13, 13, 1, 13, 1, 1, 13, 1 )
 
 [sub_resource type="ConvexPolygonShape2D" id=7]
-points = PoolVector2Array( 12, 13, 0, 13, 0, 1, 12, 1 )
+points = PoolVector2Array( 13, 13, 1, 13, 1, 1, 13, 1 )
 
 [sub_resource type="ConvexPolygonShape2D" id=8]
 points = PoolVector2Array( 13, 5, 1, 5, 1, 1, 13, 1 )
@@ -209,7 +209,6 @@ cell_size = Vector2( 12, 12 )
 centered_textures = true
 collision_use_parent = true
 format = 1
-tile_data = PoolIntArray( 0, 0, 0, 3, 0, 1 )
 
 [node name="OneWayBody" type="KinematicBody2D" parent="."]
 collision_layer = 32
@@ -225,7 +224,7 @@ cell_size = Vector2( 12, 12 )
 centered_textures = true
 collision_use_parent = true
 format = 1
-tile_data = PoolIntArray( 1, 1, 65536, 2, 1, 65541 )
+tile_data = PoolIntArray( 0, 0, 1, 1, 1, 65536, 2, 1, 65541, 3, 0, 1 )
 
 [node name="Arrow1" type="Sprite" parent="."]
 position = Vector2( 6, 7 )
@@ -266,3 +265,5 @@ script = ExtResource( 6 )
 
 [node name="Timer" type="Timer" parent="SM"]
 one_shot = true
+
+[node name="Node2D" type="Node2D" parent="."]
