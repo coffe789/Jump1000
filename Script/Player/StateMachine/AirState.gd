@@ -33,7 +33,7 @@ func _add_transitions():
 	transitions.append(StateTransition.new(
 		-3,"to_wallboost",SM.get_node("RootState/AirState/JumpState/WallBoost"),funcref(conditions_lib,"is_wallbounce")))
 	transitions.append(StateTransition.new(
-		-4,"to_walljump",SM.get_node("RootState/AirState/JumpState/WallJump"),funcref(conditions_lib,"is_walljump")))
+		-4,"to_walljump",SM.get_node("RootState/AirState/JumpState/WallJump"),funcref(conditions_lib,"is_walljump"),true))
 	transitions.append(StateTransition.new(
 		-5,"to_wallslide",SM.get_node("RootState/AirState/WallSlide"),funcref(conditions_lib,"is_wallslide")))
 	transitions.append(StateTransition.new(
