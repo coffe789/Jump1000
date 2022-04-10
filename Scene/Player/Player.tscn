@@ -328,7 +328,7 @@ tracks/1/keys = {
 offsets = PoolRealArray( 0, 0.801242, 1 )
 colors = PoolColorArray( 1, 1, 1, 0.784314, 1, 1, 1, 0.784314, 1, 1, 1, 0.0352941 )
 
-[sub_resource type="GradientTexture" id=11]
+[sub_resource type="GradientTexture" id=23]
 gradient = SubResource( 10 )
 
 [sub_resource type="ParticlesMaterial" id=9]
@@ -348,7 +348,7 @@ tangential_accel_random = 1.0
 damping = 100.0
 angle_random = 1.0
 scale = 1.3
-color_ramp = SubResource( 11 )
+color_ramp = SubResource( 23 )
 
 [node name="Player" type="KinematicBody2D" groups=["player"]]
 z_as_relative = false
@@ -727,7 +727,6 @@ shadow_filter_smooth = 8.6
 [connection signal="area_exited" from="CollisionChecks/DashCheckUp" to="CollisionChecks/DashCheckUp" method="_on_DashCheck_area_exited"]
 [connection signal="area_entered" from="CollisionChecks/DashCheckDown" to="CollisionChecks/DashCheckDown" method="_on_DashCheck_area_entered"]
 [connection signal="area_exited" from="CollisionChecks/DashCheckDown" to="CollisionChecks/DashCheckDown" method="_on_DashCheck_area_exited"]
-[connection signal="area_entered" from="CollisionChecks/RoomDetection" to="." method="_on_RoomDetection_area_entered"]
 [connection signal="damage_received" from="CollisionChecks/HurtBox" to="." method="_on_HurtBox_damage_received"]
 [connection signal="timeout" from="Timers/CoyoteTimer" to="." method="_on_CoyoteTimer_timeout"]
 [connection signal="timeout" from="Timers/BufferedJumpTimer" to="." method="_on_BufferedJumpTimer_timeout"]

@@ -1,0 +1,15 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=22]
+code = "shader_type canvas_item;
+uniform bool is_active = false;
+
+void vertex(){
+	if (is_active){
+		VERTEX.x += sign(cos(TIME*32.0))/2.0;
+	}
+}"
+
+[resource]
+shader = SubResource( 22 )
+shader_param/is_active = false

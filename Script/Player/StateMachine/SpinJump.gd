@@ -11,7 +11,7 @@ func _enter():
 	Target.velocity.y = -JUMP_SPEED
 	if Target.ledge_cast_height_search.get_collider() && "velocity" in Target.ledge_cast_height_search.get_collider():
 		Target.velocity.y += Target.ledge_cast_height_search.get_collider().velocity.y
-		print(Target.ledge_cast_height_search.get_collider().velocity.y)
+		#print(Target.ledge_cast_height_search.get_collider().velocity.y)
 	play_jump_audio()
 	emit_jump_particles(true)
 

@@ -476,7 +476,7 @@ extents = Vector2( 192, 108 )
 [node name="PlayerCamera" parent="RealLevelArea" index="2"]
 position = Vector2( 1014, 60 )
 
-[node name="Player2" parent="RealLevelArea" instance=ExtResource( 3 )]
+[node name="Player" parent="RealLevelArea" instance=ExtResource( 3 )]
 position = Vector2( 1014, 60 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="RealLevelArea"]

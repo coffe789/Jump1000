@@ -48,10 +48,10 @@ func emit_jump_particles(is_walljump=false):
 	Target.get_node("Particles/JumpCloud").emitting = false
 
 func get_boost():
+	var mult = 0.5
 	var boost = Vector2.ZERO
-#	if Target.is_on_floor():
 	var floor_v = Target.get_floor_velocity()
-	boost.x = floor_v.x
+	boost.x = floor_v.x * mult
 	boost.y = -floor_v.y if floor_v.y > 0 else 0
 	return boost
 
