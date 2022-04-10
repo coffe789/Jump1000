@@ -325,7 +325,7 @@ func _update_wall_direction():
 func _check_is_valid_wall(raycast):
 	if raycast.is_colliding():
 		var object = raycast.get_collider()
-		if object is PhysicsBody2D or object is PaddedTileMap:
+		if object is PhysicsBody2D or object is PaddedTileMap or object is TileProxy:
 			# Check if we're on a slope
 			var dot = acos(Vector2.UP.dot(raycast.get_collision_normal()))
 			# If the slope is 60 degrees either way (flipping direction changes the angle, so we need two checks)

@@ -128,27 +128,22 @@ func _on_CoyoteTimer_timeout():
 
 
 var crouch_body_count = 0
-func _on_UncrouchCheck_body_entered(body):
-	if body is PhysicsBody2D || body is TileMap:
+func _on_FullBody_body_area_entered(detected):
+	if detected is PhysicsBody2D || detected is TileMap || detected is TileProxy:
 		can_unduck = false
 		crouch_body_count += 1
+	elif detected.is_in_group("room") and current_area:
+		current_area.do_room_transition(detected)
 
 
-func _on_UncrouchCheck_body_exited(body):
-	if body is PhysicsBody2D || body is TileMap:
+func _on_FullBody_body_area_exited(detected):
+	print(detected is TileProxy)
+	if detected is PhysicsBody2D || detected is TileMap || detected is TileProxy:
 		crouch_body_count -= 1
 		if crouch_body_count == 0:
 			can_unduck = true
 
 
-func _on_RoomDetection_area_entered(maybe_room):
-	if maybe_room.is_in_group("room") and current_area:
-		current_area.do_room_transition(maybe_room)
-
-
-func _on_BodyArea_area_entered(_area):
-	pass
-
-
 func _on_HurtBox_damage_received(amount, properties, damage_source):
 	$SM.current_state.take_damage_logic(amount, properties, damage_source)
+
