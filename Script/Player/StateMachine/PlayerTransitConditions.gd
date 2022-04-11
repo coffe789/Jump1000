@@ -26,7 +26,7 @@ func is_on_ledge():
 	return root_state.get_ledge_behaviour() != Globals.LEDGE_EXIT\
 		&& Target.velocity.y > 0 && !is_let_go()
 func is_ledge_exit():
-	return root_state.get_ledge_behaviour() == Globals.LEDGE_EXIT || is_let_go()
+	return (!is_ledge_rest() && !is_ledge_rise()) || is_let_go()
 func is_ledge_rest():
 	return (root_state._check_is_valid_wall(Target.ledge_cast_bottom) || root_state._check_is_valid_wall(Target.ledge_cast_mid)) && !root_state._check_is_valid_wall(Target.ledge_cast_top) && !is_let_go()
 func is_ledge_fall():

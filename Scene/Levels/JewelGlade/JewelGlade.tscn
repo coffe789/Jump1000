@@ -768,7 +768,7 @@ tile_data = PoolIntArray( 262144, 9, 0, 393208, 9, 0, 393209, 8, 0, 393210, 8, 0
 
 [node name="BoostPlatform" parent="RealLevelArea/Room3/ResetableNodes/Entities" index="0" instance=ExtResource( 30 )]
 position = Vector2( -88, 48 )
-width = 6
+dir = 5
 
 [node name="CollisionShape2D" parent="RealLevelArea/Room3" index="5"]
 shape = SubResource( 130 )

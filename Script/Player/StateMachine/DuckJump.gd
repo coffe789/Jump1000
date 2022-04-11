@@ -11,7 +11,8 @@ func _enter():
 	._enter()
 	DuckModule.enter()
 	play_jump_audio()
-	Target.velocity.y = -JUMP_SPEED - Target.get_floor_velocity().y
+	Target.velocity.y = -JUMP_SPEED
+	Target.velocity += get_boost()
 	emit_jump_particles()
 
 func _update(delta):
