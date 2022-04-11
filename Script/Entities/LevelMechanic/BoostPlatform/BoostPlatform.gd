@@ -2,7 +2,8 @@ tool
 extends KinematicBody2D
 enum Directions{
 	U,D,R,L,
-	UL,UR,DR,DL
+	UL,UR,DR,DL,
+	NEUTRAL
 }
 enum { # Matches the tileset IDs
 	STUMP,
@@ -12,6 +13,7 @@ enum { # Matches the tileset IDs
 
 export var width = 4 setget set_width
 export(Directions) var dir setget set_direction
+export var is_debug = false
 var init_velocity = Vector2()
 var velocity = Vector2.ZERO
 
@@ -37,7 +39,8 @@ func _ready():
 
 func _physics_process(delta):
 	if !Engine.editor_hint:
-		$SM.update(delta)
+		if !(is_debug && Input.is_action_pressed("down")):
+			$SM.update(delta)
 
 func set_width(value):
 	if Engine.editor_hint:

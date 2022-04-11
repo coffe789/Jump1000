@@ -10,6 +10,7 @@ func _enter():
 	Target.get_node("TileMap").material.set("shader_param/is_active",true)
 	Target.get_node("DustCloud").emitting = true
 	Target.get_node("DustCloud2").emitting = true
+	Target.get_node("AnimationPlayer").play("activate")
 
 func _exit():
 	Target.get_node("TileMap").material.set("shader_param/is_active",false)
@@ -17,3 +18,4 @@ func _exit():
 func _update(_delta):
 	if timer.time_left == 0:
 		SM.change_state(SM.get_node("RootState/Active"))
+	print(Target.get_node("AnimationPlayer").is_playing())
