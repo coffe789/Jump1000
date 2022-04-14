@@ -15,8 +15,6 @@ func _exit():
 
 # Not inherited
 func _update(delta):
-	do_attack()
-	start_coyote_time()
-	do_gravity(delta, MAX_FALL_SPEED, GRAVITY)
-	Target.velocity = Target.move_and_slide(Target.velocity,UP_DIRECTION)
+	._update(delta)
 	do_normal_x_movement(delta, DUCK_FLOOR_DRAG, 0)
+	Target.velocity = Target.move_and_slide(Target.velocity,UP_DIRECTION)

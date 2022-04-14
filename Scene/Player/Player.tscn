@@ -678,6 +678,11 @@ __meta__ = {
 "_editor_description_": "For when you press down to let go of a ledgeret"
 }
 
+[node name="BoostTimer" type="Timer" parent="Timers"]
+__meta__ = {
+"_editor_description_": "Platform boost leniency"
+}
+
 [node name="Cape" type="Node2D" parent="."]
 light_mask = 0
 position = Vector2( 0, -13 )
@@ -732,3 +737,4 @@ shadow_filter_smooth = 8.6
 [connection signal="timeout" from="Timers/BufferedJumpTimer" to="." method="_on_BufferedJumpTimer_timeout"]
 [connection signal="timeout" from="Timers/AttackLengthTimer" to="SM" method="_on_AttackLengthTimer_timeout"]
 [connection signal="timeout" from="Timers/TwirlTimer" to="SM" method="_on_TwirlTimer_timeout"]
+[connection signal="timeout" from="Timers/BoostTimer" to="SM" method="_on_BoostTimer_timeout"]

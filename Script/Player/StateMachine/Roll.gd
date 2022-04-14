@@ -13,6 +13,7 @@ func _enter():
 
 func _update(delta):
 	._update(delta)
+	do_normal_x_movement(delta,FLOOR_DRAG, ACCELERATE_WALK)
 	Target.velocity = Target.move_and_slide(Target.velocity,UP_DIRECTION)
 	
 	if (Target.Timers.get_node("RollTimer").time_left == 0 

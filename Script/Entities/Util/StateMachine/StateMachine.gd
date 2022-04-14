@@ -79,7 +79,7 @@ func try_transition():
 		if t.condition_func.call_func():
 			if change_state(t.target_state,t.allow_reenter):
 				last_transition = t.id
-				print(t.id)
+#				print(t.id)
 			return
 
 # Periodically called by the owner/target of the machine,

@@ -14,10 +14,11 @@ enum { # Matches the tileset IDs
 export var width = 4 setget set_width
 export(Directions) var dir setget set_direction
 export var is_debug = false
-var init_velocity = Vector2()
+var init_velocity
 var velocity = Vector2.ZERO
 
 func set_init_velocity():
+	init_velocity = Vector2()
 	var y_axis_speed = 2.7
 	var x_axis_speed = 1
 	match dir: # vertical velocity
@@ -35,7 +36,6 @@ func _ready():
 	if !Engine.editor_hint:
 		$SM.target = self
 		yield(self,"ready")
-		set_init_velocity()
 
 func _physics_process(delta):
 	if !Engine.editor_hint:
@@ -67,10 +67,18 @@ func place_tiles():
 	$TileMap/Arrow2.position.x = width * 12 - 6
 	$DustCloud2.position.x = width * 12 - 6
 
+func a(value):
+	dir = value
+	set_init_velocity()
+	if $TileMap/Arrow1:
+		$TileMap/Arrow1.frame = dir
+		$TileMap/Arrow2.frame = dir
+
 func set_direction(value):
 	if !Engine.editor_hint:
 		yield(self,"ready")
 	dir = value
+	set_init_velocity()
 	if $TileMap/Arrow1:
 		$TileMap/Arrow1.frame = dir
 		$TileMap/Arrow2.frame = dir

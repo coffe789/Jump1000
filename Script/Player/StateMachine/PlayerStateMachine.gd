@@ -7,6 +7,8 @@ var is_ducking = false
 var is_attacking = false
 var is_clinging = false
 
+var last_ground_velocity = Vector2(0,0) # Used for platform boost leniency
+
 func _ready():
 	self.connect("before_updated",self, "on_before_update")
 	self.connect("updated",self,"on_update")
@@ -25,7 +27,7 @@ func on_update():
 
 func on_change_state(_old,_new):
 	current_state.set_cape_acceleration()
-	print(_old.name+"->"+_new.name)
+	#print(_old.name+"->"+_new.name)
 
 
 func _on_AttackLengthTimer_timeout():
@@ -35,3 +37,7 @@ func _on_AttackLengthTimer_timeout():
 
 func _on_TwirlTimer_timeout():
 	is_twirling = false
+
+
+func _on_BoostTimer_timeout():
+	last_ground_velocity = Vector2(0,0)

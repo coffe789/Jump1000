@@ -20,7 +20,7 @@ const JUMP_SPEED = 220
 const MAX_FALL_SPEED = 250
 const UP_DIRECTION = Vector2(0,-1)
 const JUMP_BUFFER_DURATION = 0.13
-const COYOTE_TIME = 0.065
+const COYOTE_TIME = 0.07
 const AFTER_JUMP_SLOWDOWN_FACTOR = 2
 const WALL_GRAVITY_FACTOR = 0.075
 const WALLJUMP_X_SPEED_MULTIPLIER = 1.35
@@ -237,6 +237,13 @@ func do_normal_x_movement(delta, friction_constant, walk_acceleration):
 func do_gravity(delta, max_fall_speed, fall_acceleration):
 	Target.velocity.y = approach(Target.velocity.y, max_fall_speed, delta * fall_acceleration)
 
+
+# Used for boosting off moving platforms
+func record_floor_velocity(floor_vel):
+	var vel = floor_vel
+	if vel != Vector2(0,0):
+		SM.last_ground_velocity = vel
+		Target.get_node("Timers/BoostTimer").start(0.3)
 
 # Have a number approach another with a defined increment
 func approach(to_change, maximum, change_by):

@@ -18,4 +18,3 @@ func _exit():
 func _update(_delta):
 	if timer.time_left == 0:
 		SM.change_state(SM.get_node("RootState/Active"))
-	print(Target.get_node("AnimationPlayer").is_playing())

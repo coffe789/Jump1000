@@ -4,13 +4,14 @@ func start_coyote_time():
 	Target.canCoyoteJump = true
 	Target.Timers.get_node("CoyoteTimer").start(COYOTE_TIME)
 
-
 # Only duck doesn't inherit
 func _update(delta):
 	do_attack()
 	start_coyote_time()
+	record_floor_velocity(Target.get_floor_velocity())
+
 	do_gravity(delta, MAX_FALL_SPEED, GRAVITY)
-	do_normal_x_movement(delta,FLOOR_DRAG, ACCELERATE_WALK)
+	
 
 
 func _choose_substate():

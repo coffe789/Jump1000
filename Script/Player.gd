@@ -137,7 +137,6 @@ func _on_FullBody_body_area_entered(detected):
 
 
 func _on_FullBody_body_area_exited(detected):
-	print(detected is TileProxy)
 	if detected is PhysicsBody2D || detected is TileMap || detected is TileProxy:
 		crouch_body_count -= 1
 		if crouch_body_count == 0:

@@ -504,7 +504,7 @@ vframes = 3
 region_rect = Rect2( 0, 0, 6, 6 )
 
 [node name="TileProxy" type="Area2D" parent="."]
-collision_mask = 2
+collision_mask = 34
 script = ExtResource( 11 )
 __meta__ = {
 "_editor_description_": "Is a separate body so it's on a collision layer such that you can stand on it, but not walljump and such on it"
@@ -562,3 +562,6 @@ process_material = SubResource( 24 )
 anims/RESET = SubResource( 25 )
 anims/activate = SubResource( 27 )
 anims/idle = SubResource( 26 )
+
+[connection signal="area_entered" from="TileProxy" to="SM/RootState/Active" method="_on_TileProxy_area_entered"]
+[connection signal="area_exited" from="TileProxy" to="SM/RootState/Active" method="_on_TileProxy_area_exited"]
