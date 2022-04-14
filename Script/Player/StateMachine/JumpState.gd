@@ -28,7 +28,7 @@ func _enter():
 
 
 func _update(delta):
-	record_floor_velocity(Target.get_floor_velocity())
+	record_floor_velocity()
 	set_dash_direction()
 	do_attack()
 	check_if_finish_jump()
@@ -49,9 +49,10 @@ func emit_jump_particles(is_walljump=false):
 	Target.get_node("Particles/JumpCloud").emitting = false
 
 func get_boost():
+	record_floor_velocity()
 	var mult = 0.5
 	var boost = Vector2.ZERO
-	var floor_v = Target.get_floor_velocity() #WIP
+	var floor_v = Target.get_floor_velocity() # if frame perfect this fails TODO
 	#boost.y = -floor_v.y if floor_v.y > 0 else 0
 	if floor_v.y == 0 && SM.last_ground_velocity.y < 0:
 		boost.y = SM.last_ground_velocity.y * 3/5

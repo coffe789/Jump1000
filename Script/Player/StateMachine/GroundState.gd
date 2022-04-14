@@ -8,7 +8,7 @@ func start_coyote_time():
 func _update(delta):
 	do_attack()
 	start_coyote_time()
-	record_floor_velocity(Target.get_floor_velocity())
+	record_floor_velocity()
 
 	do_gravity(delta, MAX_FALL_SPEED, GRAVITY)
 	

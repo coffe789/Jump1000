@@ -239,10 +239,24 @@ func do_gravity(delta, max_fall_speed, fall_acceleration):
 
 
 # Used for boosting off moving platforms
-func record_floor_velocity(floor_vel):
-	var vel = floor_vel
-	if vel != Vector2(0,0):
+func record_floor_velocity():
+	var col = Target.move_and_collide(Vector2(0,2),true,true,true)
+	var vel = Vector2(0,0)
+	if col:
+		vel = col.collider_velocity
+	if vel != Vector2(0,0) && col.normal.y < 0:
 		SM.last_ground_velocity = vel
+		Target.get_node("Timers/BoostTimer").start(0.3)
+
+# Used for boosting off moving platforms
+func record_wall_velocity(dir):
+	var col = Target.move_and_collide(Vector2(dir*4,0),true,true,true)
+	var vel = Vector2(0,0)
+	if col:
+		vel = col.collider_velocity
+	if vel != Vector2(0,0) && col.normal.y == 0 && vel.y < 0:
+		SM.last_wall_velocity.x = vel.x
+		SM.last_wall_velocity.y = vel.y * 0.35
 		Target.get_node("Timers/BoostTimer").start(0.3)
 
 # Have a number approach another with a defined increment

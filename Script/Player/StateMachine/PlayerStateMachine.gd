@@ -8,6 +8,7 @@ var is_attacking = false
 var is_clinging = false
 
 var last_ground_velocity = Vector2(0,0) # Used for platform boost leniency
+var last_wall_velocity = Vector2(0,0)
 
 func _ready():
 	self.connect("before_updated",self, "on_before_update")
@@ -41,3 +42,4 @@ func _on_TwirlTimer_timeout():
 
 func _on_BoostTimer_timeout():
 	last_ground_velocity = Vector2(0,0)
+	last_wall_velocity = Vector2(0,0)

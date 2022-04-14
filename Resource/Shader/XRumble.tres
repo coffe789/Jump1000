@@ -11,5 +11,6 @@ void vertex(){
 }"
 
 [resource]
+resource_local_to_scene = true
 shader = SubResource( 22 )
 shader_param/is_active = false

@@ -261,7 +261,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Color( 0.780392, 0.317647, 0.839216, 1 ) ]
+"values": [ Color( 0.94902, 0.529412, 1, 1 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("TileMap/Arrow2:modulate")
@@ -273,7 +273,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Color( 0.780392, 0.317647, 0.839216, 1 ) ]
+"values": [ Color( 0.94902, 0.529412, 1, 1 ) ]
 }
 tracks/2/type = "bezier"
 tracks/2/path = NodePath("TileMap/Arrow1:modulate:r")
@@ -365,7 +365,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"points": PoolRealArray( 0.964706, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"points": PoolRealArray( 0.94902, -0.25, 0, 0.25, 0, 0.72549, -0.25, 0, 0.25, 0 ),
 "times": PoolRealArray( 0, 0.5 )
 }
 tracks/1/type = "bezier"
@@ -375,7 +375,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"points": PoolRealArray( 0.698039, -0.25, 0, 0.25, 0, 0.878431, -0.25, 0, 0.25, 0 ),
+"points": PoolRealArray( 0.529412, -0.25, 0, 0.25, 0, 0.145098, -0.25, 0, 0.25, 0 ),
 "times": PoolRealArray( 0, 0.5 )
 }
 tracks/2/type = "bezier"
@@ -385,7 +385,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 0.776471, -0.25, 0, 0.25, 0 ),
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 0.796078, -0.25, 0, 0.25, 0 ),
 "times": PoolRealArray( 0, 0.5 )
 }
 tracks/3/type = "bezier"
@@ -405,7 +405,7 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"points": PoolRealArray( 0.964706, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"points": PoolRealArray( 0.94902, -0.25, 0, 0.25, 0, 0.72549, -0.25, 0, 0.25, 0 ),
 "times": PoolRealArray( 0, 0.5 )
 }
 tracks/5/type = "bezier"
@@ -415,7 +415,7 @@ tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
-"points": PoolRealArray( 0.698039, -0.25, 0, 0.25, 0, 0.878431, -0.25, 0, 0.25, 0 ),
+"points": PoolRealArray( 0.529412, -0.25, 0, 0.25, 0, 0.145098, -0.25, 0, 0.25, 0 ),
 "times": PoolRealArray( 0, 0.5 )
 }
 tracks/6/type = "bezier"
@@ -425,7 +425,7 @@ tracks/6/loop_wrap = true
 tracks/6/imported = false
 tracks/6/enabled = true
 tracks/6/keys = {
-"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 0.776471, -0.25, 0, 0.25, 0 ),
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 0.796078, -0.25, 0, 0.25, 0 ),
 "times": PoolRealArray( 0, 0.5 )
 }
 tracks/7/type = "bezier"
@@ -448,10 +448,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0.2 ),
+"times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Color( 0.780392, 0.317647, 0.839216, 1 ) ]
+"values": [ Color( 0.94902, 0.529412, 1, 1 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("TileMap/Arrow2:modulate")
@@ -460,10 +460,10 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0.2 ),
+"times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Color( 0.780392, 0.317647, 0.839216, 1 ) ]
+"values": [ Color( 0.94902, 0.529412, 1, 1 ) ]
 }
 
 [node name="BoostPlatform" type="KinematicBody2D"]

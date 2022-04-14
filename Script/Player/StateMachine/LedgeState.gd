@@ -39,6 +39,7 @@ func _enter():
 
 func _update(_delta):
 	report_ledge_collision()
+	record_wall_velocity(Target.facing)
 	if Input.is_action_just_pressed("down"):
 		Target.get_node("Timers/LetGoTimer").start(LET_GO_TIME)
 
