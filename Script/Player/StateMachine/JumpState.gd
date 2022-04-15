@@ -53,12 +53,12 @@ func get_boost():
 	var mult = 0.5
 	var boost = Vector2.ZERO
 	var floor_v = Target.get_floor_velocity() # if frame perfect this fails TODO
-	#boost.y = -floor_v.y if floor_v.y > 0 else 0
 	if floor_v.y == 0 && SM.last_ground_velocity.y < 0:
 		boost.y = SM.last_ground_velocity.y * 3/5
 	elif floor_v.y > 0:
 		boost.y = -SM.last_ground_velocity.y
 	else:
 		boost.y = -SM.last_ground_velocity.y * 2/5
+	boost.x = SM.last_ground_velocity.x * 3/5
 	return boost
 

@@ -588,7 +588,6 @@ position = Vector2( 0, -8 )
 texture = ExtResource( 6 )
 hframes = 10
 vframes = 7
-frame = 5
 
 [node name="Audio" type="Node" parent="."]
 pause_mode = 2
@@ -689,10 +688,10 @@ light_mask = 0
 position = Vector2( 0, -13 )
 
 [node name="CapeL" type="Position2D" parent="Cape"]
-position = Vector2( -4, 6 )
+position = Vector2( -4, 4 )
 
 [node name="CapeR" type="Position2D" parent="Cape"]
-position = Vector2( 4, 6 )
+position = Vector2( 4, 4 )
 
 [node name="Particles" type="Node2D" parent="."]
 

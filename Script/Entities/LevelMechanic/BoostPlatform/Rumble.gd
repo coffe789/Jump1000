@@ -6,7 +6,7 @@ func _on_activate():
 	timer = SM.get_node("Timer")
 
 func _enter():
-	timer.start(0.5)
+	timer.start(0.3)
 	Target.get_node("TileMap").material.set("shader_param/is_active",true)
 	Target.get_node("DustCloud").emitting = true
 	Target.get_node("DustCloud2").emitting = true

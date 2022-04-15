@@ -30,4 +30,6 @@ func _add_transitions():
 	transitions.append(StateTransition.new(
 		+1,"to_fallstate",SM.get_node("RootState/AirState/FallState"),funcref(conditions_lib,"is_airborne")))
 	transitions.append(StateTransition.new(
+		-0,"to_ledge",SM.get_node("RootState/LedgeState"),funcref(conditions_lib,"is_on_ledge")))
+	transitions.append(StateTransition.new(
 		-1,"to_ground",SM.get_node("RootState/GroundState"),funcref(conditions_lib,"is_grounded")))

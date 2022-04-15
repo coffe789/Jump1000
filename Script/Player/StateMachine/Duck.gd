@@ -13,7 +13,6 @@ func _enter():
 func _exit():
 	DuckModule.exit()
 
-# Not inherited
 func _update(delta):
 	._update(delta)
 	do_normal_x_movement(delta, DUCK_FLOOR_DRAG, 0)

@@ -44,6 +44,12 @@ func _input(event):
 				select_node(selected_room.get_node("BGDecal"))
 			if event.as_text() == "Alt+4":
 				select_node(selected_room.get_node("FGDecal"))
+			
+			if event.as_text() == "Control+P": # Move player to cursor
+				var p = get_tree().get_nodes_in_group("player").pop_back()
+				if p:
+					var mousepos = p.get_viewport().get_mouse_position()
+					p.global_position = Vector2(round(mousepos.x/6) * 6, round(mousepos.y/6) * 6) # snap to grid
 
 func extent2rect(room):
 	var extent = room.get_node("CollisionShape2D").shape.extents
