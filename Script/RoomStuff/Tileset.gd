@@ -6,6 +6,7 @@ var binds = {
 	1 : [],		# Mud
 	2 : [1],	# Verti wood 
 	3 : [1],	# Tree wood
+	4 : [1],	# Stone
 }
 
 func _is_tile_bound(drawn_id, neighbor_id):
