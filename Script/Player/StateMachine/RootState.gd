@@ -205,7 +205,7 @@ func set_ledge_ray_direction():
 	Target.ledge_cast_mid.scale.x = -Target.facing
 	Target.ledge_cast_top.scale.x = -Target.facing
 	Target.ledge_cast_lenient.scale.x = -Target.facing
-	Target.ledge_cast_height_search.position.x = Target.facing * 11
+	Target.ledge_cast_height_search.position.x = Target.facing * 10.5
 	
 	Target.left_wall_raycast.scale.x = -Target.facing
 	Target.right_wall_raycast.scale.x = -Target.facing

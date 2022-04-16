@@ -1,5 +1,6 @@
 extends "res://Script/Player/StateMachine/LedgeState.gd"
 
+
 func _update(delta):
 	._update(delta)
 	Target.velocity.x += 4 * Target.facing
