@@ -1,5 +1,7 @@
 extends StateMachine
 
+var casts
+
 var is_dashing = false
 var is_spinning = false
 var is_twirling = false # twirl attack
@@ -11,9 +13,21 @@ var last_ground_velocity = Vector2(0,0) # Used for platform boost leniency
 var last_wall_velocity = Vector2(0,0)
 
 func _ready():
+	self.connect("activated",self,"on_activated")
 	self.connect("before_updated",self, "on_before_update")
 	self.connect("updated",self,"on_update")
 	self.connect("changed_state",self, "on_change_state")
+
+func on_activated():
+	casts = [target.left_wall_raycast,
+	target.right_wall_raycast,
+	target.left_wall_raycast2,
+	target.right_wall_raycast2,
+	target.ledge_cast_lenient,
+	target.ledge_cast_top,
+	target.ledge_cast_mid,
+	target.ledge_cast_bottom,
+	target.ledge_cast_height_search]
 
 func on_before_update():
 	current_state._check_buffered_inputs()
@@ -25,11 +39,15 @@ func on_update():
 	current_state.set_player_sprite_direction()
 	current_state.set_attack_direction()
 	current_state.set_ledge_ray_direction()
+	
+	for c in casts:
+		c.force_raycast_update()
+	
+
 
 func on_change_state(_old,_new):
 	current_state.set_cape_acceleration()
-	#print(_old.name+"->"+_new.name)
-
+#	print(_old.name+"->"+_new.name)
 
 func _on_AttackLengthTimer_timeout():
 	is_attacking = false

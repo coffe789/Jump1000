@@ -803,6 +803,9 @@ unfocus_color = Color( 0, 0.141176, 0.145098, 0.631373 )
 active_border_color = Color( 0.8, 0.752941, 0.615686, 0.8 )
 inactive_border_color = Color( 0.760784, 0.717647, 0.603922, 0.301961 )
 
+[node name="KingPongus" parent="." instance=ExtResource( 12 )]
+position = Vector2( 1152, -48 )
+
 [editable path="RealLevelArea"]
 [editable path="RealLevelArea/Room"]
 [editable path="RealLevelArea/Room/ResetableNodes/Entities/ForestDanger"]

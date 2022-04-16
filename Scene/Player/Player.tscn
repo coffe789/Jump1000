@@ -461,25 +461,21 @@ shape = SubResource( 1 )
 
 [node name="RightWallRaycast" type="RayCast2D" parent="CollisionChecks/WallRaycasts"]
 position = Vector2( 0.5, -1 )
-enabled = true
 cast_to = Vector2( 8.25, 0 )
 collide_with_areas = true
 
 [node name="RightWallRaycast2" type="RayCast2D" parent="CollisionChecks/WallRaycasts"]
 position = Vector2( 0.5, -5 )
-enabled = true
 cast_to = Vector2( 8.25, 0 )
 collide_with_areas = true
 
 [node name="LeftWallRaycast" type="RayCast2D" parent="CollisionChecks/WallRaycasts"]
 position = Vector2( 0.5, -1 )
-enabled = true
 cast_to = Vector2( -6.25, 0 )
 collide_with_areas = true
 
 [node name="LeftWallRaycast2" type="RayCast2D" parent="CollisionChecks/WallRaycasts"]
 position = Vector2( 0.5, -5 )
-enabled = true
 cast_to = Vector2( -6.25, 0 )
 collide_with_areas = true
 
@@ -487,31 +483,26 @@ collide_with_areas = true
 
 [node name="LedgeRayLenient" type="RayCast2D" parent="CollisionChecks/LedgeRaycasts"]
 position = Vector2( 0, -19 )
-enabled = true
 cast_to = Vector2( -10.5, 0 )
 collide_with_areas = true
 
 [node name="LedgeRayHeightSearch" type="RayCast2D" parent="CollisionChecks/LedgeRaycasts"]
 position = Vector2( -10.5, -19 )
-enabled = true
 cast_to = Vector2( 0, 17 )
 collide_with_areas = true
 
 [node name="LedgeRayTop" type="RayCast2D" parent="CollisionChecks/LedgeRaycasts"]
 position = Vector2( 0.5, -12 )
-enabled = true
 cast_to = Vector2( -10.5, 0 )
 collide_with_areas = true
 
 [node name="LedgeRayMid" type="RayCast2D" parent="CollisionChecks/LedgeRaycasts"]
 position = Vector2( 0.5, -5 )
-enabled = true
 cast_to = Vector2( -10.5, 0 )
 collide_with_areas = true
 
 [node name="LedgeRayBottom" type="RayCast2D" parent="CollisionChecks/LedgeRaycasts"]
 position = Vector2( 0.5, 0 )
-enabled = true
 cast_to = Vector2( -10.5, 0 )
 collide_with_areas = true
 

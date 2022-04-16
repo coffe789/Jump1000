@@ -37,7 +37,6 @@ func initialise_states(root):
 			child.conditions_lib = $TransitConditions
 			child._add_transitions()
 			child._blacklist_transitions()
-#			child.inherit_transitions()
 			child.sort_transitions()
 			child._on_activate()
 			initialise_states(child) # Recurse
@@ -88,8 +87,8 @@ func update(delta):
 	if current_state.is_leaf():
 		emit_signal("before_updated")
 		current_state._update(delta)
-		try_transition()
 		emit_signal("updated")
+		try_transition()
 	else:
 		change_state(current_state._choose_substate())
 		update(delta)
