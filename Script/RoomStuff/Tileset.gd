@@ -5,7 +5,7 @@ var binds = {
 	0 : [],		# Nothing
 	1 : [],		# Mud
 	2 : [1],	# Verti wood 
-	3 : [1],	# Tree wood
+	3 : [1,4],	# Tree wood
 	4 : [1],	# Stone
 }
 
