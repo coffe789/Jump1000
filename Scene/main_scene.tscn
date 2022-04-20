@@ -8,9 +8,6 @@
 margin_right = 384.0
 margin_bottom = 216.0
 rect_scale = Vector2( 4, 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Viewport" type="Viewport" parent="ViewportContainer"]
 size = Vector2( 384, 216 )
