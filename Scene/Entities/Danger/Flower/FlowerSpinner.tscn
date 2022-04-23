@@ -20,6 +20,9 @@ light_mask = 0
 texture = ExtResource( 2 )
 hframes = 5
 vframes = 5
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="OutlineSprite" type="Sprite" parent="."]
 light_mask = 0
@@ -27,6 +30,12 @@ z_index = -1
 texture = ExtResource( 1 )
 hframes = 5
 vframes = 5
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}

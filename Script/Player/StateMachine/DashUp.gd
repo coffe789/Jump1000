@@ -9,3 +9,7 @@ func _ready():
 func _enter():
 	._enter()
 	Target.velocity.y = -DASH_SPEED_Y
+
+func _update(delta):
+	Target.velocity.y = approach(Target.velocity.y, -DASH_SPEED_Y, GRAVITY)
+	._update(delta)
