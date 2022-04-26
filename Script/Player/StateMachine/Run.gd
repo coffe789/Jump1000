@@ -6,4 +6,4 @@ func _enter():
 func _update(delta):
 	._update(delta)
 	do_normal_x_movement(delta,FLOOR_DRAG, ACCELERATE_WALK)
-	Target.velocity = Target.move_and_slide_with_snap(Target.velocity,Vector2(0,2),UP_DIRECTION)
+	apply_velocity()

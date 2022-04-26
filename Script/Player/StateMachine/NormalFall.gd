@@ -11,4 +11,4 @@ func _update(delta):
 	else:
 		do_gravity(delta, MAX_FALL_SPEED, GRAVITY)
 	set_dash_target()
-	Target.velocity = Target.move_and_slide(Target.velocity,UP_DIRECTION)
+	apply_velocity()

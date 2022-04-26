@@ -12,7 +12,7 @@ func _update(delta):
 	do_attack()
 	do_gravity(delta, MAX_FALL_SPEED, GRAVITY)
 	do_normal_x_movement(delta,AIR_DRAG, ACCELERATE_WALK * WALLJUMP_SLOWDOWN_MULTIPLIER)
-	Target.velocity = Target.move_and_slide(Target.velocity, UP_DIRECTION)
+	apply_velocity()
 
 func _exit():
 	Target.allow_dash_target = false

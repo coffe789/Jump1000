@@ -25,7 +25,6 @@ func _add_transitions():
 		true))
 	transitions.append(StateTransition.new(
 		+1,"to_groundedjump",SM.get_node("RootState/AirState/JumpState"),funcref(conditions_lib,"is_grounded_jump")))
-		
 	transitions.append(StateTransition.new(
 		0,"to_ground",SM.get_node("RootState/GroundState"),funcref(conditions_lib,"is_grounded")))
 	transitions.append(StateTransition.new(

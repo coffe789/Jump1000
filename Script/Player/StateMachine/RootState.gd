@@ -224,6 +224,19 @@ func get_input_direction():
 		x -= 1
 	return x
 
+# Move and slide wrapper
+func apply_velocity(fix_collision=false):
+	if !fix_collision:
+		Target.velocity = Target.move_and_slide(Target.velocity,UP_DIRECTION)
+	else:
+		# Manually disable collision bug when jumping toward ledge when against it
+		var Y_before = Target.velocity.y
+		Target.velocity = Target.move_and_slide(Target.velocity,UP_DIRECTION)
+		if Target.velocity.y == 0:
+			for i in Target.get_slide_count():
+				if Target.get_slide_collision(i).normal == Vector2(0,-1):
+					Target.velocity.y = Y_before
+
 
 func do_normal_x_movement(delta, friction_constant, walk_acceleration):
 	if (abs(Target.velocity.x)>MAX_X_SPEED && sign(Target.velocity.x) == get_input_direction()): #going too fast

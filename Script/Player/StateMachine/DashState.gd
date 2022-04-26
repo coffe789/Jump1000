@@ -32,7 +32,7 @@ func _enter():
 
 func _update(delta):
 	Target.velocity.x = approach(Target.velocity.x, Target.facing * DASH_SPEED_X, GRAVITY)
-	Target.velocity = Target.move_and_slide(Target.velocity,UP_DIRECTION)
+	apply_velocity()
 	do_normal_x_movement(delta, 0, ACCELERATE_WALK/4)
 
 

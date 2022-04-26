@@ -14,3 +14,4 @@ func _enter():
 func _update(delta):
 	._update(delta)
 	set_dash_target()
+	apply_velocity(true)

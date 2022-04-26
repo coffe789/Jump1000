@@ -16,4 +16,4 @@ func _exit():
 func _update(delta):
 	._update(delta)
 	do_normal_x_movement(delta, DUCK_FLOOR_DRAG, 0)
-	Target.velocity = Target.move_and_slide(Target.velocity,UP_DIRECTION)
+	apply_velocity()

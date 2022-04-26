@@ -17,7 +17,7 @@ func _enter():
 
 func _update(delta):
 	._update(delta)
-	Target.velocity = Target.move_and_slide(Target.velocity,UP_DIRECTION)
+	apply_velocity(true)
 
 func _exit():
 	DuckModule.exit()

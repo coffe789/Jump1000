@@ -62,3 +62,5 @@ func get_boost():
 	boost.x = SM.last_ground_velocity.x * 3/5
 	return boost
 
+func _blacklist_transitions():
+	remove_transition("to_ground")

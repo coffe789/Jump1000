@@ -14,5 +14,5 @@ func _update(delta):
 		Target.velocity = Target.move_and_slide(Target.velocity, UP_DIRECTION)
 	else:
 		do_gravity(delta, MAX_FALL_SPEED, GRAVITY)
-		Target.velocity = Target.move_and_slide(Target.velocity, UP_DIRECTION)
+		apply_velocity(true)
 
