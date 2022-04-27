@@ -13,6 +13,7 @@ var rec_left
 var rec_top
 var rec_right
 var rec_bottom
+var rec_above
 
 export var border_width = 3
 export var unfocus_color = Color(0.2,0.2,0.4,0.8)
@@ -48,6 +49,7 @@ func _draw():
 			draw_rect(rec_right, unfocus_color)
 			draw_rect(rec_bottom, unfocus_color)
 			draw_rect(rec_top, unfocus_color)
+			draw_rect(rec_above, inactive_border_color)
 			draw_rect(extent2rect(selected_room), active_border_color, false, border_width)
 		
 		for room in get_tree().get_nodes_in_group("editor_room"):
@@ -61,6 +63,8 @@ func set_border_rects():
 	
 	rec_top = Rect2(selected_room.get_node("CollisionShape2D").global_position - Vector2(selected_extents.x, selected_extents.y + VERT_HEIGHT), Vector2(selected_extents.x * 2,VERT_HEIGHT))
 	rec_bottom = Rect2(selected_room.get_node("CollisionShape2D").global_position - Vector2(selected_extents.x, -selected_extents.y), Vector2(selected_extents.x * 2,VERT_HEIGHT))
+	
+	rec_above = Rect2(selected_room.get_node("CollisionShape2D").global_position - Vector2(selected_extents.x, selected_extents.y + selected_room.extra_space_above+6), Vector2(selected_extents.x * 2,selected_room.extra_space_above+6))
 
 
 func extent2rect(room):

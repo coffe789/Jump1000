@@ -11,7 +11,7 @@ var top_y
 var bottom_y
 var margin_x = 1 #(pixels)
 var margin_y = 1
-var extra_space_above = 32
+const extra_space_above = 36
 var cutout_shape = [0,0,0,0]
 var cutout_shape_internal = [0,0,0,0]
 
