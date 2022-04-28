@@ -1,5 +1,6 @@
 tool
 extends TileSet
+const ALL = -2
 
 var binds = {
 	0 : [],		# Nothing
@@ -11,7 +12,7 @@ var binds = {
 
 func _is_tile_bound(drawn_id, neighbor_id):
 	if drawn_id in binds:
-		if -2 in binds[drawn_id] && neighbor_id != -1: # -2 means binds with everything
+		if ALL in binds[drawn_id] && neighbor_id != TileMap.INVALID_CELL: # ALL means binds with everything
 			return true
 		else:
 			return neighbor_id in binds[drawn_id]

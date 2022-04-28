@@ -31,6 +31,7 @@ script = ExtResource( 6 )
 z_index = -200
 tile_set = ExtResource( 5 )
 cell_size = Vector2( 12, 12 )
+centered_textures = true
 format = 1
 script = ExtResource( 6 )
 
