@@ -31,7 +31,8 @@ func _enter():
 
 
 func _update(delta):
-	Target.velocity.x = approach(Target.velocity.x, Target.facing * DASH_SPEED_X, GRAVITY)
+	if not (abs(Target.velocity.x) > abs(DASH_SPEED_X) && Globals.is_same_sign(Target.velocity.x,Target.facing)):
+		Target.velocity.x = approach(Target.velocity.x, Target.facing * DASH_SPEED_X, GRAVITY)
 	apply_velocity()
 	do_normal_x_movement(delta, 0, ACCELERATE_WALK/4)
 

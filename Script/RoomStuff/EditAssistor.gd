@@ -22,7 +22,6 @@ export var inactive_border_color = Color(0.8,0.8,0.9,0.3)
 
 func _init():
 	if Engine.editor_hint:
-		set_process_input(true);
 		var plugin = EditorPlugin.new()
 		edi = plugin.get_editor_interface()
 		plugin.queue_free()

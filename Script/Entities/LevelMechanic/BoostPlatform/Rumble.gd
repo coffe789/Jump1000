@@ -1,12 +1,13 @@
 extends "res://Script/Entities/LevelMechanic/BoostPlatform/RootState.gd"
 onready var XRumble = "res://Resource/Shader/XRumble.tres"
 var timer
+var RUMBLE_TIME = 0.0
 
 func _on_activate():
 	timer = SM.get_node("Timer")
 
 func _enter():
-	timer.start(0.3)
+	timer.start(RUMBLE_TIME)
 	Target.get_node("TileMap").material.set("shader_param/is_active",true)
 	Target.get_node("DustCloud").emitting = true
 	Target.get_node("DustCloud2").emitting = true

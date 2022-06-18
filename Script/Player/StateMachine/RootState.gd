@@ -17,10 +17,10 @@ const DUCK_FLOOR_DRAG = 0.6
 const AIR_DRAG = 0.14 * 1.5
 const MAX_X_SPEED = 100
 const JUMP_SPEED = 220
-const MAX_FALL_SPEED = 220
+const MAX_FALL_SPEED = 200
 const UP_DIRECTION = Vector2(0,-1)
 const JUMP_BUFFER_DURATION = 0.13
-const COYOTE_TIME = 0.07
+const COYOTE_TIME = 0.09
 const AFTER_JUMP_SLOWDOWN_FACTOR = 2
 const WALL_GRAVITY_FACTOR = 0.1
 const WALLJUMP_X_SPEED_MULTIPLIER = 1.35
@@ -36,7 +36,7 @@ const WALLBOUNCE_MULTIPLIER = 1.35
 
 const NO_DASH_TIME = 0.3
 const DASH_TIME = 0.2
-const ROLL_TIME = 0.4
+const ROLL_TIME = 100
 const BUFFERED_DASH_TIME = 0.1
 
 const INVINCIBLE_TIME = 2.5
@@ -325,7 +325,6 @@ func set_player_sprite_direction():
 
 
 func can_wall_jump():
-	# If we're near a valid wall
 	if Target.wall_direction != 0:
 		return true
 	return false

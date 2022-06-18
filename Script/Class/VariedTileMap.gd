@@ -3,7 +3,7 @@
 extends TileMap
 class_name VariedTileMap
 
-export var variations := 3 # X length of autotile region. Not including index zero
+var variations:int # X length of autotile region. Not including index zero
 var random_tiles = PoolVector2Array()
 
 func _ready():

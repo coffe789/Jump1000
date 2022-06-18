@@ -19,8 +19,8 @@ var velocity = Vector2.ZERO
 
 func set_init_velocity():
 	init_velocity = Vector2()
-	var y_axis_speed = 2.7
-	var x_axis_speed = 1
+	var y_axis_speed = 162
+	var x_axis_speed = 60
 	match dir: # vertical velocity
 		Directions.U,Directions.UL,Directions.UR:
 			init_velocity.y = -y_axis_speed

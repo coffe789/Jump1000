@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://Art/Entity/Danger/Spikes/Bramble/bramble_spikes.png" type="Texture" id=1]
 [ext_resource path="res://Script/Entities/Danger/Spikes/Spike.gd" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Script/Entities/Danger/Spikes/SpikeRightBox.gd" type="Script" id=5]
 [ext_resource path="res://Script/Entities/Danger/Spikes/SpikeDownBox.gd" type="Script" id=6]
 [ext_resource path="res://Script/Entities/Danger/Spikes/SpikeLeftBox.gd" type="Script" id=7]
+[ext_resource path="res://Art/Entity/Danger/Spikes/Wooden/wood_spikes.png" type="Texture" id=8]
 
 [sub_resource type="ConvexPolygonShape2D" id=10]
 points = PoolVector2Array( 13, 14, 1, 14, 1, 12, 13, 12 )
@@ -69,6 +70,29 @@ points = PoolVector2Array( 13, 14, 1, 14, 1, 12, 13, 12 )
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 0/z_index = 0
+1/name = "wood_spikes.png 1"
+1/texture = ExtResource( 8 )
+1/tex_offset = Vector2( 0, 0 )
+1/modulate = Color( 1, 1, 1, 1 )
+1/region = Rect2( 15, 15, 68, 12 )
+1/tile_mode = 1
+1/autotile/bitmask_mode = 0
+1/autotile/bitmask_flags = [  ]
+1/autotile/icon_coordinate = Vector2( 0, 0 )
+1/autotile/tile_size = Vector2( 12, 12 )
+1/autotile/spacing = 2
+1/autotile/occluder_map = [  ]
+1/autotile/navpoly_map = [  ]
+1/autotile/priority_map = [  ]
+1/autotile/z_index_map = [  ]
+1/occluder_offset = Vector2( 0, 0 )
+1/navigation_offset = Vector2( 0, 0 )
+1/shape_offset = Vector2( 0, 0 )
+1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+1/shape_one_way = false
+1/shape_one_way_margin = 0.0
+1/shapes = [  ]
+1/z_index = 0
 
 [sub_resource type="TileSet" id=5]
 0/name = "bramble_spikes_outline.png 0"
@@ -373,9 +397,9 @@ centered_textures = true
 collision_use_parent = true
 format = 1
 script = ExtResource( 2 )
-variations = 4
 
 [node name="Outline" type="TileMap" parent="SpikeUpBox/SpikeUp"]
+visible = false
 z_index = -1
 tile_set = SubResource( 5 )
 cell_size = Vector2( 12, 12 )
@@ -396,7 +420,6 @@ centered_textures = true
 collision_use_parent = true
 format = 1
 script = ExtResource( 2 )
-variations = 4
 
 [node name="Outline" type="TileMap" parent="SpikeRightBox/SpikeRight"]
 z_index = -1
@@ -419,7 +442,6 @@ centered_textures = true
 collision_use_parent = true
 format = 1
 script = ExtResource( 2 )
-variations = 4
 
 [node name="Outline" type="TileMap" parent="SpikeDownBox/SpikeDown"]
 z_index = -1
@@ -442,7 +464,6 @@ centered_textures = true
 collision_use_parent = true
 format = 1
 script = ExtResource( 2 )
-variations = 4
 
 [node name="Outline" type="TileMap" parent="SpikeLeftBox/SpikeLeft"]
 z_index = -1

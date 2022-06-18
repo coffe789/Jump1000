@@ -36,7 +36,7 @@ func _enter():
 	SM.is_twirling = false
 	SM.is_clinging = true
 	if sign(Target.velocity.x) != Target.facing:
-		Target.velocity.x = 8 * Target.facing
+		Target.velocity.x = 4 * Target.facing
 	Target.reparent(Target.ledge_cast_height_search.get_collider())
 
 func _update(_delta):

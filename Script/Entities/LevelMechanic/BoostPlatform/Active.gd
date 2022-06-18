@@ -9,14 +9,13 @@ func _enter():
 	is_in_stop_loop
 
 func _update(delta):
-	Target.velocity += Vector2(0,1)/20 * delta *60
-	Target.velocity.y = clamp(Target.velocity.y, -3, 2)
-	Target.position += Target.velocity
+	Target.velocity += Vector2(0,1)/20 * 60 * delta * 60
+	Target.velocity.y = clamp(Target.velocity.y, -180, 120)
+	Target.position += Target.velocity * delta
 	
 	if is_in_stop_loop:
 		if abs(Target.global_position.x - last_stop_pos.x) <= 1\
 			and abs(Target.global_position.y - last_stop_pos.y) <= 1:
-				#Target.global_position = last_stop_pos
 				is_in_stop_loop = false
 				SM.change_state(get_node("../Idle"))
 	
