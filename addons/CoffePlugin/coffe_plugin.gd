@@ -10,8 +10,23 @@ func _ready():
 
 func _process(delta): 
 	change_selected_room()
+	if caps_pressed:
+		var p = get_tree().get_nodes_in_group("player").pop_back()
+		if p:
+			var vp = get_editor_interface().get_editor_viewport()
+			var scale = get_editor_interface().get_editor_scale()
+			var scene_mp = p.get_viewport().get_mouse_position()
+			var edi_vp = vp.get_local_mouse_position()
+			var offset = scene_mp - Vector2(round(scene_mp.x/12) * 12, round(scene_mp.y/12) * 12)
+			print(offset)
+			offset = offset.normalized() * scale
+			if offset.x != 0:
+				offset.x /= abs(offset.x)
+			if offset.y != 0:
+				offset.y /= abs(offset.y)
+			vp.warp_mouse(edi_vp - offset) # snap to grid)
 
-
+var caps_pressed = false
 func _input(event):
 	# Mouse in viewport coordinates
 	if Engine.editor_hint:
@@ -50,6 +65,11 @@ func _input(event):
 				if p:
 					var mousepos = p.get_viewport().get_mouse_position()
 					p.global_position = Vector2(round(mousepos.x/6) * 6, round(mousepos.y/6) * 6) # snap to grid
+		
+		if event.as_text() == "CapsLock" && event.pressed:
+			caps_pressed = true
+		if event.as_text() == "CapsLock" && !event.pressed:
+			caps_pressed = false
 
 func extent2rect(room):
 	var extent = room.get_node("CollisionShape2D").shape.extents

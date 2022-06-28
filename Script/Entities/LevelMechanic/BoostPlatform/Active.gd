@@ -6,7 +6,6 @@ var last_stop_pos
 func _enter():
 	Target.velocity = Target.init_velocity
 	SM.get_node("Timer").start(0.5)
-	is_in_stop_loop
 
 func _update(delta):
 	Target.velocity += Vector2(0,1)/20 * 60 * delta * 60

@@ -5,7 +5,7 @@ var entered_body = false;
 var is_pin = false
 var collision_factor = 0.5 #Read docs for what this does
 var dampen_factor = 0.9
-var fill_color = PoolColorArray([Color(207/255.0,83/255.0,226/255.0)])
+var fill_color = PoolColorArray([Color(211/255.0,158/255.0,19/255.0)])
 var constant_accel = Vector2() #Constantly applied on top of regular acceleration
 
 var drawto = [self]
