@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=2]
+[gd_scene load_steps=87 format=2]
 
 [ext_resource path="res://Scene/Levels/LevelArea.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scene/Levels/Room.tscn" type="PackedScene" id=2]
@@ -30,10 +30,20 @@
 [ext_resource path="res://Scene/Entities/Danger/Spikes.tscn" type="PackedScene" id=28]
 [ext_resource path="res://Scene/Triggers/CameraOffsetTrigger.tscn" type="PackedScene" id=29]
 [ext_resource path="res://Scene/Entities/LevelMechanic/BoostPlatform/BoostPlatform.tscn" type="PackedScene" id=30]
-[ext_resource path="res://Art/Decals/Forest/00-fungus_a.png" type="Texture" id=31]
-[ext_resource path="res://Art/Decals/Forest/00-test.png" type="Texture" id=32]
-[ext_resource path="res://Art/Decals/Forest/00-test_b.png" type="Texture" id=33]
+[ext_resource path="res://Art/Decals/Forest/00-fg-plant_a.png" type="Texture" id=31]
+[ext_resource path="res://Art/Decals/Forest/00-fg-darkbush_down_a.png" type="Texture" id=32]
+[ext_resource path="res://Art/Decals/Forest/00-fg-darkbush_down_c.png" type="Texture" id=33]
 [ext_resource path="res://Art/Decals/Forest/00-test_c.png" type="Texture" id=34]
+[ext_resource path="res://Art/Decals/Forest/00-fg-darkbush_down_b.png" type="Texture" id=35]
+[ext_resource path="res://Art/Decals/Forest/00-fg-vine_drip_a.png" type="Texture" id=36]
+[ext_resource path="res://Art/Decals/Forest/00-fg-vine_hang_c.png" type="Texture" id=37]
+[ext_resource path="res://Art/Decals/Forest/00-fg-vine_hang_a.png" type="Texture" id=38]
+[ext_resource path="res://Art/Decals/Forest/00-fg-vine_drip_d.png" type="Texture" id=39]
+[ext_resource path="res://Scene/Entities/Visual/LightBeam.tscn" type="PackedScene" id=40]
+[ext_resource path="res://Art/Decals/Forest/00-fg-light_bush_a.png" type="Texture" id=41]
+[ext_resource path="res://Art/Decals/Forest/00-branch-b.png" type="Texture" id=42]
+[ext_resource path="res://Art/Decals/Forest/00-branch-c.png" type="Texture" id=43]
+[ext_resource path="res://Art/Temp/berry.png" type="Texture" id=45]
 
 [sub_resource type="Gradient" id=101]
 colors = PoolColorArray( 0, 0, 0.0196078, 1, 0.980392, 1, 1, 1 )
@@ -494,10 +504,10 @@ extents = Vector2( 30.5, 30 )
 tile_data = PoolIntArray( -130976, 3, 524289, -130975, 1, 65538, 96, 3, 65537 )
 
 [node name="PlayerCamera" parent="RealLevelArea" index="2"]
-position = Vector2( 1386, -30 )
+position = Vector2( 1464, 18 )
 
 [node name="Player" parent="RealLevelArea" instance=ExtResource( 3 )]
-position = Vector2( 1386, -30 )
+position = Vector2( 1464, 18 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="RealLevelArea"]
 environment = SubResource( 99 )
@@ -812,10 +822,10 @@ tile_data = PoolIntArray( -786445, 3, 327684, -786444, 3, 327687, -786443, 3, 32
 tile_data = PoolIntArray( -524284, 2, 65542, -393229, 2, 262148, -393228, 2, 327686, -393227, 2, 327688, -393226, 2, 327687, -393225, 2, 262155, -458748, 2, 131079, -327693, 2, 524293, -327692, 2, 0, -327691, 2, 0, -327690, 2, 0, -327689, 2, 458762, -393212, 2, 196615, -262157, 2, 393221, -262156, 2, 0, -262155, 2, 0, -262154, 2, 0, -262153, 2, 458762, -196621, 2, 458757, -196620, 2, 0, -196619, 2, 0, -196618, 2, 0, -196617, 2, 458762, -131085, 2, 589829, -131084, 2, 0, -131083, 2, 0, -131082, 2, 0, -131081, 2, 589834, -65549, 2, 524293, -65548, 2, 0, -65547, 2, 0, -65546, 2, 0, -65545, 2, 524298, -131068, 2, 327685, -131067, 2, 327687, -131066, 2, 327687, -131065, 2, 327689, -131064, 2, 327689, -131063, 2, 327691, -13, 2, 589829, -12, 2, 0, -11, 2, 0, -10, 2, 0, -9, 2, 458762, -5, 0, 65542, -65532, 2, 393221, -65531, 2, 0, -65530, 2, 0, -65529, 2, 0, -65528, 2, 0, -65527, 2, 524298, -65525, 2, 65543, 65523, 2, 458757, 65524, 2, 0, 65525, 2, 0, 65526, 2, 0, 65527, 2, 524298, 65530, 0, 327685, 65531, 0, 262151, 65532, 0, 262154, 4, 2, 458757, 5, 2, 0, 6, 2, 0, 7, 2, 0, 8, 2, 0, 9, 2, 458763, 10, 2, 589826, 11, 2, 720905, 131059, 2, 589829, 131060, 2, 0, 131061, 2, 0, 131062, 2, 0, 131063, 2, 524298, 131066, 0, 393221, 131067, 0, 0, 131068, 0, 262145, 131069, 0, 327690, 65540, 2, 589829, 65541, 2, 0, 65542, 2, 0, 65543, 2, 0, 65544, 2, 0, 65545, 2, 393226, 196595, 2, 720900, 196596, 2, 655366, 196597, 2, 655368, 196598, 2, 655368, 196599, 2, 655371, 196601, 0, 327684, 196602, 0, 262146, 196603, 0, 0, 196604, 0, 0, 196605, 0, 393226, 131076, 2, 589829, 131077, 2, 0, 131078, 2, 0, 131079, 2, 0, 131080, 2, 0, 131081, 2, 589834, 262121, 0, 262149, 262122, 0, 262155, 262125, 0, 262148, 262126, 0, 327690, 262134, 0, 262148, 262135, 0, 327686, 262136, 0, 327689, 262137, 0, 262146, 262138, 0, 0, 262139, 0, 0, 262140, 0, 0, 262141, 0, 262145, 262142, 0, 327690, 196612, 2, 589829, 196613, 2, 0, 196614, 2, 0, 196615, 2, 0, 196616, 2, 0, 196617, 2, 589834, 327656, 0, 262149, 327657, 0, 262146, 327658, 0, 262145, 327659, 0, 327688, 327660, 0, 327688, 327661, 0, 262146, 327662, 0, 589834, 327666, 0, 262148, 327667, 0, 327691, 327670, 0, 524293, 327671, 0, 0, 327672, 0, 0, 327673, 0, 0, 327674, 0, 0, 327675, 0, 0, 327676, 0, 0, 327677, 0, 0, 327678, 0, 262145, 327679, 0, 327689, 262144, 0, 262154, 262148, 2, 655364, 262149, 2, 655366, 262150, 2, 655367, 262151, 2, 655366, 262152, 2, 655369, 262153, 2, 720907, 262168, 0, 65542, 393191, 0, 327685, 393192, 0, 262146, 393193, 0, 0, 393194, 0, 0, 393195, 0, 0, 393196, 0, 0, 393197, 0, 0, 393198, 0, 589834, 393201, 0, 327684, 393202, 0, 262146, 393203, 0, 524298, 393206, 0, 458757, 393207, 0, 0, 393208, 0, 0, 393209, 0, 0, 393210, 0, 0, 393211, 0, 0, 393212, 0, 0, 393213, 0, 0, 393214, 0, 0, 393215, 0, 0, 327680, 0, 458762, 327697, 0, 65544, 327703, 0, 262148, 327704, 0, 131083, 458727, 0, 589829, 458728, 0, 0, 458729, 0, 0, 458730, 0, 0, 458731, 0, 0, 458732, 0, 0, 458733, 0, 0, 458734, 0, 262145, 458735, 0, 327688, 458736, 0, 327689, 458737, 0, 262146, 458738, 0, 0, 458739, 0, 393226, 458742, 0, 458757, 458743, 0, 0, 458744, 0, 0, 458745, 0, 0, 458746, 0, 0, 458747, 0, 0, 458748, 0, 0, 458749, 0, 0, 458750, 0, 0, 458751, 0, 0, 393216, 0, 262145, 393217, 0, 327686, 393218, 0, 327691, 393232, 0, 327684, 393233, 0, 262151, 393234, 0, 327687, 393235, 0, 327691, 393237, 0, 327684, 393238, 0, 327688, 393239, 0, 262146, 393240, 0, 393226, 524263, 0, 655364, 524264, 0, 196610, 524265, 0, 0, 524266, 0, 196609, 524267, 0, 655368, 524268, 0, 655369, 524269, 0, 196610, 524270, 0, 196609, 524271, 0, 655366, 524272, 0, 655368, 524273, 0, 655367, 524274, 0, 655367, 524275, 0, 720906, 524278, 0, 393221, 524279, 0, 0, 524280, 0, 0, 524281, 0, 0, 524282, 0, 0, 524283, 0, 0, 524284, 0, 0, 524285, 0, 0, 524286, 0, 0, 524287, 0, 0, 458752, 0, 0, 458753, 0, 0, 458754, 0, 524298, 458765, 0, 262148, 458766, 0, 327691, 458768, 0, 458757, 458769, 0, 0, 458770, 0, 0, 458771, 0, 262145, 458772, 0, 327689, 458773, 0, 262146, 458774, 0, 0, 458775, 0, 196609, 458776, 0, 655370, 589800, 0, 720900, 589801, 0, 655369, 589802, 0, 655370, 589805, 0, 655364, 589806, 0, 655371, 589814, 0, 720900, 589815, 0, 655369, 589816, 0, 655366, 589817, 0, 655367, 589818, 0, 655368, 589819, 0, 655368, 589820, 0, 655368, 589821, 0, 196610, 589822, 0, 0, 589823, 0, 0, 524288, 0, 0, 524289, 0, 0, 524290, 0, 262145, 524291, 0, 327687, 524292, 0, 327686, 524293, 0, 327688, 524294, 0, 327689, 524295, 0, 262154, 524300, 0, 327685, 524301, 0, 262146, 524302, 0, 524298, 524304, 0, 720901, 524305, 0, 655368, 524306, 0, 655367, 524307, 0, 655367, 524308, 0, 655366, 524309, 0, 655366, 524310, 0, 655366, 524311, 0, 720907, 655357, 0, 458757, 655358, 0, 0, 655359, 0, 0, 589824, 0, 0, 589825, 0, 0, 589826, 0, 0, 589827, 0, 0, 589828, 0, 0, 589829, 0, 0, 589830, 0, 0, 589831, 0, 589834, 589836, 0, 720900, 589837, 0, 655366, 589838, 0, 720907, 720893, 0, 720901, 720894, 0, 655367, 720895, 0, 655368, 655360, 0, 196610, 655361, 0, 0, 655362, 0, 0, 655363, 0, 0, 655364, 0, 0, 655365, 0, 0, 655366, 0, 0, 655367, 0, 458762, 720896, 0, 589829, 720897, 0, 0, 720898, 0, 0, 720899, 0, 0, 720900, 0, 0, 720901, 0, 0, 720902, 0, 0, 720903, 0, 524298, 786432, 0, 655365, 786433, 0, 655369, 786434, 0, 655368, 786435, 0, 655368, 786436, 0, 655369, 786437, 0, 655366, 786438, 0, 655368, 786439, 0, 720907 )
 
 [node name="BGDecal" parent="RealLevelArea/Room4" index="2"]
-tile_data = PoolIntArray( -589829, 30, 0, -524304, 31, 0, -524294, 30, 0, -458769, 33, 0, -458767, 32, 0, -458759, 32, 0, -458757, 536870945, 0, -393224, 31, 0, -327694, 33, 0, -327692, 32, 0, -327690, 31, 0, -327689, 31, 0, -262164, 37, 0, -196611, 20, 0, -65541, 0, 0, -13, 3, 0, 196616, 4, 0, 393194, 4, 0, 393200, 2, 0, 393208, 7, 0, 327683, 6, 0, 327691, 7, 0, 327697, 1, 0, 327701, 2, 0 )
+tile_data = PoolIntArray( -458760, 30, 0, -393235, 31, 0, -393225, 30, 0, -327700, 33, 0, -327698, 32, 0, -327690, 32, 0, -327688, 536870945, 0, -262155, 31, 0, -196625, 33, 0, -196623, 32, 0, -196621, 31, 0, -196620, 31, 0, -65541, 0, 0, -13, 3, 0, 196612, 4, 0, 393194, 4, 0, 393200, 2, 0, 393208, 7, 0, 327683, 6, 0, 327691, 7, 0, 327697, 1, 0, 327701, 2, 0 )
 
 [node name="FGDecal" parent="RealLevelArea/Room4" index="3"]
-tile_data = PoolIntArray( -786426, 536870938, 0, -655368, 536870938, 0, -655361, 22, 0, -720891, 536870938, 0, -720884, 536870938, 0, -589839, 22, 0, -589833, 536870938, 0, -655358, 26, 0, -655355, 22, 0, -655354, 536870937, 0, -655349, 536870938, 0, -524300, 26, 0, -524296, 536870937, 0, -524289, 25, 0, -589823, 24, 0, -589821, 24, 0, -589819, 23, 0, -589816, 26, 0, -589812, 536870937, 0, -458767, 25, 0, -458765, 24, 0, -458763, 24, 0, -458761, 23, 0, -524283, 25, 0, -524281, 24, 0, -524279, 24, 0, -524277, 23, 0, -13, 36, 0, 65531, 9, 0, 196601, 8, 0, 196602, 8, 0, 393194, 8, 0, 393203, 8, 0, 393204, 8, 0, 393205, 9, 0, 327694, 8, 0, 327695, 8, 0, 458729, 8, 0, 458735, 6, 0, 458736, 7, 0, 393232, 8, 0, 393237, 8, 0, 393238, 8, 0, 458772, 8, 0 )
+tile_data = PoolIntArray( -786426, 536870938, 0, -655370, 536870938, 0, -655361, 22, 0, -720891, 536870938, 0, -720884, 536870938, 0, -589841, 22, 0, -589835, 536870938, 0, -655358, 26, 0, -655355, 22, 0, -655354, 536870937, 0, -655349, 536870938, 0, -524302, 26, 0, -524298, 536870937, 0, -524293, 536870938, 0, -524289, 25, 0, -589823, 24, 0, -589821, 24, 0, -589819, 23, 0, -589816, 26, 0, -589812, 536870937, 0, -458769, 25, 0, -458767, 24, 0, -458765, 24, 0, -458764, 22, 0, -458763, 23, 0, -458758, 536870938, 0, -524283, 25, 0, -524281, 24, 0, -524279, 24, 0, -524277, 23, 0, -393225, 26, 0, -393221, 536870937, 0, -327692, 25, 0, -327690, 24, 0, -327688, 24, 0, -327686, 23, 0, -13, 36, 0, 65531, 9, 0, 196601, 8, 0, 196602, 8, 0, 393194, 8, 0, 393203, 8, 0, 393204, 8, 0, 393205, 9, 0, 327694, 8, 0, 327695, 8, 0, 458729, 8, 0, 458735, 6, 0, 458736, 7, 0, 393232, 8, 0, 393237, 8, 0, 393238, 8, 0, 458772, 8, 0 )
 
 [node name="Spikes" parent="RealLevelArea/Room4/ResetableNodes/Entities" index="0" instance=ExtResource( 28 )]
 
@@ -841,7 +851,7 @@ shape = SubResource( 131 )
 position = Vector2( -216, 36 )
 
 [node name="FGFGTileMap" type="TileMap" parent="RealLevelArea/Room4"]
-z_index = 4096
+z_index = 3000
 tile_set = ExtResource( 11 )
 cell_size = Vector2( 12, 12 )
 centered_textures = true
@@ -849,80 +859,422 @@ format = 1
 tile_data = PoolIntArray( 262125, 4, 262149, 262126, 4, 327690, 327661, 4, 393221, 327662, 4, 458762, 393196, 4, 327684, 393197, 4, 262146, 393198, 4, 458762, 458732, 4, 524293, 458733, 4, 0, 458734, 4, 589834, 458749, 4, 327685, 458750, 4, 262155, 524267, 4, 262148, 524268, 4, 262146, 524269, 4, 0, 524270, 4, 262145, 524271, 4, 327690, 524284, 4, 327684, 524285, 4, 262146, 524286, 4, 262145, 524287, 4, 327691, 589803, 4, 393221, 589804, 4, 0, 589805, 4, 0, 589806, 4, 0, 589807, 4, 458762, 589819, 4, 262148, 589820, 4, 262146, 589821, 4, 0, 589822, 4, 196609, 589823, 4, 720907, 655339, 4, 655365, 655340, 4, 655367, 655341, 4, 655367, 655342, 4, 655369, 655343, 4, 655371, 655355, 4, 524293, 655356, 4, 0, 655357, 4, 0, 655358, 4, 524298, 720891, 4, 655365, 720892, 4, 655369, 720893, 4, 655367, 720894, 4, 655371 )
 script = ExtResource( 15 )
 
-[node name="testshroom" type="Sprite" parent="RealLevelArea/Room4"]
-position = Vector2( 48, 96 )
-z_index = 300
-texture = ExtResource( 31 )
+[node name="Sprites" type="Node2D" parent="RealLevelArea/Room4"]
+z_index = 4000
 
-[node name="FGTREE" type="Sprite" parent="RealLevelArea/Room4"]
-light_mask = 0
-position = Vector2( -228, 0 )
-z_index = 4096
+[node name="Sprite" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -270, -90 )
 texture = ExtResource( 32 )
 
-[node name="FGTREE2" type="Sprite" parent="RealLevelArea/Room4"]
-light_mask = 0
-position = Vector2( -228, 0 )
-z_index = 4096
+[node name="Sprite38" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -57, 101 )
+texture = ExtResource( 32 )
+
+[node name="Sprite64" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -97, 122 )
+texture = ExtResource( 32 )
+
+[node name="Sprite65" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -59, 82 )
+texture = ExtResource( 33 )
+flip_v = true
+
+[node name="Sprite67" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -57, 71 )
+texture = ExtResource( 33 )
+flip_v = true
+
+[node name="Sprite68" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -57, 71 )
+texture = ExtResource( 33 )
+flip_v = true
+
+[node name="Sprite81" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -131, 81 )
+texture = ExtResource( 31 )
+
+[node name="Sprite82" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -131, 81 )
+texture = ExtResource( 31 )
+
+[node name="Sprite83" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( 2, 46 )
+texture = ExtResource( 31 )
+flip_h = true
+
+[node name="Sprite66" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -124, 114 )
+texture = ExtResource( 33 )
+flip_v = true
+
+[node name="Sprite79" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -248, -52 )
+texture = ExtResource( 45 )
+
+[node name="Sprite61" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -44, 79 )
+texture = ExtResource( 33 )
+flip_v = true
+
+[node name="Sprite63" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -31, 67 )
+texture = ExtResource( 33 )
+flip_v = true
+
+[node name="Sprite39" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -66, 132 )
+texture = ExtResource( 32 )
+
+[node name="Sprite72" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( 28, 115 )
+texture = ExtResource( 32 )
+
+[node name="Sprite73" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( 52, 127 )
+texture = ExtResource( 32 )
+
+[node name="Sprite40" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -18, 98 )
+texture = ExtResource( 32 )
+
+[node name="Sprite42" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( 24, 81 )
 texture = ExtResource( 33 )
 
-[node name="FGTREE3" type="Sprite" parent="RealLevelArea/Room4"]
-light_mask = 0
-position = Vector2( -268, 90 )
-z_index = 4096
-texture = ExtResource( 34 )
+[node name="Sprite43" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( 31, 94 )
+texture = ExtResource( 33 )
 
-[node name="FGTREE4" type="Sprite" parent="RealLevelArea/Room4"]
-light_mask = 0
-position = Vector2( -247, 94 )
-z_index = 4096
-texture = ExtResource( 34 )
+[node name="Sprite44" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -5, 94 )
+texture = ExtResource( 33 )
 
-[node name="FGTREE5" type="Sprite" parent="RealLevelArea/Room4"]
-light_mask = 0
-position = Vector2( -194, 93 )
-z_index = 4096
-texture = ExtResource( 34 )
+[node name="Sprite45" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -91, 119 )
+texture = ExtResource( 33 )
 
-[node name="FGTREE6" type="Sprite" parent="RealLevelArea/Room4"]
-light_mask = 0
-position = Vector2( -209, 99 )
-z_index = 4096
-texture = ExtResource( 34 )
-
-[node name="FGTREE7" type="Sprite" parent="RealLevelArea/Room4"]
-light_mask = 0
-position = Vector2( -292, 96 )
-z_index = 4096
-texture = ExtResource( 34 )
-
-[node name="FGTREE8" type="Sprite" parent="RealLevelArea/Room4"]
-light_mask = 0
-position = Vector2( -275, -89 )
-z_index = 4096
+[node name="Sprite11" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -268, -90 )
+z_index = 1
 texture = ExtResource( 34 )
 flip_v = true
 
-[node name="FGTREE9" type="Sprite" parent="RealLevelArea/Room4"]
-light_mask = 0
-position = Vector2( -254, -97 )
-z_index = 4096
+[node name="Sprite12" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -244, -84 )
+z_index = 1
 texture = ExtResource( 34 )
 flip_v = true
 
-[node name="FGTREE10" type="Sprite" parent="RealLevelArea/Room4"]
-light_mask = 0
-position = Vector2( -192, -95 )
-z_index = 4096
+[node name="Sprite36" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -244, -84 )
+z_index = 1
 texture = ExtResource( 34 )
 flip_v = true
 
-[node name="FGTREE11" type="Sprite" parent="RealLevelArea/Room4"]
-light_mask = 0
-position = Vector2( -218, -100 )
-z_index = 4096
+[node name="Sprite13" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -250, -96 )
+z_index = 1
 texture = ExtResource( 34 )
 flip_v = true
+
+[node name="Sprite14" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -220, -90 )
+z_index = 1
+texture = ExtResource( 34 )
+flip_v = true
+
+[node name="Sprite15" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -112, -90 )
+z_index = 1
+texture = ExtResource( 34 )
+flip_v = true
+
+[node name="Sprite16" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -88, -78 )
+z_index = 1
+texture = ExtResource( 34 )
+flip_v = true
+
+[node name="Sprite17" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -64, -84 )
+z_index = 1
+texture = ExtResource( 34 )
+flip_v = true
+
+[node name="Sprite18" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -82, -90 )
+z_index = 1
+texture = ExtResource( 34 )
+flip_v = true
+
+[node name="Sprite19" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -12, -92 )
+z_index = 1
+texture = ExtResource( 34 )
+offset = Vector2( -16, -4 )
+flip_v = true
+
+[node name="Sprite31" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -125, -91 )
+z_index = 1
+texture = ExtResource( 34 )
+offset = Vector2( -16, -4 )
+flip_v = true
+
+[node name="Sprite32" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -155, -95 )
+z_index = 1
+texture = ExtResource( 34 )
+offset = Vector2( -16, -4 )
+flip_v = true
+
+[node name="Sprite33" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -184, -91 )
+z_index = 1
+texture = ExtResource( 34 )
+offset = Vector2( -16, -4 )
+flip_v = true
+
+[node name="Sprite46" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( 45, 106 )
+z_index = 1
+texture = ExtResource( 34 )
+offset = Vector2( -16, -4 )
+
+[node name="Sprite47" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( 34, 89 )
+z_index = 1
+texture = ExtResource( 34 )
+offset = Vector2( -16, -4 )
+
+[node name="Sprite74" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( 51, 98 )
+z_index = 1
+texture = ExtResource( 34 )
+offset = Vector2( -16, -4 )
+
+[node name="Sprite75" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( 68, 104 )
+z_index = 1
+texture = ExtResource( 34 )
+offset = Vector2( -16, -4 )
+
+[node name="Sprite49" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( 5, 80 )
+z_index = 1
+texture = ExtResource( 34 )
+offset = Vector2( -16, -4 )
+
+[node name="Sprite50" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( 11, 98 )
+z_index = 1
+texture = ExtResource( 34 )
+offset = Vector2( -16, -4 )
+
+[node name="Sprite51" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( 22, 111 )
+z_index = 1
+texture = ExtResource( 34 )
+offset = Vector2( -16, -4 )
+
+[node name="Sprite52" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -26, 73 )
+z_index = 1
+texture = ExtResource( 34 )
+offset = Vector2( -16, -4 )
+
+[node name="Sprite53" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -45, 89 )
+z_index = 1
+texture = ExtResource( 34 )
+offset = Vector2( -16, -4 )
+
+[node name="Sprite69" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -63, 101 )
+z_index = 1
+texture = ExtResource( 34 )
+offset = Vector2( -16, -4 )
+
+[node name="Sprite70" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -23, 90 )
+z_index = 1
+texture = ExtResource( 34 )
+offset = Vector2( -16, -4 )
+
+[node name="Sprite71" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -11, 94 )
+z_index = 1
+texture = ExtResource( 34 )
+offset = Vector2( -16, -4 )
+
+[node name="Sprite55" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -23, 112 )
+z_index = 1
+texture = ExtResource( 34 )
+offset = Vector2( -16, -4 )
+
+[node name="Sprite56" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -9, 109 )
+z_index = 1
+texture = ExtResource( 34 )
+offset = Vector2( -16, -4 )
+
+[node name="Sprite20" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -228, -66 )
+z_index = 1
+texture = ExtResource( 38 )
+
+[node name="Sprite21" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -270, -78 )
+z_index = 1
+texture = ExtResource( 37 )
+
+[node name="Sprite22" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -20, -92 )
+z_index = 1
+texture = ExtResource( 37 )
+
+[node name="Sprite23" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -36, -76 )
+z_index = 1
+texture = ExtResource( 39 )
+
+[node name="Sprite24" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -210, -65 )
+z_index = 1
+texture = ExtResource( 39 )
+
+[node name="Sprite25" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -230, -56 )
+z_index = 1
+texture = ExtResource( 36 )
+
+[node name="Sprite26" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -227, -50 )
+scale = Vector2( 1, 2 )
+z_index = 1
+texture = ExtResource( 36 )
+
+[node name="Sprite8" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -228, -102 )
+texture = ExtResource( 32 )
+
+[node name="Sprite9" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -90, -78 )
+texture = ExtResource( 32 )
+
+[node name="Sprite10" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -102, -96 )
+texture = ExtResource( 32 )
+
+[node name="Sprite2" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -186, -102 )
+texture = ExtResource( 32 )
+
+[node name="Sprite3" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -222, -90 )
+texture = ExtResource( 35 )
+
+[node name="Sprite4" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -138, -96 )
+texture = ExtResource( 35 )
+
+[node name="Sprite5" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -48, -102 )
+texture = ExtResource( 35 )
+
+[node name="Sprite6" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -240, -78 )
+texture = ExtResource( 33 )
+
+[node name="Sprite7" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -12, -108 )
+texture = ExtResource( 33 )
+
+[node name="Sprite27" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -95, -108 )
+z_index = 1
+texture = ExtResource( 41 )
+
+[node name="Sprite28" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -71, -112 )
+z_index = 1
+texture = ExtResource( 41 )
+
+[node name="Sprite76" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -42, 99 )
+z_index = 1
+texture = ExtResource( 41 )
+
+[node name="Sprite77" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -10, 98 )
+z_index = 1
+texture = ExtResource( 41 )
+
+[node name="Sprite78" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( 14, 87 )
+z_index = 1
+texture = ExtResource( 41 )
+
+[node name="Sprite80" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( 26, 95 )
+z_index = 1
+texture = ExtResource( 41 )
+
+[node name="Sprite59" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( 8, 95 )
+z_index = 1
+texture = ExtResource( 41 )
+
+[node name="Sprite60" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -49, 86 )
+z_index = 1
+texture = ExtResource( 41 )
+
+[node name="Sprite62" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -64, 97 )
+z_index = 1
+texture = ExtResource( 41 )
+
+[node name="Sprite29" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -231, -116 )
+z_index = 1
+texture = ExtResource( 41 )
+
+[node name="Sprite30" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -257, -120 )
+z_index = 1
+texture = ExtResource( 41 )
+
+[node name="Sprite34" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -244, -109 )
+z_index = 1
+texture = ExtResource( 41 )
+
+[node name="Sprite35" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -148, -122 )
+z_index = 1
+texture = ExtResource( 41 )
+
+[node name="LightBeam" parent="RealLevelArea/Room4" instance=ExtResource( 40 )]
+position = Vector2( 1, -79 )
+beam_rotation = 30.0
+beam_density = 0.8
+
+[node name="LightBeam2" parent="RealLevelArea/Room4" instance=ExtResource( 40 )]
+position = Vector2( -224, -71 )
+beam_rotation = 30.0
+
+[node name="Sprite37" type="Sprite" parent="RealLevelArea/Room4"]
+position = Vector2( -192, -59 )
+z_index = -1000
+texture = ExtResource( 42 )
+
+[node name="Sprite38" type="Sprite" parent="RealLevelArea/Room4"]
+position = Vector2( -61, -27 )
+z_index = -1000
+texture = ExtResource( 43 )
+flip_h = true
 
 [node name="Room5" parent="RealLevelArea" instance=ExtResource( 2 )]
 position = Vector2( 2112, 120 )
@@ -969,5 +1321,7 @@ position = Vector2( 1152, -48 )
 [editable path="RealLevelArea/Room3"]
 [editable path="RealLevelArea/Room4"]
 [editable path="RealLevelArea/Room4/ResetableNodes/Entities/Spikes"]
+[editable path="RealLevelArea/Room4/LightBeam"]
+[editable path="RealLevelArea/Room4/LightBeam2"]
 [editable path="RealLevelArea/Room5"]
 [editable path="RealLevelArea/Room5/CameraOffsetTrigger"]

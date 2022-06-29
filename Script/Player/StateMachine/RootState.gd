@@ -312,7 +312,7 @@ func set_facing_direction():
 
 
 func set_cape_acceleration():
-	Target.Cape.accel = Vector2(-Target.facing * 4, 8)
+	Target.Cape.accel = Vector2(-Target.facing * 2, 8)
 
 
 func set_player_sprite_direction():

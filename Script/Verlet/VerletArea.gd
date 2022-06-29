@@ -7,8 +7,8 @@ onready var CapeR = Player.get_node("Cape/CapeR")
 var PM_list = []
 var link_list = [] # Not a linked list lol
 onready var spawn_offset = Player.global_position
-var PM_spacing_x = 3 # Length of links between nodes
-var PM_spacing_y = 6
+var PM_spacing_x = 4 # Length of links between nodes
+var PM_spacing_y = 5
 var grid_size = 3
 var accel = Vector2(5,8)
 
