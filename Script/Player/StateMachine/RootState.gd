@@ -89,22 +89,17 @@ const DASH_DIR_NONE = 0
 func set_dash_target():
 	var best_node = null
 	var best_distance = INF
-	for i in Target.Dash_Check_Up.area_list.size():
-		if ((Target.position.x - Target.Dash_Check_Up.area_list[i].position.x) < best_distance):
-			best_distance = Target.Dash_Check_Up.area_list[i].position.x
-			best_node = Target.Dash_Check_Up.area_list[i]
-	for i in Target.Dash_Check_Down.area_list.size():
-		if ((Target.position.x - Target.Dash_Check_Down.area_list[i].position.x) < best_distance):
-			best_distance = Target.Dash_Check_Down.area_list[i].position.x
-			best_node = Target.Dash_Check_Down.area_list[i]
+	for i in Target.Dash_Check.area_list.size():
+		if (is_instance_valid(Target.Dash_Check.area_list[i])\
+			&& (Target.position.x - Target.Dash_Check.area_list[i].position.x) < best_distance):
+				best_distance = Target.Dash_Check.area_list[i].position.x
+				best_node = Target.Dash_Check.area_list[i]
 	Target.dash_target_node = best_node
-	if best_node != null:
-		Target.dash_target_node = best_node.get_parent()
 
 
 # Set dash direction based on position of Target.dash_target_node
 func set_dash_direction():
-	if Target.dash_target_node == null:
+	if !is_instance_valid(Target.dash_target_node):
 		Target.dash_direction = DASH_DIR_NONE
 		return 
 	var relative_position = (
@@ -141,7 +136,7 @@ func do_attack():
 		return true
 	elif (Input.is_action_just_pressed("attack")
 	or (Target.Timers.get_node("BufferedAttackTimer").time_left > 0)) && Target.Timers.get_node("BetweenAttackTimer").time_left == 0:
-		if Target.dash_direction == 0:
+		if Target.dash_direction == 0 || Target.is_on_floor():
 			force_attack()
 			return true
 	return false
@@ -194,10 +189,8 @@ func attack_response(response_id, attackable):
 
 func set_attack_direction():
 	Target.Attack_Box.position.x = Target.attack_box_x_distance * Target.facing
-	Target.Dash_Check_Up.position.x = 18 * Target.facing
-	Target.Dash_Check_Down.position.x = 18 * Target.facing
-	Target.Dash_Check_Down.scale.x = -Target.facing
-	Target.Dash_Check_Up.scale.x = -Target.facing
+	Target.Dash_Check.position.x = 18 * Target.facing
+	Target.Dash_Check.scale.x = -Target.facing
 
 
 func set_ledge_ray_direction():
@@ -316,10 +309,10 @@ func set_cape_acceleration():
 
 
 func set_player_sprite_direction():
-	if Target.facing == -1:
+	if Target.facing == 1:
 		Target.Player_Sprite.flip_h = false
 		Target.Player_Sprite.position.x = 0
-	elif Target.facing == 1:
+	elif Target.facing == -1:
 		Target.Player_Sprite.flip_h = true
 		Target.Player_Sprite.position.x = 1
 

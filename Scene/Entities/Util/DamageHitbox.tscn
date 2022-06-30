@@ -3,4 +3,5 @@
 [ext_resource path="res://Script/Class/DamageHitbox.gd" type="Script" id=1]
 
 [node name="DamageHitbox" type="Area2D"]
+modulate = Color( 0.101961, 1, 0, 1 )
 script = ExtResource( 1 )

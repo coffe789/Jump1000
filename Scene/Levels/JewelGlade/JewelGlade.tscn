@@ -1,4 +1,4 @@
-[gd_scene load_steps=87 format=2]
+[gd_scene load_steps=97 format=2]
 
 [ext_resource path="res://Scene/Levels/LevelArea.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scene/Levels/Room.tscn" type="PackedScene" id=2]
@@ -11,7 +11,7 @@
 [ext_resource path="res://Art/Styleground/forest/fg00.png" type="Texture" id=9]
 [ext_resource path="res://Art/Styleground/forest/fg02.png" type="Texture" id=10]
 [ext_resource path="res://Resource/Tileset/Tileset.tres" type="TileSet" id=11]
-[ext_resource path="res://Scene/Entities/Enemies/Pongus.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Art/Temp/berry-sheet.png" type="Texture" id=12]
 [ext_resource path="res://Art/Entity/Danger/Spikes/Bramble/bramble_spikes_outline.png" type="Texture" id=13]
 [ext_resource path="res://Resource/Shader/SineTransparency.tres" type="Material" id=14]
 [ext_resource path="res://Script/Class/PaddedTileMap.gd" type="Script" id=15]
@@ -43,7 +43,7 @@
 [ext_resource path="res://Art/Decals/Forest/00-fg-light_bush_a.png" type="Texture" id=41]
 [ext_resource path="res://Art/Decals/Forest/00-branch-b.png" type="Texture" id=42]
 [ext_resource path="res://Art/Decals/Forest/00-branch-c.png" type="Texture" id=43]
-[ext_resource path="res://Art/Temp/berry.png" type="Texture" id=45]
+[ext_resource path="res://Scene/Entities/Util/DashTarget.tscn" type="PackedScene" id=44]
 
 [sub_resource type="Gradient" id=101]
 colors = PoolColorArray( 0, 0, 0.0196078, 1, 0.980392, 1, 1, 1 )
@@ -488,6 +488,50 @@ extents = Vector2( 192, 108 )
 resource_local_to_scene = true
 extents = Vector2( 288, 108 )
 
+[sub_resource type="AtlasTexture" id=134]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 0, 36, 96 )
+
+[sub_resource type="AtlasTexture" id=135]
+atlas = ExtResource( 12 )
+region = Rect2( 36, 0, 36, 96 )
+
+[sub_resource type="AtlasTexture" id=136]
+atlas = ExtResource( 12 )
+region = Rect2( 72, 0, 36, 96 )
+
+[sub_resource type="AtlasTexture" id=137]
+atlas = ExtResource( 12 )
+region = Rect2( 108, 0, 36, 96 )
+
+[sub_resource type="AtlasTexture" id=138]
+atlas = ExtResource( 12 )
+region = Rect2( 144, 0, 36, 96 )
+
+[sub_resource type="AtlasTexture" id=139]
+atlas = ExtResource( 12 )
+region = Rect2( 180, 0, 36, 96 )
+
+[sub_resource type="AtlasTexture" id=140]
+atlas = ExtResource( 12 )
+region = Rect2( 216, 0, 36, 96 )
+
+[sub_resource type="AtlasTexture" id=142]
+atlas = ExtResource( 12 )
+region = Rect2( 288, 0, 36, 96 )
+
+[sub_resource type="AtlasTexture" id=143]
+atlas = ExtResource( 12 )
+region = Rect2( 324, 0, 36, 96 )
+
+[sub_resource type="SpriteFrames" id=144]
+animations = [ {
+"frames": [ SubResource( 134 ), SubResource( 135 ), SubResource( 136 ), SubResource( 137 ), SubResource( 138 ), SubResource( 139 ), SubResource( 140 ), SubResource( 142 ), SubResource( 143 ), SubResource( 143 ), SubResource( 143 ), SubResource( 143 ), SubResource( 143 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
 [sub_resource type="RectangleShape2D" id=132]
 resource_local_to_scene = true
 extents = Vector2( 192, 168 )
@@ -504,10 +548,10 @@ extents = Vector2( 30.5, 30 )
 tile_data = PoolIntArray( -130976, 3, 524289, -130975, 1, 65538, 96, 3, 65537 )
 
 [node name="PlayerCamera" parent="RealLevelArea" index="2"]
-position = Vector2( 1464, 18 )
+position = Vector2( 1464, 24 )
 
 [node name="Player" parent="RealLevelArea" instance=ExtResource( 3 )]
-position = Vector2( 1464, 18 )
+position = Vector2( 1464, 24 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="RealLevelArea"]
 environment = SubResource( 99 )
@@ -677,15 +721,12 @@ tile_data = PoolIntArray( -262152, 1, 0, 196609, 0, 0, 327671, 3, 0, 327677, 3, 
 [node name="FGDecal" parent="RealLevelArea/Room" index="3"]
 tile_data = PoolIntArray( -196616, 8, 0, -196615, 9, 0, -196612, 8, 0, -196611, 8, 0, -196609, 8, 0, 196592, 9, 0, 262131, 8, 0, 262132, 8, 0, 327665, 8, 0, 327669, 8, 0, 327683, 8, 0, 327684, 8, 0, 458742, 8, 0, 393216, 9, 0, 393217, 8, 0, 393227, 8, 0, 393228, 8, 0, 393230, 9, 0, 2359780, 1, 0 )
 
-[node name="KingPongus" parent="RealLevelArea/Room/ResetableNodes/Entities" index="0" instance=ExtResource( 12 )]
-position = Vector2( 0, -60 )
-
-[node name="DamageHitbox" parent="RealLevelArea/Room/ResetableNodes/Entities" index="1" instance=ExtResource( 7 )]
+[node name="DamageHitbox" parent="RealLevelArea/Room/ResetableNodes/Entities" index="0" instance=ExtResource( 7 )]
 position = Vector2( 72, 66 )
 collision_layer = 4
 collision_mask = 4
 
-[node name="ForestDanger" parent="RealLevelArea/Room/ResetableNodes/Entities" index="2" instance=ExtResource( 5 )]
+[node name="ForestDanger" parent="RealLevelArea/Room/ResetableNodes/Entities" index="1" instance=ExtResource( 5 )]
 
 [node name="SpikeUp" parent="RealLevelArea/Room/ResetableNodes/Entities/ForestDanger/SpikeUpBox" index="0"]
 tile_data = PoolIntArray( 262149, 0, 0, 262150, 0, 0 )
@@ -841,8 +882,8 @@ position = Vector2( 216, 36 )
 [node name="OneWayPlatform" parent="RealLevelArea/Room4/ResetableNodes/Entities" index="2" instance=ExtResource( 23 )]
 tile_data = PoolIntArray( 196593, 3, 0, 196594, 1, 0 )
 
-[node name="KingPongus" parent="RealLevelArea/Room4/ResetableNodes/Entities" index="3" instance=ExtResource( 12 )]
-position = Vector2( 168, -60 )
+[node name="DashTarget" parent="RealLevelArea/Room4/ResetableNodes/Entities" index="3" instance=ExtResource( 44 )]
+position = Vector2( -249, -24 )
 
 [node name="CollisionShape2D" parent="RealLevelArea/Room4" index="5"]
 shape = SubResource( 131 )
@@ -906,10 +947,6 @@ flip_h = true
 position = Vector2( -124, 114 )
 texture = ExtResource( 33 )
 flip_v = true
-
-[node name="Sprite79" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
-position = Vector2( -248, -52 )
-texture = ExtResource( 45 )
 
 [node name="Sprite61" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
 position = Vector2( -44, 79 )
@@ -1259,11 +1296,12 @@ texture = ExtResource( 41 )
 [node name="LightBeam" parent="RealLevelArea/Room4" instance=ExtResource( 40 )]
 position = Vector2( 1, -79 )
 beam_rotation = 30.0
-beam_density = 0.8
+time_scale = 0.15
 
 [node name="LightBeam2" parent="RealLevelArea/Room4" instance=ExtResource( 40 )]
 position = Vector2( -224, -71 )
 beam_rotation = 30.0
+time_scale = 0.15
 
 [node name="Sprite37" type="Sprite" parent="RealLevelArea/Room4"]
 position = Vector2( -192, -59 )
@@ -1275,6 +1313,14 @@ position = Vector2( -61, -27 )
 z_index = -1000
 texture = ExtResource( 43 )
 flip_h = true
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="RealLevelArea/Room4"]
+light_mask = 0
+position = Vector2( -249, -54 )
+frames = SubResource( 144 )
+frame = 10
+speed_scale = 1.5
+playing = true
 
 [node name="Room5" parent="RealLevelArea" instance=ExtResource( 2 )]
 position = Vector2( 2112, 120 )
@@ -1306,9 +1352,6 @@ script = ExtResource( 4 )
 unfocus_color = Color( 0, 0.141176, 0.145098, 0.631373 )
 active_border_color = Color( 0.8, 0.752941, 0.615686, 0.8 )
 inactive_border_color = Color( 0.760784, 0.717647, 0.603922, 0.301961 )
-
-[node name="KingPongus" parent="." instance=ExtResource( 12 )]
-position = Vector2( 1152, -48 )
 
 [editable path="RealLevelArea"]
 [editable path="RealLevelArea/Room"]

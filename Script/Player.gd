@@ -15,8 +15,7 @@ onready var ledge_cast_mid = get_node("CollisionChecks/LedgeRaycasts/LedgeRayMid
 onready var ledge_cast_bottom = get_node("CollisionChecks/LedgeRaycasts/LedgeRayBottom")
 onready var ledge_cast_height_search = get_node("CollisionChecks/LedgeRaycasts/LedgeRayHeightSearch")
 onready var Attack_Box = get_node("CollisionChecks/AttackBox")
-onready var Dash_Check_Up = get_node("CollisionChecks/DashCheckUp")
-onready var Dash_Check_Down = get_node("CollisionChecks/DashCheckDown")
+onready var Dash_Check = get_node("CollisionChecks/DashCheck")
 
 export var velocity = Vector2(0,0);
 var facing = 1 # Either -1 or 1

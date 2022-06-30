@@ -50,7 +50,6 @@ func emit_jump_particles(is_walljump=false):
 
 func get_boost():
 	record_floor_velocity()
-	var mult = 0.5
 	var boost = Vector2.ZERO
 	var floor_v = Target.get_floor_velocity() # if frame perfect this fails TODO
 	if floor_v.y == 0 && SM.last_ground_velocity.y < 0:

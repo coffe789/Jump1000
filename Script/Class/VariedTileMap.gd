@@ -7,7 +7,6 @@ var variations:int # X length of autotile region. Not including index zero
 var random_tiles = PoolVector2Array()
 
 func _ready():
-	
 	for cell in get_used_cells():
 		if tile_set.tile_get_tile_mode(get_cellv(cell)) == tile_set.AUTO_TILE:
 			variations = tile_set.tile_get_region(get_cellv(cell)).size.x / tile_set.autotile_get_size(get_cellv(cell)).x -1

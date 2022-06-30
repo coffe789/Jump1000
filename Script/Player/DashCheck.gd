@@ -26,9 +26,10 @@ func _on_DashCheck_area_exited(area):
 
 # Remove nodes that have been deleted or became undashable
 func detect_undashable(_from_room, _to_room):
-	for i in range(area_list.size()-1,-1,-1):
-		if area_list[i].is_in_group("undashable") || !is_instance_valid(area_list[i]):
-			area_list[i].remove()
+	for i in range(area_list.size()-1,1,-1):
+		print("here")
+		if !is_instance_valid(area_list[i]) || !area_list[i].is_in_group("dashable"):
+			area_list.remove(i)
 			areas_inside_count -= 1
 
 

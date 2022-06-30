@@ -7,9 +7,9 @@ var target_state:Node
 var condition_func:FuncRef
 var allow_reenter:bool
 
-func _init(priority, id, target_state,condition_func,allow_reenter=false):
-	self.priority = priority
-	self.id = id
-	self.target_state = target_state
-	self.condition_func = condition_func
-	self.allow_reenter = allow_reenter
+func _init(_priority, _id, _target_state,_condition_func,_allow_reenter=false):
+	self.priority = _priority
+	self.id = _id
+	self.target_state = _target_state
+	self.condition_func = _condition_func
+	self.allow_reenter = _allow_reenter

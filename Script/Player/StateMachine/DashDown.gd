@@ -9,10 +9,10 @@ func _ready():
 func _enter():
 	._enter()
 	SM.is_spinning = true
-	Target.velocity.y = +DASH_SPEED_Y/3
+	Target.velocity.y = +DASH_SPEED_Y/3.0
 
 func _update(delta):
-	Target.velocity.y = approach(Target.velocity.y, +DASH_SPEED_Y/3, GRAVITY)
+	Target.velocity.y = approach(Target.velocity.y, +DASH_SPEED_Y/3.0, GRAVITY)
 	._update(delta)
 
 func _add_transitions():
