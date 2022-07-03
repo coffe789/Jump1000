@@ -1,3 +1,4 @@
+tool
 extends TileMap
 class_name PaddedTileMap
 
@@ -77,11 +78,25 @@ func do_paddings():
 	for cell in get_used_cells():
 		if get_cell_autotile_coord(cell.x,cell.y) == Vector2.ZERO:
 			if check_for_air(cell.x, cell.y, get_cellv(cell)):
-				set_cell(cell.x ,cell.y, get_cellv(cell), 0,0,0, rand_padded(cell.x,cell.y))
+				set_cellv(Vector2(cell.x ,cell.y), get_cellv(cell), 0,0,0, rand_padded(cell.x,cell.y))
 			else:
-				set_cell(cell.x, cell.y, get_cellv(cell), 0,0,0, rand_center(cell.x,cell.y))
+				set_cellv(Vector2(cell.x, cell.y), get_cellv(cell), 0,0,0, rand_center(cell.x,cell.y))
 
 func _ready():
-	if is_self_padded: # Otherwise a master tileset will do padding to support inter-room padding
+	if !Engine.editor_hint:
+		if is_self_padded: # Otherwise a master tileset will do padding to support inter-room padding
+			do_paddings()
+	elif Engine.editor_hint: # Alway pad in editor
 		do_paddings()
 
+func set_cell(x, y, tile, flip_x=false, flip_y = false, transpose=false, autotile_coord=Vector2(0,0)):
+	.set_cell(x, y, tile, flip_x, flip_y, transpose, autotile_coord)
+	if Engine.editor_hint: # Cheap/imperfect way of making tiling work in the editor
+		if !padded_coords:
+			set_padded_coords()
+			set_center_coords()
+		if get_cell_autotile_coord(x,y) == Vector2.ZERO:
+			if check_for_air(x, y, get_cellv(Vector2(x,y))):
+					set_cellv(Vector2(x ,y), get_cellv(Vector2(x,y)), 0,0,0, rand_padded(x,y))
+			else:
+				set_cellv(Vector2(x, y), get_cellv(Vector2(x,y)), 0,0,0, rand_center(x,y))

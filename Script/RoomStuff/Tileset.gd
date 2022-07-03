@@ -3,6 +3,7 @@ extends TileSet
 const ALL = -2
 
 var binds = {
+	-1 : [],		# Air
 	0 : [],		# Nothing
 	1 : [],		# Mud
 	2 : [1],	# Verti wood 
