@@ -6,7 +6,7 @@ func set_normal_hitbox():
 	Target.Attack_Box.position.y = -8
 	Target.attack_box_x_distance = 11
 
-func set_dash_hitbox():
+func set_attack_hitbox():
 	Target.Attack_Box.get_child(0).get_shape().extents = DASH_ATTACK_SIZE
 	Target.Attack_Box.position.y = -8
 	Target.attack_box_x_distance = 11
@@ -18,7 +18,6 @@ func _choose_substate():
 
 
 func _enter():
-	set_dash_hitbox()
 	SM.is_dashing = true
 	force_attack()
 	SM.is_twirling = false
@@ -27,6 +26,9 @@ func _enter():
 	Target.stop_jump_rise = false
 	Target.isJumpBuffered = false
 	Target.canCoyoteJump = false
+	if is_instance_valid(Target.dash_target_node):
+		Target.dash_target_node.on_used()
+	unset_dash_target()
 	Target.velocity.x = set_if_lesser(Target.velocity.x, Target.facing * DASH_SPEED_X)
 
 

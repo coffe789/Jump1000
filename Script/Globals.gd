@@ -7,6 +7,8 @@ signal room_transitioned(from_room, to_room)
 
 signal set_camera_offset(offset, ignore_X_or_Y) # Second parameter is a Vector2 with 1/0 masks
 
+signal new_dash_target(target)
+
 # Types of damage properties
 enum Dmg_properties {
 	FROM_PLAYER,
@@ -50,6 +52,20 @@ func is_same_sign(num1,num2):
 	if num1 < 0 && num2 < 0:
 		return true
 	return false
+	
+func approach(to_change, maximum, change_by):
+	assert(change_by>=0)
+	var approach_direction = 0;
+	if (maximum > to_change):
+		approach_direction = 1
+	elif (maximum < to_change):
+		approach_direction = -1
+	to_change += change_by * approach_direction;
+	if (approach_direction == -1 && to_change < maximum):
+		to_change = maximum
+	elif (approach_direction == 1 && to_change > maximum):
+		to_change = maximum
+	return to_change
 
 
 # For debug

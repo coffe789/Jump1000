@@ -3,6 +3,7 @@ extends "res://Script/Player/StateMachine/GroundState.gd"
 var roll_direction
 
 func _enter():
+	._enter()
 	Target.Animation_Player.play("rolling")
 	if get_input_direction() == 0:
 		roll_direction = Target.facing

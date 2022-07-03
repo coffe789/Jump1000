@@ -1,9 +1,14 @@
 extends Area2D
 class_name DashTarget
+signal dash_used
 
 
 func _ready():
 	make_dashable()
+
+# When the player uses the area to dash
+func on_used():
+	emit_signal("dash_used")
 
 func make_dashable():
 	add_to_group("dashable")

@@ -87,6 +87,9 @@ const DASH_DIR_DOWN = 1
 const DASH_DIR_NONE = 0
 # Find closest node within dash hitboxes & set Target.dash_target_node
 func set_dash_target():
+	if Target.get_node("Timers/NoDashTimer").time_left != 0:
+		unset_dash_target()
+		return
 	var best_node = null
 	var best_distance = INF
 	for i in Target.Dash_Check.area_list.size():
@@ -94,8 +97,13 @@ func set_dash_target():
 			&& (Target.position.x - Target.Dash_Check.area_list[i].position.x) < best_distance):
 				best_distance = Target.Dash_Check.area_list[i].position.x
 				best_node = Target.Dash_Check.area_list[i]
-	Target.dash_target_node = best_node
+	if Target.dash_target_node != best_node:
+		Globals.emit_signal("new_dash_target", best_node)
+		Target.dash_target_node = best_node
 
+func unset_dash_target():
+	Globals.emit_signal("new_dash_target", null)
+	Target.dash_target_node = null
 
 # Set dash direction based on position of Target.dash_target_node
 func set_dash_direction():
