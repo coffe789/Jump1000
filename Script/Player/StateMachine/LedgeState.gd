@@ -33,6 +33,7 @@ func _choose_substate():
 
 
 func _enter():
+	unset_dash_target()
 	SM.is_twirling = false
 	SM.is_clinging = true
 	if sign(Target.velocity.x) != Target.facing:

@@ -8,6 +8,7 @@ func _on_activate():
 	DuckModule.root_state = SM.get_node("RootState")
 
 func _enter():
+	._enter()
 	DuckModule.enter()
 
 func _exit():

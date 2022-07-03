@@ -1,6 +1,7 @@
 extends "res://Script/Player/StateMachine/GroundState.gd"
 
 func _enter():
+	._enter()
 	Target.Animation_Player.play("idle")
 
 func _update(delta):

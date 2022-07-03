@@ -1,5 +1,8 @@
 extends "res://Script/Player/StateMachine/RootState.gd"
 
+func _enter():
+	unset_dash_target()
+
 func start_coyote_time():
 	Target.canCoyoteJump = true
 	Target.Timers.get_node("CoyoteTimer").start(COYOTE_TIME)

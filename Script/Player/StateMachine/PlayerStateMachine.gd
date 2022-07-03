@@ -32,13 +32,14 @@ func on_activated():
 func on_before_update():
 	current_state._check_buffered_inputs()
 	current_state.report_collision()
-
-func on_update():
-	current_state._update_wall_direction()
 	current_state.set_facing_direction()
+	current_state._update_wall_direction()
 	current_state.set_player_sprite_direction()
 	current_state.set_attack_direction()
 	current_state.set_ledge_ray_direction()
+
+func on_update():
+	pass
 	
 	for c in casts:
 		c.force_raycast_update()

@@ -1,13 +1,13 @@
 [gd_scene load_steps=56 format=2]
 
 [ext_resource path="res://Art/Player/player_b.png" type="Texture" id=1]
+[ext_resource path="res://Scene/Entities/Util/HurtBox.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Script/Player/DashCheck.gd" type="Script" id=5]
 [ext_resource path="res://Art/FX/krlight.png" type="Texture" id=7]
 [ext_resource path="res://Audio/SFX/jump.wav" type="AudioStream" id=8]
 [ext_resource path="res://Scene/Entities/Verlet/VerletArea.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Script/Player.gd" type="Script" id=10]
 [ext_resource path="res://Script/Class/DamageHitbox.gd" type="Script" id=11]
-[ext_resource path="res://Script/Class/DamageHurtbox.gd" type="Script" id=12]
 [ext_resource path="res://Script/Player/StateMachine/PlayerStateMachine.gd" type="Script" id=25]
 [ext_resource path="res://Script/Player/StateMachine/PlayerTransitConditions.gd" type="Script" id=26]
 [ext_resource path="res://Script/Player/StateMachine/RootState.gd" type="Script" id=27]
@@ -536,8 +536,8 @@ disabled = true
 [node name="DashCheck" type="Area2D" parent="CollisionChecks" groups=["dash_check"]]
 modulate = Color( 0.435294, 0.960784, 1, 1 )
 position = Vector2( -18, -26 )
-collision_layer = 0
-collision_mask = 4
+collision_layer = 2
+collision_mask = 8
 monitorable = false
 script = ExtResource( 5 )
 
@@ -560,14 +560,7 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionChecks/RoomDetection"]
 shape = SubResource( 12 )
 
-[node name="HurtBox" type="Area2D" parent="CollisionChecks"]
-collision_layer = 4
-collision_mask = 0
-script = ExtResource( 12 )
-
-[node name="CollisionBody" type="CollisionShape2D" parent="CollisionChecks/HurtBox"]
-position = Vector2( 0.5, -8 )
-shape = SubResource( 3 )
+[node name="HurtBox" parent="CollisionChecks" instance=ExtResource( 2 )]
 
 [node name="CollisionBody" type="CollisionShape2D" parent="."]
 position = Vector2( 0.5, -8 )
@@ -733,7 +726,6 @@ shadow_filter_smooth = 8.6
 [connection signal="body_exited" from="CollisionChecks/FullBodyArea" to="." method="_on_FullBody_body_area_exited"]
 [connection signal="area_entered" from="CollisionChecks/DashCheck" to="CollisionChecks/DashCheck" method="_on_DashCheck_area_entered"]
 [connection signal="area_exited" from="CollisionChecks/DashCheck" to="CollisionChecks/DashCheck" method="_on_DashCheck_area_exited"]
-[connection signal="damage_received" from="CollisionChecks/HurtBox" to="." method="_on_HurtBox_damage_received"]
 [connection signal="timeout" from="Timers/CoyoteTimer" to="." method="_on_CoyoteTimer_timeout"]
 [connection signal="timeout" from="Timers/BufferedJumpTimer" to="." method="_on_BufferedJumpTimer_timeout"]
 [connection signal="timeout" from="Timers/AttackLengthTimer" to="SM" method="_on_AttackLengthTimer_timeout"]
