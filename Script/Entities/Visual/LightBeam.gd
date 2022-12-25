@@ -34,7 +34,7 @@ func animate(delta):
 	for i in get_child_count():
 		var num = timer * 3 + i * 0.6
 		
-		var offset = sin(timer + i*10) * 50
+		var offset = sin(timer + i*10) * width/2
 		var wideness = sin(num * 0.5 + 1.2) / 2
 		var length = get_child_count() + sin(num * 0.25) * 8;
 		var a = 0.6 + sin(num + 0.8) * 0.3

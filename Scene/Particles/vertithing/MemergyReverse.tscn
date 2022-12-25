@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=2]
+
+[sub_resource type="CanvasItemMaterial" id=69]
+particles_animation = true
+particles_anim_h_frames = 4
+particles_anim_v_frames = 2
+particles_anim_loop = false
+
+[sub_resource type="Curve" id=70]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.787097, 1 ), -0.435963, -0.435963, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=71]
+curve = SubResource( 70 )
+
+[sub_resource type="ParticlesMaterial" id=72]
+emission_shape = 5
+emission_ring_radius = 4.0
+emission_ring_inner_radius = 4.0
+emission_ring_height = 1.0
+emission_ring_axis = Vector3( 0, 0, 1 )
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 60.0
+initial_velocity_random = 0.9
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+radial_accel = -100.0
+scale = 0.0
+scale_random = 1.0
+scale_curve = SubResource( 71 )
+anim_speed = 1.0
+anim_speed_random = 1.0
+anim_offset = 0.3
+anim_offset_random = 1.0
+
+[node name="MemergyReverse" type="Particles2D"]
+material = SubResource( 69 )
+position = Vector2( 0, -11 )
+amount = 60
+lifetime = 2.0
+local_coords = false
+process_material = SubResource( 72 )

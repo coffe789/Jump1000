@@ -49,6 +49,8 @@ func _ready():
 	Globals.emit_signal("player_connect_cam", self)
 	
 	$SM.target = self
+	
+	print($AnimationPlayer.get_animation("idle").get("tracks/0/keys/times"))
 
 
 # Controls every aspect of player physics

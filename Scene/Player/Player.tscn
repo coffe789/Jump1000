@@ -71,19 +71,19 @@ tracks/0/keys = {
 length = 0.3
 step = 0.05
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
+tracks/0/path = NodePath("Cape/CapeR:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.05 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ 4, 5 ]
+"times": PoolRealArray( 0.1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 4, 6 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Cape/CapeR:position")
+tracks/1/path = NodePath("Cape/CapeL:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -92,19 +92,19 @@ tracks/1/keys = {
 "times": PoolRealArray( 0.1 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 4, 6 ) ]
+"values": [ Vector2( -4, 6 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Cape/CapeL:position")
+tracks/2/path = NodePath("Sprite:frame_coords")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0.1 ),
+"times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( -4, 6 ) ]
+"update": 1,
+"values": [ Vector2( 0, 2 ) ]
 }
 
 [sub_resource type="Animation" id=14]
@@ -582,7 +582,7 @@ light_mask = 0
 position = Vector2( 0, -12 )
 texture = ExtResource( 1 )
 hframes = 6
-vframes = 2
+vframes = 3
 frame = 10
 
 [node name="Audio" type="Node" parent="."]
@@ -684,10 +684,10 @@ light_mask = 0
 position = Vector2( 0, -13 )
 
 [node name="CapeL" type="Position2D" parent="Cape"]
-position = Vector2( -2.59177, 4.40823 )
+position = Vector2( -4, 6 )
 
 [node name="CapeR" type="Position2D" parent="Cape"]
-position = Vector2( 3.29589, 4.40823 )
+position = Vector2( 4, 6 )
 
 [node name="Particles" type="Node2D" parent="."]
 
@@ -726,6 +726,7 @@ shadow_filter_smooth = 8.6
 [connection signal="body_exited" from="CollisionChecks/FullBodyArea" to="." method="_on_FullBody_body_area_exited"]
 [connection signal="area_entered" from="CollisionChecks/DashCheck" to="CollisionChecks/DashCheck" method="_on_DashCheck_area_entered"]
 [connection signal="area_exited" from="CollisionChecks/DashCheck" to="CollisionChecks/DashCheck" method="_on_DashCheck_area_exited"]
+[connection signal="damage_received" from="CollisionChecks/HurtBox" to="." method="_on_HurtBox_damage_received"]
 [connection signal="timeout" from="Timers/CoyoteTimer" to="." method="_on_CoyoteTimer_timeout"]
 [connection signal="timeout" from="Timers/BufferedJumpTimer" to="." method="_on_BufferedJumpTimer_timeout"]
 [connection signal="timeout" from="Timers/AttackLengthTimer" to="SM" method="_on_AttackLengthTimer_timeout"]

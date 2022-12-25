@@ -12,7 +12,7 @@ func _ready():
 	connect("area_exited", self, "_on_DamageHitbox_area_exited")
 
 
-func _process(_delta):
+func _physics_process(_delta):
 	# Signal is received by connected hurtboxes, or if parent wants to know fsr
 	emit_signal("damage_anything", damage_amount, damage_properties, damage_source)
 
