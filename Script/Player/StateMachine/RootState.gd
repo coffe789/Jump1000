@@ -159,6 +159,7 @@ func force_attack():
 	SM.is_attacking = true
 	Target.Timers.get_node("AttackLengthTimer").start(ATTACK_TIME)
 	Target.Timers.get_node("BetweenAttackTimer").start(BETWEEN_ATTACK_TIME)
+	Target.get_node("AnimationPlayer").play("attack")
 	Target.Timers.get_node("BufferedAttackTimer").stop()
 
 func get_damage_properties():

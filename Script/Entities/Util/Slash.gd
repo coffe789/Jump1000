@@ -37,6 +37,7 @@ func _on_new_target(new_target):
 			$AnimationPlayer.seek(0)
 		elif !"deactivate" in $AnimationPlayer.get_queue():
 			$AnimationPlayer.queue("deactivate")
+		set_direction()
 		is_targeted = false
 
 func _physics_process(delta):

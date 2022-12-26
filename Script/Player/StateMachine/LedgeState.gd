@@ -33,6 +33,7 @@ func _choose_substate():
 
 
 func _enter():
+	Target.Animation_Player.play("clinging")
 	unset_dash_target()
 	SM.is_twirling = false
 	SM.is_clinging = true

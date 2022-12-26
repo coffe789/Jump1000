@@ -1,8 +1,8 @@
 extends "res://Script/Player/StateMachine/FallState.gd"
 
 func _enter():
-	Target.Animation_Player.play("floating")
-	Target.Animation_Player.queue("falling")
+#	Target.Animation_Player.play("floating")
+	Target.Animation_Player.play("falling")
 
 func _update(delta):
 	._update(delta)
