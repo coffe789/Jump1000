@@ -15,6 +15,7 @@
 
 [node name="Beetle" type="KinematicBody2D"]
 collision_layer = 8
+collision_mask = 17
 script = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

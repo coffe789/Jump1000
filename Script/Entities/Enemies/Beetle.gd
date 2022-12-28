@@ -12,6 +12,10 @@ func _ready():
 	$Hurtbox.connect("damage_received", self, "on_hit")
 	$WalkDectector.connect("barrier_detected", self, "_on_barrier_detected")
 
+	$Hitbox.damage_properties = [
+		Globals.Dmg_properties.FROM_ENEMY
+	]
+
 func _physics_process(_delta):
 	if (!is_dead):
 		velocity.x = WALK_SPEED * facing
