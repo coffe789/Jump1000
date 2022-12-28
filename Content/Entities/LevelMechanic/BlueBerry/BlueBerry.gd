@@ -11,7 +11,7 @@ func _on_dash_used():
 	speed += 1.5 * Globals.get_player().facing
 
 var prev_degrees = 0
-func _physics_process(delta):
+func _physics_process(_delta):
 	accel = -sin(rotation)
 	rotation_degrees += speed
 	speed = (rotation_degrees-prev_degrees)*0.96

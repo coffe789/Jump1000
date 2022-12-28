@@ -1,6 +1,6 @@
 extends DamageHitbox
 export var frame_count = 6
-var Filler = preload("res://Scene/Entities/Danger/Flower/FlowerFiller.tscn")
+var Filler = preload("res://Content/Entities/Danger/Flower/FlowerFiller.tscn")
 var is_filled = false
 
 func _ready():

@@ -7,7 +7,7 @@ export var on_above = false
 export var on_below = false
 export var on_inside = false
 
-var LimitTrigger = preload("res://Scene/Triggers/CameraLimitTrigger.tscn")
+var LimitTrigger = preload("res://Content/Triggers/CameraLimitTrigger.tscn")
 
 const SCREEN_WIDTH = 384.0
 const SCREEN_HEIGHT = 216.0

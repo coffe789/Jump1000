@@ -40,7 +40,7 @@ func _on_new_target(new_target):
 		set_direction()
 		is_targeted = false
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if is_targeted:
 		set_direction()
 	global_rotation = 0
