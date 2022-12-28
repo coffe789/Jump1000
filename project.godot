@@ -17,52 +17,52 @@ _global_script_classes=[ {
 "base": "Area2D",
 "class": "DamageHitbox",
 "language": "GDScript",
-"path": "res://Script/Class/DamageHitbox.gd"
+"path": "res://Content/Class/DamageHitbox.gd"
 }, {
 "base": "Area2D",
 "class": "DamageHurtbox",
 "language": "GDScript",
-"path": "res://Script/Class/DamageHurtbox.gd"
+"path": "res://Content/Class/DamageHurtbox.gd"
 }, {
 "base": "Area2D",
 "class": "DashTarget",
 "language": "GDScript",
-"path": "res://Script/Class/DashTarget.gd"
+"path": "res://Content/Class/DashTarget.gd"
 }, {
 "base": "Node2D",
 "class": "LevelArea",
 "language": "GDScript",
-"path": "res://Script/Class/LevelArea.gd"
+"path": "res://Content/Class/LevelArea.gd"
 }, {
 "base": "TileMap",
 "class": "PaddedTileMap",
 "language": "GDScript",
-"path": "res://Script/Class/PaddedTileMap.gd"
+"path": "res://Content/Class/PaddedTileMap.gd"
 }, {
 "base": "Object",
 "class": "SortStateTransition",
 "language": "GDScript",
-"path": "res://Script/Entities/Util/StateMachine/SortStateTransition.gd"
+"path": "res://Content/Entities/Util/StateMachine/SortStateTransition.gd"
 }, {
 "base": "Node",
 "class": "State",
 "language": "GDScript",
-"path": "res://Script/Entities/Util/StateMachine/State.gd"
+"path": "res://Content/Entities/Util/StateMachine/State.gd"
 }, {
 "base": "Node",
 "class": "StateMachine",
 "language": "GDScript",
-"path": "res://Script/Entities/Util/StateMachine/StateMachine.gd"
+"path": "res://Content/Entities/Util/StateMachine/StateMachine.gd"
 }, {
 "base": "Resource",
 "class": "StateModule",
 "language": "GDScript",
-"path": "res://Script/Entities/Util/StateMachine/StateModule.gd"
+"path": "res://Content/Entities/Util/StateMachine/StateModule.gd"
 }, {
 "base": "Resource",
 "class": "StateTransition",
 "language": "GDScript",
-"path": "res://Script/Entities/Util/StateMachine/StateTransition.gd"
+"path": "res://Content/Entities/Util/StateMachine/StateTransition.gd"
 }, {
 "base": "Resource",
 "class": "TilePattern",
@@ -72,27 +72,27 @@ _global_script_classes=[ {
 "base": "Area2D",
 "class": "TileProxy",
 "language": "GDScript",
-"path": "res://Script/Entities/Util/TileProxy.gd"
+"path": "res://Content/Entities/Util/TileProxy.gd"
 }, {
 "base": "Node",
 "class": "TransitConditions",
 "language": "GDScript",
-"path": "res://Script/Entities/Util/StateMachine/TransitConditions.gd"
+"path": "res://Content/Entities/Util/StateMachine/TransitConditions.gd"
 }, {
 "base": "Area2D",
 "class": "Trigger",
 "language": "GDScript",
-"path": "res://Script/Class/Trigger.gd"
+"path": "res://Content/Class/Trigger.gd"
 }, {
 "base": "TileMap",
 "class": "VariedTileMap",
 "language": "GDScript",
-"path": "res://Script/Class/VariedTileMap.gd"
+"path": "res://Content/Class/VariedTileMap.gd"
 }, {
 "base": "Node2D",
 "class": "walk_detector",
 "language": "GDScript",
-"path": "res://Scene/Entities/Util/WalkDectector.gd"
+"path": "res://Content/Entities/Util/WalkDectector.gd"
 } ]
 _global_script_class_icons={
 "BitmaskEdgesData": "res://addons/Tile_Cleaner/Icons/Bitmask_Edges_Icon.png",
@@ -117,12 +117,12 @@ _global_script_class_icons={
 [application]
 
 config/name="jump1000"
-run/main_scene="res://Scene/main_scene.tscn"
+run/main_scene="res://Content/main_scene.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
-Globals="*res://Scene/Globals.tscn"
+Globals="*res://Content/Globals.tscn"
 
 [debug]
 

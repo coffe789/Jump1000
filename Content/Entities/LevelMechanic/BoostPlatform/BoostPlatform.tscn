@@ -1,0 +1,568 @@
+[gd_scene load_steps=40 format=2]
+
+[ext_resource path="res://Content/Entities/LevelMechanic/BoostPlatform/BoostPlatform.gd" type="Script" id=1]
+[ext_resource path="res://Art/Entity/LevelMechanic/FallPlatform/platform_tilemap.png" type="Texture" id=2]
+[ext_resource path="res://Art/Entity/LevelMechanic/FallPlatform/platform_direction.png" type="Texture" id=3]
+[ext_resource path="res://Content/Entities/LevelMechanic/BoostPlatform/Rumble.gd" type="Script" id=4]
+[ext_resource path="res://Content/Entities/Util/StateMachine/StateMachine.gd" type="Script" id=5]
+[ext_resource path="res://Content/Entities/Util/StateMachine/TransitConditions.gd" type="Script" id=6]
+[ext_resource path="res://Content/Entities/LevelMechanic/BoostPlatform/RootState.gd" type="Script" id=7]
+[ext_resource path="res://Content/Entities/LevelMechanic/BoostPlatform/Idle.gd" type="Script" id=8]
+[ext_resource path="res://Content/Entities/LevelMechanic/BoostPlatform/Active.gd" type="Script" id=9]
+[ext_resource path="res://Content/Entities/LevelMechanic/BoostPlatform/Respawn.gd" type="Script" id=10]
+[ext_resource path="res://Content/Entities/LevelMechanic/BoostPlatform/OneWayBody.gd" type="Script" id=11]
+[ext_resource path="res://Resource/Shader/XRumble.tres" type="Material" id=12]
+
+[sub_resource type="OccluderPolygon2D" id=15]
+polygon = PoolVector2Array( 1, 1, 13, 1, 13, 13, 1, 13 )
+
+[sub_resource type="OccluderPolygon2D" id=16]
+polygon = PoolVector2Array( 13, 13, 1, 13, 1, 1, 13, 1 )
+
+[sub_resource type="OccluderPolygon2D" id=17]
+polygon = PoolVector2Array( 13, 13, 1, 13, 1, 1, 13, 1 )
+
+[sub_resource type="OccluderPolygon2D" id=18]
+polygon = PoolVector2Array( 13, 13, 1, 13, 1, 1, 13, 1 )
+
+[sub_resource type="OccluderPolygon2D" id=19]
+polygon = PoolVector2Array( 13, 1, 1, 1, 1, 13, 13, 13 )
+
+[sub_resource type="OccluderPolygon2D" id=20]
+polygon = PoolVector2Array( 13, 13, 1, 13, 1, 1, 13, 1 )
+
+[sub_resource type="ConvexPolygonShape2D" id=2]
+points = PoolVector2Array( 1, 1, 13, 1, 13, 13, 1, 13 )
+
+[sub_resource type="ConvexPolygonShape2D" id=3]
+points = PoolVector2Array( 1, 1, 13, 1, 13, 13, 1, 13 )
+
+[sub_resource type="ConvexPolygonShape2D" id=4]
+points = PoolVector2Array( 13, 13, 1, 13, 1, 1, 13, 1 )
+
+[sub_resource type="ConvexPolygonShape2D" id=5]
+points = PoolVector2Array( 1, 1, 13, 1, 13, 13, 1, 13 )
+
+[sub_resource type="ConvexPolygonShape2D" id=6]
+points = PoolVector2Array( 13, 13, 1, 13, 1, 1, 13, 1 )
+
+[sub_resource type="ConvexPolygonShape2D" id=7]
+points = PoolVector2Array( 13, 13, 1, 13, 1, 1, 13, 1 )
+
+[sub_resource type="ConvexPolygonShape2D" id=8]
+points = PoolVector2Array( 13, 5, 1, 5, 1, 1, 13, 1 )
+
+[sub_resource type="ConvexPolygonShape2D" id=9]
+points = PoolVector2Array( 13, 5, 1, 5, 1, 1, 13, 1 )
+
+[sub_resource type="ConvexPolygonShape2D" id=10]
+points = PoolVector2Array( 13, 5, 1, 5, 1, 1, 13, 1 )
+
+[sub_resource type="ConvexPolygonShape2D" id=11]
+points = PoolVector2Array( 13, 5, 1, 5, 1, 1, 13, 1 )
+
+[sub_resource type="ConvexPolygonShape2D" id=12]
+points = PoolVector2Array( 13, 5, 1, 5, 1, 1, 13, 1 )
+
+[sub_resource type="ConvexPolygonShape2D" id=13]
+points = PoolVector2Array( 13, 5, 1, 5, 1, 1, 13, 1 )
+
+[sub_resource type="ConvexPolygonShape2D" id=14]
+points = PoolVector2Array( 13, 5, 1, 5, 1, 1, 13, 1 )
+
+[sub_resource type="ConvexPolygonShape2D" id=21]
+points = PoolVector2Array( 0, 0, 12, 0, 12, 12, 0, 12 )
+
+[sub_resource type="TileSet" id=1]
+0/name = "platform_tilemap.png 0"
+0/texture = ExtResource( 2 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 98, 28 )
+0/tile_mode = 1
+0/autotile/bitmask_mode = 1
+0/autotile/bitmask_flags = [ Vector2( 0, 0 ), 16, Vector2( 1, 0 ), 16, Vector2( 2, 0 ), 48, Vector2( 3, 0 ), 24, Vector2( 4, 0 ), 48, Vector2( 5, 0 ), 24 ]
+0/autotile/icon_coordinate = Vector2( 0, 0 )
+0/autotile/tile_size = Vector2( 14, 14 )
+0/autotile/spacing = 0
+0/autotile/occluder_map = [ Vector2( 0, 0 ), SubResource( 15 ), Vector2( 1, 0 ), SubResource( 16 ), Vector2( 2, 0 ), SubResource( 17 ), Vector2( 3, 0 ), SubResource( 18 ), Vector2( 4, 0 ), SubResource( 19 ), Vector2( 5, 0 ), SubResource( 20 ) ]
+0/autotile/navpoly_map = [  ]
+0/autotile/priority_map = [  ]
+0/autotile/z_index_map = [  ]
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape = SubResource( 2 )
+0/shape_one_way = false
+0/shape_one_way_margin = 1.0
+0/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 2 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 1, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 3 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 2, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 4 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 3, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 5 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 4, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 6 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 5, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 7 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+0/z_index = 0
+1/name = "platform_tilemap.png 1"
+1/texture = ExtResource( 2 )
+1/tex_offset = Vector2( 0, 0 )
+1/modulate = Color( 1, 1, 1, 1 )
+1/region = Rect2( 0, 0, 98, 28 )
+1/tile_mode = 1
+1/autotile/bitmask_mode = 1
+1/autotile/bitmask_flags = [ Vector2( 0, 1 ), 48, Vector2( 1, 1 ), 56, Vector2( 2, 1 ), 56, Vector2( 3, 1 ), 56, Vector2( 4, 1 ), 56, Vector2( 5, 1 ), 24, Vector2( 6, 1 ), 16 ]
+1/autotile/icon_coordinate = Vector2( 6, 1 )
+1/autotile/tile_size = Vector2( 14, 14 )
+1/autotile/spacing = 0
+1/autotile/occluder_map = [  ]
+1/autotile/navpoly_map = [  ]
+1/autotile/priority_map = [  ]
+1/autotile/z_index_map = [  ]
+1/occluder_offset = Vector2( 0, 0 )
+1/navigation_offset = Vector2( 0, 0 )
+1/shape_offset = Vector2( 0, 0 )
+1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+1/shape = SubResource( 8 )
+1/shape_one_way = true
+1/shape_one_way_margin = 3.0
+1/shapes = [ {
+"autotile_coord": Vector2( 0, 1 ),
+"one_way": true,
+"one_way_margin": 3.0,
+"shape": SubResource( 8 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 1, 1 ),
+"one_way": true,
+"one_way_margin": 3.0,
+"shape": SubResource( 9 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 2, 1 ),
+"one_way": true,
+"one_way_margin": 3.0,
+"shape": SubResource( 10 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 3, 1 ),
+"one_way": true,
+"one_way_margin": 3.0,
+"shape": SubResource( 11 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 4, 1 ),
+"one_way": true,
+"one_way_margin": 3.0,
+"shape": SubResource( 12 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 5, 1 ),
+"one_way": true,
+"one_way_margin": 3.0,
+"shape": SubResource( 13 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 6, 1 ),
+"one_way": true,
+"one_way_margin": 3.0,
+"shape": SubResource( 14 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+1/z_index = 0
+2/name = "platform_tilemap.png 2"
+2/texture = ExtResource( 2 )
+2/tex_offset = Vector2( 0, 0 )
+2/modulate = Color( 1, 1, 1, 1 )
+2/region = Rect2( 85, 1, 12, 12 )
+2/tile_mode = 0
+2/occluder_offset = Vector2( 0, 0 )
+2/navigation_offset = Vector2( 0, 0 )
+2/shape_offset = Vector2( 0, 0 )
+2/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+2/shape = SubResource( 21 )
+2/shape_one_way = false
+2/shape_one_way_margin = 1.0
+2/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 21 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+2/z_index = 0
+
+[sub_resource type="Gradient" id=22]
+offsets = PoolRealArray( 0, 0.801242, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0.784314, 1, 1, 1, 0.0352941 )
+
+[sub_resource type="GradientTexture" id=23]
+gradient = SubResource( 22 )
+
+[sub_resource type="ParticlesMaterial" id=24]
+lifetime_randomness = 0.5
+emission_shape = 1
+emission_sphere_radius = 6.0
+flag_rotate_y = true
+flag_disable_z = true
+direction = Vector3( 0, 1, 0 )
+spread = 180.0
+gravity = Vector3( 0, 50, 0 )
+initial_velocity = 30.0
+initial_velocity_random = 0.8
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+tangential_accel_random = 1.0
+damping = 50.0
+angle_random = 1.0
+scale = 1.3
+color = Color( 1, 0.478431, 0.972549, 1 )
+color_ramp = SubResource( 23 )
+
+[sub_resource type="Animation" id=25]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("TileMap/Arrow1:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.94902, 0.529412, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("TileMap/Arrow2:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.94902, 0.529412, 1, 1 ) ]
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("TileMap/Arrow1:modulate:r")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 0.780392, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/3/type = "bezier"
+tracks/3/path = NodePath("TileMap/Arrow1:modulate:g")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"points": PoolRealArray( 0.317647, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/4/type = "bezier"
+tracks/4/path = NodePath("TileMap/Arrow1:modulate:b")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"points": PoolRealArray( 0.839216, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/5/type = "bezier"
+tracks/5/path = NodePath("TileMap/Arrow1:modulate:a")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/6/type = "bezier"
+tracks/6/path = NodePath("TileMap/Arrow2:modulate:r")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"points": PoolRealArray( 0.780392, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/7/type = "bezier"
+tracks/7/path = NodePath("TileMap/Arrow2:modulate:g")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"points": PoolRealArray( 0.317647, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/8/type = "bezier"
+tracks/8/path = NodePath("TileMap/Arrow2:modulate:b")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"points": PoolRealArray( 0.839216, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/9/type = "bezier"
+tracks/9/path = NodePath("TileMap/Arrow2:modulate:a")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+
+[sub_resource type="Animation" id=27]
+resource_name = "activate"
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("TileMap/Arrow1:modulate:r")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0.94902, -0.25, 0, 0.25, 0, 0.72549, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("TileMap/Arrow1:modulate:g")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 0.529412, -0.25, 0, 0.25, 0, 0.145098, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("TileMap/Arrow1:modulate:b")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 0.796078, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5 )
+}
+tracks/3/type = "bezier"
+tracks/3/path = NodePath("TileMap/Arrow1:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5 )
+}
+tracks/4/type = "bezier"
+tracks/4/path = NodePath("TileMap/Arrow2:modulate:r")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"points": PoolRealArray( 0.94902, -0.25, 0, 0.25, 0, 0.72549, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5 )
+}
+tracks/5/type = "bezier"
+tracks/5/path = NodePath("TileMap/Arrow2:modulate:g")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"points": PoolRealArray( 0.529412, -0.25, 0, 0.25, 0, 0.145098, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5 )
+}
+tracks/6/type = "bezier"
+tracks/6/path = NodePath("TileMap/Arrow2:modulate:b")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 0.796078, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5 )
+}
+tracks/7/type = "bezier"
+tracks/7/path = NodePath("TileMap/Arrow2:modulate:a")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5 )
+}
+
+[sub_resource type="Animation" id=26]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/path = NodePath("TileMap/Arrow1:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.94902, 0.529412, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("TileMap/Arrow2:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.94902, 0.529412, 1, 1 ) ]
+}
+
+[node name="BoostPlatform" type="KinematicBody2D"]
+z_index = 201
+collision_layer = 32
+collision_mask = 0
+motion/sync_to_physics = true
+script = ExtResource( 1 )
+
+[node name="TileMap" type="TileMap" parent="."]
+material = ExtResource( 12 )
+z_index = 1
+tile_set = SubResource( 1 )
+cell_size = Vector2( 12, 12 )
+centered_textures = true
+collision_use_parent = true
+format = 1
+tile_data = PoolIntArray( 0, 0, 0, 1, 1, 65536, 2, 1, 65541, 3, 0, 0 )
+
+[node name="Arrow1" type="Sprite" parent="TileMap"]
+modulate = Color( 0.780392, 0.317647, 0.839216, 1 )
+use_parent_material = true
+position = Vector2( 6, 7 )
+z_index = 2
+texture = ExtResource( 3 )
+hframes = 4
+vframes = 3
+region_rect = Rect2( 0, 0, 6, 6 )
+
+[node name="Arrow2" type="Sprite" parent="TileMap"]
+modulate = Color( 0.780392, 0.317647, 0.839216, 1 )
+use_parent_material = true
+position = Vector2( 42, 7 )
+z_index = 2
+texture = ExtResource( 3 )
+hframes = 4
+vframes = 3
+region_rect = Rect2( 0, 0, 6, 6 )
+
+[node name="TileProxy" type="Area2D" parent="."]
+z_index = -1
+collision_mask = 34
+script = ExtResource( 11 )
+__meta__ = {
+"_editor_description_": "Is a separate body so it's on a collision layer such that you can stand on it, but not walljump and such on it"
+}
+
+[node name="ProxyShape" type="TileMap" parent="TileProxy"]
+tile_set = SubResource( 1 )
+cell_size = Vector2( 12, 12 )
+centered_textures = true
+collision_use_parent = true
+format = 1
+tile_data = PoolIntArray( 0, 2, 0, 3, 2, 0 )
+
+[node name="SM" type="Node" parent="."]
+script = ExtResource( 5 )
+
+[node name="RootState" type="Node" parent="SM"]
+script = ExtResource( 7 )
+
+[node name="Idle" type="Node" parent="SM/RootState"]
+script = ExtResource( 8 )
+
+[node name="Rumble" type="Node" parent="SM/RootState"]
+script = ExtResource( 4 )
+
+[node name="Active" type="Node" parent="SM/RootState"]
+script = ExtResource( 9 )
+
+[node name="Respawn" type="Node" parent="SM/RootState"]
+script = ExtResource( 10 )
+
+[node name="TransitConditions" type="Node" parent="SM"]
+script = ExtResource( 6 )
+
+[node name="Timer" type="Timer" parent="SM"]
+one_shot = true
+
+[node name="DustCloud" type="Particles2D" parent="."]
+position = Vector2( 8, 8 )
+emitting = false
+amount = 40
+lifetime = 0.5
+local_coords = false
+process_material = SubResource( 24 )
+
+[node name="DustCloud2" type="Particles2D" parent="."]
+position = Vector2( 42, 8 )
+emitting = false
+amount = 40
+lifetime = 0.5
+local_coords = false
+process_material = SubResource( 24 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 25 )
+anims/activate = SubResource( 27 )
+anims/idle = SubResource( 26 )
+
+[connection signal="area_entered" from="TileProxy" to="SM/RootState/Active" method="_on_TileProxy_area_entered"]
+[connection signal="area_exited" from="TileProxy" to="SM/RootState/Active" method="_on_TileProxy_area_exited"]
