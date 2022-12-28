@@ -1,18 +1,20 @@
 [gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://Content/Class/DamageHitbox.gd" type="Script" id=1]
-[ext_resource path="res://Content/Class/DamageHurtbox.gd" type="Script" id=2]
-[ext_resource path="res://Content/Entities/Enemies/Beetle.gd" type="Script" id=3]
-[ext_resource path="res://icon.png" type="Texture" id=4]
-[ext_resource path="res://Content/Entities/Util/WalkDectector.gd" type="Script" id=5]
-[ext_resource path="res://Content/Entities/Util/DashTarget.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Content/Entities/Util/StateMachine/StateMachine.gd" type="Script" id=7]
-
-[sub_resource type="RectangleShape2D" id=1]
+[ext_resource path="res://Content/Entities/Util/DashTarget.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Content/Class/DamageHitbox.gd" type="Script" id=2]
+[ext_resource path="res://Content/Class/DamageHurtbox.gd" type="Script" id=3]
+[ext_resource path="res://Content/Entities/Enemies/Beetle/RootState.gd" type="Script" id=4]
+[ext_resource path="res://Content/Entities/Enemies/Beetle.gd" type="Script" id=5]
+[ext_resource path="res://Content/Entities/Util/StateMachine/StateMachine.gd" type="Script" id=6]
+[ext_resource path="res://Content/Entities/Util/WalkDectector.gd" type="Script" id=7]
+[ext_resource path="res://Art/Entity/Enemy/Beetle/beetle.png" type="Texture" id=8]
 
 [sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 8.5, 6 )
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=5]
+resource_local_to_scene = true
+extents = Vector2( 8, 5 )
 
 [sub_resource type="GDScript" id=4]
 script/source = "extends TransitConditions
@@ -21,65 +23,78 @@ script/source = "extends TransitConditions
 "
 
 [node name="Beetle" type="KinematicBody2D"]
+light_mask = 0
 collision_layer = 8
 collision_mask = 17
-script = ExtResource( 3 )
+script = ExtResource( 5 )
+
+[node name="Sprite" type="Sprite" parent="."]
+light_mask = 0
+texture = ExtResource( 8 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
+position = Vector2( 0, 2 )
+shape = SubResource( 2 )
 
 [node name="Hitbox" type="Area2D" parent="."]
+position = Vector2( 0, 2 )
 collision_layer = 4
 collision_mask = 2
-script = ExtResource( 1 )
+script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource( 2 )
 
 [node name="Hurtbox" type="Area2D" parent="."]
+position = Vector2( 0, 2 )
 collision_layer = 8
 collision_mask = 4
-script = ExtResource( 2 )
+script = ExtResource( 3 )
 i_seconds = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-shape = SubResource( 3 )
-
-[node name="Sprite" type="Sprite" parent="."]
-scale = Vector2( 0.3, 0.3 )
-texture = ExtResource( 4 )
+shape = SubResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="WalkDectector" type="Node2D" parent="."]
-script = ExtResource( 5 )
+script = ExtResource( 7 )
 
 [node name="VLeft" type="RayCast2D" parent="WalkDectector"]
-position = Vector2( -10, 10 )
+position = Vector2( -7, 8 )
 enabled = true
 cast_to = Vector2( 0, 6 )
 
 [node name="VRight" type="RayCast2D" parent="WalkDectector"]
-position = Vector2( 10, 10 )
+position = Vector2( 8, 8 )
 enabled = true
 cast_to = Vector2( 0, 6 )
 
 [node name="HLeft" type="RayCast2D" parent="WalkDectector"]
-position = Vector2( -10, 0 )
+position = Vector2( -8.5, 0 )
 enabled = true
 cast_to = Vector2( -1, 0 )
 collision_mask = 17
 
 [node name="HRight" type="RayCast2D" parent="WalkDectector"]
-position = Vector2( 10, 0 )
+position = Vector2( 8.5, 0 )
 enabled = true
 cast_to = Vector2( 1, 0 )
 collision_mask = 17
 
-[node name="DashTarget" parent="." instance=ExtResource( 6 )]
+[node name="DashTarget" parent="." instance=ExtResource( 1 )]
+
+[node name="CollisionShape2D" parent="DashTarget" index="0"]
+shape = SubResource( 5 )
 
 [node name="StateMachine" type="Node" parent="."]
-script = ExtResource( 7 )
+script = ExtResource( 6 )
 
 [node name="RootState" type="Node" parent="StateMachine"]
+script = ExtResource( 4 )
 
 [node name="TransitConditions" type="Node" parent="StateMachine"]
 script = SubResource( 4 )
+
+[editable path="DashTarget"]

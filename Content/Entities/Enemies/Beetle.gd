@@ -45,4 +45,5 @@ func on_hit(amount, properties, damage_source):
 	
 func _on_barrier_detected(_type, direction):
 	if (!is_dead and is_on_floor()):
-		facing = -direction	
+		facing = -direction
+		$Sprite.scale.x = sign(direction)
