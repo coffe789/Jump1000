@@ -46,8 +46,9 @@ const INVINCIBLE_TIME = 2.5
 # Variables
 #===============================================#
 var state_damage_properties = [Globals.Dmg_properties.FROM_PLAYER]
+var default_animation := "idle"
 
-# TODO check which ones of these aren't used and delete them
+# TODO check which functions aren't used and delete them
 
 #Shared utility functions
 #===============================================#
@@ -134,33 +135,43 @@ func set_attack_hitbox():
 	else:
 		Target.Attack_Box.position.y = -8
 
+enum AttackType {NORMAL, TWIRL}
 # Performs attack if button is pressed/is buffered. Returns success status
 func do_attack():
 	if (Input.is_action_just_pressed("twirl")
 	or (Target.Timers.get_node("BufferedTwirlTimer").time_left > 0)) && Target.Timers.get_node("BetweenAttackTimer").time_left == 0:
 		SM.is_twirling = true
 		Target.Timers.get_node("TwirlTimer").start(0.3)
-		force_attack()
+		force_attack(AttackType.TWIRL)
 		return true
 	elif (Input.is_action_just_pressed("attack")
 	or (Target.Timers.get_node("BufferedAttackTimer").time_left > 0)) && Target.Timers.get_node("BetweenAttackTimer").time_left == 0:
 		if Target.dash_direction == 0 || Target.is_on_floor():
-			force_attack()
+			force_attack(AttackType.NORMAL)
 			return true
 	return false
 
 
 # Target attacks regardless of input or whatever
-func force_attack():
+func force_attack(type):
 	set_attack_hitbox()
 	SM.is_spinning = false
+	SM.is_attacking = true
 	Target.Attack_Box.damage_properties = get_damage_properties()
 	Target.Attack_Box.get_child(0).disabled = false
-	SM.is_attacking = true
 	Target.Timers.get_node("AttackLengthTimer").start(ATTACK_TIME)
 	Target.Timers.get_node("BetweenAttackTimer").start(BETWEEN_ATTACK_TIME)
-	Target.get_node("AnimationPlayer").play("attack")
 	Target.Timers.get_node("BufferedAttackTimer").stop()
+
+	match (type):
+		AttackType.NORMAL:
+			Target.Animation_Player.play("attack")
+		AttackType.TWIRL:
+			Target.Animation_Player.play("attack") # TODO add twirl animation
+	if type != null: yield(Target.Timers.get_node("AttackLengthTimer"), "timeout")
+	
+	if (not SM.is_attacking):
+		Target.Animation_Player.play(SM.current_state.default_animation)
 
 func get_damage_properties():
 	var to_return = [Globals.Dmg_properties.FROM_PLAYER]

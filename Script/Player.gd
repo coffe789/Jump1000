@@ -3,7 +3,7 @@ extends KinematicBody2D
 onready var Audio = get_node("Audio")
 onready var Timers = get_node("Timers")
 onready var Player_Sprite = get_node("Sprite")
-onready var Animation_Player = get_node("AnimationPlayer")
+onready var Animation_Player = get_node("SM/AnimationPlayer")
 onready var Collision_Body = get_node("CollisionBody")
 onready var left_wall_raycast = get_node("CollisionChecks/WallRaycasts/LeftWallRaycast")
 onready var right_wall_raycast = get_node("CollisionChecks/WallRaycasts/RightWallRaycast")
@@ -49,9 +49,8 @@ func _ready():
 	Globals.emit_signal("player_connect_cam", self)
 	
 	$SM.target = self
-	
-	print($AnimationPlayer.get_animation("idle").get("tracks/0/keys/times"))
 
+	Attack_Box.damage_source = self
 
 # Controls every aspect of player physics
 func _physics_process(delta) -> void:
@@ -146,4 +145,3 @@ func _on_FullBody_body_area_exited(detected):
 
 func _on_HurtBox_damage_received(amount, properties, damage_source):
 	$SM.current_state.take_damage_logic(amount, properties, damage_source)
-

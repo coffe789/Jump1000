@@ -2,10 +2,7 @@ extends "res://Script/Player/StateMachine/FallState.gd"
 var DuckModule = preload("res://Script/Player/StateMachine/Module/DuckModule.gd")
 
 func _on_activate():
-	DuckModule = DuckModule.new()
-	DuckModule.Target = Target
-	DuckModule.SM = SM
-	DuckModule.root_state = SM.get_node("RootState")
+	DuckModule = DuckModule.new(self, Target, SM, SM.get_node("RootState"))
 
 func _enter():
 	DuckModule.enter()

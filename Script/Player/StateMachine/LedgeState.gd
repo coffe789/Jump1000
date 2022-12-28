@@ -1,6 +1,9 @@
 extends "res://Script/Player/StateMachine/RootState.gd"
 const LET_GO_TIME = 0.2
 
+func _on_activate():
+	default_animation = "clinging"
+
 # Makes sure the player always rests at the same height
 func get_ledge_Y():
 	return Target.ledge_cast_height_search.get_collision_point().y

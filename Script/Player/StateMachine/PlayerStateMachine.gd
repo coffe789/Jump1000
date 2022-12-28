@@ -45,10 +45,10 @@ func on_update():
 		c.force_raycast_update()
 	
 
-
 func on_change_state(_old,_new):
 	current_state.set_cape_acceleration()
-#	print(_old.name+"->"+_new.name)
+	target.Attack_Box.damage_properties = current_state.state_damage_properties
+	# print(_old.name+"->"+_new.name)
 
 func _on_AttackLengthTimer_timeout():
 	is_attacking = false

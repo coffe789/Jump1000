@@ -19,7 +19,7 @@ func _choose_substate():
 
 func _enter():
 	SM.is_dashing = true
-	force_attack()
+	force_attack(null)
 	SM.is_twirling = false
 	Target.Timers.get_node("DashTimer").start(DASH_TIME)
 	Target.Timers.get_node("NoDashTimer").start(NO_DASH_TIME)

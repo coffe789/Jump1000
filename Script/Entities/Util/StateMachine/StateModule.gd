@@ -1,5 +1,6 @@
 extends Resource
 class_name StateModule
+var state # State that owns this module
 var SM
 var root_state
 var Target
@@ -20,4 +21,4 @@ func _blacklist_transitions():
 	pass
 
 func _on_activated():
-	pass
+	state.default_anim = "ducking"

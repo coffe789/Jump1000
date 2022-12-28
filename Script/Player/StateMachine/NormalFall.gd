@@ -2,7 +2,7 @@ extends "res://Script/Player/StateMachine/FallState.gd"
 
 func _enter():
 #	Target.Animation_Player.play("floating")
-	Target.Animation_Player.play("falling")
+	Target.Animation_Player.conditional_play("falling")
 
 func _update(delta):
 	._update(delta)

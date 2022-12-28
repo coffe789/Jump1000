@@ -66,6 +66,7 @@ __meta__ = {
 }
 
 [node name="Boundary" parent="." instance=ExtResource( 2 )]
+collision_layer = 80
 
 [node name="KillBox" parent="." instance=ExtResource( 4 )]
 input_pickable = false
