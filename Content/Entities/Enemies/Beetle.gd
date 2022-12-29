@@ -2,7 +2,7 @@ extends KinematicBody2D
 var hp = 4
 var velocity = Vector2.ZERO
 const GRAVITY = 9.8
-const WALK_SPEED = 50
+const WALK_SPEED = 25
 export var facing = -1
 
 var is_dead := false
@@ -11,6 +11,8 @@ var is_dead := false
 func _ready():
 	$Hurtbox.connect("damage_received", self, "on_hit")
 	$WalkDectector.connect("barrier_detected", self, "_on_barrier_detected")
+	
+	$StateMachine/AnimationPlayer.play("walk")
 
 	$Hitbox.damage_properties = [
 		Globals.Dmg_properties.FROM_ENEMY
