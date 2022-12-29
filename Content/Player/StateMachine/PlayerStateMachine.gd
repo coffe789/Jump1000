@@ -48,7 +48,7 @@ func on_update():
 func on_change_state(_old,_new):
 	current_state.set_cape_acceleration()
 	target.Attack_Box.damage_properties = current_state.state_damage_properties
-	# print(_old.name+"->"+_new.name)
+	print(_old.name+"->"+_new.name)
 
 func _on_AttackLengthTimer_timeout():
 	is_attacking = false

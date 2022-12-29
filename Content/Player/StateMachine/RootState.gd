@@ -30,8 +30,8 @@ const DUCKING_COLLISION_EXTENT = Vector2(3.5,4)
 const NORMAL_ATTACK_SIZE = Vector2(15,5)
 const TWIRL_ATTACK_SIZE = Vector2(20,5)
 const DASH_ATTACK_SIZE = Vector2(5,15)
-const ATTACK_TIME = 0.4
-const BETWEEN_ATTACK_TIME = 0.55
+const ATTACK_TIME = 0.2
+const BETWEEN_ATTACK_TIME = 0.4
 const WALLBOUNCE_MULTIPLIER = 1.35
 
 const NO_DASH_TIME = 0.3
@@ -195,7 +195,6 @@ func stop_attack():
 
 
 # What the player does after attacking (dependent on target)
-# I think this should be deleted and I can just use a global signal?
 func attack_response(response_id, attackable):
 	match response_id:
 		Globals.NORMAL_STAGGER:
@@ -204,7 +203,13 @@ func attack_response(response_id, attackable):
 		Globals.NO_RESPONSE:
 			pass
 		Globals.DASH_BONK:
-			Target.velocity = Vector2(-Target.facing * 70, -150)
+			Target.velocity = Vector2(-Target.facing * 170, -150)
+			Target.get_node("SM").change_state(Target.get_node("SM/RootState"))
+		Globals.DASH_BONK_MINI:
+			Target.velocity = Vector2(-Target.facing * 130, -150)
+			Target.get_node("SM").change_state(Target.get_node("SM/RootState"))
+			
+		
 
 
 func set_attack_direction():

@@ -51,8 +51,6 @@ script = ExtResource( 4 )
 [node name="DashTarget" parent="." instance=ExtResource( 1 )]
 position = Vector2( 0, 59 )
 z_index = 1
-collision_layer = 8
-collision_mask = 2
 
 [node name="CollisionShape2D" parent="DashTarget" index="0"]
 position = Vector2( -0.5, 0.5 )
@@ -61,7 +59,5 @@ shape = SubResource( 6 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 4 )
 anims/idle = SubResource( 5 )
-
-[connection signal="area_exited" from="DashTarget" to="DashTarget" method="_on_DashTarget_area_exited"]
 
 [editable path="DashTarget"]

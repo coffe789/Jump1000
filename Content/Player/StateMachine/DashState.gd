@@ -45,6 +45,8 @@ func _add_transitions():
 		-10,"dash_timeout",SM.get_node("RootState/AirState/FallState")
 		,funcref(conditions_lib,"is_dash_timeout")))
 
+func _blacklist_transitions():
+	remove_transition("to_fallstate")
 
 func _exit():
 	stop_attack()

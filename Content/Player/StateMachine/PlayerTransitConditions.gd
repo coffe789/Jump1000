@@ -61,9 +61,10 @@ func is_wallslide():
 		&& Target.velocity.y > 0
 
 func is_dash():
-	return (Input.is_action_just_pressed("attack")\
-	 || Target.Timers.get_node("BufferedRedashTimer").time_left > 0\
-	 || Target.Timers.get_node("BufferedDashTimer").time_left > 0)\
+	return ( Input.is_action_just_pressed("attack")\
+	 || Target.Timers.get_node("BufferedRedashTimer").time_left > 0
+	 || Target.Timers.get_node("BufferedDashTimer").time_left > 0 
+		)\
 	 && Target.Timers.get_node("NoDashTimer").time_left == 0\
 	 && Target.dash_direction != 0
 

@@ -30,6 +30,7 @@ enum Dmg_properties {
 enum {
 	NORMAL_STAGGER,
 	DASH_BONK,
+	DASH_BONK_MINI,
 	NO_RESPONSE,
 }
 

@@ -2,7 +2,7 @@ extends Area2D
 class_name DamageHurtbox
 signal damage_received(amount, properties, damage_source)
 
-export var i_seconds = 0
+export var i_seconds = 0.0
 var i_timer = Timer.new()
 
 func _ready():
