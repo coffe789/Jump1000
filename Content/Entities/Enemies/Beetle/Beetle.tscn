@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Content/Entities/Enemies/Beetle/Beetle.gd" type="Script" id=1]
 [ext_resource path="res://Content/Entities/Enemies/Beetle/RootState.gd" type="Script" id=2]
@@ -11,19 +11,19 @@
 [ext_resource path="res://Content/Entities/Enemies/Beetle/Walking.gd" type="Script" id=9]
 [ext_resource path="res://Content/Entities/Enemies/Beetle/Airborne.gd" type="Script" id=10]
 [ext_resource path="res://Content/Entities/Enemies/Beetle/Dead.gd" type="Script" id=11]
+[ext_resource path="res://Content/Entities/Enemies/Beetle/DeadNormal.gd" type="Script" id=12]
+[ext_resource path="res://Content/Entities/Enemies/Beetle/DeadFlung.gd" type="Script" id=13]
+[ext_resource path="res://Content/Entities/Enemies/Beetle/BeetleTransitConditions.gd" type="Script" id=14]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 7.375, 6 )
 
+[sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 7.5, 6.2 )
+
 [sub_resource type="RectangleShape2D" id=5]
 resource_local_to_scene = true
 extents = Vector2( 1, 1 )
-
-[sub_resource type="GDScript" id=4]
-script/source = "extends TransitConditions
-
-
-"
 
 [sub_resource type="Animation" id=6]
 length = 0.001
@@ -76,7 +76,7 @@ tracks/0/keys = {
 light_mask = 0
 position = Vector2( 0, -8 )
 collision_layer = 8
-collision_mask = 49
+collision_mask = 57
 script = ExtResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -92,12 +92,11 @@ shape = SubResource( 2 )
 [node name="Hitbox" type="Area2D" parent="."]
 position = Vector2( 0, 2 )
 collision_layer = 4
-collision_mask = 2
+collision_mask = 6
 script = ExtResource( 8 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2( -0.75, 0 )
-shape = SubResource( 2 )
+shape = SubResource( 9 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -132,16 +131,16 @@ cast_to = Vector2( 0, 6 )
 collision_mask = 33
 
 [node name="HLeft" type="RayCast2D" parent="WalkDectector"]
-position = Vector2( -8.5, 0 )
+position = Vector2( -7.5, 0 )
 enabled = true
 cast_to = Vector2( -1, 0 )
-collision_mask = 17
+collision_mask = 25
 
 [node name="HRight" type="RayCast2D" parent="WalkDectector"]
-position = Vector2( 8.5, 0 )
+position = Vector2( 7.5, 0 )
 enabled = true
 cast_to = Vector2( 1, 0 )
-collision_mask = 17
+collision_mask = 25
 
 [node name="DashTarget" parent="." instance=ExtResource( 6 )]
 
@@ -163,12 +162,22 @@ script = ExtResource( 10 )
 [node name="Dead" type="Node" parent="StateMachine/RootState"]
 script = ExtResource( 11 )
 
+[node name="DeadNormal" type="Node" parent="StateMachine/RootState/Dead"]
+script = ExtResource( 12 )
+
+[node name="DeadFlung" type="Node" parent="StateMachine/RootState/Dead"]
+script = ExtResource( 13 )
+
 [node name="TransitConditions" type="Node" parent="StateMachine"]
-script = SubResource( 4 )
+script = ExtResource( 14 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="StateMachine"]
 anims/RESET = SubResource( 6 )
 anims/dead = SubResource( 8 )
 anims/walk = SubResource( 7 )
+
+[node name="FlungTimer" type="Timer" parent="."]
+process_mode = 0
+one_shot = true
 
 [editable path="DashTarget"]

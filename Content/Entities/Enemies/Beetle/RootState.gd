@@ -11,22 +11,14 @@ func _choose_substate():
 ##	return $Airborne
 
 
-func is_dead():
-	return Target.is_dead
-
-func is_grounded():
-	return Target.is_on_floor()
-
-func is_airborne():
-	return !is_grounded()
 
 func _add_transitions():
 	transitions.append(StateTransition.new(
-		2,"to_dead",SM.get_node("RootState/Dead"),funcref(self,"is_dead")))
+		2,"to_dead",SM.get_node("RootState/Dead"),funcref(conditions_lib,"is_dead")))
 	transitions.append(StateTransition.new(
-		1,"to_airborne",SM.get_node("RootState/Airborne"),funcref(self,"is_airborne")))
+		1,"to_airborne",SM.get_node("RootState/Airborne"),funcref(conditions_lib,"is_airborne")))
 	transitions.append(StateTransition.new(
-		0,"to_walking",SM.get_node("RootState/Walking"),funcref(self,"is_grounded")))
+		0,"to_walking",SM.get_node("RootState/Walking"),funcref(conditions_lib,"is_grounded")))
 
 func do_movement():
 	Target.velocity.y = min(Target.velocity.y, 200) # Cap fall speed
@@ -41,7 +33,7 @@ func do_movement():
 
 # hit the player
 func on_hit(_amount, properties, damage_source):
-	var xdir = damage_source.facing
+	var xdir = damage_source.facing # This will crash if the damage_source doesn't have this
 	if (properties.has(Globals.Dmg_properties.PLAYER_THRUST)):
 		Target.velocity = Vector2(xdir * 100, -100)
 	elif (properties.has(Globals.Dmg_properties.PLAYER_TWIRL)):
@@ -51,3 +43,6 @@ func on_hit(_amount, properties, damage_source):
 		)):
 		Target.velocity = Vector2(xdir * 100, -100)
 		damage_source.attack_response(Globals.DASH_BONK, self)	
+	elif damage_source is Beetle:
+		xdir = sign(damage_source.velocity.x)
+		Target.velocity = Vector2(xdir * 100, -100)

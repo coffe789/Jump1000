@@ -29,7 +29,7 @@ const NORMAL_COLLISION_EXTENT = Vector2(3.5,8)
 const DUCKING_COLLISION_EXTENT = Vector2(3.5,4)
 const NORMAL_ATTACK_SIZE = Vector2(15,5)
 const TWIRL_ATTACK_SIZE = Vector2(20,5)
-const DASH_ATTACK_SIZE = Vector2(5,15)
+const DASH_ATTACK_SIZE = Vector2(5,20)
 const ATTACK_TIME = 0.2
 const BETWEEN_ATTACK_TIME = 0.4
 const WALLBOUNCE_MULTIPLIER = 1.35
@@ -199,7 +199,6 @@ func attack_response(response_id, attackable):
 	match response_id:
 		Globals.NORMAL_STAGGER:
 			Target.velocity.x = -Target.facing * 100 # recoil
-			attackable.on_attacked(2,Globals.NORMAL_ATTACK) #do damage or something
 		Globals.NO_RESPONSE:
 			pass
 		Globals.DASH_BONK:

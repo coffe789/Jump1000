@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "KinematicBody2D",
+"class": "Beetle",
+"language": "GDScript",
+"path": "res://Content/Entities/Enemies/Beetle/Beetle.gd"
+}, {
 "base": "Resource",
 "class": "BitmaskEdgesData",
 "language": "GDScript",
@@ -95,6 +100,7 @@ _global_script_classes=[ {
 "path": "res://Content/Entities/Util/WalkDectector.gd"
 } ]
 _global_script_class_icons={
+"Beetle": "",
 "BitmaskEdgesData": "res://addons/Tile_Cleaner/Icons/Bitmask_Edges_Icon.png",
 "DamageHitbox": "",
 "DamageHurtbox": "",
