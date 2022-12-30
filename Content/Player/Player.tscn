@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=2]
+[gd_scene load_steps=61 format=2]
 
 [ext_resource path="res://Content/Entities/Util/HurtBox.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Content/Entities/Verlet/VerletArea.tscn" type="PackedScene" id=2]
@@ -38,6 +38,7 @@
 [ext_resource path="res://Content/Player/StateMachine/Run.gd" type="Script" id=36]
 [ext_resource path="res://Content/Player/StateMachine/JumpState.gd" type="Script" id=37]
 [ext_resource path="res://Content/Player/StateMachine/Roll.gd" type="Script" id=38]
+[ext_resource path="res://Art/Player/yoyo.png" type="Texture" id=39]
 
 [sub_resource type="Animation" id=24]
 length = 0.001
@@ -274,6 +275,22 @@ tracks/2/keys = {
 "values": [ Vector2( 0, 1 ), Vector2( 1, 1 ) ]
 }
 
+[sub_resource type="Animation" id=27]
+resource_name = "spinning"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 8 ), Vector2( 6, 8 ) ]
+}
+
 [sub_resource type="Animation" id=20]
 resource_name = "super jumping"
 length = 0.1
@@ -503,6 +520,7 @@ anims/idle = SubResource( 16 )
 anims/jumping = SubResource( 17 )
 anims/rolling = SubResource( 18 )
 anims/running = SubResource( 19 )
+anims/spinning = SubResource( 27 )
 "anims/super jumping" = SubResource( 20 )
 script = ExtResource( 17 )
 
@@ -619,8 +637,15 @@ shape = SubResource( 3 )
 light_mask = 0
 position = Vector2( 0, -12 )
 texture = ExtResource( 5 )
-hframes = 3
-vframes = 8
+hframes = 7
+vframes = 9
+
+[node name="Yoyo" type="Sprite" parent="."]
+visible = false
+position = Vector2( 0, -6 )
+texture = ExtResource( 39 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Yoyo"]
 
 [node name="Audio" type="Node" parent="."]
 pause_mode = 2
@@ -756,8 +781,6 @@ shadow_enabled = true
 shadow_gradient_length = 8.0
 shadow_filter = 5
 shadow_filter_smooth = 8.6
-
-[node name="Yoyo" type="Sprite" parent="."]
 
 [connection signal="area_entered" from="CollisionChecks/FullBodyArea" to="." method="_on_FullBody_body_area_entered"]
 [connection signal="area_exited" from="CollisionChecks/FullBodyArea" to="." method="_on_FullBody_body_area_exited"]

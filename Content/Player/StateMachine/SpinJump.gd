@@ -1,9 +1,12 @@
 extends "res://Content/Player/StateMachine/JumpState.gd"
 
+func _on_activate():
+	default_animation = "rolling"
+
 func _enter():
 	._enter()
 	SM.is_spinning = true
-	Target.Animation_Player.play("rolling")
+	Target.Animation_Player.conditional_play("rolling")
 	if get_input_direction()==0:
 		Target.velocity.x = set_if_lesser(-Target.velocity.x, -Target.facing * 100)
 	elif get_input_direction() == -Target.wall_direction:

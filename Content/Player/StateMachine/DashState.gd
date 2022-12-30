@@ -19,7 +19,7 @@ func _choose_substate():
 
 func _enter():
 	SM.is_dashing = true
-	force_attack(null)
+	force_attack(AttackType.DASH)
 	SM.is_twirling = false
 	Target.Timers.get_node("DashTimer").start(DASH_TIME)
 	Target.Timers.get_node("NoDashTimer").start(NO_DASH_TIME)
@@ -49,7 +49,7 @@ func _blacklist_transitions():
 	remove_transition("to_fallstate")
 
 func _exit():
-	stop_attack()
+#	stop_attack()
 	SM.is_dashing = false
 	set_normal_hitbox()
 

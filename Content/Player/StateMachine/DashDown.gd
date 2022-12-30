@@ -4,7 +4,9 @@ func _ready():
 	state_damage_properties = [
 	Globals.Dmg_properties.FROM_PLAYER,
 	Globals.Dmg_properties.DASH_ATTACK_DOWN
-]
+	]
+	default_animation = "rolling"
+
 
 func _enter():
 	._enter()

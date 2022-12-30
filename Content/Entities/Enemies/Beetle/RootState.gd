@@ -46,3 +46,7 @@ func on_hit(_amount, properties, damage_source):
 	elif damage_source is Beetle:
 		xdir = sign(damage_source.velocity.x)
 		Target.velocity = Vector2(xdir * 100, -100)
+	
+	if (properties.has(Globals.Dmg_properties.PLAYER_THRUST) 
+			or properties.has(Globals.Dmg_properties.PLAYER_TWIRL)):
+		damage_source.attack_response(Globals.NORMAL_STAGGER, self)

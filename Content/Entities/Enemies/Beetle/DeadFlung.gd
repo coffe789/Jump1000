@@ -6,7 +6,6 @@ func _enter():
 	Target.get_node("Hitbox").monitorable = true
 	Target.get_node("Hitbox").monitoring = true
 	Target.get_node("Hitbox").damage_amount = 2
-	print("FLUG")
 
 func _update(delta):
 	._update(delta)
@@ -14,8 +13,5 @@ func _update(delta):
 		Target.is_flung = false
 		Target.get_node("FlungTimer").start(0.35)
 
-
-
 func _exit():
 	Target.is_flung = false
-	print("FLUGNT")

@@ -7,7 +7,7 @@ func _ready():
 func _enter():
 	._enter()
 	Target.velocity.y = -JUMP_SPEED
-	Target.Animation_Player.play("jumping")
+	Target.Animation_Player.conditional_play("jumping")
 	Target.velocity.x = set_if_lesser(
 		Target.velocity.x, MAX_X_SPEED*(-Target.wall_direction) * WALLJUMP_X_SPEED_MULTIPLIER
 		)

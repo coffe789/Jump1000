@@ -1,7 +1,10 @@
 extends "res://Content/Player/StateMachine/FallState.gd"
 
+func _on_activate():
+	default_animation = "rolling"
+
 func _enter():
-	Target.Animation_Player.play("rolling")
+	Target.Animation_Player.conditional_play("rolling")
 	SM.is_spinning = true
 
 func _update(delta):

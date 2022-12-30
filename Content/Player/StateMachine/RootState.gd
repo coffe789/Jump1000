@@ -32,6 +32,7 @@ const TWIRL_ATTACK_SIZE = Vector2(20,5)
 const DASH_ATTACK_SIZE = Vector2(5,20)
 const ATTACK_TIME = 0.2
 const BETWEEN_ATTACK_TIME = 0.4
+const TWIRL_TIME = 0.3
 const WALLBOUNCE_MULTIPLIER = 1.35
 
 const NO_DASH_TIME = 0.3
@@ -135,13 +136,13 @@ func set_attack_hitbox():
 	else:
 		Target.Attack_Box.position.y = -8
 
-enum AttackType {NORMAL, TWIRL}
+enum AttackType {NORMAL, TWIRL, DASH}
 # Performs attack if button is pressed/is buffered. Returns success status
 func do_attack():
 	if (Input.is_action_just_pressed("twirl")
 	or (Target.Timers.get_node("BufferedTwirlTimer").time_left > 0)) && Target.Timers.get_node("BetweenAttackTimer").time_left == 0:
 		SM.is_twirling = true
-		Target.Timers.get_node("TwirlTimer").start(0.3)
+		Target.Timers.get_node("TwirlTimer").start(TWIRL_TIME)
 		force_attack(AttackType.TWIRL)
 		return true
 	elif (Input.is_action_just_pressed("attack")
@@ -159,7 +160,16 @@ func force_attack(type):
 	SM.is_attacking = true
 	Target.Attack_Box.damage_properties = get_damage_properties()
 	Target.Attack_Box.get_child(0).disabled = false
-	Target.Timers.get_node("AttackLengthTimer").start(ATTACK_TIME)
+	
+	var attack_timer = Target.Timers.get_node("AttackLengthTimer")
+	match (type):
+		AttackType.NORMAL:
+			attack_timer.start(ATTACK_TIME)
+		AttackType.TWIRL:
+			attack_timer.start(TWIRL_TIME)
+		AttackType.DASH:
+			attack_timer.start(0.3)
+		
 	Target.Timers.get_node("BetweenAttackTimer").start(BETWEEN_ATTACK_TIME)
 	Target.Timers.get_node("BufferedAttackTimer").stop()
 
@@ -167,11 +177,12 @@ func force_attack(type):
 		AttackType.NORMAL:
 			Target.Animation_Player.play("attack")
 		AttackType.TWIRL:
-			Target.Animation_Player.play("attack") # TODO add twirl animation
-	if type != null: yield(Target.Timers.get_node("AttackLengthTimer"), "timeout")
+			Target.Animation_Player.play("spinning")
+		AttackType.DASH:
+			pass
 	
-	if (not SM.is_attacking):
-		Target.Animation_Player.play(SM.current_state.default_animation)
+	yield(attack_timer, "timeout")
+	Target.Animation_Player.play(SM.current_state.default_animation)
 
 func get_damage_properties():
 	var to_return = [Globals.Dmg_properties.FROM_PLAYER]
@@ -192,6 +203,7 @@ func stop_attack():
 	Target.Attack_Box.get_child(0).set_deferred("disabled", true)
 	SM.is_attacking = false
 	SM.is_twirling = false
+	Target.Animation_Player.play(SM.current_state.default_animation)
 
 
 # What the player does after attacking (dependent on target)
@@ -204,9 +216,11 @@ func attack_response(response_id, attackable):
 		Globals.DASH_BONK:
 			Target.velocity = Vector2(-Target.facing * 170, -150)
 			Target.get_node("SM").change_state(Target.get_node("SM/RootState"))
+			stop_attack()
 		Globals.DASH_BONK_MINI:
 			Target.velocity = Vector2(-Target.facing * 130, -150)
 			Target.get_node("SM").change_state(Target.get_node("SM/RootState"))
+			stop_attack()
 			
 		
 

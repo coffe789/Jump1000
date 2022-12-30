@@ -2,6 +2,9 @@ extends "res://Content/Player/StateMachine/GroundState.gd"
 
 var roll_direction
 
+func _on_activate():
+	default_animation = "rolling"
+
 func _enter():
 	._enter()
 	Target.Animation_Player.play("rolling")

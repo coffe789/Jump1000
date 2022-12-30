@@ -2,7 +2,7 @@ extends "res://Content/Player/StateMachine/GroundState.gd"
 
 func _enter():
 	._enter()
-	Target.Animation_Player.play("idle")
+	Target.Animation_Player.conditional_play("idle")
 
 func _update(delta):
 	._update(delta)

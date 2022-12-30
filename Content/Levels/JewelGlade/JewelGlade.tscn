@@ -1343,11 +1343,14 @@ position = Vector2( -24, 60 )
 [node name="BreakableBlock2" parent="RealLevelArea/Room/ResetableNodes/Entities" index="3" instance=ExtResource( 48 )]
 position = Vector2( -24, 12 )
 
+[node name="BlueBerry" parent="RealLevelArea/Room/ResetableNodes/Entities" index="4" instance=ExtResource( 45 )]
+position = Vector2( 48, -54 )
+
 [node name="CollisionShape2D" parent="RealLevelArea/Room" index="5"]
 shape = SubResource( 97 )
 
 [node name="SpawnPoint" parent="RealLevelArea/Room" index="8"]
-position = Vector2( -144, 48 )
+position = Vector2( 96, 84 )
 
 [node name="Room2" parent="RealLevelArea" instance=ExtResource( 2 )]
 position = Vector2( 576, -108 )
