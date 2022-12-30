@@ -189,7 +189,7 @@ func get_damage_properties():
 
 # If for whatever reason you want to cancel an attack (like entering another state)
 func stop_attack():
-	Target.Attack_Box.get_child(0).disabled = true
+	Target.Attack_Box.get_child(0).set_deferred("disabled", true)
 	SM.is_attacking = false
 	SM.is_twirling = false
 

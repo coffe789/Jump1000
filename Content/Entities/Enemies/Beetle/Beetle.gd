@@ -26,10 +26,13 @@ func on_hit(amount, properties, damage_source):
 	if properties.has(Globals.Dmg_properties.FROM_PLAYER):
 		hp = max(hp - amount, 0)
 		$Hurtbox.do_iframes()
-		if (hp == 0): is_dead = true
-	
-		$StateMachine.current_state.on_hit(amount, properties, damage_source)	
-	
+		if (hp == 0):
+			$StateMachine/RootState/Dead.on_hit(amount, properties, damage_source)
+			is_dead = true
+		else:
+			$StateMachine.current_state.on_hit(amount, properties, damage_source)
+
+
 func _on_barrier_detected(_type, direction):
 	if (!is_dead and is_on_floor()):
 		facing = -direction

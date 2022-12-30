@@ -1,4 +1,4 @@
-[gd_scene load_steps=106 format=2]
+[gd_scene load_steps=107 format=2]
 
 [ext_resource path="res://Content/Levels/LevelArea.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Content/Levels/Room.tscn" type="PackedScene" id=2]
@@ -46,6 +46,7 @@
 [ext_resource path="res://Art/Entity/Danger/Flower/stems_outline.png" type="Texture" id=44]
 [ext_resource path="res://Content/Entities/LevelMechanic/BlueBerry/BlueBerry.tscn" type="PackedScene" id=45]
 [ext_resource path="res://Content/Entities/Danger/Flower/FlowerSpinner.tscn" type="PackedScene" id=46]
+[ext_resource path="res://Content/Entities/LevelMechanic/BoostPlatform/PlatformStop.tscn" type="PackedScene" id=47]
 
 [sub_resource type="Gradient" id=101]
 colors = PoolColorArray( 0, 0, 0.0196078, 1, 0.980392, 1, 1, 1 )
@@ -1158,10 +1159,10 @@ extents = Vector2( 192, 168 )
 tile_data = PoolIntArray( -458699, 5, 327684, -458698, 5, 327686, -458697, 5, 327687, -458696, 5, 327689, -458695, 5, 327688, -458694, 5, 262155, -393163, 5, 458757, -393162, 5, 0, -393161, 5, 0, -393160, 5, 0, -393159, 5, 0, -393158, 5, 524298, -327627, 5, 524293, -327626, 5, 0, -327625, 5, 0, -327624, 5, 0, -327623, 5, 0, -327622, 5, 589834, -262091, 5, 458757, -262090, 5, 0, -262089, 5, 0, -262088, 5, 0, -262087, 5, 0, -262086, 5, 393226, -196555, 5, 458757, -196554, 5, 0, -196553, 5, 0, -196552, 5, 0, -196551, 5, 0, -196550, 5, 589834, -131019, 5, 655364, -131018, 5, 655367, -131017, 5, 655369, -131016, 5, 655369, -131015, 5, 655368, -131014, 5, 720906 )
 
 [node name="PlayerCamera" parent="RealLevelArea" index="2"]
-position = Vector2( 1332, 42 )
+position = Vector2( 1416, 36 )
 
 [node name="Player" parent="RealLevelArea" instance=ExtResource( 3 )]
-position = Vector2( 1332, 42 )
+position = Vector2( 1416, 36 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="RealLevelArea"]
 environment = SubResource( 99 )
@@ -1987,6 +1988,10 @@ position = Vector2( -63, -25 )
 z_index = -1
 texture = ExtResource( 43 )
 flip_h = true
+
+[node name="PlatformStop" parent="RealLevelArea/Room4" instance=ExtResource( 47 )]
+position = Vector2( 222, 18 )
+dir = 4
 
 [node name="Room5" parent="RealLevelArea" instance=ExtResource( 2 )]
 position = Vector2( 2112, 120 )

@@ -28,8 +28,8 @@ func _on_new_target(new_target):
 	if new_target == get_parent():
 		is_targeted = true
 		set_direction()
-		$AnimationPlayer.seek(0)
 		$AnimationPlayer.play("activate")
+		$AnimationPlayer.seek(0)
 		$AnimationPlayer.queue("Idle")
 	elif is_targeted:
 		if $AnimationPlayer.current_animation == "Idle" || "Idle" in $AnimationPlayer.get_queue():

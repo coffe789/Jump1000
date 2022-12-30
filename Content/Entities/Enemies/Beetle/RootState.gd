@@ -39,19 +39,15 @@ func do_movement():
 	if Target.is_on_wall():
 		Target.velocity.x = -prev_speed.x * 0.4
 
-
+# hit the player
 func on_hit(_amount, properties, damage_source):
 	var xdir = damage_source.facing
 	if (properties.has(Globals.Dmg_properties.PLAYER_THRUST)):
 		Target.velocity = Vector2(xdir * 100, -100)
-	
-	if (properties.has(Globals.Dmg_properties.DASH_ATTACK_UP)
+	elif (properties.has(Globals.Dmg_properties.PLAYER_TWIRL)):
+		Target.velocity = Vector2(xdir * 10, -200)
+	elif (properties.has(Globals.Dmg_properties.DASH_ATTACK_UP)
 		or properties.has(Globals.Dmg_properties.DASH_ATTACK_DOWN
 		)):
 		Target.velocity = Vector2(xdir * 100, -100)
-		damage_source.attack_response(Globals.DASH_BONK, self)
-
-		
-
-	elif (properties.has(Globals.Dmg_properties.PLAYER_TWIRL)):
-		Target.velocity = Vector2(xdir * 10, -200)
+		damage_source.attack_response(Globals.DASH_BONK, self)	
