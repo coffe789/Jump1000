@@ -5,7 +5,7 @@ func _ready():
 	Globals.Dmg_properties.FROM_PLAYER,
 	Globals.Dmg_properties.DASH_ATTACK_UP
 	]
-	default_animation = "attacking"
+	default_animation = "attack"
 
 func _enter():
 	._enter()

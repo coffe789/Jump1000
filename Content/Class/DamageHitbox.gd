@@ -7,9 +7,24 @@ export var damage_amount = 1
 var damage_properties = []
 var damage_source = self
 
+var off_timer = Timer.new()
+
 func _ready():
 	connect("area_entered", self, "_on_DamageHitbox_area_entered")
 	connect("area_exited", self, "_on_DamageHitbox_area_exited")
+
+	off_timer.one_shot = true
+	add_child(off_timer)
+
+func temp_disable(disabled_time):
+	set_deferred("monitoring", false)
+	set_deferred("monitorable", false)
+
+	off_timer.start(disabled_time)
+	yield(off_timer, "timeout")
+
+	set_deferred("monitoring", true)
+	set_deferred("monitorable", true)
 
 
 func _physics_process(_delta):

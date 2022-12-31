@@ -17,6 +17,8 @@ func _ready():
 	]
 	$Hitbox.damage_source = self
 
+	$Hurtbox.hitboxes.append($Hitbox)
+
 	$StateMachine/AnimationPlayer.play("walk")
 	$StateMachine.target = self
 
@@ -28,11 +30,12 @@ func _physics_process(delta):
 func on_hit(amount, properties, damage_source):
 	if properties.has(Globals.Dmg_properties.FROM_PLAYER) && damage_source != self:
 		hp = max(hp - amount, 0)
-		$Hurtbox.do_iframes()
 		if (hp == 0):
+			$Hurtbox.do_iframes(false)
 			$StateMachine/RootState/Dead.on_hit(amount, properties, damage_source)
 			is_dead = true
 		else:
+			$Hurtbox.do_iframes()
 			$StateMachine.current_state.on_hit(amount, properties, damage_source)
 		if (hp > 0 and hp <= 2): $Panic.visible = true
 		else: $Panic.visible = false

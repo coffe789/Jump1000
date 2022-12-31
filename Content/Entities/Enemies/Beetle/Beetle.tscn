@@ -118,7 +118,6 @@ vframes = 2
 visible = false
 position = Vector2( -7, -8 )
 frames = SubResource( 15 )
-frame = 2
 speed_scale = 2.0
 playing = true
 flip_h = true
@@ -144,7 +143,6 @@ position = Vector2( 0, 2 )
 collision_layer = 8
 collision_mask = 4
 script = ExtResource( 5 )
-i_seconds = 0.2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2( -0.375, 0 )

@@ -168,7 +168,7 @@ func force_attack(type):
 		AttackType.TWIRL:
 			attack_timer.start(TWIRL_TIME)
 		AttackType.DASH:
-			attack_timer.start(0.3)
+			attack_timer.start(0.2)
 		
 	Target.Timers.get_node("BetweenAttackTimer").start(BETWEEN_ATTACK_TIME)
 	Target.Timers.get_node("BufferedAttackTimer").stop()
