@@ -34,9 +34,19 @@ func on_hit(amount, properties, damage_source):
 			is_dead = true
 		else:
 			$StateMachine.current_state.on_hit(amount, properties, damage_source)
+		if (hp > 0 and hp <= 2): $Panic.visible = true
+		else: $Panic.visible = false
 
+func on_deal_damage(amount, properties, damage_source):
+	$FlungTimer.stop()
+	is_flung = false
+
+func turn_around(direction):
+	$Sprite.scale.x = direction
+	$Panic.position.x = -direction * 7
+	$Panic.scale.x = direction
 
 func _on_barrier_detected(_type, direction):
 	if (!is_dead and is_on_floor()):
 		facing = -direction
-		$Sprite.scale.x = sign(direction)
+		turn_around(direction)

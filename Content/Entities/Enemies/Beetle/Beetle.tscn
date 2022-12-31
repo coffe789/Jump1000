@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Content/Entities/Enemies/Beetle/Beetle.gd" type="Script" id=1]
 [ext_resource path="res://Content/Entities/Enemies/Beetle/RootState.gd" type="Script" id=2]
@@ -14,6 +14,35 @@
 [ext_resource path="res://Content/Entities/Enemies/Beetle/DeadNormal.gd" type="Script" id=12]
 [ext_resource path="res://Content/Entities/Enemies/Beetle/DeadFlung.gd" type="Script" id=13]
 [ext_resource path="res://Content/Entities/Enemies/Beetle/BeetleTransitConditions.gd" type="Script" id=14]
+[ext_resource path="res://Art/Entity/Enemy/Beetle/panic.png" type="Texture" id=15]
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 15 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 15 )
+region = Rect2( 16, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 15 )
+region = Rect2( 32, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 15 )
+region = Rect2( 48, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 15 )
+region = Rect2( 64, 0, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=15]
+animations = [ {
+"frames": [ SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 7.375, 6 )
@@ -84,6 +113,15 @@ light_mask = 0
 texture = ExtResource( 7 )
 hframes = 2
 vframes = 2
+
+[node name="Panic" type="AnimatedSprite" parent="."]
+visible = false
+position = Vector2( -7, -8 )
+frames = SubResource( 15 )
+frame = 2
+speed_scale = 2.0
+playing = true
+flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 2 )
