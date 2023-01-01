@@ -2,6 +2,7 @@ extends State
 const GRAVITY = 9.8
 const WALK_SPEED = 25
 const RUN_SPEED = 55
+const MAX_FALL_SPEED = 200
 
 func _choose_substate():
 	return $Walking
@@ -21,7 +22,7 @@ func _add_transitions():
 		0,"to_walking",SM.get_node("RootState/Walking"),funcref(conditions_lib,"is_grounded")))
 
 func do_movement():
-	Target.velocity.y = min(Target.velocity.y, 200) # Cap fall speed
+	Target.velocity.y = min(Target.velocity.y, MAX_FALL_SPEED) # Cap fall speed
 
 	var prev_speed = Target.velocity
 	Target.velocity = Target.move_and_slide(Target.velocity, Vector2.UP)

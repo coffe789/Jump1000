@@ -1160,10 +1160,10 @@ extents = Vector2( 192, 168 )
 tile_data = PoolIntArray( -458699, 5, 327684, -458698, 5, 327686, -458697, 5, 327687, -458696, 5, 327689, -458695, 5, 327688, -458694, 5, 262155, -393163, 5, 458757, -393162, 5, 0, -393161, 5, 0, -393160, 5, 0, -393159, 5, 0, -393158, 5, 524298, -327627, 5, 524293, -327626, 5, 0, -327625, 5, 0, -327624, 5, 0, -327623, 5, 0, -327622, 5, 589834, -262091, 5, 458757, -262090, 5, 0, -262089, 5, 0, -262088, 5, 0, -262087, 5, 0, -262086, 5, 393226, -196555, 5, 458757, -196554, 5, 0, -196553, 5, 0, -196552, 5, 0, -196551, 5, 0, -196550, 5, 589834, -131019, 5, 655364, -131018, 5, 655367, -131017, 5, 655369, -131016, 5, 655369, -131015, 5, 655368, -131014, 5, 720906 )
 
 [node name="PlayerCamera" parent="RealLevelArea" index="2"]
-position = Vector2( -312, -408 )
+position = Vector2( 1404, 12 )
 
 [node name="Player" parent="RealLevelArea" instance=ExtResource( 3 )]
-position = Vector2( -312, -408 )
+position = Vector2( 1404, 12 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="RealLevelArea"]
 environment = SubResource( 99 )
@@ -1332,7 +1332,7 @@ tile_data = PoolIntArray( 327681, 3, 262148, 327682, 3, 327686, 327683, 3, 32769
 tile_data = PoolIntArray( 2359780, 1, 0 )
 
 [node name="Buzz" parent="RealLevelArea/Room/ResetableNodes/Entities" index="0" instance=ExtResource( 48 )]
-init_direction = 1
+position = Vector2( 0, 24 )
 
 [node name="CollisionShape2D" parent="RealLevelArea/Room" index="5"]
 shape = SubResource( 97 )
@@ -1623,6 +1623,10 @@ texture = ExtResource( 33 )
 flip_v = true
 
 [node name="Sprite39" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
+position = Vector2( -66, 132 )
+texture = ExtResource( 32 )
+
+[node name="Sprite41" type="Sprite" parent="RealLevelArea/Room4/Sprites"]
 position = Vector2( -66, 132 )
 texture = ExtResource( 32 )
 

@@ -12,7 +12,8 @@ func _init():
 func _ready():
 	yield(get_tree(), "idle_frame") # Collision polygons need a frame to settle
 	initialise_rooms()
-	Globals.get_player().collision_mask = Globals.get_player().collision_mask | 16 # enable room boundary collision after boundaries are created
+	if Globals.get_player():
+		Globals.get_player().collision_mask = Globals.get_player().collision_mask | 16 # enable room boundary collision after boundaries are created
 
 func get_cam():
 	assert(get_tree().get_nodes_in_group("player_camera") != [])
@@ -41,7 +42,7 @@ func initialise_rooms():
 	for node in get_tree().get_nodes_in_group("room_boundary"): # All bounds are disabled by default. We wait until now to disable them so clipping works
 		if node is StaticBody2D:
 			node.get_child(0).call_deferred("set_disabled",true)
-	if Globals.get_player().current_room:
+	if Globals.get_player() and Globals.get_player().current_room:
 		Globals.get_player().current_room.enable_bounds(true)
 		
 	Globals.is_resetables_packaged = true

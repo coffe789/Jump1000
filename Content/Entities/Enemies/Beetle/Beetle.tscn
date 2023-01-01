@@ -118,6 +118,7 @@ vframes = 2
 visible = false
 position = Vector2( -7, -8 )
 frames = SubResource( 15 )
+frame = 4
 speed_scale = 2.0
 playing = true
 flip_h = true

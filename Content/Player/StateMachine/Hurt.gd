@@ -7,6 +7,7 @@ func _enter():
 	Target.velocity.x = set_if_lesser(Target.velocity.x, -Target.facing * 130)
 	Target.velocity.y = -100
 	Target.Timers.get_node("HurtStateTimer").start(HURT_TIME)
+	Globals.do_freeze_frames()
 
 func _update(delta):
 	do_attack()

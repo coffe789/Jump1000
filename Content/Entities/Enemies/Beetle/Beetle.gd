@@ -40,7 +40,7 @@ func on_hit(amount, properties, damage_source):
 		if (hp > 0 and hp <= 2): $Panic.visible = true
 		else: $Panic.visible = false
 
-func on_deal_damage(amount, properties, damage_source):
+func on_deal_damage(_amount, _properties, _damage_source):
 	$FlungTimer.stop()
 	is_flung = false
 

@@ -17,6 +17,6 @@ func _exit():
 	turn_timer.paused = true
 
 func _update(delta):
-	Target.velocity = Target.direction * min((Target.velocity + (Target.direction * ACCELERATION * delta)).length(), MAX_SPEED)
+	if !Target.is_boinked:
+		Target.velocity = Target.direction * min((Target.velocity + (Target.direction * ACCELERATION * delta)).length(), MAX_SPEED)
 	Target.velocity = Target.move_and_slide(Target.velocity, Vector2.UP)
-

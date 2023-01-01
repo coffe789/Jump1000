@@ -10,6 +10,3 @@ func _exit():
 
 func _update(_delta):
 	Target.velocity = Target.move_and_slide(Vector2.ZERO, Vector2.UP)
-	
-func _add_transitions():
-	._add_transitions()

@@ -85,3 +85,8 @@ func get_cam():
 	if get_tree().get_nodes_in_group("player_camera") != []:
 		return get_tree().get_nodes_in_group("player_camera")[0]
 	return null
+
+func do_freeze_frames(freeze_time : float = 0.075):
+	get_tree().paused = true
+	yield(get_tree().create_timer(freeze_time), 'timeout')
+	get_tree().paused = false

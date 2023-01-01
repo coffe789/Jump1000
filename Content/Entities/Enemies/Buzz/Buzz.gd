@@ -21,7 +21,6 @@ func set_init_direction():
 func on_hit(amount, properties, damage_source):
 	if properties.has(Globals.Dmg_properties.FROM_PLAYER) && damage_source != self:
 		hp = max(hp - amount, 0)
-		if (hp == 0): queue_free()
 		$HurtBox.do_iframes()
 		$StateMachine.current_state.on_hit(amount, properties, damage_source)
 
