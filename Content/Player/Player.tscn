@@ -55,7 +55,7 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Yoyo:visible")
+tracks/1/path = NodePath("Yoyo/Sprite:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -67,7 +67,7 @@ tracks/1/keys = {
 "values": [ false ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Yoyo:position")
+tracks/2/path = NodePath("Yoyo/Sprite:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -95,28 +95,28 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 7 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Yoyo:visible")
+tracks/1/path = NodePath("Yoyo/Sprite:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.128237 ),
+"times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ true, false ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Yoyo:position")
+tracks/2/path = NodePath("Yoyo/Sprite:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( -0.288271, -0.0139013, 0.1, 0.127803 ),
+"times": PoolRealArray( -0.288271, -0.0139013, 0.1, 0.19822 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 7, 0 ), Vector2( 19, -9 ), Vector2( 19, -9 ), Vector2( 0, -9 ) ]
+"values": [ Vector2( 7, 0 ), Vector2( 19, -9 ), Vector2( 19, -9 ), Vector2( 0, -7 ) ]
 }
 
 [sub_resource type="Animation" id=25]
@@ -339,7 +339,7 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 8 ), Vector2( 6, 8 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Yoyo:visible")
+tracks/1/path = NodePath("Yoyo/Sprite:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -351,7 +351,7 @@ tracks/1/keys = {
 "values": [ true, false ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Yoyo:position")
+tracks/2/path = NodePath("Yoyo/Sprite:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -719,7 +719,9 @@ texture = ExtResource( 5 )
 hframes = 7
 vframes = 9
 
-[node name="Yoyo" type="Sprite" parent="."]
+[node name="Yoyo" type="Node2D" parent="."]
+
+[node name="Sprite" type="Sprite" parent="Yoyo"]
 visible = false
 texture = ExtResource( 39 )
 

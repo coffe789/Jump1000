@@ -14,7 +14,8 @@ func _ready():
 	connect("area_exited", self, "_on_DamageHitbox_area_exited")
 
 	off_timer.one_shot = true
-	add_child(off_timer)
+	if Globals.is_resetables_packaged:
+		add_child(off_timer)
 
 func temp_disable(disabled_time):
 	set_deferred("monitoring", false)
@@ -34,6 +35,7 @@ func _physics_process(_delta):
 
 func _on_DamageHitbox_area_entered(area):
 	if area is DamageHurtbox:
+		print("heheriew")
 		connect("damage_anything", area, "_on_DamageHitbox_entered")
 		emit_signal("damage_anything", damage_amount, damage_properties, damage_source)
 

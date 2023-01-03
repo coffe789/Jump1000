@@ -3,7 +3,7 @@
 [ext_resource path="res://Content/Entities/Enemies/Beetle/Beetle.gd" type="Script" id=1]
 [ext_resource path="res://Content/Entities/Enemies/Beetle/RootState.gd" type="Script" id=2]
 [ext_resource path="res://Content/Entities/Util/StateMachine/StateMachine.gd" type="Script" id=3]
-[ext_resource path="res://Content/Entities/Util/WalkDectector.gd" type="Script" id=4]
+[ext_resource path="res://Content/Entities/Util/WalkDectector.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Content/Class/DamageHurtbox.gd" type="Script" id=5]
 [ext_resource path="res://Content/Entities/Util/DashTarget.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Art/Entity/Enemy/Beetle/beetle.png" type="Texture" id=7]
@@ -118,7 +118,7 @@ vframes = 2
 visible = false
 position = Vector2( -7, -8 )
 frames = SubResource( 15 )
-frame = 4
+frame = 3
 speed_scale = 2.0
 playing = true
 flip_h = true
@@ -152,32 +152,35 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="WalkDectector" type="Node2D" parent="."]
-script = ExtResource( 4 )
+[node name="WalkDectector" parent="." instance=ExtResource( 4 )]
 
-[node name="VLeft" type="RayCast2D" parent="WalkDectector"]
+[node name="VLeft" parent="WalkDectector" index="0"]
 position = Vector2( -7, 8 )
-enabled = true
 cast_to = Vector2( 0, 6 )
-collision_mask = 33
+__meta__ = {
+"_edit_pinned_properties_": [ "position", "cast_to" ]
+}
 
-[node name="VRight" type="RayCast2D" parent="WalkDectector"]
+[node name="VRight" parent="WalkDectector" index="1"]
 position = Vector2( 8, 8 )
-enabled = true
 cast_to = Vector2( 0, 6 )
-collision_mask = 33
+__meta__ = {
+"_edit_pinned_properties_": [ "position", "cast_to" ]
+}
 
-[node name="HLeft" type="RayCast2D" parent="WalkDectector"]
+[node name="HLeft" parent="WalkDectector" index="2"]
 position = Vector2( -7.5, 0 )
-enabled = true
 cast_to = Vector2( -1, 0 )
-collision_mask = 25
+__meta__ = {
+"_edit_pinned_properties_": [ "position", "cast_to" ]
+}
 
-[node name="HRight" type="RayCast2D" parent="WalkDectector"]
+[node name="HRight" parent="WalkDectector" index="3"]
 position = Vector2( 7.5, 0 )
-enabled = true
 cast_to = Vector2( 1, 0 )
-collision_mask = 25
+__meta__ = {
+"_edit_pinned_properties_": [ "position", "cast_to" ]
+}
 
 [node name="DashTarget" parent="." instance=ExtResource( 6 )]
 
@@ -218,4 +221,5 @@ anims/walk = SubResource( 7 )
 process_mode = 0
 one_shot = true
 
+[editable path="WalkDectector"]
 [editable path="DashTarget"]

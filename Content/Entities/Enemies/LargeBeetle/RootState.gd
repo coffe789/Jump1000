@@ -1,22 +1,17 @@
 extends State
+
+const MAX_HP = 6
 const GRAVITY = 9.8
 const WALK_SPEED = 25
 const RUN_SPEED = 55
 const MAX_FALL_SPEED = 200
 
-func _choose_substate():
-	if Target.is_on_floor():
-		return $Walking
-	else:
-		return $Airborne
 
-func _add_transitions():
-	transitions.append(StateTransition.new(
-		2,"to_dead",SM.get_node("RootState/Dead"),funcref(conditions_lib,"is_dead")))
-	transitions.append(StateTransition.new(
-		1,"to_airborne",SM.get_node("RootState/Airborne"),funcref(conditions_lib,"is_airborne")))
-	transitions.append(StateTransition.new(
-		0,"to_walking",SM.get_node("RootState/Walking"),funcref(conditions_lib,"is_grounded")))
+func _choose_substate():
+	#if Target.is_on_floor():
+		return $Walking
+	#else:
+		#return $Airborne
 
 func do_movement():
 	Target.velocity.y = min(Target.velocity.y, MAX_FALL_SPEED) # Cap fall speed

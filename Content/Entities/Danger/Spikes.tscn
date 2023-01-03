@@ -9,7 +9,6 @@
 [ext_resource path="res://Content/Entities/Danger/Spikes/SpikeLeftBox.gd" type="Script" id=7]
 [ext_resource path="res://Art/Entity/Danger/Spikes/Wooden/wood_spikes.png" type="Texture" id=8]
 
-
 [sub_resource type="ConvexPolygonShape2D" id=10]
 points = PoolVector2Array( 13, 14, 1, 14, 1, 12, 13, 12 )
 

@@ -1,6 +1,5 @@
 extends "res://Content/Player/StateMachine/LedgeState.gd"
 
-
 func _update(delta):
 	._update(delta)
 	if get_ledge_Y()-Target.ledge_cast_top.global_position.y < 0 and Target.ledge_cast_height_search.is_colliding():

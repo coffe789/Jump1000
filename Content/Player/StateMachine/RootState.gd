@@ -353,6 +353,7 @@ func set_player_sprite_direction():
 	elif Target.facing == -1:
 		Target.Player_Sprite.flip_h = true
 		Target.Player_Sprite.position.x = 1
+	Target.get_node("Yoyo").scale.x = Target.facing
 
 
 func can_wall_jump():

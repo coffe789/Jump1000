@@ -1,11 +1,10 @@
 extends KinematicBody2D
-class_name Beetle
-var hp = 4
-var velocity = Vector2.ZERO
-export var facing = -1
+class_name LargeBeetle
 
-var is_dead := false
-var is_flung := false
+var velocity := Vector2.ZERO
+var hp = 6
+var is_dead = false
+export var facing = -1
 
 func _ready():
 	$Hurtbox.connect("damage_received", self, "on_hit")
@@ -19,13 +18,12 @@ func _ready():
 
 	$Hurtbox.hitboxes.append($Hitbox)
 
-	$StateMachine/AnimationPlayer.play("walk")
+	#$StateMachine/AnimationPlayer.play("walk")
 	$StateMachine.target = self
-
 
 func _physics_process(delta):
 	$StateMachine.update(delta)
-	
+
 
 func on_hit(amount, properties, damage_source):
 	if properties.has(Globals.Dmg_properties.FROM_PLAYER) && damage_source != self:
@@ -37,17 +35,14 @@ func on_hit(amount, properties, damage_source):
 		else:
 			$Hurtbox.do_iframes()
 			$StateMachine.current_state.on_hit(amount, properties, damage_source)
-		if (hp > 0 and hp < 4): $Panic.visible = true
-		else: $Panic.visible = false
 
 func on_deal_damage(_amount, _properties, _damage_source):
-	$FlungTimer.stop()
-	is_flung = false
+	pass
+	#$FlungTimer.stop()
+	#is_flung = false
 
 func turn_around(direction):
 	$Sprite.scale.x = direction
-	$Panic.position.x = -direction * 7
-	$Panic.scale.x = direction
 
 func _on_barrier_detected(_type, direction):
 	if (!is_dead and is_on_floor()):

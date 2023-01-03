@@ -1,4 +1,4 @@
-[gd_scene load_steps=108 format=2]
+[gd_scene load_steps=109 format=2]
 
 [ext_resource path="res://Content/Levels/LevelArea.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Content/Levels/Room.tscn" type="PackedScene" id=2]
@@ -48,6 +48,7 @@
 [ext_resource path="res://Content/Entities/Danger/Flower/FlowerSpinner.tscn" type="PackedScene" id=46]
 [ext_resource path="res://Content/Entities/LevelMechanic/BoostPlatform/PlatformStop.tscn" type="PackedScene" id=47]
 [ext_resource path="res://Content/Entities/Enemies/Buzz/Buzz.tscn" type="PackedScene" id=48]
+[ext_resource path="res://Content/Entities/Enemies/LargeBeetle/LargeBeetle.tscn" type="PackedScene" id=49]
 
 [sub_resource type="Gradient" id=101]
 colors = PoolColorArray( 0, 0, 0.0196078, 1, 0.980392, 1, 1, 1 )
@@ -1160,10 +1161,10 @@ extents = Vector2( 192, 168 )
 tile_data = PoolIntArray( -458699, 5, 327684, -458698, 5, 327686, -458697, 5, 327687, -458696, 5, 327689, -458695, 5, 327688, -458694, 5, 262155, -393163, 5, 458757, -393162, 5, 0, -393161, 5, 0, -393160, 5, 0, -393159, 5, 0, -393158, 5, 524298, -327627, 5, 524293, -327626, 5, 0, -327625, 5, 0, -327624, 5, 0, -327623, 5, 0, -327622, 5, 589834, -262091, 5, 458757, -262090, 5, 0, -262089, 5, 0, -262088, 5, 0, -262087, 5, 0, -262086, 5, 393226, -196555, 5, 458757, -196554, 5, 0, -196553, 5, 0, -196552, 5, 0, -196551, 5, 0, -196550, 5, 589834, -131019, 5, 655364, -131018, 5, 655367, -131017, 5, 655369, -131016, 5, 655369, -131015, 5, 655368, -131014, 5, 720906 )
 
 [node name="PlayerCamera" parent="RealLevelArea" index="2"]
-position = Vector2( 1404, 12 )
+position = Vector2( 444, 12 )
 
 [node name="Player" parent="RealLevelArea" instance=ExtResource( 3 )]
-position = Vector2( 1404, 12 )
+position = Vector2( 444, 12 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="RealLevelArea"]
 environment = SubResource( 99 )
@@ -1415,6 +1416,9 @@ position = Vector2( 12, 102 )
 [node name="FlowerSpinner3" parent="RealLevelArea/Room2/ResetableNodes/Entities" index="3" instance=ExtResource( 46 )]
 position = Vector2( 24, 108 )
 
+[node name="LargeBeetle" parent="RealLevelArea/Room2/ResetableNodes/Entities" index="4" instance=ExtResource( 49 )]
+position = Vector2( -48, 72 )
+
 [node name="CollisionShape2D" parent="RealLevelArea/Room2" index="5"]
 shape = SubResource( 98 )
 
@@ -1548,6 +1552,9 @@ position = Vector2( -252, -81 )
 
 [node name="Beetle" parent="RealLevelArea/Room4/ResetableNodes/Entities" index="4" instance=ExtResource( 6 )]
 position = Vector2( -120, 16 )
+
+[node name="Beetle2" parent="RealLevelArea/Room4/ResetableNodes/Entities" index="5" instance=ExtResource( 6 )]
+position = Vector2( -144, 24 )
 
 [node name="CollisionShape2D" parent="RealLevelArea/Room4" index="5"]
 shape = SubResource( 131 )

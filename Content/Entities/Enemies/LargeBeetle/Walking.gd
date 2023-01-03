@@ -1,4 +1,4 @@
-extends "res://Content/Entities/Enemies/Beetle/RootState.gd"
+extends "RootState.gd"
 
 func _enter():
 	pass
@@ -12,4 +12,5 @@ func _update(delta):
 
 	Target.velocity.y += GRAVITY
 	do_movement()
+
 
