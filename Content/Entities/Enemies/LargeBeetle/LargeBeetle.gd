@@ -30,7 +30,6 @@ func on_hit(amount, properties, damage_source):
 		hp = max(hp - amount, 0)
 		if (hp == 0):
 			$Hurtbox.do_iframes(false)
-			$StateMachine/RootState/Dead.on_hit(amount, properties, damage_source)
 			is_dead = true
 		else:
 			$Hurtbox.do_iframes()

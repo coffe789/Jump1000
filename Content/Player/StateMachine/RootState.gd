@@ -92,36 +92,40 @@ func set_dash_target():
 	if Target.get_node("Timers/NoDashTimer").time_left != 0:
 		unset_dash_target()
 		return
-	var best_node = null
+
+	var best_area = null
 	var best_distance = INF
-	for i in Target.Dash_Check.area_list.size():
-		if (is_instance_valid(Target.Dash_Check.area_list[i])\
-			&& (Target.position.x - Target.Dash_Check.area_list[i].position.x) < best_distance):
-				best_distance = Target.Dash_Check.area_list[i].position.x
-				best_node = Target.Dash_Check.area_list[i]
-	if Target.dash_target_node != best_node:
-		Globals.emit_signal("new_dash_target", best_node)
-		Target.dash_target_node = best_node
+	for area in Target.Dash_Check.area_list:
+		if (is_instance_valid(area)
+			&& (Target.position.x - area.position.x) < best_distance
+			&& not (area.down_disabled && get_dash_direction(area) == DASH_DIR_DOWN)
+			&& not (area.up_disabled && get_dash_direction(area) == DASH_DIR_UP)):
+				best_distance = area.position.x
+				best_area = area
+	if Target.dash_target_node != best_area:
+		Globals.emit_signal("new_dash_target", best_area)
+		Target.dash_target_node = best_area
 
 func unset_dash_target():
 	Globals.emit_signal("new_dash_target", null)
 	Target.dash_target_node = null
 
-# Set dash direction based on position of Target.dash_target_node
-func set_dash_direction():
-	if !is_instance_valid(Target.dash_target_node):
-		Target.dash_direction = DASH_DIR_NONE
-		return 
+func get_dash_direction(dash_target):
+	if !is_instance_valid(dash_target):
+		return DASH_DIR_NONE
+
 	var relative_position = (
 		Target.global_position.y 
 		- PLAYER_HEIGHT/2 
-		- Target.dash_target_node.global_position.y)
+		- dash_target.global_position.y)
 	if relative_position < 0:
-		Target.dash_direction = DASH_DIR_DOWN
-		return
+		return DASH_DIR_DOWN
 	else:
-		Target.dash_direction =  DASH_DIR_UP
-		return
+		return DASH_DIR_UP
+
+# Set dash direction based on position of Target.dash_target_node
+func set_dash_direction():
+	Target.dash_direction = get_dash_direction(Target.dash_target_node)
 
 
 func set_attack_hitbox():

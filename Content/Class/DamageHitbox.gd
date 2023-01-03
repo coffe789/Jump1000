@@ -35,7 +35,6 @@ func _physics_process(_delta):
 
 func _on_DamageHitbox_area_entered(area):
 	if area is DamageHurtbox:
-		print("heheriew")
 		connect("damage_anything", area, "_on_DamageHitbox_entered")
 		emit_signal("damage_anything", damage_amount, damage_properties, damage_source)
 

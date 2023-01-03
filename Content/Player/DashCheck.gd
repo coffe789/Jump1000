@@ -16,7 +16,7 @@ func _on_DashCheck_area_entered(area):
 		area_list.append(area)
 	
 func _on_DashCheck_area_exited(area):
-	if area.is_in_group("dashable"):
+	if area.is_in_group("dashable") and area_list.has(area):
 		areas_inside_count -= 1
 		area_list.erase(area)
 		assert(areas_inside_count>=0)

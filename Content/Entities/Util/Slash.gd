@@ -1,5 +1,5 @@
 extends Sprite
-onready var Parent = get_parent()
+onready var Parent : DashTarget = get_parent()
 var is_targeted = false
 
 # Called when the node enters the scene tree for the first time.
@@ -10,18 +10,14 @@ const PLAYER_HEIGHT = 18.0
 func set_direction():
 	var p = Globals.get_player()
 	var relative_pos = p.global_position.y - PLAYER_HEIGHT/2 - global_position.y
-	if relative_pos < 0 && p.facing == 1:
+	if relative_pos < 0 && p.facing == 1 && not Parent.down_disabled:
 		flip_h = true
-	elif relative_pos < 0 && p.facing == -1:
+	elif relative_pos < 0 && p.facing == -1 && not Parent.down_disabled:
 		flip_h = false
-	elif relative_pos > 0 && p.facing == 1:
+	elif relative_pos > 0 && p.facing == 1 && not Parent.up_disabled:
 		flip_h = false
-	else:
+	elif relative_pos > 0 && p.facing == -1 && not Parent.up_disabled:
 		flip_h = true
-#	if p.facing == 1:
-#		flip_h = false
-#	else:
-#		 flip_h = true
 
 # When the player chooses a dash target
 func _on_new_target(new_target):
@@ -37,7 +33,6 @@ func _on_new_target(new_target):
 			$AnimationPlayer.seek(0)
 		elif !"deactivate" in $AnimationPlayer.get_queue():
 			$AnimationPlayer.queue("deactivate")
-		set_direction()
 		is_targeted = false
 
 func _physics_process(_delta):

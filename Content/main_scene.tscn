@@ -17,7 +17,7 @@ render_target_update_mode = 3
 
 [node name="Area2" parent="ViewportContainer/Viewport" instance=ExtResource( 1 )]
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="Vignette" type="Sprite" parent="."]
 modulate = Color( 1, 1, 1, 0.360784 )
 position = Vector2( 769.5, 431 )
 scale = Vector2( 2.23913, 1.88261 )

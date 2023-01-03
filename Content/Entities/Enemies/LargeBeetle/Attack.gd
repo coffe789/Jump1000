@@ -1,16 +1,13 @@
-extends Node
+extends "RootState.gd"
 
+func _enter():
+	pass
+	# Make dashable from above
+	# Play windup animation
+	# Start attack windup timer
+	# Yield timer, enable attack hitbox & play animation
+	# Start attack timer, yield, exit state
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+func _update(delta):
+	._update(delta)
 
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass

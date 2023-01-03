@@ -17,10 +17,10 @@ If an enemy picks up a heart it becomes stronger. Money will shoot out of it whe
 
 
 
-Rideable enemy concept
-- 6hp; big chungus duckie
-- Starts with a leaf on his head. You can ride it by standing on the leaf
-- You cannot dash into it from above when the leaf is on its head
+## Rideable enemy concept
+- ~~6hp; big chungus duckie~~
+- ~~Starts with a leaf on his head. You can ride it by standing on the leaf~~
+- ~~You cannot dash into it from above when the leaf is on its head~~
 - If you attack it normally, it will face the player, grab the leaf off its head and use it like a whip.
   Then it will put the leaf back on its head
 - If you twirl attack it, it does a ground pound. The ground pound emits shockwaves
