@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/placeholder2.png-21c10f133b0e65976c78c19c3222cf59.stex"
+path="res://.import/test.png-363f16fc18bdbd7a2300b3ba77fc7ff4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Player/placeholder2.png"
-dest_files=[ "res://.import/placeholder2.png-21c10f133b0e65976c78c19c3222cf59.stex" ]
+source_file="res://Art/Entity/Enemy/test.png"
+dest_files=[ "res://.import/test.png-363f16fc18bdbd7a2300b3ba77fc7ff4.stex" ]
 
 [params]
 

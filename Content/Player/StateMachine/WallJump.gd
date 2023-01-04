@@ -6,6 +6,7 @@ func _ready():
 
 func _enter():
 	._enter()
+	_update_wall_direction()
 	Target.velocity.y = -JUMP_SPEED
 	Target.Animation_Player.conditional_play("jumping")
 	Target.velocity.x = set_if_lesser(

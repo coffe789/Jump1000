@@ -81,6 +81,7 @@ func heal(amount):
 
 
 func do_iframes():
+	Target.get_node("CollisionChecks/HurtBox").do_iframes()
 	Target.Timers.get_node("IFrameTimer").play("invincible")
 
 
@@ -421,7 +422,8 @@ func get_ledge_behaviour():
 func set_y_collision(extents,y_position):
 	Target.Collision_Body.get_shape().extents = extents
 	Target.Collision_Body.position.y = y_position
-	Target.get_node("CollisionChecks/HurtBox/CollisionBody").position.y = y_position
+	Target.get_node("CollisionChecks/HurtBox/CollisionBody").get_shape().extents = extents
+	Target.get_node("CollisionChecks/HurtBox").position.y = y_position
 
 func report_collision():
 	for i in Target.get_slide_count():

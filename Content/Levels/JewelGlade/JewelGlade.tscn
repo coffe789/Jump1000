@@ -1,4 +1,4 @@
-[gd_scene load_steps=108 format=2]
+[gd_scene load_steps=109 format=2]
 
 [ext_resource path="res://Content/Levels/LevelArea.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Content/Levels/Room.tscn" type="PackedScene" id=2]
@@ -47,21 +47,22 @@
 [ext_resource path="res://Content/Entities/LevelMechanic/BlueBerry/BlueBerry.tscn" type="PackedScene" id=45]
 [ext_resource path="res://Content/Entities/Danger/Flower/FlowerSpinner.tscn" type="PackedScene" id=46]
 [ext_resource path="res://Content/Entities/LevelMechanic/BoostPlatform/PlatformStop.tscn" type="PackedScene" id=47]
+[ext_resource path="res://Art/Entity/Enemy/test.png" type="Texture" id=48]
 [ext_resource path="res://Content/Entities/Enemies/LargeBeetle/LargeBeetle.tscn" type="PackedScene" id=49]
 
 [sub_resource type="Gradient" id=101]
 colors = PoolColorArray( 0, 0, 0.0196078, 1, 0.980392, 1, 1, 1 )
 
-[sub_resource type="GradientTexture" id=102]
+[sub_resource type="GradientTexture" id=133]
 gradient = SubResource( 101 )
 
 [sub_resource type="Environment" id=99]
 background_mode = 4
 glow_hdr_threshold = 1.5
 adjustment_enabled = true
-adjustment_color_correction = SubResource( 102 )
+adjustment_color_correction = SubResource( 133 )
 
-[sub_resource type="CurveTexture" id=122]
+[sub_resource type="CurveTexture" id=134]
 curve = ExtResource( 22 )
 
 [sub_resource type="ParticlesMaterial" id=120]
@@ -75,7 +76,7 @@ initial_velocity_random = 0.3
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 angle_random = 0.3
-angle_curve = SubResource( 122 )
+angle_curve = SubResource( 134 )
 scale = 0.2
 scale_random = 0.05
 hue_variation = 1.0
@@ -92,12 +93,12 @@ initial_velocity_random = 0.3
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 angle_random = 0.4
-angle_curve = SubResource( 122 )
+angle_curve = SubResource( 134 )
 scale = 0.25
 scale_random = 0.05
 hue_variation = 1.0
 
-[sub_resource type="Shader" id=117]
+[sub_resource type="Shader" id=135]
 code = "shader_type canvas_item;
 const float PI = 3.141592;
 uniform float speed = 0.2;
@@ -121,12 +122,12 @@ void fragment(){
 }"
 
 [sub_resource type="ShaderMaterial" id=118]
-shader = SubResource( 117 )
+shader = SubResource( 135 )
 shader_param/speed = 0.4
 shader_param/offset = 0.0
 
 [sub_resource type="ShaderMaterial" id=119]
-shader = SubResource( 117 )
+shader = SubResource( 135 )
 shader_param/speed = 0.4
 shader_param/offset = 0.33
 
@@ -134,7 +135,7 @@ shader_param/offset = 0.33
 offsets = PoolRealArray( 0.032967, 0.230769, 1 )
 colors = PoolColorArray( 0, 0.921569, 1, 0, 0.478431, 1, 0.937255, 0.0784314, 0, 0.921569, 1, 0 )
 
-[sub_resource type="GradientTexture" id=126]
+[sub_resource type="GradientTexture" id=136]
 gradient = SubResource( 125 )
 
 [sub_resource type="ParticlesMaterial" id=124]
@@ -151,13 +152,13 @@ orbit_velocity_random = 0.0
 angle = 408.4
 scale = 0.07
 scale_random = 0.04
-color_ramp = SubResource( 126 )
+color_ramp = SubResource( 136 )
 
 [sub_resource type="Gradient" id=128]
 offsets = PoolRealArray( 0.032967, 0.373626, 1 )
 colors = PoolColorArray( 0, 0.921569, 1, 0, 0.478431, 1, 0.937255, 0.176471, 0, 0.921569, 1, 0 )
 
-[sub_resource type="GradientTexture" id=129]
+[sub_resource type="GradientTexture" id=137]
 gradient = SubResource( 128 )
 
 [sub_resource type="ParticlesMaterial" id=127]
@@ -174,7 +175,7 @@ orbit_velocity_random = 0.0
 scale = 0.7
 scale_random = 0.1
 color = Color( 0.36665, 0.978172, 0.998535, 1 )
-color_ramp = SubResource( 129 )
+color_ramp = SubResource( 137 )
 
 [sub_resource type="RectangleShape2D" id=97]
 resource_local_to_scene = true
@@ -1160,10 +1161,10 @@ extents = Vector2( 192, 168 )
 tile_data = PoolIntArray( -458699, 5, 327684, -458698, 5, 327686, -458697, 5, 327687, -458696, 5, 327689, -458695, 5, 327688, -458694, 5, 262155, -393163, 5, 458757, -393162, 5, 0, -393161, 5, 0, -393160, 5, 0, -393159, 5, 0, -393158, 5, 524298, -327627, 5, 524293, -327626, 5, 0, -327625, 5, 0, -327624, 5, 0, -327623, 5, 0, -327622, 5, 589834, -262091, 5, 458757, -262090, 5, 0, -262089, 5, 0, -262088, 5, 0, -262087, 5, 0, -262086, 5, 393226, -196555, 5, 458757, -196554, 5, 0, -196553, 5, 0, -196552, 5, 0, -196551, 5, 0, -196550, 5, 589834, -131019, 5, 655364, -131018, 5, 655367, -131017, 5, 655369, -131016, 5, 655369, -131015, 5, 655368, -131014, 5, 720906 )
 
 [node name="PlayerCamera" parent="RealLevelArea" index="2"]
-position = Vector2( -480, -378 )
+position = Vector2( -534, -348 )
 
 [node name="Player" parent="RealLevelArea" instance=ExtResource( 3 )]
-position = Vector2( -480, -378 )
+position = Vector2( -534, -348 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="RealLevelArea"]
 environment = SubResource( 99 )
@@ -1326,22 +1327,55 @@ texture = ExtResource( 26 )
 position = Vector2( -396, -432 )
 
 [node name="FGTileMap" parent="RealLevelArea/Room" index="0"]
-tile_data = PoolIntArray( 196609, 3, 262149, 196610, 3, 327686, 196611, 3, 327691, 262145, 3, 393221, 262146, 3, 393223, 262147, 3, 524298, 393214, 3, 262148, 393215, 3, 327688, 327680, 3, 327688, 327681, 3, 262146, 327682, 3, 524297, 327683, 3, 262145, 327684, 3, 327686, 327685, 3, 327687, 327686, 3, 262154, 458750, 3, 458757, 458751, 3, 393223, 393216, 3, 393223, 393217, 3, 458758, 393218, 3, 524297, 393219, 3, 393224, 393220, 3, 393222, 393221, 3, 524294, 393222, 3, 393226, 524271, 1, 262149, 524272, 1, 327689, 524273, 1, 327686, 524274, 1, 327687, 524275, 1, 327688, 524276, 1, 327687, 524277, 1, 327687, 524278, 1, 327688, 524279, 1, 327688, 524280, 1, 327687, 524281, 1, 327687, 524282, 1, 262154, 524283, 3, 589826, 524284, 1, 262148, 524285, 1, 327689, 524286, 1, 327687, 524287, 1, 327687, 458752, 1, 327686, 458753, 1, 327687, 458754, 1, 327687, 458755, 1, 327686, 458756, 1, 327689, 458757, 1, 327688, 458758, 1, 327687, 458759, 1, 327687, 458760, 1, 327688, 458761, 1, 327689, 458762, 1, 327688, 458763, 1, 327687, 458764, 1, 327686, 458765, 1, 327687, 458766, 1, 327688, 458767, 1, 327687, 458768, 1, 262154, 589807, 1, 393221, 589808, 1, 458761, 589809, 1, 393224, 589810, 1, 393223, 589811, 1, 589830, 589812, 1, 458758, 589813, 1, 393225, 589814, 1, 458761, 589815, 1, 589833, 589816, 1, 393224, 589817, 1, 393223, 589818, 1, 524298, 589820, 1, 393221, 589821, 1, 393225, 589822, 1, 524297, 589823, 1, 393223, 524288, 1, 524297, 524289, 1, 393222, 524290, 1, 393223, 524291, 1, 589833, 524292, 1, 524294, 524293, 1, 393225, 524294, 1, 589833, 524295, 1, 393223, 524296, 1, 458761, 524297, 1, 589830, 524298, 1, 393224, 524299, 1, 458761, 524300, 1, 393225, 524301, 1, 589830, 524302, 1, 458761, 524303, 1, 393223, 524304, 1, 589834, 655343, 1, 589829, 655344, 1, 393222, 655345, 1, 524294, 655346, 1, 393223, 655347, 1, 524297, 655348, 1, 589833, 655349, 1, 524294, 655350, 1, 458758, 655351, 1, 393223, 655352, 1, 589830, 655353, 1, 393222, 655354, 1, 589834, 655356, 1, 458757, 655357, 1, 589833, 655358, 1, 524294, 655359, 1, 589833, 589824, 1, 589830, 589825, 1, 393224, 589826, 1, 589830, 589827, 1, 393224, 589828, 1, 589833, 589829, 1, 458758, 589830, 1, 524297, 589831, 1, 524294, 589832, 1, 393224, 589833, 1, 393224, 589834, 1, 589830, 589835, 1, 458761, 589836, 1, 589830, 589837, 1, 393222, 589838, 1, 458761, 589839, 1, 393223, 589840, 1, 458762, 720879, 1, 655364, 720880, 1, 655366, 720881, 1, 655369, 720882, 1, 655368, 720883, 1, 655369, 720884, 1, 655368, 720885, 1, 655366, 720886, 1, 655368, 720887, 1, 655368, 720888, 1, 655366, 720889, 1, 655366, 720890, 1, 655370, 720892, 1, 720900, 720893, 1, 655368, 720894, 1, 655366, 720895, 1, 655368, 655360, 1, 655367, 655361, 1, 655369, 655362, 1, 655367, 655363, 1, 655368, 655364, 1, 655369, 655365, 1, 655369, 655366, 1, 655367, 655367, 1, 655369, 655368, 1, 655367, 655369, 1, 655368, 655370, 1, 655367, 655371, 1, 655369, 655372, 1, 655369, 655373, 1, 655367, 655374, 1, 655369, 655375, 1, 655366, 655376, 1, 655371 )
+tile_data = PoolIntArray( 262135, 4, 131074, 262137, 4, 65538, 262140, 4, 131073, 196609, 3, 262149, 196610, 3, 327686, 196611, 3, 327691, 262145, 3, 393221, 262146, 3, 393223, 262147, 3, 524298, 393214, 3, 262148, 393215, 3, 327688, 327680, 3, 327688, 327681, 3, 262146, 327682, 3, 524297, 327683, 3, 262145, 327684, 3, 327686, 327685, 3, 327687, 327686, 3, 262154, 458750, 3, 458757, 458751, 3, 393223, 393216, 3, 393223, 393217, 3, 458758, 393218, 3, 524297, 393219, 3, 393224, 393220, 3, 393222, 393221, 3, 524294, 393222, 3, 393226, 524271, 1, 262149, 524272, 1, 327689, 524273, 1, 327686, 524274, 1, 327687, 524275, 1, 327688, 524276, 1, 327687, 524277, 1, 327687, 524278, 1, 327688, 524279, 1, 327688, 524280, 1, 327687, 524281, 1, 327687, 524282, 1, 262154, 524283, 3, 589826, 524284, 1, 262148, 524285, 1, 327689, 524286, 1, 327687, 524287, 1, 327687, 458752, 1, 327686, 458753, 1, 327687, 458754, 1, 327687, 458755, 1, 327686, 458756, 1, 327689, 458757, 1, 327688, 458758, 1, 327687, 458759, 1, 327687, 458760, 1, 327688, 458761, 1, 327689, 458762, 1, 327688, 458763, 1, 327687, 458764, 1, 327686, 458765, 1, 327687, 458766, 1, 327688, 458767, 1, 327687, 458768, 1, 262154, 589807, 1, 393221, 589808, 1, 458761, 589809, 1, 393224, 589810, 1, 393223, 589811, 1, 589830, 589812, 1, 458758, 589813, 1, 393225, 589814, 1, 458761, 589815, 1, 589833, 589816, 1, 393224, 589817, 1, 393223, 589818, 1, 524298, 589820, 1, 393221, 589821, 1, 393225, 589822, 1, 524297, 589823, 1, 393223, 524288, 1, 524297, 524289, 1, 393222, 524290, 1, 393223, 524291, 1, 589833, 524292, 1, 524294, 524293, 1, 393225, 524294, 1, 589833, 524295, 1, 393223, 524296, 1, 458761, 524297, 1, 589830, 524298, 1, 393224, 524299, 1, 458761, 524300, 1, 393225, 524301, 1, 589830, 524302, 1, 458761, 524303, 1, 393223, 524304, 1, 589834, 655343, 1, 589829, 655344, 1, 393222, 655345, 1, 524294, 655346, 1, 393223, 655347, 1, 524297, 655348, 1, 589833, 655349, 1, 524294, 655350, 1, 458758, 655351, 1, 393223, 655352, 1, 589830, 655353, 1, 393222, 655354, 1, 589834, 655356, 1, 458757, 655357, 1, 589833, 655358, 1, 524294, 655359, 1, 589833, 589824, 1, 589830, 589825, 1, 393224, 589826, 1, 589830, 589827, 1, 393224, 589828, 1, 589833, 589829, 1, 458758, 589830, 1, 524297, 589831, 1, 524294, 589832, 1, 393224, 589833, 1, 393224, 589834, 1, 589830, 589835, 1, 458761, 589836, 1, 589830, 589837, 1, 393222, 589838, 1, 458761, 589839, 1, 393223, 589840, 1, 458762, 720879, 1, 655364, 720880, 1, 655366, 720881, 1, 655369, 720882, 1, 655368, 720883, 1, 655369, 720884, 1, 655368, 720885, 1, 655366, 720886, 1, 655368, 720887, 1, 655368, 720888, 1, 655366, 720889, 1, 655366, 720890, 1, 655370, 720892, 1, 720900, 720893, 1, 655368, 720894, 1, 655366, 720895, 1, 655368, 655360, 1, 655367, 655361, 1, 655369, 655362, 1, 655367, 655363, 1, 655368, 655364, 1, 655369, 655365, 1, 655369, 655366, 1, 655367, 655367, 1, 655369, 655368, 1, 655367, 655369, 1, 655368, 655370, 1, 655367, 655371, 1, 655369, 655372, 1, 655369, 655373, 1, 655367, 655374, 1, 655369, 655375, 1, 655366, 655376, 1, 655371 )
 
 [node name="FGDecal" parent="RealLevelArea/Room" index="3"]
 tile_data = PoolIntArray( 2359780, 1, 0 )
 
 [node name="LargeBeetle" parent="RealLevelArea/Room/ResetableNodes/Entities" index="0" instance=ExtResource( 49 )]
-position = Vector2( 36, 24 )
-
-[node name="BlueBerry" parent="RealLevelArea/Room/ResetableNodes/Entities" index="1" instance=ExtResource( 45 )]
-position = Vector2( -144, -12 )
+position = Vector2( -174, 72 )
 
 [node name="CollisionShape2D" parent="RealLevelArea/Room" index="5"]
 shape = SubResource( 97 )
 
 [node name="SpawnPoint" parent="RealLevelArea/Room" index="8"]
 position = Vector2( 96, 84 )
+
+[node name="test" type="Sprite" parent="RealLevelArea/Room"]
+light_mask = 0
+position = Vector2( -42, 42 )
+z_index = 400
+texture = ExtResource( 48 )
+hframes = 2
+frame = 1
+
+[node name="test2" type="Sprite" parent="RealLevelArea/Room"]
+light_mask = 0
+position = Vector2( -66, 42 )
+z_index = 400
+texture = ExtResource( 48 )
+hframes = 2
+
+[node name="test3" type="Sprite" parent="RealLevelArea/Room"]
+light_mask = 0
+position = Vector2( -78, 42 )
+z_index = 400
+texture = ExtResource( 48 )
+hframes = 2
+
+[node name="test4" type="Sprite" parent="RealLevelArea/Room"]
+light_mask = 0
+position = Vector2( -90, 42 )
+z_index = 400
+texture = ExtResource( 48 )
+hframes = 2
+
+[node name="test5" type="Sprite" parent="RealLevelArea/Room"]
+light_mask = 0
+position = Vector2( -102, 42 )
+z_index = 400
+texture = ExtResource( 48 )
+hframes = 2
 
 [node name="Room2" parent="RealLevelArea" instance=ExtResource( 2 )]
 position = Vector2( 576, -108 )

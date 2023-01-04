@@ -1,7 +1,7 @@
 [gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Content/Entities/Util/DashTarget.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Art/Entity/Enemy/Beetle/beetle.png" type="Texture" id=2]
+[ext_resource path="res://Art/Entity/Enemy/Beetle/large-beetle.png" type="Texture" id=2]
 [ext_resource path="res://Content/Class/DamageHurtbox.gd" type="Script" id=3]
 [ext_resource path="res://Content/Entities/Util/WalkDectector.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Content/Class/DamageHitbox.gd" type="Script" id=5]
@@ -36,8 +36,7 @@ script = ExtResource( 12 )
 
 [node name="Sprite" type="Sprite" parent="."]
 light_mask = 0
-position = Vector2( 0, -10 )
-scale = Vector2( 1, 2 )
+position = Vector2( 0, -1 )
 texture = ExtResource( 2 )
 hframes = 2
 vframes = 2
@@ -101,6 +100,7 @@ __meta__ = {
 }
 
 [node name="DashTarget" parent="." instance=ExtResource( 1 )]
+position = Vector2( 0, 3 )
 down_disabled = true
 
 [node name="CollisionShape2D" parent="DashTarget" index="0"]
@@ -131,7 +131,7 @@ script = ExtResource( 7 )
 [node name="Leaf" type="KinematicBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Leaf"]
-position = Vector2( 1, -18 )
+position = Vector2( 0, -12 )
 shape = SubResource( 5 )
 one_way_collision = true
 

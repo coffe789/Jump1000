@@ -1,4 +1,5 @@
 extends KinematicBody2D
+class_name Player
 
 onready var Audio = get_node("Audio")
 onready var Timers = get_node("Timers")
@@ -56,10 +57,13 @@ func _ready():
 func _physics_process(delta) -> void:
 	previous_position = position
 	
+	
 	if Input.is_action_just_pressed("clear_console"):
 		Globals.clear_console()
+		print(get_node("CollisionChecks/HurtBox").global_position)
 	if Input.is_action_just_pressed("ui_cancel"):
 		current_room.reset_room()
+	
 	
 	Cape.update_cape(delta)
 	

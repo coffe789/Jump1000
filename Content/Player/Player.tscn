@@ -424,18 +424,6 @@ tracks/1/keys = {
 "update": 1,
 "values": [ Color( 1, 1, 1, 0.54902 ), Color( 1, 1, 1, 1 ) ]
 }
-tracks/2/type = "value"
-tracks/2/path = NodePath("../CollisionChecks/HurtBox:monitoring")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 1.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ false, true ]
-}
 
 [sub_resource type="Animation" id=22]
 resource_name = "reset"
@@ -446,7 +434,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0.1 ),
+"times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ false ]
@@ -458,7 +446,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0.1 ),
+"times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ) ]
@@ -602,6 +590,7 @@ script = ExtResource( 17 )
 [node name="CollisionChecks" type="Node2D" parent="."]
 
 [node name="FullBodyArea" type="Area2D" parent="CollisionChecks" groups=["player_area"]]
+visible = false
 position = Vector2( 0.5, -8 )
 collision_layer = 2
 collision_mask = 17
@@ -614,6 +603,7 @@ modulate = Color( 0.521569, 1, 0, 1 )
 shape = SubResource( 1 )
 
 [node name="WallRaycasts" type="Node2D" parent="CollisionChecks"]
+visible = false
 
 [node name="RightWallRaycast" type="RayCast2D" parent="CollisionChecks/WallRaycasts"]
 position = Vector2( 0.5, -1 )
@@ -636,6 +626,7 @@ cast_to = Vector2( -6.25, 0 )
 collide_with_areas = true
 
 [node name="LedgeRaycasts" type="Node2D" parent="CollisionChecks"]
+visible = false
 
 [node name="LedgeRayLenient" type="RayCast2D" parent="CollisionChecks/LedgeRaycasts"]
 position = Vector2( 0, -19 )
@@ -663,6 +654,7 @@ cast_to = Vector2( -10.5, 0 )
 collide_with_areas = true
 
 [node name="AttackBox" type="Area2D" parent="CollisionChecks"]
+visible = false
 position = Vector2( -14, -8 )
 collision_layer = 4
 collision_mask = 8
@@ -675,6 +667,7 @@ shape = SubResource( 2 )
 disabled = true
 
 [node name="DashCheck" type="Area2D" parent="CollisionChecks" groups=["dash_check"]]
+visible = false
 modulate = Color( 0.435294, 0.960784, 1, 1 )
 position = Vector2( -18, -26 )
 collision_layer = 2
@@ -690,6 +683,7 @@ position = Vector2( 0, 36 )
 polygon = PoolVector2Array( -17, 20, -17, -14, 19, -20, 19, -1 )
 
 [node name="RoomDetection" type="Area2D" parent="CollisionChecks"]
+visible = false
 position = Vector2( 0.5, -8 )
 collision_layer = 0
 collision_mask = 16
@@ -699,6 +693,7 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionChecks/RoomDetection"]
+visible = false
 shape = SubResource( 12 )
 
 [node name="HurtBox" parent="CollisionChecks" instance=ExtResource( 1 )]
@@ -709,6 +704,7 @@ collision_layer = 6
 shape = SubResource( 28 )
 
 [node name="CollisionBody" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2( 0.5, -8 )
 shape = SubResource( 3 )
 
