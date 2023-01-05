@@ -30,7 +30,7 @@ func _on_player_connected(player):
 		reset_smoothing()
 	is_player_connected = true
 	Player = player
-	global_position = Player.global_position
+	global_position = Player.global_position + cam_offset
 
 
 
