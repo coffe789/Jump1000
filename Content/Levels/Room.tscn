@@ -11,7 +11,6 @@
 [ext_resource path="res://Content/Entities/Room/SpawnPoint.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Content/Class/VariedTileMap.gd" type="Script" id=10]
 
-
 [sub_resource type="RectangleShape2D" id=1]
 resource_local_to_scene = true
 extents = Vector2( 192, 108 )

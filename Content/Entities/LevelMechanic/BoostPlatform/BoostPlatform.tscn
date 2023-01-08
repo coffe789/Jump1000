@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=2]
+[gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://Content/Entities/LevelMechanic/BoostPlatform/BoostPlatform.gd" type="Script" id=1]
 [ext_resource path="res://Art/Entity/LevelMechanic/FallPlatform/platform_tilemap.png" type="Texture" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://Content/Entities/LevelMechanic/BoostPlatform/Respawn.gd" type="Script" id=10]
 [ext_resource path="res://Content/Entities/LevelMechanic/BoostPlatform/OneWayBody.gd" type="Script" id=11]
 [ext_resource path="res://Resource/Shader/XRumble.tres" type="Material" id=12]
+[ext_resource path="res://Content/Entities/LevelMechanic/BoostPlatform/Colliding.gd" type="Script" id=13]
 
 [sub_resource type="OccluderPolygon2D" id=15]
 polygon = PoolVector2Array( 1, 1, 13, 1, 13, 13, 1, 13 )
@@ -466,6 +467,8 @@ tracks/1/keys = {
 "values": [ Color( 0.94902, 0.529412, 1, 1 ) ]
 }
 
+[sub_resource type="RectangleShape2D" id=28]
+
 [node name="BoostPlatform" type="KinematicBody2D"]
 z_index = 201
 collision_layer = 32
@@ -493,6 +496,14 @@ hframes = 4
 vframes = 3
 region_rect = Rect2( 0, 0, 6, 6 )
 
+[node name="RayCast1" type="RayCast2D" parent="TileMap/Arrow1"]
+position = Vector2( 0, 5 )
+enabled = true
+cast_to = Vector2( 0, 0 )
+collision_mask = 8
+collide_with_areas = true
+collide_with_bodies = false
+
 [node name="Arrow2" type="Sprite" parent="TileMap"]
 modulate = Color( 0.780392, 0.317647, 0.839216, 1 )
 use_parent_material = true
@@ -502,6 +513,14 @@ texture = ExtResource( 3 )
 hframes = 4
 vframes = 3
 region_rect = Rect2( 0, 0, 6, 6 )
+
+[node name="RayCast2" type="RayCast2D" parent="TileMap/Arrow2"]
+position = Vector2( 0, 5 )
+enabled = true
+cast_to = Vector2( 0, 0 )
+collision_mask = 8
+collide_with_areas = true
+collide_with_bodies = false
 
 [node name="TileProxy" type="Area2D" parent="."]
 z_index = -1
@@ -537,10 +556,13 @@ script = ExtResource( 9 )
 [node name="Respawn" type="Node" parent="SM/RootState"]
 script = ExtResource( 10 )
 
+[node name="Colliding" type="Node" parent="SM/RootState"]
+script = ExtResource( 13 )
+
 [node name="TransitConditions" type="Node" parent="SM"]
 script = ExtResource( 6 )
 
-[node name="Timer" type="Timer" parent="SM"]
+[node name="RumbleTimer" type="Timer" parent="SM"]
 one_shot = true
 
 [node name="DustCloud" type="Particles2D" parent="."]
@@ -564,5 +586,14 @@ anims/RESET = SubResource( 25 )
 anims/activate = SubResource( 27 )
 anims/idle = SubResource( 26 )
 
+[node name="DetectOOB" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectOOB"]
+shape = SubResource( 28 )
+
 [connection signal="area_entered" from="TileProxy" to="SM/RootState/Active" method="_on_TileProxy_area_entered"]
 [connection signal="area_exited" from="TileProxy" to="SM/RootState/Active" method="_on_TileProxy_area_exited"]
+[connection signal="area_exited" from="DetectOOB" to="." method="_on_DetectOOB_area_exited"]

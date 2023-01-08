@@ -44,6 +44,11 @@ enum {
 
 var is_resetables_packaged = false
 
+func _input(event):
+	if !(event is InputEventMouseMotion) and !(event is InputEventJoypadMotion) and event.pressed:
+		if event.as_text() == "Control+K" and get_player():
+			get_player().respawn()
+
 # Util
 func is_same_sign(num1,num2):
 	if num1 == 0 || num2 == 0:
@@ -75,7 +80,7 @@ func clear_console():
 		print("\n")
 
 
-func get_player():
+func get_player() -> Player:
 	if get_tree().get_nodes_in_group("player") != []:
 		return get_tree().get_nodes_in_group("player")[0]
 	return null

@@ -60,10 +60,11 @@ func _physics_process(delta) -> void:
 	
 	if Input.is_action_just_pressed("clear_console"):
 		Globals.clear_console()
-		print(get_node("CollisionChecks/HurtBox").global_position)
 	if Input.is_action_just_pressed("ui_cancel"):
 		current_room.reset_room()
-	
+	if Input.is_action_pressed("capslock"):
+		Engine.time_scale = 0.2
+	else: Engine.time_scale = 1.0
 	
 	Cape.update_cape(delta)
 	

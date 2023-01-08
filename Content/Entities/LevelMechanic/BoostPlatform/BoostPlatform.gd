@@ -1,5 +1,8 @@
 tool
 extends KinematicBody2D
+class_name BoostPlatform
+onready var raycasts = [$TileMap/Arrow1/RayCast1, $TileMap/Arrow2/RayCast2]
+
 enum Directions{
 	U,D,R,L,
 	UL,UR,DR,DL,
@@ -15,6 +18,7 @@ export var width = 4 setget set_width
 export(Directions) var dir setget set_direction
 export var is_debug = false
 var init_velocity
+var init_position = position
 var velocity = Vector2.ZERO
 
 func set_init_velocity():
@@ -83,6 +87,11 @@ func set_direction(value):
 		$TileMap/Arrow1.frame = dir
 		$TileMap/Arrow2.frame = dir
 
-func collide_with(_normal,collider):
-	if collider.is_in_group("player"):
-		$SM.current_state._collide()
+func collide_with(normal,collider):
+	$SM.current_state._collide(normal, collider)
+
+var is_respawning = false
+func _on_DetectOOB_area_exited(area):
+	if area is RoomArea && not is_respawning:
+		yield(get_tree().create_timer(1),"timeout")
+		$SM.change_state($SM/RootState/Respawn)

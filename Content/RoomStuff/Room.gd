@@ -1,4 +1,5 @@
 extends Area2D
+class_name RoomArea
 
 var Boundary = preload("res://Content/Entities/Room/Boundary.tscn") 
 var Killbox = preload("res://Content/Entities/Room/RoomKillBox.tscn")

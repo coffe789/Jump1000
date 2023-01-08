@@ -4,7 +4,7 @@ var timer
 var RUMBLE_TIME = 0.0
 
 func _on_activate():
-	timer = SM.get_node("Timer")
+	timer = SM.get_node("RumbleTimer")
 
 func _enter():
 	timer.start(RUMBLE_TIME)
