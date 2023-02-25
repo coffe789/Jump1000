@@ -144,7 +144,7 @@ func set_attack_hitbox():
 enum AttackType {NORMAL, TWIRL, DASH}
 # Performs attack if button is pressed/is buffered. Returns success status
 func do_attack():
-	if (Input.is_action_just_pressed("twirl")
+	if ((Input.is_action_just_pressed("attack") && Input.is_action_pressed("ui_up"))
 	or (Target.Timers.get_node("BufferedTwirlTimer").time_left > 0)) && Target.Timers.get_node("BetweenAttackTimer").time_left == 0:
 		SM.is_twirling = true
 		Target.Timers.get_node("TwirlTimer").start(TWIRL_TIME)
@@ -441,7 +441,7 @@ func _check_buffered_inputs():
 
 
 func check_buffered_attack_input():
-	if (Input.is_action_just_pressed("twirl")):
+	if (Input.is_action_just_pressed("attack") && Input.is_action_pressed("ui_up")):
 		Target.Timers.get_node("BufferedTwirlTimer").start(0.2)
 	elif (Input.is_action_just_pressed("attack")):
 		Target.Timers.get_node("BufferedAttackTimer").start(0.2)
